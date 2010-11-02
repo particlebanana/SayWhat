@@ -36,6 +36,7 @@ GEM
     bson (1.1.1)
     bson_ext (1.1.1)
     builder (2.1.2)
+    cancan (1.4.0)
     capybara (0.4.0)
       celerity (>= 0.7.9)
       culerity (>= 0.2.4)
@@ -166,6 +167,7 @@ DEPENDENCIES
   autotest
   autotest-growl
   bson_ext (= 1.1.1)
+  cancan
   capybara
   cucumber
   cucumber-rails

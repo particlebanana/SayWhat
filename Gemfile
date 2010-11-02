@@ -18,10 +18,10 @@ gem 'bson_ext', '1.1.1'
 
 # Authentication
 gem 'devise', '1.1.3'
+gem 'cancan'
 
 
 # Application Wide
-
 
 
 group :development, :test do
