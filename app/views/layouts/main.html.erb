@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  
+  <title><%= yield(:title) || "Online Registration System" %> | TxSSC</title>                  
+
+  <meta name="description" content="ENTER DESCRIPTION HERE">
+
+  <!--[if gte IE 7]><!-->
+  <link rel="stylesheet" href="/css/compiled/screen.css">
+  <!-- <![endif]-->
+  
+  <script src="/js/modernizr-1.5.min.js"></script>
+
+  <%= csrf_meta_tag %>
+
+</head>
+
+<body>
+
+<div id="header" class="maroon-fade"></div>
+
+<div id="wrap">
+
+	<header id="top" class="group">
+		
+	</header> <!-- end #header -->
+	
+	<div class="group" id="content">
+	
+		<%= yield %>
+	
+	</div> <!-- end .group -->
+	
+	<div id="footer">
+		
+	</div> <!-- end #footer -->
+
+</div> <!-- end #wrap -->
+  
+<!-- Texas School Safety Center - Cody Stoltman c(~) -->
+</body>
+</html>
