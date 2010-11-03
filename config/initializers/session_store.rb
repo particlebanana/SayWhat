@@ -1,8 +1,8 @@
 # Be sure to restart your server when you modify this file.
 
-OrangePeel::Application.config.session_store :cookie_store, :key => '_OrangePeel_session'
+SayWhat::Application.config.session_store :cookie_store, :key => '_SayWhat_session'
 
 # Use the database for sessions instead of the cookie-based default,
 # which shouldn't be used to store highly confidential information
 # (create the session table with "rake db:sessions:create")
-# OrangePeel::Application.config.session_store :active_record_store
+# SayWhat::Application.config.session_store :active_record_store

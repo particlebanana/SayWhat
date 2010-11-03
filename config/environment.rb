@@ -2,6 +2,6 @@
 require File.expand_path('../application', __FILE__)
 
 # Initialize the rails application
-OrangePeel::Application.initialize!
+SayWhat::Application.initialize!
 
 Haml::Template.options[:format] = :html5

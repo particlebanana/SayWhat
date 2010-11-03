@@ -4,4 +4,4 @@
 require File.expand_path('../config/application', __FILE__)
 require 'rake'
 
-OrangePeel::Application.load_tasks
+SayWhat::Application.load_tasks
