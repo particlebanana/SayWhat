@@ -8,11 +8,11 @@ defaults: &defaults
 
 development:
   <<: *defaults
-  database: orange_development
+  database: saywhat_development
 
 test:
   <<: *defaults
-  database: orange_test
+  database: saywhat_test
 
 # set these environment variables on your prod server
 production:

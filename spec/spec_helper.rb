@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'spork'
-
+    
 Spork.prefork do
   
   ENV["RAILS_ENV"] ||= 'test'

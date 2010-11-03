@@ -16,11 +16,12 @@ module SayWhat
     
     config.generators do |g|
       g.orm             :mongoid
-    end
-    
-    config.generators do |g|
       g.fixture_replacement :factory_girl, :dir => "spec/factories"
     end
+    
+    #config.generators do |g|
+    #  g.fixture_replacement :factory_girl, :dir => "spec/factories"
+    #end
     
     config.encoding = "utf-8"
 
