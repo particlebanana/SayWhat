@@ -1,5 +1,6 @@
 class User
-  include Mongoid::Document         
+  include Mongoid::Document 
+  ROLES = %w[admin]        
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   field :username
   field :name
