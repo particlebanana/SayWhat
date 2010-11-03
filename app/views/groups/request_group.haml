@@ -1,0 +1,29 @@
+%div#groupRequestForm
+  = form_for @group, :url => create_request_groups_url do |f|
+  
+    - if @group.errors.any?
+      #error_explanation
+        %h2 
+          = pluralize(@group.errors.count, "error") 
+        
+        %ul
+          - @group.errors.full_messages.each do |msg|
+            %li 
+              = msg
+                
+    
+    %p.group
+      = f.label :name
+      = f.text_field :name
+    
+    %p.group
+      = f.label :city
+      = f.text_field :city
+    
+    %p.group
+      = f.label :organization
+      = f.text_field :organization
+    
+    .submit
+      = f.submit
+    
