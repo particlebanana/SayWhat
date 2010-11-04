@@ -9,8 +9,13 @@ SayWhat::Application.routes.draw do
     
     collection do
       get :request_group
-      post :create_request
       get :pending_request
+      get :pending_groups
+    end
+    
+    member do
+      get :pending_group
+      put :approve_group
     end
     
   end

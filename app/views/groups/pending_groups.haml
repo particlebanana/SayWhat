@@ -1,0 +1,13 @@
+%div
+  %h2
+    Pending Groups
+    
+  - if @groups.size > 0
+    %ul
+      - @groups.each do |group|
+        %li
+          = link_to group.name, pending_group_group_path(group)
+          
+  - else
+    %h3
+      No Pending Groups

@@ -1,12 +1,15 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(current_user)
+  def initialize(user)
     
-    if !current_user
+    if !user
       can :request_group, Group
-      can :create_request, Group
+      can :create, Group
       can :pending_request, Group
+      #can :login, User
+    elsif user.admin?
+      can :manage, :all
     end
       
   end

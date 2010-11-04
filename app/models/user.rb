@@ -1,6 +1,5 @@
 class User
-  include Mongoid::Document 
-  ROLES = %w[admin]        
+  include Mongoid::Document      
   devise :database_authenticatable, :recoverable, :rememberable, :validatable
   field :username
   field :first_name
@@ -30,4 +29,21 @@ class User
       self.password_confirmation ||= tempPass
     end
 
+    
+  public
+  
+    def admin?
+      role == "admin" ? true : false
+    end
+
+  #private
+  
+  #  def active?
+  #    super && account_active?
+  #  end
+    
+  #  def account_active?
+  #    role != "pending"
+  #  end
+    
 end

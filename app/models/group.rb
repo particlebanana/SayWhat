@@ -12,7 +12,6 @@ class Group
   attr_accessible :name, :city, :organization, :description
 
   validates_presence_of [:name, :city, :organization, :status]
-  
   validates_uniqueness_of [:name]
   
   before_validation [:downcase_attributes]
