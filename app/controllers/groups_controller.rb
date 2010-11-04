@@ -11,15 +11,27 @@ class GroupsController < ApplicationController
   # Request a new group
   def request_group
     @group = Group.new
+    @user = User.new
     respond_with(@group)
   end
   
   # POST
   # Request a new group
   def create_request
-    @group = Group.new(params[:group])
     
-    if @group.save
+    @group = Group.new(params[:group])
+    @user = User.new(params[:group][:user])
+    
+    @user.role = "pending"
+    @group.status = "pending"
+    
+    
+    
+    if @group.valid? & @user.valid?
+      logger.info "User = #{@user.inspect}"
+      logger.info "Group = #{@group.inspect}"
+      @group.users << @user
+      @group.save!
       redirect_to pending_request_groups_url
     else
       render :action => 'request_group'
