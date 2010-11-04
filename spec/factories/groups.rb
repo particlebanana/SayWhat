@@ -13,4 +13,5 @@ Factory.define :pending_group, :class => Group do |g|
   g.name "Billy Bob's Kids"
   g.city "Backwoods"
   g.organization "Redneck Middle School"
+  g.status "pending"
 end
