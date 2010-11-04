@@ -6,22 +6,6 @@
                 
     %fieldset
       %legend
-        Group Information
-        
-      %p.group
-        = f.label :name
-        = f.text_field :name
-    
-      %p.group
-        = f.label :city
-        = f.text_field :city
-    
-      %p.group
-        = f.label :organization
-        = f.text_field :organization
-    
-    %fieldset
-      %legend
         Sponsor Information
        
       = f.fields_for :user do |u|
@@ -41,6 +25,26 @@
         %p.group
           = u.label :email
           = u.text_field :email
+          
+    %fieldset
+      %legend
+        Group Information
+        
+      %p.group
+        = f.label :name
+        = f.text_field :name
+    
+      %p.group
+        = f.label :city
+        = f.text_field :city
+    
+      %p.group
+        = f.label :organization
+        = f.text_field :organization
+    
+      %p.group
+        = f.label :description
+        = f.text_area :description
     
     %button.submit{:type => 'submit'}
       Submit Request

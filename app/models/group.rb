@@ -5,11 +5,11 @@ class Group
   field :organization
   field :description
   field :status
-  references_many :users
+  references_many :users, :dependent => :delete
   
   accepts_nested_attributes_for :users, :allow_destroy => :true
   
-  attr_accessible :name, :city, :organization
+  attr_accessible :name, :city, :organization, :description
 
   validates_presence_of [:name, :city, :organization, :status]
   
