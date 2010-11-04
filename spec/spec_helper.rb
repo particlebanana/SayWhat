@@ -34,3 +34,9 @@ end
 Spork.each_run do
 
 end
+
+
+def login_admin
+  @admin = Factory.create(:admin)
+  sign_in @admin
+end

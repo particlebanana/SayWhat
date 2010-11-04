@@ -12,7 +12,8 @@ end
 
 # Creates an admin user
 Factory.define :admin, :class => "user" do |u|
-  u.name 'administrator'
+  u.first_name 'administrator'
+  u.last_name 'of the world!'
   u.username 'admin'
   u.email 'admin@awesome.com'
   u.password 'admin123' 
