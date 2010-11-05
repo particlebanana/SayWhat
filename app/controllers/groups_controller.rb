@@ -22,8 +22,7 @@ class GroupsController < ApplicationController
     @group = Group.new(params[:group])
     @user = User.new(params[:group][:user])
     
-    @user.role = "pending"
-    @group.status = "pending"
+    set_pending_attributes
     
     if @group.valid? & @user.valid?
       @group.users << @user
@@ -59,14 +58,23 @@ class GroupsController < ApplicationController
   # Set a groups status to approved
   def approve_group
     @group = Group.find(params[:id])
-    @group.status = "active"
     @user = @group.users.first
+    @group.status = "active"
     @user.role = "adult sponsor"
+    @user.status = "setup"
     if @group.update_attributes!(params[:group]) & @user.save
       redirect_to pending_groups_groups_path
     else
       render :action => 'pending_group'
     end
   end
+  
+  private 
+  
+    def set_pending_attributes
+      @user.role = "pending"
+      @user.status = "pending"
+      @group.status = "pending"
+    end
   
 end

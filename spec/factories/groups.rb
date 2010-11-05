@@ -5,7 +5,7 @@ Factory.define :group do |g|
   g.city "Mos Eisley"
   g.organization "Free Greedo"
   g.description "An organization to set the truth right about Greedo's involvement in the Mos Eisley shooting"
-  g.status "acccepted"
+  g.status "active"
 end
 
 # Creates a pending group
