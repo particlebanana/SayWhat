@@ -34,9 +34,9 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'pickle'
-  gem 'capybara'
+  gem 'capybara', '0.4.0'
   gem 'rack-test'
-  gem 'cucumber-rails'
+  gem 'cucumber-rails', :git => "git://github.com/aslakhellesoy/cucumber-rails.git"
   gem 'cucumber'
   gem 'shoulda'
   gem 'launchy'

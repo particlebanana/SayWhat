@@ -13,7 +13,7 @@ Spork.prefork do
   require 'capybara/rails'
   require 'capybara/cucumber'
   require 'capybara/session'
-  require 'cucumber/rails/capybara_javascript_emulation'
+  #require 'cucumber/rails/capybara_javascript_emulation'
   require 'factory_girl'
   require 'factory_girl/step_definitions'
   
