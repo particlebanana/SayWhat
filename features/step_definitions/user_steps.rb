@@ -1,7 +1,7 @@
 # Ensure Logged In
 Given /^I am logged in$/ do
-  @user = Factory(:user)
-  And %{I go to login}
+  @user = Factory.create(:admin)
+  And %{I go to the login page}
   And %{I fill in "user_username" with "#{@user.username}"}
   And %{I fill in "user_password" with "#{@user.password}"}
   And %{I press "Sign in"}
@@ -13,5 +13,5 @@ Given /^I am not logged in$/ do
 end
 
 Given /^I am a 'Site Admin'$/ do
-  pending # express the regexp above with the code you wish you had
+  @user.admin?
 end

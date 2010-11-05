@@ -10,9 +10,15 @@ module NavigationHelpers
 
     when /the home\s?page/
       '/'
-      
+    
+    when /the login page/
+      '/users/sign_in'
+        
     when /request new group page/
       request_group_groups_path
+      
+    when /the pending groups page/
+      pending_groups_groups_path
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
