@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe GroupsController do
   
-  describe "#request_group" do
+  describe "request a group" do
     request = {
       :group => {
         :name => "Han Shot First",
@@ -27,7 +27,7 @@ describe GroupsController do
     
   end
     
-  describe "#pending_group" do
+  describe "approve a pending_group" do
     
     before do
       @group = Factory.create(:pending_group)
@@ -41,6 +41,7 @@ describe GroupsController do
       @group = Group.find(@group.id.to_s)
       @group.status.should == "active"
       @group.users.first.role.should == "adult sponsor"
+      @group.users.first.status.should == "setup"
     end
     
   end

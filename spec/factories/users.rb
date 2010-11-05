@@ -7,7 +7,8 @@ Factory.define :user do |u|
   u.email 'han.solo@gmail.com'
   u.password 'nerfherder' 
   u.password_confirmation 'nerfherder' 
-  u.role 'sponsor' 
+  u.role 'adult sponsor'
+  u.status 'active' 
 end
 
 # Creates an admin user
@@ -19,6 +20,7 @@ Factory.define :admin, :class => "user" do |u|
   u.password 'admin123' 
   u.password_confirmation 'admin123' 
   u.role 'admin'  
+  u.status 'active'
 end
 
 
@@ -28,5 +30,6 @@ Factory.define :pending_user, :class => "user" do |u|
   u.last_name 'Solo'
   u.username 'hansolo'
   u.email 'han.solo@gmail.com'
-  u.role 'pending' 
+  u.role 'adult sponsor' 
+  u.status 'pending'
 end

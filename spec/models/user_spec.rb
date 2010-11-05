@@ -7,6 +7,7 @@ describe "A User" do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:role) }
+    it { should validate_presence_of(:status) }
   
     it { should validate_uniqueness_of(:email) }
     it { should validate_uniqueness_of(:username) }
@@ -16,4 +17,9 @@ describe "A User" do
     it { should allow_value("a@b.com").for(:email) }
     it { should allow_value("asdf@asdf.com").for(:email) }
   end 
+  
+  describe "should be able to login with a token to setup their account" do
+    # TO DO
+  end
+  
 end 
