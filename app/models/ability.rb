@@ -7,9 +7,12 @@ class Ability
       can :request_group, Group
       can :create, Group
       can :pending_request, Group
-      #can :login, User
+
     elsif user.admin?
       can :manage, :all
+    
+    elsif user
+
     end
       
   end

@@ -28,7 +28,6 @@ describe GroupsController do
   end
     
   describe "approve a pending_group" do
-    
     before do
       @group = Factory.create(:pending_group)
       @user = Factory.create(:pending_user)
@@ -44,6 +43,19 @@ describe GroupsController do
       @group.users.first.status.should == "setup"
     end
     
+  end
+  
+  describe "setup a new group" do
+    before do
+      @group = Factory.create(:group)
+      @user = Factory.create(:pending_user, {:status => "setup"})
+      @group.users << @user
+    end
+    
+    it "should login a user with a token" do
+      # TODO
+    end
+  
   end
 
 end
