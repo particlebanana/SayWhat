@@ -20,3 +20,13 @@ Factory.define :admin, :class => "user" do |u|
   u.password_confirmation 'admin123' 
   u.role 'admin'  
 end
+
+
+# Creates a base user
+Factory.define :pending_user, :class => "user" do |u|
+  u.first_name 'Han'
+  u.last_name 'Solo'
+  u.username 'hansolo'
+  u.email 'han.solo@gmail.com'
+  u.role 'pending' 
+end

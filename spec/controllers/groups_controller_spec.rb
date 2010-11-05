@@ -31,19 +31,16 @@ describe GroupsController do
     
     before do
       @group = Factory.create(:pending_group)
+      @user = Factory.create(:pending_user)
+      @group.users << @user
       login_admin
     end
     
     it "should change a group's status to active" do
-      request = {
-        :name => "Han Shot First",
-        :city => "Mos Eisley",
-        :organization => "Free Greedo"
-      }
-      
-      put :approve_group, {:id => @group.id.to_s, :group => request}
+      put :approve_group, {:id => @group.id.to_s}
       @group = Group.find(@group.id.to_s)
       @group.status.should == "active"
+      @group.users.first.role.should == "adult sponsor"
     end
     
   end

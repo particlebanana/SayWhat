@@ -60,8 +60,10 @@ class GroupsController < ApplicationController
   def approve_group
     @group = Group.find(params[:id])
     @group.status = "active"
-    if @group.update_attributes!(params[:group])
-      redirect_to '/'
+    @user = @group.users.first
+    @user.role = "adult sponsor"
+    if @group.update_attributes!(params[:group]) & @user.save
+      redirect_to pending_groups_groups_path
     else
       render :action => 'pending_group'
     end

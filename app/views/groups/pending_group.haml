@@ -1,31 +1,32 @@
 %div#groupRequestForm
-  = form_for @group do |f|
+  = form_for @group, :url => approve_group_group_path(@group), :method => :put do |f|
   
     = errors_for(@group, "Opps, there were some problems with your group information").html_safe
     = errors_for(@user, "Opps, there were some problems with your sponsor information").html_safe
-                
+           
     %fieldset
       %legend
         Sponsor Information
-       
+      
       = f.fields_for :user do |u|
-          
+  
         %p.group
           = u.label :first_name
-          = u.text_field :first_name
-    
+          = u.text_field :first_name, :value => @user.first_name
+        
         %p.group
           = u.label :last_name
-          = u.text_field :last_name
-    
+          = u.text_field :last_name, :value => @user.last_name
+        
         %p.group
           = u.label :username
-          = u.text_field :username
-          
+          = u.text_field :username, :value => @user.username
+        
         %p.group
           = u.label :email
-          = u.text_field :email
-          
+          = u.text_field :email, :value => @user.email
+    
+    
     %fieldset
       %legend
         Group Information
