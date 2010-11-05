@@ -7,18 +7,27 @@ class GroupsController < ApplicationController
   
   respond_to :html
   
-  # GET
-  # Request a new group
+  #
+  # REQUEST A GROUP BE CREATED
+  #
+  
+  #
+  # Allows anyone to request a group to be created for their organization.
+  # Groups must be approved by an admin to actually be active.
+  # Also creates a user account to embed in a group instance that will administer
+  # the group.
+  #
+  
+  # GET - Request a new group
   def request_group
     @group = Group.new
     @user = User.new
     respond_with(@group)
   end
   
-  # POST
-  # Request a new group
+  
+  # POST - Request a new group
   def create
-    
     @group = Group.new(params[:group])
     @user = User.new(params[:group][:user])
     
@@ -33,35 +42,46 @@ class GroupsController < ApplicationController
     end
   end
   
-  # GET
-  # Display Group request was successfully submitted
+  
+  # GET - Display Group request was successfully submitted
   def pending_request
     # TO DO
   end
   
-  # GET
-  # Displays all pending group requests to a site admin
+
+  #
+  # APPROVE A GROUP'S CREATION
+  #
+  
+  #  
+  # Admin functions to approve a pending group.
+  # Once approved an email should be sent to the group sponsor
+  # This email should contain a link with a login token that will
+  # allow the sponsor to set a password and to set-up the group
+  #
+  
+  # GET - Displays all pending group requests to a site admin
   def pending_groups
     @groups = Group.find(:conditions => {:status => "pending"})
     respond_with(@groups)
   end
   
-  # GET
-  # Display a pending group's information to a site admin
+  
+  # GET - Display a pending group's information to a site admin
   def pending_group
     @group = Group.find(params[:id])
     @user = @group.users.first
     respond_with(@group)
   end
   
-  # PUT
-  # Set a groups status to approved
+  
+  # PUT - Set a groups status to approved
   def approve_group
     @group = Group.find(params[:id])
     @user = @group.users.first
-    @group.status = "active"
-    @user.role = "adult sponsor"
-    @user.status = "setup"
+    
+    set_approved_attributes
+    
     if @group.update_attributes!(params[:group]) & @user.save
       redirect_to pending_groups_groups_path
     else
@@ -69,12 +89,31 @@ class GroupsController < ApplicationController
     end
   end
   
+  
+  #
+  # SETUP A GROUP
+  #
+  
+  #
+  # Allows a sponsor to setup basic settings for their group's page.
+  # This function is only called once for each group.
+  #  
+  
+  
+  # PENDING
+  
   private 
   
     def set_pending_attributes
       @user.role = "pending"
       @user.status = "pending"
       @group.status = "pending"
+    end
+    
+    def set_approved_attributes
+      @group.status = "active"
+      @user.role = "adult sponsor"
+      @user.status = "setup"
     end
   
 end
