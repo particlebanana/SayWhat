@@ -1,5 +1,5 @@
 
-# Creates a base user
+# Creates an active user
 Factory.define :user do |u|
   u.first_name 'Han'
   u.last_name 'Solo'
@@ -24,7 +24,7 @@ Factory.define :admin, :class => "user" do |u|
 end
 
 
-# Creates a base user
+# Creates a pending user
 Factory.define :pending_user, :class => "user" do |u|
   u.first_name 'Han'
   u.last_name 'Solo'
