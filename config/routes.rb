@@ -5,6 +5,19 @@ SayWhat::Application.routes.draw do
     get "/logout" => "devise/sessions#destroy"
   end
   
+  match "/setup" => "groups#setup"
+  match "/setup/password" => "users#setup_password", :via => "get"
+  match '/setup/permalink' => "groups#setup_permalink", :via => "get"
+  
+  resources :users do
+    
+    member do
+      get :setup_password
+      put :create_password
+    end
+    
+  end
+  
   resources :groups do
     
     collection do
@@ -17,6 +30,8 @@ SayWhat::Application.routes.draw do
       get :pending_group
       put :approve_group
       get :setup
+      get :setup_permalink
+      put :set_permalink
     end
     
   end

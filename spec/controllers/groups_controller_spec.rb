@@ -3,21 +3,22 @@ require 'spec_helper'
 describe GroupsController do
   
   describe "request a group" do
-    request = {
-      :group => {
-        :name => "Han Shot First",
-        :city => "Mos Eisley",
-        :organization => "Free Greedo",
-        :user => {
-          :first_name => "Luke",
-          :last_name => "Skywalker",
-          :username => "LukeSkywalker",
-          :email => "luke.skywalker@gmail.com"
+        
+    it "should add a pending group" do  
+      request = {
+        :group => {
+          :name => "Han Shot First",
+          :city => "Mos Eisley",
+          :organization => "Free Greedo",
+          :user => {
+            :first_name => "Luke",
+            :last_name => "Skywalker",
+            :username => "LukeSkywalker",
+            :email => "luke.skywalker@gmail.com"
+          }
         }
       }
-    }
-    
-    it "should add a pending group" do  
+      
       lambda {
         lambda {
           post :create, request
@@ -26,8 +27,22 @@ describe GroupsController do
     end
     
     it "should add an adult sponsor with status of pending" do
+      request = {
+        :group => {
+          :name => "Han Shot First",
+          :city => "Mos Eisley",
+          :organization => "Free Greedo",
+          :user => {
+            :first_name => "Luke",
+            :last_name => "Skywalker",
+            :username => "LukeSkywalker",
+            :email => "luke.skywalker@gmail.com"
+          }
+        }
+      }
+      
       post :create, request
-      @group = Group.find(:first, :conditions => {:name => "Han Shot First"})
+      @group = Group.find(:first, :conditions => {:name => "han shot first"})
       @group.users.first.status.should == "pending"
     end
     
@@ -62,9 +77,9 @@ describe GroupsController do
     
   end
   
-  describe "setup a new group" do
+  describe "setup" do
     before do
-      @group = Factory.create(:group)
+      @group = Factory.create(:setup_group)
       @user = Factory.create(:setup_user)
       @group.users << @user
     end
@@ -72,6 +87,35 @@ describe GroupsController do
     it "should login a user with a token" do
       get :setup, {:id => @group.id.to_s, :auth_token => @user.authentication_token}
       response.should be_success
+    end
+  end
+    
+  describe "set permalink" do
+    before do
+      @group = Factory.create(:setup_group)
+      @user = Factory.create(:setup_user)
+      @group.users << @user
+    end
+        
+    it "should set a group's permalink" do
+      sign_in @user
+      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
+      @group = Group.find(@group.id.to_s)
+      @group.permalink.should == "test"
+    end
+    
+    it "should set a user's status to active" do
+      sign_in @user
+      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
+      @user = User.find(@user.id.to_s)
+      @user.status.should == "active"
+    end
+    
+    it "should destroy the users auth token" do
+      sign_in @user
+      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
+      @user = User.find(@user.id.to_s)
+      @user.authentication_token.should == nil
     end
   
   end

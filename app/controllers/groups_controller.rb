@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   
   
   before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request]
-  before_filter :set_group, :except => [:request_group, :create, :pending_request, :pending_groups]
+  before_filter :set_group, :only => [:pending_group]
   load_and_authorize_resource
   
   respond_to :html
@@ -97,21 +97,35 @@ class GroupsController < ApplicationController
   # This function is only called once for each group.
   #  
   
-  # GET - A setup process for a group that should change the sponsors PW 
-  # and create a permalink for the group
+  # GET - Setup Phase - Begin the setup process for a group
   def setup
-    @user = @group.users.adult_sponsor.setup.first
-    respond_with(@user)
+    @group = Group.find(:first, :conditions => {:id => current_user.group_id})
+    respond_with(@group)
+  end
+    
+  # GET - Setup Phase - Group Permalink Form
+  def setup_permalink
+    @group = Group.find(:first, :conditions => {:id => current_user.group_id})
+    respond_with(@group)
+  end
+  
+  # PUT - Setup Phase - Create group permalink
+  def set_permalink
+    @group = Group.find(:first, :conditions => {:id => current_user.group_id})
+    @group.permalink = params[:group][:permalink]
+    @user = current_user
+    @user.status = "active"
+    if @group.save & @user.save
+      redirect_to "/"
+    else
+      render :action => 'setup_permalink'
+    end
   end
   
   private 
   
     def set_group
       @group = Group.find(params[:id])
-    end
-    
-    def find_adult_sponsor
-      @group.users.first.adult_sponsor
     end
   
     def set_pending_attributes
