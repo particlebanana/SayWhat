@@ -16,9 +16,12 @@ class User
   
   before_validation :downcase_attributes
   before_validation :generate_temp_password
+  before_validation :manage_token
   
-  before_create :generate_token
+  scope :adult_sponsor, :where => {:role => "adult sponsor" }
+  scope :setup, :where => {:status => "setup"}
   
+    
   protected
   
     def downcase_attributes
@@ -32,23 +35,36 @@ class User
       self.password_confirmation ||= temp_pass
     end
     
+    def manage_token
+      self.status == "setup" ? generate_token : destroy_token
+    end
+    
     def generate_token
       key = generate_random_key
-      self.authentication_token = key
+      self.authentication_token ||= key
     end
-
+    
+    def destroy_token
+      self.authentication_token = nil
+    end
+    
     
   public
-  
+    
+    # Role Checks  
     def admin?
       role == "admin" ? true : false
+    end    
+    
+    def setup?
+      role == "adult sponsor" && status == "setup" ? true : false
     end
 
   private
   
     def generate_random_key
       chars = ("a".."z").to_a + ("1".."9").to_a 
-      key = Array.new(8, '').collect{chars[rand(chars.size)]}.join
+      key = Array.new(15, '').collect{chars[rand(chars.size)]}.join
     end
   
   #  def active?

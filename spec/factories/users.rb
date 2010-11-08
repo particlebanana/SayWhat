@@ -33,3 +33,14 @@ Factory.define :pending_user, :class => "user" do |u|
   u.role 'adult sponsor' 
   u.status 'pending'
 end
+
+
+# Creates a user with status of "setup"
+Factory.define :setup_user, :class => "user" do |u|
+  u.first_name 'Han'
+  u.last_name 'Solo'
+  u.username 'hansolo'
+  u.email 'han.solo@gmail.com'
+  u.role 'adult sponsor' 
+  u.status 'setup'
+end
