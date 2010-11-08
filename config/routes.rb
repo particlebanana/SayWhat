@@ -16,6 +16,7 @@ SayWhat::Application.routes.draw do
     member do
       get :pending_group
       put :approve_group
+      get :setup
     end
     
   end

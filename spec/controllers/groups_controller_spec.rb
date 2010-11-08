@@ -25,6 +25,12 @@ describe GroupsController do
       }.should change(User, "count").by(1)
     end
     
+    it "should add an adult sponsor with status of pending" do
+      post :create, request
+      @group = Group.find(:first, :conditions => {:name => "Han Shot First"})
+      @group.users.first.status.should == "pending"
+    end
+    
   end
     
   describe "approve a pending_group" do
@@ -39,7 +45,18 @@ describe GroupsController do
       put :approve_group, {:id => @group.id.to_s}
       @group = Group.find(@group.id.to_s)
       @group.status.should == "active"
+      
+    end
+    
+    it "should set the first user's role to adult sponsor" do
+      put :approve_group, {:id => @group.id.to_s}
+      @group = Group.find(@group.id.to_s)
       @group.users.first.role.should == "adult sponsor"
+    end
+    
+    it "should set the adult sponsor's status to setup" do
+      put :approve_group, {:id => @group.id.to_s}
+      @group = Group.find(@group.id.to_s)
       @group.users.first.status.should == "setup"
     end
     
@@ -48,12 +65,13 @@ describe GroupsController do
   describe "setup a new group" do
     before do
       @group = Factory.create(:group)
-      @user = Factory.create(:pending_user, {:status => "setup"})
+      @user = Factory.create(:setup_user)
       @group.users << @user
     end
     
     it "should login a user with a token" do
-      # TODO
+      get :setup, {:id => @group.id.to_s, :auth_token => @user.authentication_token}
+      response.should be_success
     end
   
   end

@@ -3,6 +3,7 @@ class GroupsController < ApplicationController
   
   
   before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request]
+  before_filter :set_group, :except => [:request_group, :create, :pending_request, :pending_groups]
   load_and_authorize_resource
   
   respond_to :html
@@ -69,7 +70,6 @@ class GroupsController < ApplicationController
   
   # GET - Display a pending group's information to a site admin
   def pending_group
-    @group = Group.find(params[:id])
     @user = @group.users.first
     respond_with(@group)
   end
@@ -77,9 +77,7 @@ class GroupsController < ApplicationController
   
   # PUT - Set a groups status to approved
   def approve_group
-    @group = Group.find(params[:id])
     @user = @group.users.first
-    
     set_approved_attributes
     
     if @group.update_attributes!(params[:group]) & @user.save
@@ -99,10 +97,22 @@ class GroupsController < ApplicationController
   # This function is only called once for each group.
   #  
   
-  
-  # PENDING
+  # GET - A setup process for a group that should change the sponsors PW 
+  # and create a permalink for the group
+  def setup
+    @user = @group.users.adult_sponsor.setup.first
+    respond_with(@user)
+  end
   
   private 
+  
+    def set_group
+      @group = Group.find(params[:id])
+    end
+    
+    def find_adult_sponsor
+      @group.users.first.adult_sponsor
+    end
   
     def set_pending_attributes
       @user.role = "pending"
