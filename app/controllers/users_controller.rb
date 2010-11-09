@@ -15,8 +15,8 @@ class UsersController < ApplicationController
   
   # PUT - Setup Phase - Update Password
   def create_password
-    @user = current_user
-    if @user.update_attributes(params[:user])
+    @user.update_with_password(params[:user])
+    if @user.save!
       redirect_to "/setup/permalink"
     else
       render :action => 'setup_password'

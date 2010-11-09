@@ -1,12 +1,17 @@
 class GroupsController < ApplicationController
   layout "main"
   
-  
   before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request]
   before_filter :set_group, :only => [:pending_group]
+  before_filter :find_by_permalink, :only => [:show]
+  
   load_and_authorize_resource
   
   respond_to :html
+  
+  def show
+    respond_with(@group)
+  end
   
   #
   # REQUEST A GROUP BE CREATED
@@ -79,7 +84,7 @@ class GroupsController < ApplicationController
   def approve_group
     @user = @group.users.first
     set_approved_attributes
-    
+        
     if @group.update_attributes!(params[:group]) & @user.save
       redirect_to pending_groups_groups_path
     else
@@ -116,7 +121,7 @@ class GroupsController < ApplicationController
     @user = current_user
     @user.status = "active"
     if @group.save & @user.save
-      redirect_to "/"
+      redirect_to "/" + @group.permalink
     else
       render :action => 'setup_permalink'
     end
@@ -126,6 +131,10 @@ class GroupsController < ApplicationController
   
     def set_group
       @group = Group.find(params[:id])
+    end
+    
+    def find_by_permalink
+      @group = Group.find(:first, :conditions => {:permalink => params[:permalink]})
     end
   
     def set_pending_attributes

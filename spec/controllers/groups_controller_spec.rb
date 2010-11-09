@@ -13,7 +13,6 @@ describe GroupsController do
           :user => {
             :first_name => "Luke",
             :last_name => "Skywalker",
-            :username => "LukeSkywalker",
             :email => "luke.skywalker@gmail.com"
           }
         }
@@ -35,7 +34,6 @@ describe GroupsController do
           :user => {
             :first_name => "Luke",
             :last_name => "Skywalker",
-            :username => "LukeSkywalker",
             :email => "luke.skywalker@gmail.com"
           }
         }
@@ -109,13 +107,6 @@ describe GroupsController do
       put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
       @user = User.find(@user.id.to_s)
       @user.status.should == "active"
-    end
-    
-    it "should destroy the users auth token" do
-      sign_in @user
-      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
-      @user = User.find(@user.id.to_s)
-      @user.authentication_token.should == nil
     end
   
   end

@@ -35,6 +35,9 @@ SayWhat::Application.routes.draw do
     end
     
   end
+  
+  # Keep Group permalink routes at the bottom so other routes can override it
+  match "/:permalink" => "groups#show"
 
   root :to => "groups#request_group"
 end
