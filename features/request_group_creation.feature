@@ -7,7 +7,7 @@ Feature: Request to be a group sponsor
   Scenario: I request to start a new group
     When I go to the request new group page
     And I fill in the following:
-      | group_name               | The Rebel Alliance     |
+      | group_display_name       | The Rebel Alliance     |
       | group_city               | Galactic City          |
       | group_organization       | New Galactic Republic  |
       | group_user_first_name    | Luke                   |
@@ -19,10 +19,10 @@ Feature: Request to be a group sponsor
     
     
   Scenario: I request to start a new group with a name that's already taken
-    Given a group exists with a name of "The Rebel Alliance"
+    Given a group exists with a display_name of "The Rebel Alliance"
     When I go to the request new group page
     And I fill in the following:
-      | group_name               | The Rebel Alliance     |
+      | group_display_name       | The Rebel Alliance     |
       | group_city               | Galactic City          |
       | group_organization       | New Galactic Republic  |
       | group_user_first_name    | Luke                   |

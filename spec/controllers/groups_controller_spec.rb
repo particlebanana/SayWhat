@@ -7,7 +7,7 @@ describe GroupsController do
     it "should add a pending group" do  
       request = {
         :group => {
-          :name => "Han Shot First",
+          :display_name => "Han Shot First",
           :city => "Mos Eisley",
           :organization => "Free Greedo",
           :user => {
@@ -29,7 +29,7 @@ describe GroupsController do
     it "should add an adult sponsor with status of pending" do
       request = {
         :group => {
-          :name => "Han Shot First",
+          :display_name => "Han Shot First",
           :city => "Mos Eisley",
           :organization => "Free Greedo",
           :user => {
@@ -42,7 +42,7 @@ describe GroupsController do
       }
       
       post :create, request
-      @group = Group.find(:first, :conditions => {:name => "han shot first"})
+      @group = Group.find(:first, :conditions => {:display_name => "Han Shot First"})
       @group.users.first.status.should == "pending"
     end
     

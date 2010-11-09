@@ -1,6 +1,7 @@
 class Group
   include Mongoid::Document
   field :name
+  field :display_name
   field :city
   field :organization
   field :description
@@ -8,9 +9,9 @@ class Group
   field :status
   references_many :users, :dependent => :delete
   
-  attr_accessible :name, :city, :organization, :description
+  attr_accessible :display_name, :city, :organization, :description
 
-  validates_presence_of [:name, :city, :organization, :status]
+  validates_presence_of [:name, :display_name, :city, :organization, :status]
   validates_uniqueness_of [:name]
   
   validates_uniqueness_of [:permalink]
@@ -22,9 +23,11 @@ class Group
   protected
   
     def downcase_name
-      self.name.downcase!
+      if self.display_name
+        self.name = self.display_name.downcase
+      end
     end
-    
+        
     def escape_permalink
       if permalink
         self.permalink = CGI.escape(self.permalink.downcase)

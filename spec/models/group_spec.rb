@@ -5,7 +5,7 @@ describe Group do
   describe "validations" do
     subject { Factory(:group) }
 
-    #it { should validate_presence_of :name }
+    it { should validate_presence_of :display_name }
     it { should validate_presence_of :city }
     it { should validate_presence_of :organization }
     it { should validate_uniqueness_of :name }
@@ -39,7 +39,7 @@ describe Group do
     
     it "should fail if name already exists" do
       @base_group = Factory(:group)
-      @test_group = Factory.build(:pending_group, :name => "Jedi Knights")
+      @test_group = Factory.build(:pending_group, :display_name => "Jedi Knights")
       @test_group.valid?.should_not be_true
     end
     
