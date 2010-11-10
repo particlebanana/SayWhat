@@ -1,7 +1,6 @@
 class User
   include Mongoid::Document      
   devise :database_authenticatable, :token_authenticatable, :recoverable, :rememberable, :validatable, :registerable
-  field :username
   field :first_name
   field :last_name
   field :role
@@ -9,12 +8,10 @@ class User
   field :authentication_token
   referenced_in :group
 
-  attr_accessible :email, :first_name, :last_name, :username, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :remember_me
 
-  validates_presence_of [:first_name, :last_name, :email, :username, :role, :status]
-  validates_uniqueness_of [:username]
+  validates_presence_of [:first_name, :last_name, :email, :role, :status]
   
-  before_validation :generate_temp_username
   before_validation :downcase_attributes
   
   before_validation :generate_temp_password
@@ -27,14 +24,9 @@ class User
   protected
   
     def downcase_attributes
-      self.username ? self.username.downcase! : nil
       self.email ? self.email.downcase! : nil
     end
-    
-    def generate_temp_username
-      self.username ||= generate_random_key
-    end
-  
+      
     def generate_temp_password
       if self.encrypted_password == ""
         temp_pass = generate_random_key

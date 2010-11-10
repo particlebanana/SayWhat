@@ -46,16 +46,7 @@ describe User do
         should allow_value("a@b.com").for(:email)
         should allow_value("asdf@asdf.com").for(:email)
       end
-      
-      it "downcases username" do
-        @user = Factory.build(:user)
-        set_status_and_role("pending", "pending")
-        
-        @user.username = "HanSolo"
-        @user.should be_valid
-        @user.username.should == "hansolo"
-      end
-      
+            
     end
     
     describe "of roles and status" do
@@ -89,12 +80,6 @@ describe User do
         @user.email = "This.Is.A.Test@gmail.com"
         @user.should be_valid
         @user.email.should == "this.is.a.test@gmail.com"
-      end
-      
-      it "should create a temporary username" do
-        user = Factory.build(:user_input)
-        user.should_not be_valid
-        user.username.should_not == nil
       end
       
       it "generates a temporary password if no password exists" do
