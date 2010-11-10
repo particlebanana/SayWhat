@@ -14,8 +14,8 @@ class Ability
       
     elsif user.setup?
       can :setup, Group
-      can :setup_password, User
-      can :create_password, User
+      can :setup_sponsor, User
+      can :create_sponsor, User
       can :setup_permalink, Group
       can :set_permalink, Group
     

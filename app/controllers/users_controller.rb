@@ -8,14 +8,15 @@ class UsersController < ApplicationController
   respond_to :html
   
   # GET - Setup Phase - New User Password Form
-  def setup_password
+  def setup_sponsor
     @user = current_user
     respond_with(@user)
   end
   
-  # PUT - Setup Phase - Update Password
-  def create_password
+  # PUT - Setup Phase - Update Sponsor Password and Username
+  def create_sponsor
     @user.update_with_password(params[:user])
+    #@user.update_attributes(params[:user])
     if @user.save!
       redirect_to "/setup/permalink"
     else

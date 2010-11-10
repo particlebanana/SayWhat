@@ -6,14 +6,14 @@ SayWhat::Application.routes.draw do
   end
   
   match "/setup" => "groups#setup"
-  match "/setup/password" => "users#setup_password", :via => "get"
+  match "/setup/sponsor" => "users#setup_sponsor", :via => "get"
   match '/setup/permalink' => "groups#setup_permalink", :via => "get"
   
   resources :users do
     
     member do
-      get :setup_password
-      put :create_password
+      get :setup_sponsor
+      put :create_sponsor
     end
     
   end
