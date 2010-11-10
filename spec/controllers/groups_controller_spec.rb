@@ -49,7 +49,8 @@ describe GroupsController do
   describe "approve a pending_group" do
     before do
       @group = Factory.create(:pending_group)
-      @user = Factory.create(:pending_user)
+      @user = Factory.build(:user_input)
+      set_status_and_role("pending", "pending")
       @group.users << @user
       login_admin
     end
@@ -78,7 +79,8 @@ describe GroupsController do
   describe "setup" do
     before do
       @group = Factory.create(:setup_group)
-      @user = Factory.create(:setup_user)
+      @user = Factory.build(:user_input)
+      set_status_and_role("setup", "adult sponsor")
       @group.users << @user
     end
     
@@ -86,12 +88,20 @@ describe GroupsController do
       get :setup, {:id => @group.id.to_s, :auth_token => @user.authentication_token}
       response.should be_success
     end
+    
+    it "should deny a user whos status is not setup" do
+      @user.status = "active"
+      @user.save
+      get :setup, {:id => @group.id.to_s, :auth_token => @user.authentication_token}
+      response.should be_redirect
+    end
   end
     
   describe "set permalink" do
     before do
       @group = Factory.create(:setup_group)
-      @user = Factory.create(:setup_user)
+      @user = Factory.build(:user_input)
+      set_status_and_role("setup", "adult sponsor")
       @group.users << @user
     end
         
