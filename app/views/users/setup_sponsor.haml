@@ -1,0 +1,22 @@
+%div
+  %h2
+    Setup Your Sponsor Account:
+      
+  = form_for @user, :url => create_sponsor_user_url(current_user), :method => :put do |f|
+      
+    = errors_for(@user, "Opps, there were some errors creating your sponsor account").html_safe
+    
+    %p.group
+      = f.label :username
+      = f.text_field :username, :value => ""
+      
+    %p.group
+      = f.label :password
+      = f.password_field :password
+        
+    %p.group
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+        
+    %button.submit{:type => 'submit'}
+      Continue
