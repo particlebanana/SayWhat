@@ -9,7 +9,7 @@ class User
   field :authentication_token
   referenced_in :group
 
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :first_name, :last_name, :username, :password, :password_confirmation, :remember_me
 
   validates_presence_of [:first_name, :last_name, :email, :username, :role, :status]
   validates_uniqueness_of [:username]
@@ -27,8 +27,8 @@ class User
   protected
   
     def downcase_attributes
-      username.downcase!
-      email.downcase!
+      self.username ? self.username.downcase! : nil
+      self.email ? self.email.downcase! : nil
     end
     
     def generate_temp_username
