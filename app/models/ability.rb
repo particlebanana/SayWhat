@@ -18,9 +18,15 @@ class Ability
       can :create_sponsor, User
       can :setup_permalink, Group
       can :set_permalink, Group
+      
+      # TEMP FOR HOMEPAGE
+      can :request_group, Group
     
     else
       can :show, Group
+      
+      # TEMP FOR HOMEPAGE
+      can :request_group, Group
     end
       
   end

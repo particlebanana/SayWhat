@@ -1,5 +1,5 @@
-@groups
-Feature: Request to be a group sponsor
+@group
+Feature: Request to be a start a new group
 
   Background: 
     Given I am not logged in
@@ -12,7 +12,6 @@ Feature: Request to be a group sponsor
       | group_organization       | New Galactic Republic  |
       | group_user_first_name    | Luke                   |
       | group_user_last_name     | Skywalker              |
-      | group_user_username      | lukeskywalker          |
       | group_user_email         | l.skywalker@gmail.com  |
     When I press "Submit Request"
     Then I should see "Request Was Sent For Approval"
@@ -27,7 +26,6 @@ Feature: Request to be a group sponsor
       | group_organization       | New Galactic Republic  |
       | group_user_first_name    | Luke                   |
       | group_user_last_name     | Skywalker              |
-      | group_user_username      | lukeskywalker          |
       | group_user_email         | l.skywalker@gmail.com  |
     When I press "Submit Request"
     Then I should not see "Request Was Sent For Approval"

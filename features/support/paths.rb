@@ -19,6 +19,15 @@ module NavigationHelpers
       
     when /the pending groups page/
       pending_groups_groups_path
+      
+    when /\/setup\?auth_token=/
+      '/setup'
+
+    when /the setup page/
+      '/setup'
+      
+    when /the permalink setup page/
+      '/setup/permalink'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -1,4 +1,4 @@
-@groups
+@group
 Feature: Site Admin approves the creation of a group
 
   Background: 

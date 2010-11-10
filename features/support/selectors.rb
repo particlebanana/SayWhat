@@ -7,6 +7,9 @@ module HtmlSelectorsHelper
     
     when /the pending groups list/
       "ul"
+      
+    when /the page title/
+      "h2"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +
