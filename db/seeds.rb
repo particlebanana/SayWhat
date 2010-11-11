@@ -2,8 +2,7 @@
 puts 'EMPTY THE MONGODB DATABASE'
 Mongoid.master.collections.reject { |c| c.name == 'system.indexes'}.each(&:drop)
 puts 'SETTING UP DEFAULT USER LOGIN'
-user = User.new(:first_name => 'administrator', :last_name => "Of The World", :email => 'admin@test.com', :password => 'admin123', :password_confirmation => 'admin123')
-user.username = 'admin'
+user = User.new(:first_name => 'administrator', :last_name => "Of The World", :email => 'particlebanana@gmail.com', :password => 'admin123', :password_confirmation => 'admin123')
 user.role = 'admin'
 user.status = 'active'
 user.save!
