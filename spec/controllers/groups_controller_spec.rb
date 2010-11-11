@@ -4,20 +4,8 @@ describe GroupsController do
   
   describe "request a group" do
         
-    it "should add a pending group" do  
-      request = {
-        :group => {
-          :display_name => "Han Shot First",
-          :city => "Mos Eisley",
-          :organization => "Free Greedo",
-          :user => {
-            :first_name => "Luke",
-            :last_name => "Skywalker",
-            :email => "luke.skywalker@gmail.com"
-          }
-        }
-      }
-      
+    it "should add a pending group" do 
+      request = build_group_request 
       lambda {
         lambda {
           post :create, request
@@ -25,23 +13,25 @@ describe GroupsController do
       }.should change(User, "count").by(1)
     end
     
-    it "should add an adult sponsor with status of pending" do
-      request = {
-        :group => {
-          :display_name => "Han Shot First",
-          :city => "Mos Eisley",
-          :organization => "Free Greedo",
-          :user => {
-            :first_name => "Luke",
-            :last_name => "Skywalker",
-            :email => "luke.skywalker@gmail.com"
-          }
-        }
-      }
-      
+    it "should add an adult sponsor with status of pending" do 
+      request = build_group_request     
       post :create, request
       @group = Group.find(:first, :conditions => {:display_name => "Han Shot First"})
       @group.users.first.status.should == "pending"
+    end
+    
+    it "should send the pending sponsor an email alert" do
+      @sponsor = Factory.create(:admin)
+      request = build_group_request
+      post :create, request
+      ActionMailer::Base.deliveries.first.to.should == [request[:group][:user][:email]]
+    end
+    
+    it "should send the admins an email alert" do
+      @sponsor = Factory.create(:admin)
+      request = build_group_request
+      post :create, request
+      ActionMailer::Base.deliveries.last.to.should == [@sponsor.email]
     end
     
   end

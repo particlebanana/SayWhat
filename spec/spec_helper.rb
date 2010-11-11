@@ -35,6 +35,20 @@ Spork.each_run do
 
 end
 
+def build_group_request
+  request = {
+    :group => {
+      :display_name => "Han Shot First",
+      :city => "Mos Eisley",
+      :organization => "Free Greedo",
+      :user => {
+        :first_name => "Luke",
+        :last_name => "Skywalker",
+        :email => "luke.skywalker@gmail.com"
+      }
+    }
+  }
+end
 
 def set_status_and_role(status, role)
   @user.status = status

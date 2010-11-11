@@ -44,6 +44,14 @@ class GroupsController < ApplicationController
     if @group.valid? & @user.valid?
       @group.users << @user
       @group.save!
+      
+      GroupMailer.successful_group_request(@user, @group).deliver
+      
+      admins = User.site_admins
+      admins.each do |admin|
+        GroupMailer.admin_pending_group_request(admin, @group, @user).deliver
+      end
+      
       redirect_to pending_request_groups_url
     else
       render :action => 'request_group'

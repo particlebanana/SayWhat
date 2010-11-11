@@ -17,6 +17,7 @@ class User
   before_validation :generate_temp_password
   before_create :reset_authentication_token
     
+  scope :site_admins, :where => {:role => "admin"}
   scope :adult_sponsor, :where => {:role => "adult sponsor" }
   scope :setup, :where => {:status => "setup"}
   
