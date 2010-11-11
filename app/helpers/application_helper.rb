@@ -1,5 +1,9 @@
 module ApplicationHelper
   
+  def title(page_title)
+    content_for(:title) { page_title }
+  end
+    
   def errors_for(object, message=nil)
     html = ""
     unless object.errors.blank?

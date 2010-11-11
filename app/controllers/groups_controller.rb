@@ -28,7 +28,9 @@ class GroupsController < ApplicationController
   def request_group
     @group = Group.new
     @user = User.new
-    respond_with(@group)
+    respond_with @group do |format|
+      format.html { render :layout => "application" }
+    end
   end
   
   
@@ -51,7 +53,7 @@ class GroupsController < ApplicationController
   
   # GET - Display Group request was successfully submitted
   def pending_request
-    # TO DO
+
   end
   
 
@@ -82,9 +84,9 @@ class GroupsController < ApplicationController
   
   # PUT - Set a groups status to approved
   def approve_group
-    @user = @group.users.first
+    @user = @group.users.first 
     set_approved_attributes
-        
+      
     if @group.update_attributes!(params[:group]) & @user.save
       redirect_to pending_groups_groups_path
     else
