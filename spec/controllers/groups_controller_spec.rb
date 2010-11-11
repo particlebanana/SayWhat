@@ -64,6 +64,11 @@ describe GroupsController do
       @group.users.first.status.should == "setup"
     end
     
+    it "should send the adult sponsor an email alert that their group has been approved" do
+      put :approve_group, {:id => @group.id.to_s}
+      ActionMailer::Base.deliveries.last.to.should == [@group.users.first.email]
+    end
+    
   end
   
   describe "setup" do

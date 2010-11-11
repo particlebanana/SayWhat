@@ -96,6 +96,7 @@ class GroupsController < ApplicationController
     set_approved_attributes
       
     if @group.update_attributes!(params[:group]) & @user.save
+      GroupMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
       redirect_to pending_groups_groups_path
     else
       render :action => 'pending_group'
