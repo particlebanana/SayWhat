@@ -21,4 +21,5 @@ Feature: Setup a group
       | group_permalink   |  rebel alliance  |
     And I press "Continue"
     Then I should have a valid permalink
+    And I should receive an email with the subject "Your group has been successfully setup on SayWhat!"
     

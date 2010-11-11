@@ -15,6 +15,7 @@ Feature: Request to be a start a new group
       | group_user_email         | l.skywalker@gmail.com  |
     When I press "Submit Request"
     Then I should see "Request Was Sent For Approval"
+    And I should receive an email at "l.skywalker@gmail.com" with the subject "Your group on SayWhat! is awaiting approval"
     
     
   Scenario: I request to start a new group with a name that's already taken
