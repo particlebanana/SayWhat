@@ -28,4 +28,13 @@ class GroupMailer < ActionMailer::Base
          :subject => "Your group has been approved on SayWhat!")
   end
   
+  # Sends a notice to the adult sponsor with their groups homepage
+  def send_completed_setup_notice(user, group, url)
+    @user = user
+    @group = group
+    @url = "http://" + url + "/" + group.permalink
+    mail(:to => user.email,
+         :subject => "Your group has been successfully setup on SayWhat!")
+  end
+  
 end

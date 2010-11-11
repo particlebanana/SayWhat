@@ -113,6 +113,13 @@ describe GroupsController do
       @user = User.find(@user.id.to_s)
       @user.status.should == "active"
     end
+    
+    it "should send the adult sponsor an email notice with the group's permalink" do
+      sign_in @user
+      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
+      @group = Group.find(@group.id.to_s)
+      ActionMailer::Base.deliveries.last.to.should == [@group.users.first.email]
+    end
   
   end
 

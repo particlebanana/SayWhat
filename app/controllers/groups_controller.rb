@@ -1,7 +1,7 @@
 class GroupsController < ApplicationController
   layout "main"
   
-  before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request]
+  before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request, :show]
   before_filter :set_group, :only => [:pending_group]
   before_filter :find_by_permalink, :only => [:show]
   
@@ -132,6 +132,7 @@ class GroupsController < ApplicationController
     @user = current_user
     @user.status = "active"
     if @group.save & @user.save
+      GroupMailer.send_completed_setup_notice(@user, @group, request.env["HTTP_HOST"]).deliver
       redirect_to "/" + @group.permalink
     else
       render :action => 'setup_permalink'

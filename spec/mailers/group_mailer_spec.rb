@@ -65,4 +65,22 @@ describe GroupMailer do
 
   end
   
+  describe "setup complete notification" do
+    let(:user) { Factory.create(:user, :role => "adult sponsor", :status => "active") }
+    let(:group) { Factory.create(:group) }
+    let(:mail) { GroupMailer.send_completed_setup_notice(user, group, 'localhost:3000') }
+        
+    it "renders the reciever's email address" do
+      mail.to.should == [user.email]
+    end
+    
+    it "should display the group's name in the email" do
+      mail.body.encoded.should match(group.display_name)
+    end
+    
+    it "should display the group's permalink" do
+      mail.body.encoded.should include_text("http://localhost:3000/#{group.permalink}")
+    end
+  end
+  
 end
