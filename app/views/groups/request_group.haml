@@ -1,4 +1,10 @@
+= title "Create A Group"
+
 %div#groupRequestForm
+  
+  %h2.pageTitle
+    Request To Create A Group
+    
   = form_for @group do |f|
   
     = errors_for(@group, "Opps, there were some problems with your group information").html_safe
@@ -10,16 +16,16 @@
        
       = f.fields_for :user do |u|
           
-        %p.group
-          = u.label :first_name
+        %p.group            
+          = u.label :first_name, :class => "required"
           = u.text_field :first_name
     
         %p.group
-          = u.label :last_name
+          = u.label :last_name, :class => "required"
           = u.text_field :last_name
           
         %p.group
-          = u.label :email
+          = u.label :email, :class => "required"
           = u.text_field :email
           
     %fieldset
@@ -27,15 +33,15 @@
         Group Information
         
       %p.group
-        = f.label :name
+        = f.label :name, :class => "required"
         = f.text_field :display_name
     
       %p.group
-        = f.label :city
+        = f.label :city, :class => "required"
         = f.text_field :city
     
       %p.group
-        = f.label :organization
+        = f.label :organization, :class => "required"
         = f.text_field :organization
     
       %p.group

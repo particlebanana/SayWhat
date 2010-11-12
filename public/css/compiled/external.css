@@ -232,3 +232,51 @@ header {
   header p {
     font-size: 14px;
     padding: 12px 0 0 0; }
+
+/* PAGE TITLES
+--------------------------------------------------------------------------------- */
+h2.pageTitle {
+  font-size: 22px;
+  margin-bottom: 12px; }
+
+.singleActionBox {
+  width: 600px;
+  margin: 25px auto;
+  border: 1px solid #d4d4d4;
+  padding: 12px; }
+
+/* FORM NOTIFICATIONS
+--------------------------------------------------------------------------------- */
+.alert {
+  color: #f72629;
+  font-size: 14px;
+  font-weight: bold; }
+
+/* BASIC FORM STYLES
+--------------------------------------------------------------------------------- */
+form fieldset {
+  padding: 25px 0; }
+  form fieldset legend {
+    font-size: 18px;
+    font-weight: bold;
+    color: #8fe86b; }
+form p {
+  margin: 0 0 20px 0; }
+form p.formActions input {
+  float: left;
+  margin-right: 20px; }
+form p.formActions a {
+  float: left;
+  font-size: 14px; }
+form label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 6px; }
+form input, form textarea {
+  border: 1px solid #d4d4d4;
+  font-size: 16px;
+  padding: 8px; }
+form input {
+  font-weight: bold; }
+form input[type='checkbox'] {
+  float: left; }
