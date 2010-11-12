@@ -1,6 +1,6 @@
 class User
   include Mongoid::Document      
-  devise :database_authenticatable, :token_authenticatable, :recoverable, :rememberable, :validatable, :registerable
+  devise :database_authenticatable, :token_authenticatable, :recoverable, :rememberable, :validatable
   field :first_name
   field :last_name
   field :role
