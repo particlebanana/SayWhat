@@ -15,8 +15,8 @@ class UsersController < ApplicationController
   
   # PUT - Setup Phase - Update Sponsor Password and Username
   def create_sponsor
+    @user.reset_authentication_token
     @user.update_with_password(params[:user])
-    #@user.update_attributes(params[:user])
     if @user.save!
       redirect_to "/setup/permalink"
     else
