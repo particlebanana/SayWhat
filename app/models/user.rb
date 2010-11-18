@@ -46,6 +46,10 @@ class User
     def setup?
       role == "adult sponsor" && status == "setup" ? true : false
     end
+    
+    def name
+      first_name + ' ' + last_name
+    end
 
   private
   
