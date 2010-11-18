@@ -2,6 +2,10 @@ Given /^there is a pending group named "([^"]*)"$/ do |name|
   create_pending_group(name)
 end
 
+Given /^there is a group named "([^"]*)"$/ do |name|
+  create_group(name)
+end
+
 Then /^the group should be approved$/ do
   @group = Group.find(@group.id)
   @group.status.should == "active"

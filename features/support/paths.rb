@@ -28,6 +28,9 @@ module NavigationHelpers
       
     when /the permalink setup page/
       '/setup/permalink'
+      
+    when /my group page/
+      group_path(@group)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

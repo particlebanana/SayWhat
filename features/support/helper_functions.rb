@@ -18,3 +18,13 @@ def create_setup_group(name)
   @group.users << @user
   @group.save
 end
+
+def create_group(name)
+  @group = Factory.build(:group, :display_name => name)
+  @group.status = 'active'
+  @user = Factory.build(:user)
+  @user.status = 'active'
+  @user.role = 'adult sponsor'
+  @group.users << @user
+  @group.save
+end
