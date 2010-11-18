@@ -107,6 +107,13 @@ describe GroupsController do
       @group.permalink.should == "test"
     end
     
+    it "should escape a group's permalink" do
+      sign_in @user
+      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "this is a test"}}
+      @group = Group.find(@group.id.to_s)
+      @group.permalink.should == "this+is+a+test"
+    end
+    
     it "should set a user's status to active" do
       sign_in @user
       put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
@@ -121,6 +128,24 @@ describe GroupsController do
       ActionMailer::Base.deliveries.last.to.should == [@group.users.first.email]
     end
   
+  end
+  
+  describe "edit group" do
+    before do
+      @group = Factory.create(:group)
+      @user = Factory.build(:user)
+      set_status_and_role("active", "adult sponsor")
+      @group.users << @user
+    end
+    
+    it "should update a group with new values" do
+      sign_in @user
+      put :update, {:id => @group.id.to_s, :group => {:display_name => "Rebel Alliance"}}
+      @group = Group.find(@group.id.to_s)
+      @group.display_name.should == "Rebel Alliance"
+      @group.name.should == "rebel alliance"
+    end
+    
   end
 
 end

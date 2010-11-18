@@ -24,6 +24,8 @@ class Ability
     
     else
       can :show, Group
+      can :edit, Group
+      can :update, Group
       
       # TEMP FOR HOMEPAGE
       can :request_group, Group

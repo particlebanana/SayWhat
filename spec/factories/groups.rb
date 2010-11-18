@@ -7,6 +7,9 @@ Factory.define :group do |g|
   g.description "An organization of Vader haters."
   g.permalink "jedi-knights"
   g.status "active"
+  g.esc_region "1"
+  g.dshs_region "1"
+  g.area "central texas"
 end
 
 # Creates a pending group

@@ -9,8 +9,23 @@ class GroupsController < ApplicationController
   
   respond_to :html
   
+  # GET - Group Homepage
   def show
     respond_with(@group)
+  end
+  
+  # GET - Edit Screen
+  def edit
+    respond_with(@group)
+  end
+  
+  # PUT - Update Group
+  def update
+    if @group.update_attributes(params[:group])
+      redirect_to "/" + @group.permalink
+    else
+      render :action => "edit"
+    end
   end
   
   #
@@ -128,7 +143,7 @@ class GroupsController < ApplicationController
   # PUT - Setup Phase - Create group permalink
   def set_permalink
     @group = Group.find(:first, :conditions => {:id => current_user.group_id})
-    @group.permalink = params[:group][:permalink]
+    @group.permalink = CGI.escape(params[:group][:permalink].downcase)
     @user = current_user
     @user.status = "active"
     if @group.save & @user.save

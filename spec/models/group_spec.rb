@@ -66,13 +66,6 @@ describe Group do
       @group.should_not be_valid
     end
     
-    it "should escape permalink" do 
-      @group = Factory.build(:pending_group)
-      @group.permalink = "This Is A Test"
-      @group.should be_valid
-      @group.permalink.should == "this+is+a+test"
-    end
-    
   end
 
 end

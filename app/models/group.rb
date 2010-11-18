@@ -22,7 +22,7 @@ class Group
   validates_length_of :permalink, :minimum => 4, :maximum => 20, :allow_nil => true
   
   before_validation :downcase_name
-  before_validation :escape_permalink
+  #before_validation :escape_permalink
   
   before_save :downcase_area
   
@@ -31,12 +31,6 @@ class Group
     def downcase_name
       if self.display_name
         self.name = self.display_name.downcase
-      end
-    end
-        
-    def escape_permalink
-      if permalink
-        self.permalink = CGI.escape(self.permalink.downcase)
       end
     end
     
