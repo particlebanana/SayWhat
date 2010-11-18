@@ -13,7 +13,7 @@
     %li
       %strong
         Established: 
-      12/12/2012
+      = @group.created_at.to_s(:mdy)
       
     %li
       %strong
@@ -28,7 +28,7 @@
     %li
       %strong
         Region: 
-      Central Texas
+      = @group.area.capitalize
   
   = render :partial => "member_list"
   

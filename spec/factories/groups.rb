@@ -25,4 +25,7 @@ Factory.define :setup_group, :class => Group do |g|
   g.organization "Rebel Alliance"
   g.description "An organization of Vader haters."
   g.status "active"
+  g.esc_region "1"
+  g.dshs_region "1"
+  g.area "central texas"
 end
