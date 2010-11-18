@@ -1,0 +1,6 @@
+- if current_user
+  %a{:id => "groupInvite", :class => "groupActionButton", :href => "#"}
+    Invite Someone To Join This Group
+- else
+  %a{:id => "groupRequest", :class => "groupActionButton", :href => "#"}
+    Request To Join This Group

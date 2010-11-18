@@ -1,5 +1,41 @@
 = title @group.display_name
 
-%div
-  %h2
-    = @group.display_name
+%h2
+  = @group.display_name
+    
+%div#groupSidebar.left
+  
+  %img{:id => "groupLogo", :src => "http://placehold.it/349x200/8fe86b/333333"}
+  
+  = render :partial => "group_action_button"
+  
+  %ul#groupVitals
+    %li
+      %strong
+        Established: 
+      12/12/2012
+      
+    %li
+      %strong
+        Members: 
+      = @group.users.count
+      
+    %li
+      %strong
+        Organization: 
+      = @group.organization
+      
+    %li
+      %strong
+        Region: 
+      Central Texas
+  
+  = render :partial => "member_list"
+  
+
+%div#groupContent.right
+  
+  %div#groupAbout
+    %p
+      = @group.description
+  

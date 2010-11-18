@@ -1,0 +1,11 @@
+- if current_user
+  %div#groupMemberList
+  
+    %h4
+      Member List
+      
+    %ul
+    - @group.users.each do |member|
+      %li.group
+        %img{:class => "avatar", :src => "http://placehold.it/30"}
+        = member.name
