@@ -1,6 +1,16 @@
+#groupTop {
+  a {
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 33.160px;
+  }
+}
+
+
 #groupSidebar {
   width: 367px;
-  margin: 15px 0;
+  margin: 25px 0;
   
   img#groupLogo {
     border: 1px solid #cdcdcd;
@@ -13,7 +23,7 @@
     font-size: 16px;
     text-align: center;
     padding: 8px;
-    border: 1px solid #333;
+    border: 1px solid #ababab;
     background: #cdcdcd;
     color: #333;
     font-weight: bold;
@@ -25,22 +35,25 @@
   
   #groupMemberList {
     margin: 20px 0;
-    li {
-      margin: 8px 0;
-      font-weight: bold;
-      line-height: 30px;
-      img { 
-        float: left;
-        margin-right: 6px;
+    ul {
+      margin:15px 0;
+      li {
+        margin: 8px 0;
+        font-weight: bold;
+        line-height: 25px;
+        img { 
+          float: left;
+          margin-right: 10px;
+        }
       }
     }
   }
-  
+
 }
 
 
 #groupContent {
   width: 563px;
-  padding:0 15px;
-  margin: 15px 0;
+  padding:0 0 0 30px;
+  margin: 25px 0;
 }

@@ -1,7 +1,10 @@
 = title @group.display_name
 
-%h2
-  = @group.display_name
+%div#groupTop.group
+  %h2.left
+    = @group.display_name
+  
+  = link_to "Edit Group", edit_group_path(@group)
     
 %div#groupSidebar.left
   
@@ -19,7 +22,12 @@
       %strong
         Members: 
       = @group.users.count
-      
+    
+    %li
+      %strong
+        City: 
+      = @group.city
+        
     %li
       %strong
         Organization: 

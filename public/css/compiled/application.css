@@ -203,7 +203,7 @@ h4 {
 p {
   font-size: 14px;
   margin: 0 0 1em 0;
-  line-height: 1.5em; }
+  line-height: 1.6em; }
 
 /* STRUCTURE
 --------------------------------------------------------------------------------- */
@@ -283,9 +283,15 @@ form input {
 form input[type='checkbox'] {
   float: left; }
 
+#groupTop a {
+  float: right;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 33.160px; }
+
 #groupSidebar {
   width: 367px;
-  margin: 15px 0; }
+  margin: 25px 0; }
   #groupSidebar img#groupLogo {
     border: 1px solid #cdcdcd;
     padding: 8px; }
@@ -295,7 +301,7 @@ form input[type='checkbox'] {
     font-size: 16px;
     text-align: center;
     padding: 8px;
-    border: 1px solid #333;
+    border: 1px solid #ababab;
     background: #cdcdcd;
     color: #333;
     font-weight: bold; }
@@ -303,15 +309,17 @@ form input[type='checkbox'] {
     margin: 8px 0; }
   #groupSidebar #groupMemberList {
     margin: 20px 0; }
-    #groupSidebar #groupMemberList li {
-      margin: 8px 0;
-      font-weight: bold;
-      line-height: 30px; }
-      #groupSidebar #groupMemberList li img {
-        float: left;
-        margin-right: 6px; }
+    #groupSidebar #groupMemberList ul {
+      margin: 15px 0; }
+      #groupSidebar #groupMemberList ul li {
+        margin: 8px 0;
+        font-weight: bold;
+        line-height: 25px; }
+        #groupSidebar #groupMemberList ul li img {
+          float: left;
+          margin-right: 10px; }
 
 #groupContent {
   width: 563px;
-  padding: 0 15px;
-  margin: 15px 0; }
+  padding: 0 0 0 30px;
+  margin: 25px 0; }

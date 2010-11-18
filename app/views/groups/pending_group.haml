@@ -6,7 +6,7 @@
         
     %p.group
       Sponsor Name:
-      = @user.first_name + ' ' + @user.last_name
+      = @user.name
           
     %p.group
       Sponsor Email:
@@ -31,6 +31,18 @@
       %p.group
         = f.label :organization
         = f.text_field :organization
+        
+      %p.group
+        = f.label :esc_region
+        = f.text_field :esc_region
+        
+      %p.group
+        = f.label :dshs_region
+        = f.text_field :dshs_region
+        
+      %p.group
+        = f.label :area_of_state
+        = f.text_field :area
     
       %p.group
         = f.label :description
