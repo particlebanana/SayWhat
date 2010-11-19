@@ -96,6 +96,11 @@ describe User do
         @user.authentication_token.should_not == nil
       end
       
+      it "combines first name and last name" do
+        @user = Factory.build(:user_input)
+        @user.name.should == "Han Solo"
+      end
+      
     end
         
   end 
