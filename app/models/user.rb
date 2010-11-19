@@ -5,10 +5,11 @@ class User
   field :last_name
   field :role
   field :status
+  field :bio
   field :authentication_token
   referenced_in :group
 
-  attr_accessible :email, :first_name, :last_name, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :remember_me
 
   validates_presence_of [:first_name, :last_name, :email, :role, :status]
   
