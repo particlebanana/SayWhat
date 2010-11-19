@@ -24,4 +24,19 @@ class UsersController < ApplicationController
     end
   end
   
+  # GET - Edit Basic Profile Information
+  def edit
+    @user = current_user
+    respond_with(@user)
+  end
+  
+  # PUT - Update Basic Profile Information
+  def update
+    if @user.update_attributes(params[:user])
+      redirect_to "/settings/profile", :notice => "Profile Has Been Updated"
+    else
+      render :action => "edit"
+    end
+  end
+  
 end

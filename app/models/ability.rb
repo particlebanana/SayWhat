@@ -23,6 +23,8 @@ class Ability
       can :request_group, Group
     
     else
+      can :edit, User
+      can :update, User
       can :show, Group
       can :edit, Group
       can :update, Group

@@ -5,6 +5,8 @@ SayWhat::Application.routes.draw do
     get "/logout" => "devise/sessions#destroy"
   end
   
+  match "/settings/profile" => "users#edit", :via => "get"
+  
   match "/setup" => "groups#setup"
   match "/setup/sponsor" => "users#setup_sponsor", :via => "get"
   match '/setup/permalink' => "groups#setup_permalink", :via => "get"

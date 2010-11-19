@@ -30,5 +30,35 @@ describe UsersController do
     end
       
   end
+  
+  describe "edit a user's profile" do
+    before(:each) do
+      @user = Factory.build(:user)
+      set_status_and_role("active", "adult sponsor")
+      @user.save
+    end
+    
+    it "should change the user's name" do
+      sign_in @user
+      put :update, {:id => @user.id.to_s, :user => {:first_name => "Jabba", :last_name => "The Hut"}}
+      @user = User.find(@user.id.to_s)
+      @user.name.should == "Jabba The Hut"
+    end
+    
+    it "should change the user's email" do
+      sign_in @user
+      put :update, {:id => @user.id.to_s, :user => {:email => "test@example.com"}}
+      @user = User.find(@user.id.to_s)
+      @user.email.should == "test@example.com"
+    end
+    
+    it "should populate the bio field" do
+      sign_in @user
+      put :update, {:id => @user.id.to_s, :user => {:bio => "This is an example bio"}}
+      @user = User.find(@user.id.to_s)
+      @user.bio.should_not == nil
+    end
+    
+  end
 
 end

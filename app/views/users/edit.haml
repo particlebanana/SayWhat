@@ -1,0 +1,35 @@
+= title "Edit " + @user.name
+
+- if notice 
+  %p.notice
+    = notice
+        
+- if alert 
+  %p.alert
+    = alert
+      
+%h2
+  Edit Your Profile
+  
+= form_for @user do |f|
+  
+  = errors_for(@user, "Opps, there were some problems with your profile information").html_safe
+
+  %p.group
+    = f.label :first_name
+    = f.text_field :first_name
+    
+  %p.group
+    = f.label :last_name
+    = f.text_field :last_name
+
+  %p.group
+    = f.label :email
+    = f.text_field :email
+  
+  %p.group
+    = f.label :bio
+    = f.text_area :bio
+    
+  %button.submit{:type => 'submit'}
+    Save
