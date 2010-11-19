@@ -22,8 +22,7 @@
         %h1.left
           SayWhat!
         
-        %p.right
-          = link_to "Login", new_user_session_path
+        = render :partial => "layouts/session_header"
         
       %div#content
         = yield
