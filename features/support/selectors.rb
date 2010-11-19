@@ -10,6 +10,9 @@ module HtmlSelectorsHelper
       
     when /the page title/
       "h2"
+      
+    when /the page header/
+      "header"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +
