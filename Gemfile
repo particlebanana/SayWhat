@@ -22,6 +22,8 @@ gem 'cancan'
 
 
 # Application Wide
+gem 'carrierwave', :git => "git://github.com/jnicklas/carrierwave.git"
+gem 'mini_magick'
 
 
 group :development, :test do
