@@ -13,6 +13,9 @@ module HtmlSelectorsHelper
       
     when /the page header/
       "header"
+      
+    when /the form fields/
+      "form > p"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +
