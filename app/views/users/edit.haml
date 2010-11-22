@@ -1,4 +1,4 @@
-= title "Edit " + @user.name
+= title "Profile"
 
 - if notice 
   %p.notice
@@ -7,6 +7,8 @@
 - if alert 
   %p.alert
     = alert
+    
+= render :partial => "settings_nav", :locals => {:active => "profile"}
       
 %h2
   Edit Your Profile

@@ -283,6 +283,27 @@ form input {
 form input[type='checkbox'] {
   float: left; }
 
+ul#settingsNav {
+  margin: 0 0 25px 0;
+  padding: 6px;
+  border-style: solid;
+  border-color: #cdcdcd;
+  border-top-width: 1px;
+  border-bottom-width: 1px; }
+  ul#settingsNav li {
+    float: left;
+    margin: 0 8px; }
+    ul#settingsNav li a {
+      display: block;
+      padding: 8px;
+      font-weight: bold; }
+      ul#settingsNav li a:hover {
+        background: #bbf1a6;
+        color: #333; }
+  ul#settingsNav li.active a {
+    background: #8fe86b;
+    color: #333; }
+
 .avatarOptions {
   float: left;
   margin-left: 20px; }
