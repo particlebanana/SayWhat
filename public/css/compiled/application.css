@@ -283,6 +283,20 @@ form input {
 form input[type='checkbox'] {
   float: left; }
 
+.avatarOptions {
+  float: left;
+  margin-left: 20px; }
+  .avatarOptions .avatarOption {
+    display: block;
+    margin: 8px 0; }
+
+.avatarUpload {
+  display: none; }
+  .avatarUpload input {
+    border: none;
+    font-size: 14px;
+    font-weight: normal; }
+
 #groupTop a {
   float: right;
   font-size: 16px;

@@ -4,7 +4,7 @@ SayWhat::Application.routes.draw do
     get "/login" => "devise/sessions#new"
     get "/logout" => "devise/sessions#destroy"
   end
-  
+    
   match "/settings/profile" => "users#edit", :via => "get"
   
   match "/setup" => "groups#setup"
@@ -16,6 +16,7 @@ SayWhat::Application.routes.draw do
     member do
       get :setup_sponsor
       put :create_sponsor
+      get :delete_avatar
     end
     
   end

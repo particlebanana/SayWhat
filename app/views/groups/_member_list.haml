@@ -7,5 +7,5 @@
     %ul
       - @group.users.each do |member|
         %li.group
-          %img{:class => "avatar", :src => "http://placehold.it/25"}
+          = image_tag(member.avatar_url(:thumb))
           = member.name

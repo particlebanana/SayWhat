@@ -25,6 +25,8 @@ class Ability
     else
       can :edit, User
       can :update, User
+      can :delete_avatar, User
+      
       can :show, Group
       can :edit, Group
       can :update, Group

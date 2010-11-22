@@ -11,9 +11,20 @@
 %h2
   Edit Your Profile
   
-= form_for @user do |f|
+= form_for(@user, :html => { :multipart => true}) do |f|
   
   = errors_for(@user, "Opps, there were some problems with your profile information").html_safe
+
+  %p.group
+    = f.label :picture
+    = image_tag(@user.avatar_url(:small), :class => "left") if @user.avatar_filename?
+    - if @user.avatar_filename?
+      %span.avatarOptions
+        = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @user.avatar_filename?
+        = link_to "Delete this image", delete_avatar_user_url(@user), :class => "avatarOption" if @user.avatar_filename?
+    
+    %span.avatarUpload  
+      = f.file_field :avatar
 
   %p.group
     = f.label :first_name

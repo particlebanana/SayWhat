@@ -39,4 +39,12 @@ class UsersController < ApplicationController
     end
   end
   
+  # GET - Delete Avatar
+  def delete_avatar
+    @user.remove_avatar!
+    @user.avatar_filename = nil
+    @user.save
+    redirect_to "/settings/profile"
+  end
+  
 end

@@ -1,0 +1,18 @@
+.avatarOptions {
+  float:left;
+  margin-left:20px;
+  
+  .avatarOption {
+    display:block;
+    margin:8px 0;
+  }
+}
+
+.avatarUpload {
+  display:none;
+  input {
+    border:none;
+    font-size:14px;
+    font-weight:normal;
+  }
+}
