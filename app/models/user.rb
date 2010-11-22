@@ -1,3 +1,4 @@
+require 'carrierwave/orm/mongoid'
 class User
   include Mongoid::Document      
   devise :database_authenticatable, :token_authenticatable, :recoverable, :rememberable, :validatable
@@ -8,8 +9,10 @@ class User
   field :bio
   field :authentication_token
   referenced_in :group
+  mount_uploader :avatar, AvatarUploader
 
-  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :remember_me
+
+  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remember_me
 
   validates_presence_of [:first_name, :last_name, :email, :role, :status]
   
