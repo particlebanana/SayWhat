@@ -84,6 +84,7 @@ class UsersController < ApplicationController
     @user.status = "setup"
     @user.role = "member"
     if @user.save
+      UserMailer.send_approved_notice(@user, @user.group, request.env["HTTP_HOST"]).deliver
       redirect_to "/#{@user.group.permalink}/pending_memberships"
     else
       redirect_to "/#{@user.group.permalink}/pending_memberships", :notice => "There was an error approving user"

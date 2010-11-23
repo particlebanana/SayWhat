@@ -66,9 +66,9 @@ describe UsersController do
       build_group_with_admin
       @user = Factory.build(:user_input, :email => "billy.bob@gmail.com")
       set_status_and_role("pending", "pending")
-      @user.save!
+      @user.save
       @group.users << @user
-      @group.save!
+      @group.save
     end
     
     it "should change the users status to setup" do
@@ -83,6 +83,11 @@ describe UsersController do
       put :approve_pending_membership, {:id => @user.id.to_s}
       @user = User.find(@user.id.to_s)
       @user.role.should == "member"
+    end
+    
+    it "should send the new member an email with their setup link" do
+      put :approve_pending_membership, {:id => @user.id.to_s}
+      ActionMailer::Base.deliveries.last.to.should == [@user.email]
     end
     
   end

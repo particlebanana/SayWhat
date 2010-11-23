@@ -154,6 +154,8 @@ describe GroupsController do
       @user = Factory.build(:user)
       set_status_and_role("active", "adult sponsor")
       @group.users << @user
+      @user.save
+      @group.save
     end
     
     it "should allow a user to request to join a group" do
@@ -171,6 +173,17 @@ describe GroupsController do
       
       put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
       response.should render_template('groups/request_membership')
+    end
+    
+    it "should send the user a success email notice" do
+      put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+      emails = ActionMailer::Base.deliveries
+      emails.include?(["bobba.fett@gmail.com"])
+    end
+    
+    it "should send group sponsor an membership notification" do
+      put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+      ActionMailer::Base.deliveries.last.to.should == [@group.users.adult_sponsor.first.email]
     end
     
   end

@@ -75,7 +75,6 @@ class GroupsController < ApplicationController
   
   # GET - Display Group request was successfully submitted
   def pending_request
-
   end
   
   ###############################################
@@ -176,12 +175,10 @@ class GroupsController < ApplicationController
       @group.users << @user
       @group.save!
       
-      #GroupMailer.successful_group_request(@user, @group).deliver
+      UserMailer.successful_membership_request(@user, @group).deliver
       
-      #admins = User.site_admins
-      #admins.each do |admin|
-      #  GroupMailer.admin_pending_group_request(admin, @group, @user).deliver
-      #end
+      adult_sponsor = @group.users.adult_sponsor.first
+      UserMailer.sponsor_pending_membership_request(adult_sponsor, @group, @user).deliver
       
       redirect_to "/#{@group.permalink}/request_submitted"
     else
@@ -190,8 +187,7 @@ class GroupsController < ApplicationController
   end
   
   # GET - Membership Request Successfull Submitted
-  def membership_request_submitted
-    
+  def membership_request_submitted  
   end
   
   
