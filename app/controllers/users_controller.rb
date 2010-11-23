@@ -7,6 +7,10 @@ class UsersController < ApplicationController
   
   respond_to :html
   
+  ################################
+  # Setup A Sponsor Account
+  ################################
+  
   # GET - Setup Phase - New User Password Form
   def setup_sponsor
     @user = current_user
@@ -24,6 +28,10 @@ class UsersController < ApplicationController
     end
   end
   
+  ###############################################
+  # Edit user settings (profile, password, etc)
+  ###############################################
+  
   # GET - Edit Basic Profile Information
   def edit
     @user = current_user
@@ -33,7 +41,7 @@ class UsersController < ApplicationController
   # PUT - Update Basic Profile Information
   def update
     if @user.update_attributes(params[:user])
-      redirect_to "/settings/profile", :notice => "Profile Has Been Updated"
+      redirect_to "/settings/profile", :notice => "Profile has been updated"
     else
       render :action => "edit"
     end
@@ -45,6 +53,21 @@ class UsersController < ApplicationController
     @user.avatar_filename = nil
     @user.save
     redirect_to "/settings/profile"
+  end
+  
+  # GET - Edit User Password
+  def edit_password
+    @user = current_user
+    respond_with(@user)
+  end
+  
+  # PUT - Update User Password
+  def update_password
+    if @user.update_attributes(params[:user])
+      redirect_to "/settings/password", :notice => "Password has been updated"
+    else
+      render :action => "edit_password"
+    end
   end
   
 end

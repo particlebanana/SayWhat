@@ -6,6 +6,7 @@ SayWhat::Application.routes.draw do
   end
     
   match "/settings/profile" => "users#edit", :via => "get"
+  match "/settings/password" => "users#edit_password", :via => "get"
   
   match "/setup" => "groups#setup"
   match "/setup/sponsor" => "users#setup_sponsor", :via => "get"
@@ -17,6 +18,7 @@ SayWhat::Application.routes.draw do
       get :setup_sponsor
       put :create_sponsor
       get :delete_avatar
+      put :update_password
     end
     
   end

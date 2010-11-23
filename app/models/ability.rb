@@ -26,6 +26,8 @@ class Ability
       can :edit, User
       can :update, User
       can :delete_avatar, User
+      can :edit_password, User
+      can :update_password, User
       
       can :show, Group
       can :edit, Group
