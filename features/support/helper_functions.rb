@@ -6,6 +6,7 @@ def create_pending_group(name)
   @user.status = 'pending'
   @user.role = 'pending'
   @group.users << @user
+  @user.save
   @group.save
 end
 
@@ -16,6 +17,7 @@ def create_setup_group(name)
   @user.status = 'setup'
   @user.role = 'adult sponsor'
   @group.users << @user
+  @user.save
   @group.save
 end
 
@@ -26,6 +28,7 @@ def create_group(name)
   @user.status = 'active'
   @user.role = 'adult sponsor'
   @group.users << @user
+  @user.save
   @group.save
 end
 
@@ -36,5 +39,7 @@ def create_user(email)
   @user.status = 'active'
   @user.role = 'adult sponsor'
   @group.users << @user
+  @user.save
   @group.save
+  @user
 end

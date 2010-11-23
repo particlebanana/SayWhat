@@ -37,6 +37,9 @@ module NavigationHelpers
       
     when /my password settings page/
       '/settings/password'
+      
+    when /the request group membership page/
+      request_membership_group_path(@group)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
