@@ -7,6 +7,14 @@ Given /^I am logged in$/ do
   And %{I press "Sign in"}
 end
 
+Given /^I am logged in as "([^"]*)"$/ do |email|
+  create_user(email)
+  And %{I go to the login page}
+  And %{I fill in "user_email" with "#{@user.email}"}
+  And %{I fill in "user_password" with "#{@user.password}"}
+  And %{I press "Sign in"}
+end
+
 # Ensure NOT Logged In
 Given /^I am not logged in$/ do
   visit('/users/sign_out') # ensure that at least
@@ -14,6 +22,14 @@ end
 
 Given /^I am a 'Site Admin'$/ do
   @user.admin?
+end
+
+# Login using email and password parameters
+Given /^I login using "([^"]*)" and "([^"]*)"$/ do |email, password|
+  And %{I go to the login page}
+  And %{I fill in "user_email" with "#{email}"}
+  And %{I fill in "user_password" with "#{password}"}
+  And %{I press "Sign in"}
 end
 
 # Edit User Profile

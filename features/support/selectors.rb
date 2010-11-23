@@ -16,6 +16,9 @@ module HtmlSelectorsHelper
       
     when /the form fields/
       "form > p"
+      
+    when /the notice/
+      "p.notice"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +

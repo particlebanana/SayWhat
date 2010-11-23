@@ -28,3 +28,13 @@ def create_group(name)
   @group.users << @user
   @group.save
 end
+
+def create_user(email)
+  @group = Factory.build(:group, :display_name => 'Rebel Alliance')
+  @group.status = 'active'
+  @user = Factory.build(:user, :email => email)
+  @user.status = 'active'
+  @user.role = 'adult sponsor'
+  @group.users << @user
+  @group.save
+end

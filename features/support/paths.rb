@@ -34,6 +34,9 @@ module NavigationHelpers
       
     when /my profile settings page/
       '/settings/profile'
+      
+    when /my password settings page/
+      '/settings/password'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
