@@ -24,6 +24,7 @@ class User
   scope :site_admins, :where => {:role => "admin"}
   scope :adult_sponsor, :where => {:role => "adult sponsor" }
   scope :setup, :where => {:status => "setup"}
+  scope :active, :where => {:status => "active"}
   
     
   protected

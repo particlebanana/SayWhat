@@ -5,7 +5,7 @@
       Member List
       
     %ul
-      - @group.users.each do |member|
+      - @group.users.active.each do |member|
         %li.group
           = image_tag(member.avatar_url(:thumb))
           = member.name
