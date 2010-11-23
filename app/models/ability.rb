@@ -2,7 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-        
+    
+    # Not Logged In    
     if !user
       can :request_group, Group
       can :create, Group
@@ -12,19 +13,24 @@ class Ability
       can :create_membership_request, Group
       can :membership_request_submitted, Group
     
+    # Site Admin
     elsif user.admin?
       can :manage, :all
-      
-    elsif user.setup?
+    
+    # Sponsor in Setup Mode  
+    elsif user.sponsor_setup?
       can :setup, Group
       can :setup_sponsor, User
       can :create_sponsor, User
       can :setup_permalink, Group
       can :set_permalink, Group
-      
-      # TEMP FOR HOMEPAGE
-      can :request_group, Group
     
+    # Member in Setup Mode  
+    elsif user.member_setup?
+      can :setup_member, User
+      can :create_member, User
+    
+    # Registered User
     else
       can :edit, User
       can :update, User
@@ -38,6 +44,12 @@ class Ability
       
       # TEMP FOR HOMEPAGE
       can :request_group, Group
+    end
+    
+    # Adult Sponsor
+    if user && user.adult_sponsor?
+      can :pending_membership_requests, Group
+      can :approve_pending_membership, User
     end
       
   end

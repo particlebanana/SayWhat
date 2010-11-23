@@ -25,6 +25,7 @@ class User
   scope :adult_sponsor, :where => {:role => "adult sponsor" }
   scope :setup, :where => {:status => "setup"}
   scope :active, :where => {:status => "active"}
+  scope :pending, :where => {:status => "pending"}
   
     
   protected
@@ -48,8 +49,16 @@ class User
       role == "admin" ? true : false
     end    
     
-    def setup?
+    def sponsor_setup?
       role == "adult sponsor" && status == "setup" ? true : false
+    end
+    
+    def member_setup?
+      role == "member" && status == "setup" ? true : false
+    end
+    
+    def adult_sponsor?
+      role == "adult sponsor" ? true : false
     end
     
     def name

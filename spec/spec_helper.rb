@@ -55,6 +55,15 @@ def set_status_and_role(status, role)
   @user.role = role
 end
 
+def build_group_with_admin
+  @group = Factory.build(:group)
+  @admin = Factory.build(:user)
+  @admin.status = "active"
+  @admin.role = "adult sponsor"
+  @group.users << @admin  
+  @admin.save
+  @group.save
+end
 
 def login_admin
   @admin = Factory.create(:admin)

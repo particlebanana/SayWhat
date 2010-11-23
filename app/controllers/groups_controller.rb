@@ -3,7 +3,7 @@ class GroupsController < ApplicationController
   
   before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request, :show, :request_membership, :create_membership_request, :membership_request_submitted]
   before_filter :set_group, :only => [:pending_group, :create_membership_request]
-  before_filter :find_by_permalink, :only => [:show, :request_membership]
+  before_filter :find_by_permalink, :only => [:show, :request_membership, :pending_membership_requests]
   
   load_and_authorize_resource
   
@@ -28,9 +28,9 @@ class GroupsController < ApplicationController
     end
   end
   
-  #
+  ###############################################
   # REQUEST A GROUP BE CREATED
-  #
+  ###############################################
   
   #
   # Allows anyone to request a group to be created for their organization.
@@ -73,16 +73,9 @@ class GroupsController < ApplicationController
     end
   end
   
-  
-  # GET - Display Group request was successfully submitted
-  def pending_request
-
-  end
-  
-
-  #
+  ###############################################
   # APPROVE A GROUP'S CREATION
-  #
+  ###############################################  
   
   #  
   # Admin functions to approve a pending group.
@@ -118,10 +111,9 @@ class GroupsController < ApplicationController
     end
   end
   
-  
-  #
+  ###############################################
   # SETUP A GROUP
-  #
+  ###############################################
   
   #
   # Allows a sponsor to setup basic settings for their group's page.
@@ -154,16 +146,13 @@ class GroupsController < ApplicationController
     end
   end
   
-  
-  #
+  ###############################################
   # REQUEST GROUP MEMBERSHIP
-  #
+  ###############################################
   
   #
   # Allows anyone to request membership in a group or to be invited
   # into a group by a current member.
-  # Only a group sponsor can approve a potential member for
-  # inclusion into a group, even if that member was invited.
   #
   
   # GET - Request Membership
@@ -193,11 +182,6 @@ class GroupsController < ApplicationController
     else
       render :action => 'request_membership'
     end
-  end
-  
-  # GET - Membership Request Successfully Submitted
-  def membership_request_submitted
-    
   end
   
   

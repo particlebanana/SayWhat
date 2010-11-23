@@ -60,5 +60,58 @@ describe UsersController do
     end
     
   end
+  
+  describe "approve a pending membership request" do
+    before(:each) do
+      build_group_with_admin
+      @user = Factory.build(:user_input, :email => "billy.bob@gmail.com")
+      set_status_and_role("pending", "pending")
+      @user.save!
+      @group.users << @user
+      @group.save!
+    end
+    
+    it "should change the users status to setup" do
+      sign_in @admin
+      put :approve_pending_membership, {:id => @user.id.to_s}
+      @user = User.find(@user.id.to_s)
+      @user.status.should == "setup"
+    end
+    
+    it "should change the users role to member" do
+      sign_in @admin
+      put :approve_pending_membership, {:id => @user.id.to_s}
+      @user = User.find(@user.id.to_s)
+      @user.role.should == "member"
+    end
+    
+  end
+  
+  describe "setup a member account" do
+    before(:each) do
+      build_group_with_admin
+      @user = Factory.build(:user_input, :email => "billy.bob@gmail.com")
+      set_status_and_role("setup", "member")
+      @user.save!
+      @group.users << @user
+      @group.save!
+    end
+    
+    it "should change a members password" do
+      sign_in @user
+      put :create_member, {:id => @user.id.to_s, :user => {:password => "test123", :password_confirmation => "test123"}}
+      response.should be_redirect
+    end
+    
+    it "should reset the members token" do      
+      sign_in @user
+      token = @user.authentication_token
+      put :create_member, {:id => @user.id.to_s, :user => {:password => "test123", :password_confirmation => "test123"}}
+      response.should be_redirect
+      @user = User.find(@user.id.to_s)
+      @user.authentication_token.should_not == token
+    end
+    
+  end
 
 end

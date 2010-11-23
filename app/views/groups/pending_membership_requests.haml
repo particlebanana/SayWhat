@@ -1,0 +1,15 @@
+%div
+  %h2
+    Pending Membership Request
+    
+  - if @group.users.pending.count > 0
+    %ul
+      - @group.users.pending.each do |user|
+        %li
+          = user.name
+          |
+          = link_to "approve", approve_pending_membership_user_path(user)
+          
+  - else
+    %h3
+      No Pending Members
