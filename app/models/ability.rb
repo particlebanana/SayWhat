@@ -8,6 +8,9 @@ class Ability
       can :create, Group
       can :pending_request, Group
       can :show, Group
+      can :request_membership, Group
+      can :create_membership_request, Group
+      can :membership_request_submitted, Group
     
     elsif user.admin?
       can :manage, :all

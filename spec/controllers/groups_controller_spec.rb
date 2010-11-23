@@ -147,5 +147,32 @@ describe GroupsController do
     end
     
   end
+  
+  describe "request group membership" do
+    before do
+      @group = Factory.create(:group)
+      @user = Factory.build(:user)
+      set_status_and_role("active", "adult sponsor")
+      @group.users << @user
+    end
+    
+    it "should allow a user to request to join a group" do
+      put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+      @user = @group.users.last
+      @user.email.should == "bobba.fett@gmail.com"
+      @user.status.should == "pending"
+      @user.role.should == "pending"
+    end
+    
+    it "should enforce user validations" do
+      user = Factory.build(:user, :first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com", :status => "pending", :role => "pending")
+      @group.users << user
+      @group.save
+      
+      put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+      response.should render_template('groups/request_membership')
+    end
+    
+  end
 
 end

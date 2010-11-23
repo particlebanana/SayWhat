@@ -1,9 +1,9 @@
 class GroupsController < ApplicationController
   layout "main"
   
-  before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request, :show]
-  before_filter :set_group, :only => [:pending_group]
-  before_filter :find_by_permalink, :only => [:show]
+  before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request, :show, :request_membership, :create_membership_request, :membership_request_submitted]
+  before_filter :set_group, :only => [:pending_group, :create_membership_request]
+  before_filter :find_by_permalink, :only => [:show, :request_membership]
   
   load_and_authorize_resource
   
@@ -154,6 +154,53 @@ class GroupsController < ApplicationController
     end
   end
   
+  
+  #
+  # REQUEST GROUP MEMBERSHIP
+  #
+  
+  #
+  # Allows anyone to request membership in a group or to be invited
+  # into a group by a current member.
+  # Only a group sponsor can approve a potential member for
+  # inclusion into a group, even if that member was invited.
+  #
+  
+  # GET - Request Membership
+  def request_membership
+    @user = User.new
+    respond_with(@user)
+  end
+  
+  # POST - Create Membership Request
+  def create_membership_request
+    @user = User.new(params[:user])
+    
+    set_membership_request_attributes
+    
+    if @user.valid?
+      @group.users << @user
+      @group.save!
+      
+      #GroupMailer.successful_group_request(@user, @group).deliver
+      
+      #admins = User.site_admins
+      #admins.each do |admin|
+      #  GroupMailer.admin_pending_group_request(admin, @group, @user).deliver
+      #end
+      
+      redirect_to "/#{@group.permalink}/request_submitted"
+    else
+      render :action => 'request_membership'
+    end
+  end
+  
+  # GET - Membership Request Successfully Submitted
+  def membership_request_submitted
+    
+  end
+  
+  
   private 
   
     def set_group
@@ -168,6 +215,11 @@ class GroupsController < ApplicationController
       @user.role = "pending"
       @user.status = "pending"
       @group.status = "pending"
+    end
+    
+    def set_membership_request_attributes
+      @user.role = "pending"
+      @user.status = "pending"
     end
     
     def set_approved_attributes

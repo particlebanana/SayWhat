@@ -1,0 +1,27 @@
+= title "Membership Request"
+
+%div#membershipRequestForm
+  
+  %h2.pageTitle
+    Request To Join Group
+    
+  = form_for @user, :url => create_membership_request_group_url(@group) do |u|
+      
+    = errors_for(@user, "Opps, there were some problems with your information").html_safe
+        
+    %p.group            
+      = u.label :first_name, :class => "required"
+      = u.text_field :first_name
+    
+    %p.group
+      = u.label :last_name, :class => "required"
+      = u.text_field :last_name
+          
+    %p.group
+      = u.label :email, :class => "required"
+      = u.text_field :email
+    
+    %button.submit{:type => 'submit'}
+      Submit Request
+      
+    
