@@ -5,7 +5,7 @@ Feature: Setup a group
     Given I am not logged in
 
   Scenario: I use the generated link in my email to login and create sponsor account
-    Given I follow the link that was emailed to me
+    Given I follow the group setup link that was emailed to me
     Then I follow "Continue"
     And I fill in the following:
       | user_password               | testpassword     |
@@ -15,7 +15,7 @@ Feature: Setup a group
     
   
   Scenario: I setup a permalink for my group
-    Given I follow the link that was emailed to me
+    Given I follow the group setup link that was emailed to me
     When I am on the permalink setup page
     And I fill in the following:
       | group_permalink   |  rebel alliance  |

@@ -11,7 +11,7 @@ Then /^the group should be approved$/ do
   @group.status.should == "active"
 end
 
-Given /^I follow the link that was emailed to me$/ do
+Given /^I follow the group setup link that was emailed to me$/ do
   create_setup_group("Rebel Alliance")
   visit setup_group_path(:id => @group.id, :auth_token => @user.authentication_token)
 end

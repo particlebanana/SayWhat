@@ -43,3 +43,14 @@ def create_user(email)
   @group.save
   @user
 end
+
+def create_setup_user
+  @group = Factory.build(:group, :display_name => 'Evil Empire')
+  @group.status = 'active'
+  @user = Factory.build(:user)
+  @user.status = 'setup'
+  @user.role = 'member'
+  @group.users << @user
+  @user.save
+  @group.save
+end

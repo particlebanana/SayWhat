@@ -71,3 +71,8 @@ Then /^the member should be approved$/ do
   @group = Group.find(:first, :conditions => {:display_name => "Han Shot First"})
   @group.users.last.status.should == "setup"
 end
+
+Given /^I follow the member setup link that was emailed to me$/ do
+  create_setup_user
+  visit setup_member_user_path(:id => @user.id, :auth_token => @user.authentication_token)
+end
