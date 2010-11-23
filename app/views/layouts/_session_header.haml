@@ -1,8 +1,10 @@
-%p.right
-  %strong
-    - if current_user
+%p.right.group
+  - if current_user
+    = image_tag(current_user.avatar_url(:thumb))
+    %strong
       = link_to current_user.name, "/settings/profile"
       |
       = link_to "Logout", destroy_user_session_path
-    - else
+  - else
+    %strong
       = link_to "Login", new_user_session_path

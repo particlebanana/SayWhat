@@ -239,7 +239,16 @@ header {
     padding: 10px 0 0 0; }
   header p {
     font-size: 14px;
-    padding: 12px 0 0 0; }
+    padding: 12px 0 0 0;
+    line-height: 25px; }
+    header p img {
+      display: block;
+      float: left;
+      margin-right: 8px; }
+    header p strong {
+      float: left;
+      display: block;
+      line-height: 25px; }
 
 /* PAGE TITLES
 --------------------------------------------------------------------------------- */
