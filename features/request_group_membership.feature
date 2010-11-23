@@ -13,7 +13,7 @@ Feature: Request to join a group
       | user_email         | bobba.fett@gmail.com  |
     When I press "Submit Request"
     Then I should see "Request Was Sent For Approval"
-    #And I should receive an email at "l.skywalker@gmail.com" with the subject "Your group on SayWhat! is awaiting approval"
+    And I should receive an email at "bobba.fett@gmail.com" with the subject "Your membership to Han Shot First on SayWhat! is awaiting approval"
     
     
   Scenario: I request to join a group with an email that's already taken

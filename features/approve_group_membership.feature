@@ -13,4 +13,4 @@ Feature: Group Sponsor approves pending membership request
     Then I click "approve" within the pending members list
     Then I should see "No Pending Members"
     And the member should be approved
-    #And The "adult sponsor" should receive an email at "han.solo@gmail.com" with the subject "Your group has been approved on SayWhat!"
+    And The "member" should receive an email at "billy.bob.jo@gmail.com" with the subject "You have been approved for membership on SayWhat!"
