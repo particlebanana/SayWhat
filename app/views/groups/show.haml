@@ -4,7 +4,8 @@
   %h2.left
     = @group.display_name
   
-  = link_to "Edit Group", edit_group_path(@group)
+  - if current_user.role == "adult sponsor"
+    = link_to "Edit Group", edit_group_path(@group)
     
 %div#groupSidebar.left
   
