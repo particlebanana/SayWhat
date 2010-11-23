@@ -1,0 +1,8 @@
+%ul#sponsorActions.group
+  %li
+    = link_to "admin", edit_group_path(@group)
+  - if @group.users.pending
+    %li
+      = link_to "pending members", "/#{@group.permalink}/pending_memberships"
+    
+  

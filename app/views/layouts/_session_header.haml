@@ -1,5 +1,5 @@
 %p.right.group
-  - if current_user
+  - if current_user && current_user.status == "active"
     = image_tag(current_user.avatar_url(:thumb))
     %strong
       = link_to current_user.name, "/settings/profile"

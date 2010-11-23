@@ -327,11 +327,20 @@ ul#settingsNav {
     font-size: 14px;
     font-weight: normal; }
 
-#groupTop a {
-  float: right;
-  font-size: 16px;
-  font-weight: bold;
-  line-height: 33.160px; }
+#groupTop ul#sponsorActions {
+  float: right; }
+  #groupTop ul#sponsorActions li {
+    float: left;
+    margin: 0 0 0 15px;
+    line-height: 33.160px; }
+    #groupTop ul#sponsorActions li a {
+      font-size: 13px;
+      font-weight: normal;
+      background: #cdcdcd;
+      padding: 6px 8px;
+      color: #333; }
+      #groupTop ul#sponsorActions li a:hover {
+        background: #dedede; }
 
 #groupSidebar {
   width: 367px;
