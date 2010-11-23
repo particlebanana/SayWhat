@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   end
   
   def after_sign_in_path_for(resource)
-    if resource.is_a?(User) && resource.status == "active" && resource.role == "adult sponsor"
+    if resource.is_a?(User) && resource.status == "active" && resource.role == "adult sponsor" || resource.role == "member"
       '/' + resource.group.permalink
     else
       super
