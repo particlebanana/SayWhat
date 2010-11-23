@@ -6,7 +6,7 @@ Feature: Edit a group
 
   Scenario: I want to edit my groups name
     Given I am on my group page
-    Then I follow "Edit Group"
+    Then I follow "admin"
     And I fill in the following:
       | group_display_name  | Han Shot Second     |
     And I press "Update"

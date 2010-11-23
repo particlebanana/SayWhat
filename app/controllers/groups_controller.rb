@@ -73,6 +73,11 @@ class GroupsController < ApplicationController
     end
   end
   
+  # GET - Display Group request was successfully submitted
+  def pending_request
+
+  end
+  
   ###############################################
   # APPROVE A GROUP'S CREATION
   ###############################################  
@@ -182,6 +187,11 @@ class GroupsController < ApplicationController
     else
       render :action => 'request_membership'
     end
+  end
+  
+  # GET - Membership Request Successfull Submitted
+  def membership_request_submitted
+    
   end
   
   

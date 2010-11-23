@@ -19,6 +19,9 @@ module HtmlSelectorsHelper
       
     when /the notice/
       "p.notice"
+      
+    when /the pending members list/
+      "ul#pendingMembers"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +

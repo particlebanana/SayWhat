@@ -33,7 +33,7 @@ def create_group(name)
 end
 
 def create_user(email)
-  @group = Factory.build(:group, :display_name => 'Rebel Alliance')
+  @group = Factory.build(:group, :display_name => 'Evil Empire')
   @group.status = 'active'
   @user = Factory.build(:user, :email => email)
   @user.status = 'active'
