@@ -41,6 +41,8 @@ class Ability
       can :show, Group
       can :edit, Group
       can :update, Group
+      can :create_invite, Group
+      can :send_invite, Group
       
       # TEMP FOR HOMEPAGE
       can :request_group, Group

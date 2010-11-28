@@ -187,5 +187,23 @@ describe GroupsController do
     end
     
   end
+  
+  describe "invite a member" do
+    before do
+      @group = Factory.create(:group)
+      @user = Factory.build(:user)
+      set_status_and_role("active", "adult sponsor")
+      @group.users << @user
+      @user.save
+      @group.save
+    end
+    
+    it "should allow a group member to invite someone by email" do
+      sign_in @user
+      post :send_invite, {:id => @group.id.to_s, :user => {:email => "bobba.fett@gmail.com"}}
+      ActionMailer::Base.deliveries.last.to.should == ["bobba.fett@gmail.com"]
+    end
+    
+  end
 
 end

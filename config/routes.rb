@@ -48,6 +48,8 @@ SayWhat::Application.routes.draw do
       get :request_membership
       post :create_membership_request
       get :pending_membership_requests
+      get :create_invite
+      post :send_invite
     end
     
   end
@@ -55,6 +57,7 @@ SayWhat::Application.routes.draw do
   # Keep Group permalink routes at the bottom so other routes can override it
   match "/:permalink" => "groups#show"
   match "/:permalink/join" => "groups#request_membership"
+  match "/:permalink/invite" => "groups#create_invite"
   match "/:permalink/request_submitted" => "groups#membership_request_submitted"
   match "/:permalink/pending_memberships" => "groups#pending_membership_requests"
 

@@ -37,4 +37,13 @@ class GroupMailer < ActionMailer::Base
          :subject => "Your group has been successfully setup on SayWhat!")
   end
   
+  # Sends an invite to join the group
+  def send_invite(user, group, url)
+    @user = user
+    @group = group
+    @url = "http://" + url + "/" + group.permalink + "/join"
+    mail(:to => user.email,
+         :subject => "You have been invited to join #{group.display_name} on SayWhat!")
+  end
+  
 end

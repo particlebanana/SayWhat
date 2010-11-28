@@ -2,8 +2,8 @@ class GroupsController < ApplicationController
   layout "main"
   
   before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request, :show, :request_membership, :create_membership_request, :membership_request_submitted]
-  before_filter :set_group, :only => [:pending_group, :create_membership_request]
-  before_filter :find_by_permalink, :only => [:show, :request_membership, :pending_membership_requests]
+  before_filter :set_group, :only => [:pending_group, :create_membership_request, :send_invite]
+  before_filter :find_by_permalink, :only => [:show, :request_membership, :pending_membership_requests, :create_invite]
   
   load_and_authorize_resource
   
@@ -158,6 +158,19 @@ class GroupsController < ApplicationController
   # Allows anyone to request membership in a group or to be invited
   # into a group by a current member.
   #
+  
+  # GET - Invite Someone To Join
+  def create_invite
+    @user = User.new
+    respond_with(@user)
+  end
+  
+  # POST - Send An Email Invitation
+  def send_invite
+    @user = User.new(params[:user])
+    GroupMailer.send_invite(@user, @group, request.env["HTTP_HOST"]).deliver
+    redirect_to "/#{@group.permalink}"
+  end
   
   # GET - Request Membership
   def request_membership
