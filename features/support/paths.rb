@@ -43,6 +43,9 @@ module NavigationHelpers
       
     when /the pending members page/
       pending_membership_requests_group_path(@group)
+      
+    when /the invite member page/
+      create_invite_group_path(@group)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:
