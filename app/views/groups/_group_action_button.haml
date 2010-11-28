@@ -1,6 +1,6 @@
 - if current_user
-  %a{:id => "groupInvite", :class => "groupActionButton", :href => "#"}
+  %a{:id => "groupInvite", :class => "groupActionButton", :href => "/#{@group.permalink}/invite"}
     Invite Someone To Join This Group
 - else
-  %a{:id => "groupRequest", :class => "groupActionButton", :href => "#"}
+  %a{:id => "groupRequest", :class => "groupActionButton", :href => "/#{@group.permalink}/join"}
     Request To Join This Group
