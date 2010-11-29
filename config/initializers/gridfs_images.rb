@@ -1,11 +1,11 @@
 class ServeGridfsImage
   
   def initialize(app)
-      @app = app
+    @app = app
   end
 
   def call(env)
-    if env["PATH_INFO"] =~ /^\/images\/(.+)$/
+    if env["PATH_INFO"] =~ /^\/GridFS\/(.+)$/
       process_request(env, $1)
     else
       @app.call(env)
