@@ -44,6 +44,11 @@ class Ability
       can :create_invite, Group
       can :send_invite, Group
       
+      can :index, Project
+      can :new, Project
+      can :create, Project
+      can :show, Project
+      
       # TEMP FOR HOMEPAGE
       can :request_group, Group
     end

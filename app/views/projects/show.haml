@@ -1,0 +1,27 @@
+= title @project.display_name
+
+%div#groupTop.group
+  %h2.left
+    = @project.display_name
+
+
+%ul
+  %li
+    %strong
+      Group:
+    = @group.display_name
+    
+  %li
+    %strong
+      Location:
+    = @project.location
+    
+  %li
+    %strong
+      Date:
+    = @project.start_date
+    thru
+    = @project.end_date
+
+%p
+  = @project.description

@@ -32,6 +32,8 @@ SayWhat::Application.routes.draw do
   
   resources :groups do
     
+    resources :projects
+    
     collection do
       get :request_group
       get :pending_request
@@ -60,6 +62,10 @@ SayWhat::Application.routes.draw do
   match "/:permalink/invite" => "groups#create_invite"
   match "/:permalink/request_submitted" => "groups#membership_request_submitted"
   match "/:permalink/pending_memberships" => "groups#pending_membership_requests"
+  
+  match "/:permalink/projects" => "projects#index"
+  match "/:permalink/projects/new" => "projects#new"
+  match "/:permalink/projects/:name" => "projects#show"
 
   root :to => "groups#request_group"
 end

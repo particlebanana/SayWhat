@@ -1,0 +1,11 @@
+= title "Projects"
+
+%div#groupTop.group
+  %h2.left
+    Projects
+
+= link_to "new project", "/#{@group.permalink}/projects/new"
+%ul    
+  - @projects.each do |project|
+    %li
+      = link_to project.display_name, "/#{@group.permalink}/projects/#{project.name}"

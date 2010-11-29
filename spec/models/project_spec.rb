@@ -5,8 +5,8 @@ describe Project do
   describe "validations" do
     
     describe "of required fields" do     
-      it "should fail if name is blank" do
-        @project = Factory.build(:project, :name => nil)
+      it "should fail if display name is blank" do
+        @project = Factory.build(:project, :display_name => nil)
         @project.should_not be_valid
       end
       
@@ -24,6 +24,12 @@ describe Project do
         @project = Factory.build(:project, :description => nil)
         @project.should_not be_valid
       end     
+      
+      it "should automatically generate name field" do
+        @project = Factory.build(:project)
+        @project.valid?.should == true
+        @project.name.should == "build+death+star"
+      end
     end
     
   end
