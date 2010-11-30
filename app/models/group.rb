@@ -12,7 +12,7 @@ class Group
   field :dshs_region, :default => 'pending'
   field :area, :default => 'pending'
   references_many :users, :dependent => :delete
-  references_many :projects, :dependent => :delete
+  embeds_many :projects
   
   attr_accessible :display_name, :city, :organization, :description, :esc_region, :dshs_region, :area
 

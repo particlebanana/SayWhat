@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ProjectsController do
   before do
-    @group = Factory.create(:setup_group)
+    @group = Factory.create(:group)
     @user = Factory.build(:user)
     set_status_and_role("active", "member")
     @group.users << @user
@@ -25,10 +25,10 @@ describe ProjectsController do
         }
       }
   
-      lambda {
-        post :create, project
-        response.should be_redirect
-      }.should change(Project, :count)
+      post :create, project
+      response.should be_redirect
+      group = Group.find(@group.id)
+      group.projects.count.should == 1
     end
     
   end

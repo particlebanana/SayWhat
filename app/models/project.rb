@@ -6,7 +6,7 @@ class Project
   field :start_date, :type => Date
   field :end_date, :type => Date
   field :description
-  references_one :group
+  embedded_in :group, :inverse_of => :projects
   
   attr_accessible :display_name, :location, :start_date, :end_date, :description
 
