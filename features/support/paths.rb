@@ -15,10 +15,10 @@ module NavigationHelpers
       '/users/sign_in'
         
     when /request new group page/
-      request_group_groups_path
+      "/groups/new"
       
     when /the pending groups page/
-      pending_groups_groups_path
+      '/groups/pending_groups'
       
     when /\/setup\?auth_token=/
       '/setup'
@@ -30,7 +30,7 @@ module NavigationHelpers
       '/setup/permalink'
       
     when /my group page/
-      group_path(@group)
+      "/groups/#{@group.permalink}"
       
     when /my profile settings page/
       '/settings/profile'
@@ -39,13 +39,13 @@ module NavigationHelpers
       '/settings/password'
       
     when /the request group membership page/
-      request_membership_group_path(@group)
+      "/groups/#{@group.permalink}/join"
       
     when /the pending members page/
-      pending_membership_requests_group_path(@group)
+      "/groups/#{@group.permalink}/pending_memberships"
       
     when /the invite member page/
-      create_invite_group_path(@group)
+      "/groups/#{@group.permalink}/invite"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

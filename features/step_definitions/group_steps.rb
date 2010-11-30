@@ -13,11 +13,11 @@ end
 
 Given /^I follow the group setup link that was emailed to me$/ do
   create_setup_group("Rebel Alliance")
-  visit setup_group_path(:id => @group.id, :auth_token => @user.authentication_token)
+  visit "/groups/#{@group.id}/setup?auth_token=#{@user.authentication_token}"
 end
 
 When /^I am in the permalink setup stage$/ do
-  visit setup_permalink_group_path(:id => @group.id)
+  visit "/groups/#{@group.id}/setup_permalink"
 end
 
 Then /^I should have a valid permalink$/ do

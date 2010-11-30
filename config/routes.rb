@@ -33,7 +33,7 @@ SayWhat::Application.routes.draw do
   # Groups
   match "/groups" => "groups#index", :via => "get"
   match "/groups" => "groups#create", :via => "post"
-  match "/groups/new" => "groups#new", :via => "get"
+  match "/groups/new" => "groups#request_group", :via => "get"
   
   match "/groups/pending" => "groups#pending_request", :via => "get"
   match "/groups/pending_groups" => "groups#pending_groups", :via => "get"
