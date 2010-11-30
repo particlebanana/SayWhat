@@ -23,7 +23,6 @@ class Group
   validates_length_of :permalink, :minimum => 4, :maximum => 20, :allow_nil => true
   
   before_validation :downcase_name
-  #before_validation :escape_permalink
   
   before_save :downcase_area
   

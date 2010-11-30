@@ -1,7 +1,9 @@
-%ul#sponsorActions.group
+%ul#actions.group
+  %li
+    = link_to "projects", "/#{@group.permalink}/projects"
   %li
     = link_to "admin", edit_group_path(@group)
-  - if @group.users.pending
+  - if @group.users.pending.count > 1
     %li
       = link_to "pending members", "/#{@group.permalink}/pending_memberships"
     

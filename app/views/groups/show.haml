@@ -6,6 +6,8 @@
   
   - if current_user && current_user.role == "adult sponsor"
     = render :partial => "sponsor_actions"
+  - elsif current_user && current_user.role == "member"
+    = render :partial => "member_actions"
     
 %div#groupSidebar.left
   

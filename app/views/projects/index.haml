@@ -5,7 +5,7 @@
     Projects
 
 = link_to "new project", "/#{@group.permalink}/projects/new"
-%ul    
+%ul#projectsList    
   - @projects.each do |project|
     %li
       = link_to project.display_name, "/#{@group.permalink}/projects/#{project.name}"
