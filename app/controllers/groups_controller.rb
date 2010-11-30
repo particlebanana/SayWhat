@@ -109,7 +109,7 @@ class GroupsController < ApplicationController
     @user = @group.users.first 
     set_approved_attributes
       
-    if @group.update_attributes!(params[:group]) & @user.save
+    if @group.update_attributes(params[:group]) & @user.save
       GroupMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
       redirect_to "/groups/pending_groups"
     else
@@ -143,10 +143,12 @@ class GroupsController < ApplicationController
     @group = Group.find(:first, :conditions => {:id => current_user.group_id})
     @group.permalink = CGI.escape(params[:group][:permalink].downcase)
     @user = current_user
-    @user.status = "active"
-    if @group.save & @user.save
-      GroupMailer.send_completed_setup_notice(@user, @group, request.env["HTTP_HOST"]).deliver
-      redirect_to "/groups/" + @group.permalink
+    if @group.save
+      @user.status = "active"
+      if @user.save
+        GroupMailer.send_completed_setup_notice(@user, @group, request.env["HTTP_HOST"]).deliver
+        redirect_to "/groups/" + @group.permalink
+      end
     else
       render :action => 'setup_permalink'
     end

@@ -19,12 +19,20 @@ class UsersController < ApplicationController
   
   # PUT - Setup Phase - Update Sponsor Password
   def create_sponsor
-    @user.reset_authentication_token
-    @user.update_with_password(params[:user])
-    if @user.save!
-      redirect_to "/setup/permalink"
+    if params[:user][:password] != "" && params[:user][:password_confirmation] != ""
+      if params[:user][:password] == params[:user][:password_confirmation]
+        @user.reset_authentication_token
+        @user.update_with_password(params[:user])
+        if @user.save!
+          redirect_to "/setup/permalink"
+        else
+          redirect_to "/setup/sponsor", :notice => "You Must Set A Password"
+        end
+      else
+        redirect_to "/setup/sponsor", :notice => "You Must Set A Password"
+      end
     else
-      render :action => 'setup_password'
+      redirect_to "/setup/sponsor", :notice => "You Must Set A Password"
     end
   end
   
@@ -99,11 +107,19 @@ class UsersController < ApplicationController
   
   # PUT - Setup Phase - Update Member Password
   def create_member
-    @user.reset_authentication_token
-    @user.update_with_password(params[:user])
-    @user.status = "active"
-    if @user.save
-      redirect_to "/groups/#{@user.group.permalink}"
+    if params[:user][:password] != "" && params[:user][:password_confirmation] != ""
+      if params[:user][:password] == params[:user][:password_confirmation]
+        @user.reset_authentication_token
+        @user.update_with_password(params[:user])
+        @user.status = "active"
+        if @user.save
+          redirect_to "/groups/#{@user.group.permalink}"
+        else
+          render :action => 'setup_member'
+        end
+      else
+        render :action => 'setup_member'
+      end
     else
       render :action => 'setup_member'
     end
