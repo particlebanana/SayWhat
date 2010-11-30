@@ -85,9 +85,9 @@ class UsersController < ApplicationController
     @user.role = "member"
     if @user.save
       UserMailer.send_approved_notice(@user, @user.group, request.env["HTTP_HOST"]).deliver
-      redirect_to "/#{@user.group.permalink}/pending_memberships"
+      redirect_to "/groups/#{@user.group.permalink}/pending_memberships"
     else
-      redirect_to "/#{@user.group.permalink}/pending_memberships", :notice => "There was an error approving user"
+      redirect_to "/groups/#{@user.group.permalink}/pending_memberships", :notice => "There was an error approving user"
     end
   end
   
@@ -103,7 +103,7 @@ class UsersController < ApplicationController
     @user.update_with_password(params[:user])
     @user.status = "active"
     if @user.save
-      redirect_to "/#{@user.group.permalink}"
+      redirect_to "/groups/#{@user.group.permalink}"
     else
       render :action => 'setup_member'
     end

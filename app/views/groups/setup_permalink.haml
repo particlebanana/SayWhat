@@ -5,7 +5,7 @@
   %p
     Choose a URL for your group's homepage. It must be unique and can't be changed.
     
-  = form_for @group, :url => set_permalink_group_path(@group), :method => :put do |f|
+  = form_for @group, :url => "/groups/#{@group.id}/set_permalink", :method => :put do |f|
     
     = errors_for(@group, "Opps, there were some problems setting your group's URL").html_safe
     

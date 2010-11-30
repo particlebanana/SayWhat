@@ -5,7 +5,7 @@
   %h2.pageTitle
     Request To Join Group
     
-  = form_for @user, :url => create_membership_request_group_url(@group) do |u|
+  = form_for @user, :url => "/groups/#{@group.permalink}/create_membership_request", :method => "post" do |u|
       
     = errors_for(@user, "Opps, there were some problems with your information").html_safe
         

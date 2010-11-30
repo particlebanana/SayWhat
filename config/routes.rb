@@ -30,42 +30,44 @@ SayWhat::Application.routes.draw do
     
   end
   
-  resources :groups do
-    
-    resources :projects
-    
-    collection do
-      get :request_group
-      get :pending_request
-      get :pending_groups
-      get :membership_request_submitted
-    end
-    
-    member do
-      get :pending_group
-      put :approve_group
-      get :setup
-      get :setup_permalink
-      put :set_permalink
-      get :request_membership
-      post :create_membership_request
-      get :pending_membership_requests
-      get :create_invite
-      post :send_invite
-    end
-    
-  end
+  # Groups
+  match "/groups" => "groups#index", :via => "get"
+  match "/groups" => "groups#create", :via => "post"
+  match "/groups/new" => "groups#new", :via => "get"
   
-  # Keep Group permalink routes at the bottom so other routes can override it
-  match "/:permalink" => "groups#show"
-  match "/:permalink/join" => "groups#request_membership"
-  match "/:permalink/invite" => "groups#create_invite"
-  match "/:permalink/request_submitted" => "groups#membership_request_submitted"
-  match "/:permalink/pending_memberships" => "groups#pending_membership_requests"
+  match "/groups/pending" => "groups#pending_request", :via => "get"
+  match "/groups/pending_groups" => "groups#pending_groups", :via => "get"
   
-  match "/:permalink/projects" => "projects#index"
-  match "/:permalink/projects/new" => "projects#new"
-  match "/:permalink/projects/:name" => "projects#show"
+  match "/groups/:permalink/edit" => "groups#edit", :via => "get"
+  match "/groups/:permalink" => "groups#show", :via => "get"
+  match "/groups/:permalink" => "groups#update", :via => "put"
+  match "/groups/:permalink" => "groups#destroy", :via => "delete"
+  
+  # Groups - Create/Setup a group
+  match "/groups/:group_id/pending_group" => "groups#pending_group", :via => "get"
+  match "/groups/:group_id/approve_group" => "groups#approve_group", :via => "put"
+  match "/groups/:group_id/setup" => "groups#setup", :via => "get"
+  match "/groups/:group_id/setup_permalink" => "groups#setup_permalink", :via => "get"
+  match "/groups/:group_id/set_permalink" => "groups#set_permalink", :via => "put"
+
+  # Groups - Member requests
+  match "/groups/:permalink/join" => "groups#request_membership", :via => "get"
+  match "/groups/:permalink/create_membership_request" => "groups#create_membership_request", :via => "post"
+  match "/groups/:permalink/invite" => "groups#create_invite", :via => "get"
+  match "/groups/:permalink/send_invite" => "groups#send_invite", :via => "post"
+  match "/groups/:permalink/request_submitted" => "groups#membership_request_submitted", :via => "get"
+  match "/groups/:permalink/pending_memberships" => "groups#pending_membership_requests", :via => "get"            
+
+
+  # Projects - CRUD
+  match "/groups/:permalink/projects" => "projects#index", :via => "get"
+  match "/groups/:permalink/projects" => "projects#create", :via => "post"
+  match "/groups/:permalink/projects/new" => "projects#new", :via => "get"
+  match "/groups/:permalink/projects/:name/edit" => "projects#edit", :via => "get"
+  match "/groups/:permalink/projects/:name" => "projects#show", :via => "get"
+  match "/groups/:permalink/projects/:name" => "projects#update", :via => "put"
+  match "/groups/:permalink/projects/:name" => "projects#destroy", :via => "delete"
+  
 
   root :to => "groups#request_group"
 end

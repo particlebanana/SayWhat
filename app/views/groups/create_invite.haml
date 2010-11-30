@@ -5,7 +5,7 @@
   %h2.pageTitle
     Invite a friend to join
     
-  = form_for @user, :url => send_invite_group_url(@group) do |u|
+  = form_for @user, :url => "/groups/#{@group.permalink}/send_invite" do |u|
       
     = errors_for(@user, "Opps, there were some problems with your invite").html_safe
           

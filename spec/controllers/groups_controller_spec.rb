@@ -46,26 +46,26 @@ describe GroupsController do
     end
     
     it "should change a group's status to active" do
-      put :approve_group, {:id => @group.id.to_s}
+      put :approve_group, {:group_id => @group.id.to_s}
       @group = Group.find(@group.id.to_s)
       @group.status.should == "active"
       
     end
     
     it "should set the first user's role to adult sponsor" do
-      put :approve_group, {:id => @group.id.to_s}
+      put :approve_group, {:group_id => @group.id.to_s}
       @group = Group.find(@group.id.to_s)
       @group.users.first.role.should == "adult sponsor"
     end
     
     it "should set the adult sponsor's status to setup" do
-      put :approve_group, {:id => @group.id.to_s}
+      put :approve_group, {:group_id => @group.id.to_s}
       @group = Group.find(@group.id.to_s)
       @group.users.first.status.should == "setup"
     end
     
     it "should send the adult sponsor an email alert that their group has been approved" do
-      put :approve_group, {:id => @group.id.to_s}
+      put :approve_group, {:group_id => @group.id.to_s}
       ActionMailer::Base.deliveries.last.to.should == [@group.users.first.email]
     end
     
@@ -102,28 +102,28 @@ describe GroupsController do
         
     it "should set a group's permalink" do
       sign_in @user
-      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
+      put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "test"}}
       @group = Group.find(@group.id.to_s)
       @group.permalink.should == "test"
     end
     
     it "should escape a group's permalink" do
       sign_in @user
-      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "this is a test"}}
+      put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "this is a test"}}
       @group = Group.find(@group.id.to_s)
       @group.permalink.should == "this+is+a+test"
     end
     
     it "should set a user's status to active" do
       sign_in @user
-      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
+      put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "test"}}
       @user = User.find(@user.id.to_s)
       @user.status.should == "active"
     end
     
     it "should send the adult sponsor an email notice with the group's permalink" do
       sign_in @user
-      put :set_permalink, {:id => @group.id.to_s, :group => {:permalink => "test"}}
+      put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "test"}}
       @group = Group.find(@group.id.to_s)
       ActionMailer::Base.deliveries.last.to.should == [@group.users.first.email]
     end
@@ -140,7 +140,7 @@ describe GroupsController do
     
     it "should update a group with new values" do
       sign_in @user
-      put :update, {:id => @group.id.to_s, :group => {:display_name => "Rebel Alliance"}}
+      put :update, {:permalink => @group.permalink, :group => {:display_name => "Rebel Alliance"}}
       @group = Group.find(@group.id.to_s)
       @group.display_name.should == "Rebel Alliance"
       @group.name.should == "rebel alliance"
@@ -159,7 +159,7 @@ describe GroupsController do
     end
     
     it "should allow a user to request to join a group" do
-      put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+      put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
       @user = @group.users.last
       @user.email.should == "bobba.fett@gmail.com"
       @user.status.should == "pending"
@@ -171,18 +171,18 @@ describe GroupsController do
       @group.users << user
       @group.save
       
-      put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+      put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
       response.should render_template('groups/request_membership')
     end
     
     it "should send the user a success email notice" do
-      put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+      put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
       emails = ActionMailer::Base.deliveries
       emails.include?(["bobba.fett@gmail.com"])
     end
     
     it "should send group sponsor an membership notification" do
-      put :create_membership_request, {:id => @group.id.to_s, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+      put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
       ActionMailer::Base.deliveries.last.to.should == [@group.users.adult_sponsor.first.email]
     end
     
@@ -200,7 +200,7 @@ describe GroupsController do
     
     it "should allow a group member to invite someone by email" do
       sign_in @user
-      post :send_invite, {:id => @group.id.to_s, :user => {:email => "bobba.fett@gmail.com"}}
+      post :send_invite, {:permalink => @group.permalink, :user => {:email => "bobba.fett@gmail.com"}}
       ActionMailer::Base.deliveries.last.to.should == ["bobba.fett@gmail.com"]
     end
     

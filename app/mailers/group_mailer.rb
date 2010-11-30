@@ -32,7 +32,7 @@ class GroupMailer < ActionMailer::Base
   def send_completed_setup_notice(user, group, url)
     @user = user
     @group = group
-    @url = "http://" + url + "/" + group.permalink
+    @url = "http://" + url + "/groups/" + group.permalink
     mail(:to => user.email,
          :subject => "Your group has been successfully setup on SayWhat!")
   end
@@ -41,7 +41,7 @@ class GroupMailer < ActionMailer::Base
   def send_invite(user, group, url)
     @user = user
     @group = group
-    @url = "http://" + url + "/" + group.permalink + "/join"
+    @url = "http://" + url + "/groups/" + group.permalink + "/join"
     mail(:to => user.email,
          :subject => "You have been invited to join #{group.display_name} on SayWhat!")
   end

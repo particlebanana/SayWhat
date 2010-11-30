@@ -1,10 +1,10 @@
 %ul#actions.group
   %li
-    = link_to "projects", "/#{@group.permalink}/projects"
+    = link_to "projects", "/groups/#{@group.permalink}/projects"
   %li
-    = link_to "admin", edit_group_path(@group)
-  - if @group.users.pending.count > 1
+    = link_to "admin", "/groups/#{@group.permalink}/edit"
+  - if @group.users.pending.count > 0
     %li
-      = link_to "pending members", "/#{@group.permalink}/pending_memberships"
+      = link_to "pending members", "/groups/#{@group.permalink}/pending_memberships"
     
   

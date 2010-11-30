@@ -15,7 +15,7 @@ describe ProjectsController do
       sign_in @user
       
       project = {
-        :group_id => @group.id,
+        :permalink => @group.permalink,
         :project => {
           :display_name =>  "Build Death Star",
           :location => "Outer Space",

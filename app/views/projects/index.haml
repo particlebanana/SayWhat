@@ -4,8 +4,8 @@
   %h2.left
     Projects
 
-= link_to "new project", "/#{@group.permalink}/projects/new"
+= link_to "new project", "/groups/#{@group.permalink}/projects/new"
 %ul#projectsList    
   - @projects.each do |project|
     %li
-      = link_to project.display_name, "/#{@group.permalink}/projects/#{project.name}"
+      = link_to project.display_name, "/groups/#{@group.permalink}/projects/#{project.name}"

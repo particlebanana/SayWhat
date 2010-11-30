@@ -5,7 +5,7 @@
   %h2.pageTitle
     Create a new project
     
-  = form_for [@group, @project] do |f|
+  = form_for [@group, @project], :url => "/groups/#{@group.permalink}/projects" do |f|
   
     = errors_for(@project, "Opps, there were some problems creating your project").html_safe
         

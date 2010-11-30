@@ -2,8 +2,8 @@ class ProjectsController < ApplicationController
   layout "main"
   
   before_filter :authenticate_user!
-  before_filter :set_group_by_permalink, :only => [:index, :new, :show]
-  before_filter :set_group_by_id, :only => [:create]
+  before_filter :set_group_by_permalink#, :only => [:index, :new, :show]
+  #before_filter :set_group_by_id, :only => [:create]
   
   load_and_authorize_resource
   
@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(params[:project])
     @group.projects << @project
     if @project.save && @group.save
-      redirect_to "/#{@group.permalink}/projects/#{@project.name}"
+      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}"
     else
       render :action => 'new'
     end

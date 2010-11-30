@@ -3,7 +3,7 @@
 %h2
   Edit Your Group
   
-= form_for @group do |f|
+= form_for @group, :url => "/groups/#{@group.permalink}", :method => "put" do |f|
   
   = errors_for(@group, "Opps, there were some problems with your group information").html_safe
 

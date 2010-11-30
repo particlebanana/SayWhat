@@ -79,7 +79,7 @@ describe GroupMailer do
     end
     
     it "should display the group's permalink" do
-      mail.body.encoded.should include_text("http://localhost:3000/#{group.permalink}")
+      mail.body.encoded.should include_text("http://localhost:3000/groups/#{group.permalink}")
     end
   end
   

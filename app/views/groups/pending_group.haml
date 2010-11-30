@@ -12,7 +12,7 @@
       Sponsor Email:
       = @user.email   
           
-  = form_for @group, :url => approve_group_group_path(@group), :method => :put do |f|
+  = form_for @group, :url => "/groups/#{@group.id}/approve_group", :method => :put do |f|
   
     = errors_for(@group, "Opps, there were some problems with your group information").html_safe
     

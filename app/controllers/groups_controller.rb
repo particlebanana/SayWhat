@@ -2,9 +2,11 @@ class GroupsController < ApplicationController
   layout "main"
   
   before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request, :show, :request_membership, :create_membership_request, :membership_request_submitted]
-  before_filter :set_group, :only => [:pending_group, :create_membership_request, :send_invite]
-  before_filter :find_by_permalink, :only => [:show, :request_membership, :pending_membership_requests, :create_invite]
   
+  #before_filter :set_group, :only => [:pending_group, :create_membership_request, :send_invite]
+  before_filter :find_by_permalink, :except => [:request_group, :create, :pending_request, :pending_groups, :setup, :setup_permalink, :set_permalink]#, :only => [:show, :request_membership, :pending_membership_requests, :create_invite]
+  before_filter :set_group, :only => [:pending_group, :approve_group]
+    
   load_and_authorize_resource
   
   respond_to :html
@@ -22,7 +24,7 @@ class GroupsController < ApplicationController
   # PUT - Update Group
   def update
     if @group.update_attributes(params[:group])
-      redirect_to "/" + @group.permalink
+      redirect_to "/groups/" + @group.permalink
     else
       render :action => "edit"
     end
@@ -67,7 +69,7 @@ class GroupsController < ApplicationController
         GroupMailer.admin_pending_group_request(admin, @group, @user).deliver
       end
       
-      redirect_to pending_request_groups_url
+      redirect_to "/groups/pending"
     else
       render :action => 'request_group'
     end
@@ -109,7 +111,7 @@ class GroupsController < ApplicationController
       
     if @group.update_attributes!(params[:group]) & @user.save
       GroupMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
-      redirect_to pending_groups_groups_path
+      redirect_to "/groups/pending_groups"
     else
       render :action => 'pending_group'
     end
@@ -144,7 +146,7 @@ class GroupsController < ApplicationController
     @user.status = "active"
     if @group.save & @user.save
       GroupMailer.send_completed_setup_notice(@user, @group, request.env["HTTP_HOST"]).deliver
-      redirect_to "/" + @group.permalink
+      redirect_to "/groups/" + @group.permalink
     else
       render :action => 'setup_permalink'
     end
@@ -169,7 +171,7 @@ class GroupsController < ApplicationController
   def send_invite
     @user = User.new(params[:user])
     GroupMailer.send_invite(@user, @group, request.env["HTTP_HOST"]).deliver
-    redirect_to "/#{@group.permalink}"
+    redirect_to "/groups/#{@group.permalink}"
   end
   
   # GET - Request Membership
@@ -193,7 +195,7 @@ class GroupsController < ApplicationController
       adult_sponsor = @group.users.adult_sponsor.first
       UserMailer.sponsor_pending_membership_request(adult_sponsor, @group, @user).deliver
       
-      redirect_to "/#{@group.permalink}/request_submitted"
+      redirect_to "/groups/#{@group.permalink}/request_submitted"
     else
       render :action => 'request_membership'
     end
@@ -207,7 +209,7 @@ class GroupsController < ApplicationController
   private 
   
     def set_group
-      @group = Group.find(params[:id])
+      @group = Group.find(params[:group_id])
     end
     
     def find_by_permalink
