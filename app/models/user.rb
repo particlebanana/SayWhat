@@ -61,6 +61,10 @@ class User
       role == "adult sponsor" ? true : false
     end
     
+    def youth_sponsor?
+      role == "youth sponsor" ? true : false
+    end
+    
     def name
       first_name + ' ' + last_name
     end

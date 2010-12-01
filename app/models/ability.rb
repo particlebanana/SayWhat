@@ -53,10 +53,16 @@ class Ability
       can :request_group, Group
     end
     
-    # Adult Sponsor
+    # Sponsor
     if user && user.adult_sponsor?
       can :pending_membership_requests, Group
       can :approve_pending_membership, User
+      can :edit, Project
+      can :update, Project
+    
+    elsif user && user.youth_sponsor?
+      can :edit, Project
+      can :update, Project
     end
       
   end

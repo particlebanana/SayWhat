@@ -25,7 +25,10 @@ describe Project do
         @project.should_not be_valid
       end     
       
-      it "should automatically generate name field" do
+    end
+    
+    describe "of system generated fields" do
+      it "should automatically create name field based on display name input" do
         @project = Factory.build(:project)
         @project.valid?.should == true
         @project.name.should == "build+death+star"

@@ -1,0 +1,32 @@
+= title "Edit Project"
+
+%h2
+  Edit 
+  = @project.display_name
+  
+= form_for @project, :url => "/groups/#{@group.permalink}/projects/#{@project.name}", :method => "put" do |f|
+  
+  = errors_for(@project, "Opps, there were some problems updating your project").html_safe
+        
+  %p.group
+    = f.label :name
+    = f.text_field :display_name
+    
+  %p.group
+    = f.label :location
+    = f.text_field :location
+    
+  %p.group
+    = f.label :start_date
+    = f.date_select :start_date
+    
+  %p.group
+    = f.label :end_date
+    = f.date_select :end_date
+    
+  %p.group
+    = f.label :description
+    = f.text_area :description
+    
+  %button.submit{:type => 'submit'}
+    Save Project
