@@ -54,3 +54,9 @@ def create_setup_user
   @user.save
   @group.save
 end
+
+def create_project(name)
+  @project = Factory.build(:project, :display_name => name)
+  @group.projects << @project
+  @project.save
+end

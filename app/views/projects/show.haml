@@ -4,7 +4,9 @@
   %h2.left
     = @project.display_name
 
-
+  - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
+    = render :partial => "sponsor_actions"
+    
 %ul
   %li
     %strong
