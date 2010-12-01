@@ -37,6 +37,18 @@ describe ProjectsController do
     
   end
   
+  describe "index" do
+    before do
+      sign_in @user
+    end
+    
+    it 'returns all a groups projects' do
+      get :index, :permalink => @group.permalink
+      assigns[:projects].should == @group.projects
+    end
+
+  end
+  
   describe "edit" do
     before do
       @project = Factory.build(:project)
