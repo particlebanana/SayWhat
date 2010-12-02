@@ -15,6 +15,16 @@ Given /^I am logged in as "([^"]*)"$/ do |email|
   And %{I press "Sign in"}
 end
 
+Given /^there is a "([^"]*)" with the email "([^"]*)"$/ do |role, email|
+  @user = Factory.build(:user, :email => email, :first_name => "Luke", :last_name => "Skywalker")
+  @user.status = 'active'
+  @user.role = role
+  @group.users << @user
+  @user.save!
+  @group.save!
+end
+
+
 # Ensure NOT Logged In
 Given /^I am not logged in$/ do
   visit('/users/sign_out') # ensure that at least

@@ -35,7 +35,7 @@
     Group Sponsors
     
   %ul
-    %li.group
+    %li#adultSponsor.group
       = image_tag(@adult_sponsor.avatar_url(:thumb))
       %div.group
         %strong
@@ -46,7 +46,7 @@
         %em
           Adult Sponsor
     
-    %li.group
+    %li#youthSponsor.group
       - if @youth_sponsor
         = image_tag(@youth_sponsor.avatar_url(:thumb))
         %div.group

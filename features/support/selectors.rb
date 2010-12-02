@@ -22,6 +22,9 @@ module HtmlSelectorsHelper
       
     when /the pending members list/
       "ul#pendingMembers"
+      
+    when /the youth sponsor/
+      "li#youthSponsor"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +
