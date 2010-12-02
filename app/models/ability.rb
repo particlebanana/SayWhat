@@ -39,8 +39,6 @@ class Ability
       can :update_password, User
       
       can :show, Group
-      can :edit, Group
-      can :update, Group
       can :create_invite, Group
       can :send_invite, Group
       
@@ -55,12 +53,19 @@ class Ability
     
     # Sponsor
     if user && user.adult_sponsor?
+      can :edit, Group
+      can :update, Group
       can :pending_membership_requests, Group
       can :approve_pending_membership, User
+      can :choose_youth_sponsor, User
+      can :assign_youth_sponsor, User
+      can :revoke_youth_sponsor, User
       can :edit, Project
       can :update, Project
     
     elsif user && user.youth_sponsor?
+      can :edit, Group
+      can :update, Group
       can :edit, Project
       can :update, Project
     end

@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   layout "main"
   
-  
   before_filter :authenticate_user!
   load_and_authorize_resource
   
@@ -75,6 +74,45 @@ class UsersController < ApplicationController
       redirect_to "/settings/password", :notice => "Password has been updated"
     else
       render :action => "edit_password"
+    end
+  end
+  
+  
+  ###############################################
+  # Assign A Student Sponsor
+  ###############################################
+  
+  #
+  # Allow a group adult sponsor to assign a student sponsor to help manage the group.
+  # Has similar but not identical permissions to the adult sponsor.
+  #
+  
+  # GET - Choose a youth sponsor from group members
+  def choose_youth_sponsor
+    @user = current_user
+    @members = @user.group.users.active.members
+    respond_with(@members)
+  end
+  
+  # GET - Assigns a group member the role of student sponsor
+  def assign_youth_sponsor
+    @user = User.find(params[:user_id])
+    @user.role = "youth sponsor"
+    if @user.save
+      redirect_to "/groups/#{@user.group.permalink}/edit"
+    else
+      redirect_to "/groups/#{@user.group.permalink}/edit", :notice => "Error assigning youth sponsor"
+    end
+  end
+  
+  # GET - Remove a group member from the role of student sponsor
+  def revoke_youth_sponsor
+    @user = User.find(params[:user_id])
+    @user.role = "member"
+    if @user.save
+      redirect_to "/groups/#{@user.group.permalink}/edit"
+    else
+      redirect_to "/groups/#{@user.group.permalink}/edit", :notice => "Error removing youth sponsor"
     end
   end
   

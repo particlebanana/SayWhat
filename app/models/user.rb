@@ -22,12 +22,16 @@ class User
   before_create :reset_authentication_token
     
   scope :site_admins, :where => {:role => "admin"}
-  scope :adult_sponsor, :where => {:role => "adult sponsor" }
+  
   scope :setup, :where => {:status => "setup"}
   scope :active, :where => {:status => "active"}
   scope :pending, :where => {:status => "pending"}
   
-    
+  scope :adult_sponsor, :where => {:role => "adult sponsor" }
+  scope :youth_sponsor, :where => {:role => "youth sponsor" }
+  scope :members, :where => {:role => "member"}
+  
+  
   protected
   
     def downcase_attributes
