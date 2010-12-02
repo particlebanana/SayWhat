@@ -1,5 +1,6 @@
 class Project
   include Mongoid::Document
+  include Mongoid::Timestamps
   field :name
   field :display_name
   field :location
@@ -7,6 +8,7 @@ class Project
   field :end_date, :type => Date
   field :description
   embedded_in :group, :inverse_of => :projects
+  embeds_many :comments
   
   attr_accessible :display_name, :location, :start_date, :end_date, :description
 

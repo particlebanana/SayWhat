@@ -69,3 +69,15 @@ def login_admin
   @admin = Factory.create(:admin)
   sign_in @admin
 end
+
+def build_project
+  @group = Factory.create(:group)
+  @user = Factory.build(:user)
+  set_status_and_role("active", "member")
+  @group.users << @user
+  @user.save
+  @project = Factory.build(:project)
+  @group.projects << @project
+  @project.save
+  @group.save
+end

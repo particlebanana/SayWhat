@@ -38,7 +38,7 @@ describe ProjectsController do
     
   end
   
-  describe "#{}index" do
+  describe "#index" do
     before do
       sign_in @user
     end

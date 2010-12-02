@@ -47,6 +47,9 @@ class Ability
       can :create, Project
       can :show, Project
       
+      can :new, Comment
+      can :create, Comment
+      
       # TEMP FOR HOMEPAGE
       can :request_group, Group
     end

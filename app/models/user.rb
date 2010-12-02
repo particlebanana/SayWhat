@@ -9,6 +9,7 @@ class User
   field :bio
   field :authentication_token
   referenced_in :group
+  references_many :comments
   mount_uploader :avatar, AvatarUploader
 
 
