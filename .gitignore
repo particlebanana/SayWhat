@@ -7,4 +7,4 @@ tmp/**/*
 config/database.yml
 *.log
 .sass-cache/
-uploads/tmp
+public/uploads/tmp
