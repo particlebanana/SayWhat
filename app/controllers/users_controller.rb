@@ -111,6 +111,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @user.role = "member"
     if @user.save
+      UserMailer.send_sponsor_revocation(@user, @user.group).deliver
       redirect_to "/groups/#{@user.group.permalink}/edit"
     else
       redirect_to "/groups/#{@user.group.permalink}/edit", :notice => "Error removing youth sponsor"

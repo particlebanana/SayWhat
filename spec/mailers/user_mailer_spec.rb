@@ -64,5 +64,19 @@ describe UserMailer do
       mail.body.encoded.should match(group.display_name)
     end  
   end
+  
+  describe "send sponsor revocation notification" do
+    let(:user) { Factory.create(:user, :role => "member", :status => "active") }
+    let(:group) { Factory.create(:group) }
+    let(:mail) { UserMailer.send_sponsor_revocation(user, group) }
+    
+    it "renders the reciever's email address" do
+      mail.to.should == [user.email]
+    end
+
+    it "should display the group's name in the email" do
+      mail.body.encoded.should match(group.display_name)
+    end  
+  end
 
 end

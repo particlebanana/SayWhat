@@ -13,3 +13,4 @@ Feature: Revoke a Youth Sponsor from a group
     And I should see "Luke Skywalker" within the youth sponsor
     And I follow "revoke"
     Then I should see "Assign a youth sponsor"
+    And The "member" should receive an email at "luke.skywalker@gmail.com" with the subject "You have been demoted from sponsor for the group Evil Empire on SayWhat!"

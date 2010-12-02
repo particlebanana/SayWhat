@@ -157,6 +157,12 @@ describe UsersController do
         response.should be_redirect
         @user.reload.role.should == "member"
       end
+      
+      it "should send the member an email notification" do
+        @user.update_attributes!(:email => "revoked@gmail.com", :role => "member")
+        put :revoke_youth_sponsor, :permalink => @group.permalink, :user_id => @user.id.to_s
+        ActionMailer::Base.deliveries.last.to.should == [@user.email]
+      end
     end
   end
 

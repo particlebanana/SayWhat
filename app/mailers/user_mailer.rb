@@ -36,4 +36,12 @@ class UserMailer < ActionMailer::Base
          :subject => "You have been promoted to a sponsor for the group #{group.display_name} on SayWhat!")
   end
   
+  # Sends an email notification of youth sponsorship revocation
+  def send_sponsor_revocation(user, group)
+    @user = user
+    @group = group
+    mail(:to => user.email,
+         :subject => "You have been demoted from sponsor for the group #{group.display_name} on SayWhat!")
+  end
+  
 end
