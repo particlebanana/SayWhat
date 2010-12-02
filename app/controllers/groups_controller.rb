@@ -2,9 +2,7 @@ class GroupsController < ApplicationController
   layout "main"
   
   before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request, :show, :request_membership, :create_membership_request, :membership_request_submitted]
-  
-  #before_filter :set_group, :only => [:pending_group, :create_membership_request, :send_invite]
-  before_filter :find_by_permalink, :except => [:request_group, :create, :pending_request, :pending_groups, :setup, :setup_permalink, :set_permalink]#, :only => [:show, :request_membership, :pending_membership_requests, :create_invite]
+  before_filter :find_by_permalink, :except => [:request_group, :create, :pending_request, :pending_groups, :setup, :setup_permalink, :set_permalink]
   before_filter :set_group, :only => [:pending_group, :approve_group]
     
   load_and_authorize_resource
@@ -18,6 +16,8 @@ class GroupsController < ApplicationController
   
   # GET - Edit Screen
   def edit
+    @adult_sponsor = @group.users.adult_sponsor.first
+    @youth_sponsor = @group.users.youth_sponsor.first
     respond_with(@group)
   end
   

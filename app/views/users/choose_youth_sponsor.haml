@@ -1,0 +1,16 @@
+= title "Youth Sponsor"
+
+%h2.sectionTitle
+  Choose a Youth Sponsor
+
+- if notice 
+  %p.notice
+    = notice
+    
+%ul
+  - @members.each do |member|
+    %li.group
+      = image_tag(member.avatar_url(:thumb))
+      = member.name
+      |
+      = link_to "assign", {:action => :assign_youth_sponsor, :permalink => @user.group.permalink, :user_id => member.id.to_s}, :method => :put

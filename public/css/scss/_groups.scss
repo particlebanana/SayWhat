@@ -69,3 +69,59 @@
   padding:0 0 0 30px;
   margin: 25px 0;
 }
+
+
+/* Group Edit */
+h2.sectionTitle {
+  margin: 0 0 15px 0;
+}
+
+#groupProperties {
+  width:60%;
+  margin-right:5%;
+}
+
+#sponsorProperties {
+  width: 35%;
+  
+  ul {
+        
+    li {
+      margin: 20px 0;
+      
+      img {
+        display: block;
+        float: left; 
+        margin: 4px 0 0 0;
+      }
+      
+      div {
+        float: left;
+        margin-left: 8px;
+        
+        strong {
+          font-size: 15px;
+          
+          em {
+            display: inline;
+            font-style: normal;
+            font-weight: normal;
+            color: #4e4e4e;
+          }
+          
+        }
+        
+        em {
+          display: block;
+          font-style: normal;
+          font-size: 13px;
+          color: #4e4e4e;
+        }
+        
+      }
+      
+    }
+    
+  }
+  
+}

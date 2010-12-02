@@ -14,11 +14,12 @@ describe ProjectsController do
     @user2.save
   end
   
-  describe "create" do
+  describe "#create" do
+    before do
+      sign_in @user
+    end
         
     it "should add a project to a group" do 
-      sign_in @user
-      
       project = {
         :permalink => @group.permalink,
         :project => {
@@ -37,7 +38,7 @@ describe ProjectsController do
     
   end
   
-  describe "index" do
+  describe "#{}index" do
     before do
       sign_in @user
     end
@@ -49,7 +50,7 @@ describe ProjectsController do
 
   end
   
-  describe "edit" do
+  describe "#edit" do
     before do
       @project = Factory.build(:project)
       @group.projects << @project
