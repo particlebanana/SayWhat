@@ -50,5 +50,19 @@ describe UserMailer do
     end
 
   end
+  
+  describe "send sponsor promotion notification" do
+    let(:user) { Factory.create(:youth_sponsor) }
+    let(:group) { Factory.create(:group) }
+    let(:mail) { UserMailer.send_sponsor_promotion(user, group) }
+    
+    it "renders the reciever's email address" do
+      mail.to.should == [user.email]
+    end
+
+    it "should display the group's name in the email" do
+      mail.body.encoded.should match(group.display_name)
+    end  
+  end
 
 end

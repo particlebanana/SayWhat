@@ -121,7 +121,7 @@ describe UsersController do
   describe "manage a group youth sponsor" do
     before do
       build_group_with_admin
-      @user = Factory.build(:user_input, :email => "billy.bob@gmail.com")
+      @user = Factory.build(:youth_sponsor)
       set_status_and_role("active", "member")
       @group.users << @user
       @user.save!
@@ -142,6 +142,11 @@ describe UsersController do
         put :assign_youth_sponsor, :permalink => @group.permalink, :user_id => @user.id.to_s
         response.should be_redirect
         @user.reload.role.should == "youth sponsor"
+      end
+      
+      it "should send the member an email notification" do
+        put :assign_youth_sponsor, :permalink => @group.permalink, :user_id => @user.id.to_s
+        ActionMailer::Base.deliveries.last.to.should == [@user.email]
       end
     end
     

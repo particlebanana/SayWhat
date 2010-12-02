@@ -26,6 +26,17 @@ Factory.define :adult_sponsor, :class => "user" do |u|
   u.role 'adult sponsor'
 end
 
+# Creates a youth sponsor
+Factory.define :youth_sponsor, :class => "user" do |u|
+  u.first_name 'Chewbaca'
+  u.last_name 'The Copilot'
+  u.email 'chewy@gmail.com'
+  u.password 'baaaaaaaaaaa' 
+  u.password_confirmation 'baaaaaaaaaaa' 
+  u.status 'active'
+  u.role 'youth sponsor'
+end
+
 # Creates a pending member
 Factory.define :pending_member, :class => "user" do |u|
   u.first_name 'Bobba'

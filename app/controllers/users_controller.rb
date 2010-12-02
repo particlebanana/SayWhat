@@ -99,6 +99,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:user_id])
     @user.role = "youth sponsor"
     if @user.save
+      UserMailer.send_sponsor_promotion(@user, @user.group).deliver
       redirect_to "/groups/#{@user.group.permalink}/edit"
     else
       redirect_to "/groups/#{@user.group.permalink}/edit", :notice => "Error assigning youth sponsor"
