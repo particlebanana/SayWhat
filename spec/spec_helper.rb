@@ -57,11 +57,16 @@ end
 
 def build_group_with_admin
   @group = Factory.build(:group)
-  @admin = Factory.build(:user)
+  @admin = Factory.build(:user, :email => "admin@gmail.com")
   @admin.status = "active"
   @admin.role = "adult sponsor"
   @group.users << @admin  
   @admin.save
+  @user = Factory.build(:user, :email => "member@gmail.com")
+  @user.status = "active"
+  @user.role = "member"
+  @group.users << @user
+  @user.save
   @group.save
 end
 
@@ -71,13 +76,16 @@ def login_admin
 end
 
 def build_project
-  @group = Factory.create(:group)
-  @user = Factory.build(:user)
-  set_status_and_role("active", "member")
-  @group.users << @user
-  @user.save
   @project = Factory.build(:project)
   @group.projects << @project
   @project.save
   @group.save
+end
+
+def add_comment
+  @comment = Factory.build(:comment)
+  @comment.user = @user
+  @project.comments << @comment
+  @comment.save!
+  @project.save!
 end

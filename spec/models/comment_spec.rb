@@ -1,20 +1,20 @@
 require 'spec_helper'
 
 describe Comment do
+  before(:each) do
+    build_group_with_admin
+    @project = Factory.build(:project)
+    @group.projects << @project
+    @project.save!
+    @group.save!
+  end
   
   describe "validations" do
-    before do
-      build_group_with_admin
-      @project = Factory.build(:project)
-      @group.projects << @project
-      @project.save!
-      @group.save!
-    end
     
     describe "of required fields" do 
       it "should allow a comment to be created" do
         @comment = Factory.build(:comment)
-        @comment.user = @admin
+        @comment.user = @user
         @project.comments << @comment
         @comment.should be_valid
       end
@@ -25,7 +25,6 @@ describe Comment do
         @project.comments << @comment
         @comment.should_not be_valid
       end
-      
     end
     
   end

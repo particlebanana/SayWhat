@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :set_group_by_permalink
-  before_filter :set_project, :only => [:create, :edit, :update]
+  before_filter :set_project
   
   load_and_authorize_resource
   
@@ -29,6 +29,13 @@ class CommentsController < ApplicationController
     else
       redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :alert => "Comment can't be blank"
     end
+  end
+  
+  # DELETE - Destroy a comment as a group sponsor
+  def destroy
+    @comment = @project.comments.find(params[:comment_id])
+    @comment.destroy
+    redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment has been removed"
   end
   
   private 

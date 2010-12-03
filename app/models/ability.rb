@@ -65,12 +65,14 @@ class Ability
       can :revoke_youth_sponsor, User
       can :edit, Project
       can :update, Project
+      can :destroy, Comment
     
     elsif user && user.youth_sponsor?
       can :edit, Group
       can :update, Group
       can :edit, Project
       can :update, Project
+      can :destroy, Comment
     end
       
   end

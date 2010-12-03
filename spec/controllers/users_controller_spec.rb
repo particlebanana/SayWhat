@@ -121,11 +121,6 @@ describe UsersController do
   describe "manage a group youth sponsor" do
     before do
       build_group_with_admin
-      @user = Factory.build(:youth_sponsor)
-      set_status_and_role("active", "member")
-      @group.users << @user
-      @user.save!
-      @group.save!
       sign_in @admin
     end
     
