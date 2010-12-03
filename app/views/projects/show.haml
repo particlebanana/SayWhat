@@ -38,16 +38,18 @@
       = notice
         
   - if @comments
-    %ul
+    %ul#comments
       - @comments.each do |comment|
         %li
           = image_tag(comment.user.avatar_url(:thumb))
           = comment.user.name
           %p
             = comment.comment
+            - if current_user.sponsor? && (current_user.group == @group)
+              = link_to "delete", {:controller => :comments, :action => :destroy, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}, :confirm => "Are you sure?", :method => :delete
   
   
-  = form_for [@group, @project, @comment], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/comments/create" do |f|
+  = form_for [@group, @project, @comment], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/comments" do |f|
     
     - if alert
       %p.alert

@@ -24,6 +24,12 @@ Given /^there is a "([^"]*)" with the email "([^"]*)"$/ do |role, email|
   @group.save!
 end
 
+Given /^I am a group sponsor$/ do
+  @user.role = "adult sponsor"
+  @user.save!
+end
+
+
 
 # Ensure NOT Logged In
 Given /^I am not logged in$/ do

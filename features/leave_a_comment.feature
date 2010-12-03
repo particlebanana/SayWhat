@@ -1,4 +1,4 @@
-@project
+@comment
 Feature: Leave a comment on a project
 
   Background: 
