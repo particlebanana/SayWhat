@@ -49,6 +49,9 @@ module NavigationHelpers
       
     when /my groups projects page/
       "/groups/#{@group.permalink}/projects"
+      
+    when /the project page/
+      "/groups/#{@group.permalink}/projects/#{@project.name}"
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

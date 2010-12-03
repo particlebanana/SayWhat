@@ -22,12 +22,12 @@ class CommentsController < ApplicationController
     if @comment.valid?
       @project.comments << @comment
       if @comment.save && @project.save
-        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}"
+        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment successfully posted"
       else
-        render :action => 'new'
+        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :alert => "Comment can't be blank"
       end
     else
-      render :action => 'new'
+      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :alert => "Comment can't be blank"
     end
   end
   

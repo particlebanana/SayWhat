@@ -27,3 +27,37 @@
 
 %p
   = @project.description
+  
+
+%div#comments
+  %h2.sectionTitle
+    Comments
+  
+  - if notice
+    %p.notice
+      = notice
+        
+  - if @comments
+    %ul
+      - @comments.each do |comment|
+        %li
+          = image_tag(comment.user.avatar_url(:thumb))
+          = comment.user.name
+          %p
+            = comment.comment
+  
+  
+  = form_for [@group, @project, @comment], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/comments/create" do |f|
+    
+    - if alert
+      %p.alert
+        = alert
+        
+    = errors_for(@comment, "Opps, there were some problems adding your comment").html_safe
+
+    %p.group
+      = f.label :comment
+      = f.text_area :comment
+
+    %button.submit{:type => 'submit'}
+      Leave Comment

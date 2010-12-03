@@ -17,6 +17,8 @@ class ProjectsController < ApplicationController
   
   # GET - Project Page
   def show
+    @comments = @project.comments
+    @comment = Comment.new
     respond_with(@project)
   end
   
