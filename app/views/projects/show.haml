@@ -45,6 +45,8 @@
           = comment.user.name
           %p
             = comment.comment
+            - if comment.user == current_user
+              = link_to "edit", {:controller => :comments, :action => :edit, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}
             - if current_user.sponsor? && (current_user.group == @group)
               = link_to "delete", {:controller => :comments, :action => :destroy, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}, :confirm => "Are you sure?", :method => :delete
   

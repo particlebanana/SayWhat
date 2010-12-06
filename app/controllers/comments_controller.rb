@@ -42,7 +42,7 @@ class CommentsController < ApplicationController
     @comment = @project.comments.find(params[:comment_id])
     if @comment.user == current_user
       if @comment.update_attributes(params[:comment]) 
-        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment updated"
+        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment has been updated"
       else
         render :action => 'edit'
       end

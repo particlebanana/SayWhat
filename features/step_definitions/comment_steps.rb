@@ -6,3 +6,4 @@ Given /^there is a comment on the project$/ do
   @comment.save!
   @project.save!
 end
+
