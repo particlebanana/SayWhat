@@ -3,6 +3,7 @@ Feature: Edit a group
 
   Background: 
     Given I am logged in as "han.solo@gmail.com"
+    And I am an "adult sponsor"
 
   Scenario: I want to edit my groups name
     Given I am on my group page

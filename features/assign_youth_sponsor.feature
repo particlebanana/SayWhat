@@ -3,6 +3,7 @@ Feature: Assign a Youth Sponsor to a group
 
   Background: 
     Given I am logged in as "han.solo@gmail.com"
+    And I am an "adult sponsor"
     And there is a "member" with the email "luke.skywalker@gmail.com"
     
   Scenario: I want to choose a current group member to be a group sponsor

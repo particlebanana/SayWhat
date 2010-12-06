@@ -37,7 +37,7 @@ def create_user(email)
   @group.status = 'active'
   @user = Factory.build(:user, :email => email)
   @user.status = 'active'
-  @user.role = 'adult sponsor'
+  @user.role = 'member'
   @group.users << @user
   @user.save
   @group.save

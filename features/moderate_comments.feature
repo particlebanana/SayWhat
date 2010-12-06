@@ -3,6 +3,7 @@ Feature: Moderate comments as a group sponsor
 
   Background: 
     Given I am logged in as "han.solo@gmail.com"
+    And I am an "adult sponsor"
     And there is a project named "Build The Death Star"
     And there is a comment on the project
 

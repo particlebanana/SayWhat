@@ -29,6 +29,10 @@ Given /^I am a group sponsor$/ do
   @user.save!
 end
 
+Given /^I am an "([^"]*)"$/ do |role|
+  @user.role = role
+  @user.save!
+end
 
 
 # Ensure NOT Logged In

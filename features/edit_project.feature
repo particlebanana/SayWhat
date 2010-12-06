@@ -3,6 +3,7 @@ Feature: Edit a project
 
   Background: 
     Given I am logged in as "han.solo@gmail.com"
+    And I am an "adult sponsor"
     And there is a project named "Build The Death Star"
 
   Scenario: I want to edit a project
