@@ -24,9 +24,31 @@
     = @project.start_date
     thru
     = @project.end_date
+    
+  %li
+    %strong
+      Focus of the Project:
+    = @project.focus
+    
+  %li
+    %strong
+      Target Audience for the Project:
+    = @project.audience
 
 %p
+  %strong
+    Goal of the Project:
+  = @project.goal
+      
+%p
+  %strong
+    Description:
   = @project.description
+
+%p
+  %strong
+    Involves:
+  = @project.involves
   
 
 %div#comments

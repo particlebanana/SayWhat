@@ -43,6 +43,7 @@ class ProjectsController < ApplicationController
   
   # GET - Edit Project
   def edit
+    @options = @project.filters
     respond_with(@project)
   end
   
@@ -51,6 +52,7 @@ class ProjectsController < ApplicationController
     if @project.update_attributes(params[:project])
       redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}" 
     else
+      @options = @project.filters
       render :action => "edit"
     end
   end
