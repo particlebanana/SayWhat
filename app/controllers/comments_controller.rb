@@ -31,6 +31,26 @@ class CommentsController < ApplicationController
     end
   end
   
+  # GET - Edit a comment
+  def edit
+    @comment = @project.comments.find(params[:comment_id])
+    redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "This comment doesn't belong to you!" unless @comment.user == current_user
+  end
+  
+  # PUT - Update a comment
+  def update
+    @comment = @project.comments.find(params[:comment_id])
+    if @comment.user == current_user
+      if @comment.update_attributes(params[:comment]) 
+        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment updated"
+      else
+        render :action => 'edit'
+      end
+    else
+      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "This comment doesn't belong to you!"
+    end
+  end
+  
   # DELETE - Destroy a comment as a group sponsor
   def destroy
     @comment = @project.comments.find(params[:comment_id])

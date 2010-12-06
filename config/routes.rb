@@ -80,6 +80,8 @@ SayWhat::Application.routes.draw do
   
   # Project Comments - CRUD
   match "/groups/:permalink/projects/:name/comments" => "comments#create", :via => "post"
+  match "/groups/:permalink/projects/:name/comments/:comment_id/edit" => "comments#edit", :via => "get"
+  match "/groups/:permalink/projects/:name/comments/:comment_id" => "comments#update", :via => "put"
   match "/groups/:permalink/projects/:name/comments/:comment_id" => "comments#destroy", :via => "delete"
   
 

@@ -49,6 +49,8 @@ class Ability
       
       can :new, Comment
       can :create, Comment
+      can :edit, Comment
+      can :update, Comment
       
       # TEMP FOR HOMEPAGE
       can :request_group, Group

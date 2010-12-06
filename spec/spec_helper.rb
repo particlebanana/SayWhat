@@ -50,6 +50,17 @@ def build_group_request
   }
 end
 
+def build_comment_params
+  comment_params = {
+    :permalink => @group.permalink, 
+    :name => @project.name, 
+    :comment_id => @comment.id.to_s,
+    :comment => {
+      :comment => "This is an updated comment"
+    }
+  }
+end
+
 def set_status_and_role(status, role)
   @user.status = status
   @user.role = role
