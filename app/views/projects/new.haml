@@ -24,10 +24,26 @@
     %p.group
       = f.label :end_date
       = f.date_select :end_date
+      
+    %p.group
+      = f.label :focus_of_the_project
+      = f.select(:focus, @options[:focus])
+      
+    %p.group
+      = f.label :target_audience_for_the_project
+      = f.select(:audience, @options[:audience])
+      
+    %p.group
+      = f.label :goal_of_the_project
+      = f.text_area :goal
     
     %p.group
       = f.label :description
       = f.text_area :description
+            
+    %p.group
+      = f.label :who_will_be_involved_in_the_project
+      = f.text_area :involves
     
     %button.submit{:type => 'submit'}
       Create Project

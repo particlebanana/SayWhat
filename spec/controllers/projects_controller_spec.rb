@@ -27,6 +27,10 @@ describe ProjectsController do
           :location => "Outer Space",
           :start_date => "11-11-2011",
           :end_date => "11-12-2011",
+          :focus => "Alderaan",
+          :audience => "People of Aldreaan...for a flash",
+          :goal => "Destroy planets",
+          :involves => "Stormtroopers, Sith Lords, Vader, A Big Laser",
           :description => "A Top Secret project"
         }
       }

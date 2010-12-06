@@ -25,6 +25,7 @@ class ProjectsController < ApplicationController
   # GET - New Project Page
   def new
     @project = Project.new
+    @options = @project.filters
     respond_with(@project)
   end
   
@@ -35,6 +36,7 @@ class ProjectsController < ApplicationController
     if @project.save && @group.save
       redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}"
     else
+      @options = @project.filters
       render :action => 'new'
     end
   end
