@@ -100,3 +100,18 @@ def add_comment
   @comment.save!
   @project.save!
 end
+
+def create_project_cache
+  @project_cache = ProjectCache.new(
+    :group_id => @group.id.to_s, 
+    :project_id => @project.id.to_s,
+    :group_name => @group.display_name, 
+    :group_permalink => @group.name, 
+    :project_name => @project.display_name, 
+    :project_permalink => @project.name, 
+    :focus => @project.focus, 
+    :audience => @project.audience
+  )
+  @project_cache.group_id = @group.id.to_s
+  @project_cache.project_id = @project.id.to_s
+end

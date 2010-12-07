@@ -34,6 +34,25 @@ describe Project do
         @project.name.should == "build+death+star"
       end
     end
+        
+  end
+  
+  describe "building project cache" do
+    before(:each) do
+      build_group_with_admin
+    end
+    
+    it "should build a new project cache document on creation" do
+      build_project
+      ProjectCache.all.count.should == 1
+    end
+    
+    it "should update the project cache on project update" do
+      build_project
+      @project.update_attributes(:display_name => "Test Cache Update")
+      ProjectCache.all.count.should == 1
+      ProjectCache.first.project_name.should == "Test Cache Update"
+    end
     
   end
   

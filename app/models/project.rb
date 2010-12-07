@@ -14,12 +14,14 @@ class Project
   embedded_in :group, :inverse_of => :projects
   embeds_many :comments
   
-  attr_accessible :display_name, :location, :start_date, :end_date, :focus, :goal, :description, :audience, :involves
+  attr_protected :name, :group, :comments
 
   validates_presence_of [:name, :display_name, :location, :start_date, :end_date, :focus, :goal, :description, :audience, :involves]
   validates_uniqueness_of [:name]
   
   before_validation :downcase_name
+  
+  after_save :cache_project
 
   protected
   
@@ -29,6 +31,21 @@ class Project
       end
     end
     
+  private
+  
+    def cache_project
+      cache = ProjectCache.find_or_create_by(:group_id => self.group.id.to_s, :project_id => self.id.to_s)
+      cache.update_attributes(
+        :group_name => self.group.display_name, 
+        :group_permalink => self.group.name, 
+        :project_name => self.display_name, 
+        :project_permalink => self.name, 
+        :focus => self.focus, 
+        :audience => self.audience
+      )
+      cache.save
+    end
+        
   public
   
     def filters
