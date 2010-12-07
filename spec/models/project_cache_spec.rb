@@ -6,6 +6,16 @@ describe ProjectCache do
     before(:each) do
       build_group_with_admin
     end
+    
+    it "should set the cache group permalink" do
+      build_project
+      ProjectCache.first.group_permalink.should == @group.permalink
+    end
+    
+    it "should set the cache project permalink" do
+      build_project
+      ProjectCache.first.project_permalink.should == @project.name
+    end
                 
     it "should fail if project_id is not unique" do
       build_project

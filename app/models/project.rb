@@ -40,7 +40,7 @@ class Project
       cache = ProjectCache.find_or_create_by(:group_id => self.group.id.to_s, :project_id => self.id.to_s)
       cache.update_attributes(
         :group_name => self.group.display_name, 
-        :group_permalink => self.group.name, 
+        :group_permalink => self.group.permalink, 
         :project_name => self.display_name, 
         :project_permalink => self.name, 
         :focus => self.focus, 
