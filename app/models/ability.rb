@@ -42,6 +42,7 @@ class Ability
       can :create_invite, Group
       can :send_invite, Group
       
+      can :all, Project
       can :index, Project
       can :new, Project
       can :create, Project

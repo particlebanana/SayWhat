@@ -2,12 +2,18 @@ class ProjectsController < ApplicationController
   layout "main"
   
   before_filter :authenticate_user!
-  before_filter :set_group_by_permalink
+  before_filter :set_group_by_permalink, :except => [:all]
   before_filter :set_project, :only => [:show, :edit, :update]
   
   load_and_authorize_resource
   
   respond_to :html
+  
+  # GET - Global Project Index
+  def all
+    @projects = ProjectCache.all.desc(:created_at)
+    respond_with(@projects)
+  end
   
   # GET - Group Project Index
   def index

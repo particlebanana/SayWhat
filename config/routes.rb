@@ -66,8 +66,12 @@ SayWhat::Application.routes.draw do
   match "/groups/:permalink/edit/choose_youth_sponsor" => "users#choose_youth_sponsor", :via => "get"
   match "/groups/:permalink/edit/assign_youth_sponsor/:user_id" => "users#assign_youth_sponsor", :via => "put"
   match "/groups/:permalink/edit/revoke_youth_sponsor/:user_id" => "users#revoke_youth_sponsor", :via => "put"
-
-
+  
+  
+  # Projects
+  match "/projects" => "projects#all", :via => "get"
+  
+  
   # Projects - CRUD
   match "/groups/:permalink/projects" => "projects#index", :via => "get"
   match "/groups/:permalink/projects" => "projects#create", :via => "post"

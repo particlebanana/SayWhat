@@ -115,3 +115,12 @@ def create_project_cache
   @project_cache.group_id = @group.id.to_s
   @project_cache.project_id = @project.id.to_s
 end
+
+def seed_additional_group
+  group = Factory.build(:group, :display_name => "Trade Federation", :permalink => "trade+federation")
+  group.save!
+  project = Factory.build(:project, :display_name => "Join the empire")
+  group.projects << project
+  project.save!
+  group.save!
+end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe ProjectsController do
-  before do
+  before(:each) do
     @group = Factory.create(:group)
     @user = Factory.build(:user)
     set_status_and_role("active", "adult sponsor")
@@ -74,6 +74,25 @@ describe ProjectsController do
       sign_in @user2
       put :update, {:permalink => @group.permalink, :name => @project.name, :project => {:display_name => "Build Another Death Star"}}
       response.should redirect_to("/")
+    end
+  end
+  
+  describe "#all" do
+    before(:each) do
+      build_group_with_admin
+      build_project
+      seed_additional_group
+      sign_in @user
+    end
+    
+    it "should list all the projects in the system" do
+      get :all
+      assigns[:projects].count.should == 2
+    end
+    
+    it "should render the global projects list" do
+      get :all
+      response.should render_template('projects/all')
     end
   end
 
