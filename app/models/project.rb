@@ -22,6 +22,9 @@ class Project
   before_validation :downcase_name
   
   after_save :cache_project
+  
+  before_destroy :set_cache
+  after_destroy :destroy_cache
 
   protected
   
@@ -44,6 +47,14 @@ class Project
         :audience => self.audience
       )
       cache.save
+    end
+    
+    def set_cache
+      @cache = ProjectCache.find(:first, :conditions => {:group_id => self.group.id.to_s, :project_id => self.id.to_s})
+    end
+    
+    def destroy_cache
+      @cache.destroy if @cache
     end
         
   public

@@ -37,7 +37,7 @@ describe Project do
         
   end
   
-  describe "building project cache" do
+  describe "managing project cache" do
     before(:each) do
       build_group_with_admin
     end
@@ -52,6 +52,13 @@ describe Project do
       @project.update_attributes(:display_name => "Test Cache Update")
       ProjectCache.all.count.should == 1
       ProjectCache.first.project_name.should == "Test Cache Update"
+    end
+    
+    it "should destroy the project cache on project deletion" do
+      build_project
+      ProjectCache.all.count.should == 1
+      @project.destroy
+      ProjectCache.all.count.should == 0
     end
     
   end
