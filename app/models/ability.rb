@@ -44,8 +44,15 @@ class Ability
       
       can :all, Project
       can :index, Project
-      can :new, Project
-      can :create, Project
+      
+      can :new, Project do |project|
+        user.group.id.to_s == project.group_id
+      end
+      
+      can :create, Project do |project|
+        user.group.id.to_s == project.group_id
+      end
+      
       can :show, Project
       
       can :new, Comment

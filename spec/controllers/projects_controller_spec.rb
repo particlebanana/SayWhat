@@ -6,27 +6,24 @@ describe ProjectsController do
   end
   
   describe "#create" do
+    before(:each) do
+      @another_user = seed_additional_group
+    end
         
     it "should add a project to a group" do 
       sign_in @user
-      project = {
-        :permalink => @group.permalink,
-        :project => {
-          :display_name =>  "Build Death Star",
-          :location => "Outer Space",
-          :start_date => "11-11-2011",
-          :end_date => "11-12-2011",
-          :focus => "Alderaan",
-          :audience => "People of Aldreaan...for a flash",
-          :goal => "Destroy planets",
-          :involves => "Stormtroopers, Sith Lords, Vader, A Big Laser",
-          :description => "A Top Secret project"
-        }
-      }
-  
+      project = build_project_params
       post :create, project
       response.should be_redirect
       @group.reload.projects.count.should == 1
+    end
+    
+    it "should not allow a member of another group to create a project" do
+      sign_in @another_user
+      project = build_project_params
+      post :create, project
+      response.should redirect_to("/")
+      @group.reload.projects.count.should == 0
     end
         
   end
@@ -36,7 +33,7 @@ describe ProjectsController do
       sign_in @user
     end
     
-    it 'returns all a groups projects' do
+    it 'returns all of a groups projects' do
       get :index, :permalink => @group.permalink
       assigns[:projects].should == @group.projects
     end

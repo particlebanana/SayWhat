@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   before_filter :set_group_by_permalink, :except => [:all]
   before_filter :set_project, :only => [:show, :edit, :update]
   
-  load_and_authorize_resource
+  load_and_authorize_resource :except => [:new, :create]
   
   respond_to :html
   
@@ -30,13 +30,16 @@ class ProjectsController < ApplicationController
   
   # GET - New Project Page
   def new
-    @project = Project.new
+    @project = Project.new(:group_id => @group.id.to_s)
+    authorize! :new, @project
     @options = @project.filters
     respond_with(@project)
   end
   
   # POST - Create New Project
   def create
+    @project = Project.new(:group_id => @group.id.to_s)
+    authorize! :new, @project
     @project = Project.new(params[:project])
     @group.projects << @project
     if @project.save && @group.save
