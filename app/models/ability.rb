@@ -57,25 +57,59 @@ class Ability
       can :request_group, Group
     end
     
-    # Sponsor
+    # Adult Sponsor
     if user && user.adult_sponsor?
-      can :edit, Group
-      can :update, Group
-      can :pending_membership_requests, Group
+      
       can :approve_pending_membership, User
       can :choose_youth_sponsor, User
       can :assign_youth_sponsor, User
       can :revoke_youth_sponsor, User
-      can :edit, Project
-      can :update, Project
-      can :destroy, Comment
+      
+      can :edit, Group do |group|
+        user.group == group
+      end
+      
+      can :update, Group do |group|
+        user.group == group
+      end
+      
+      can :pending_membership_requests, Group do |group|
+        user.group == group
+      end
+            
+      can :edit, Project do |project|
+        user.group == project.group
+      end
+      
+      can :update, Project do |project|
+        user.group == project.group
+      end
+      
+      can :destroy, Comment do |comment|
+        user.group == comment.project.group
+      end
     
+    # Youth Sponsor
     elsif user && user.youth_sponsor?
-      can :edit, Group
-      can :update, Group
-      can :edit, Project
-      can :update, Project
-      can :destroy, Comment
+      can :edit, Group do |group|
+        user.group == group
+      end
+      
+      can :update, Group do |group|
+        user.group == group
+      end
+      
+      can :edit, Project do |project|
+        user.group == project.group
+      end
+      
+      can :update, Project do |project|
+        user.group == project.group
+      end
+      
+      can :destroy, Comment do |comment|
+        user.group == comment.project.group
+      end
     end
       
   end

@@ -122,5 +122,11 @@ def seed_additional_group
   project = Factory.build(:project, :display_name => "Join the empire")
   group.projects << project
   project.save!
+  user = Factory.build(:user, :email => "add_member@gmail.com")
+  user.status = "active"
+  user.role = "member"
+  group.users << user
+  user.save!
   group.save!
+  user
 end

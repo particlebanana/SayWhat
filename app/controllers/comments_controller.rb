@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_group_by_permalink
   before_filter :set_project
+  before_filter :set_comment, :except => [:new, :create]
   
   load_and_authorize_resource
   
@@ -33,13 +34,11 @@ class CommentsController < ApplicationController
   
   # GET - Edit a comment
   def edit
-    @comment = @project.comments.find(params[:comment_id])
     redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "This comment doesn't belong to you!" unless @comment.user == current_user
   end
   
   # PUT - Update a comment
   def update
-    @comment = @project.comments.find(params[:comment_id])
     if @comment.user == current_user
       if @comment.update_attributes(params[:comment]) 
         redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment has been updated"
@@ -53,7 +52,6 @@ class CommentsController < ApplicationController
   
   # DELETE - Destroy a comment as a group sponsor
   def destroy
-    @comment = @project.comments.find(params[:comment_id])
     @comment.destroy
     redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment has been removed"
   end
@@ -66,6 +64,10 @@ class CommentsController < ApplicationController
     
     def set_project
       @project = @group.projects.where(:name => params[:name]).first
+    end
+    
+    def set_comment
+      @comment = @project.comments.find(params[:comment_id])
     end
     
 end

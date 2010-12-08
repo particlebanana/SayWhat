@@ -130,55 +130,56 @@ describe GroupsController do
   
   describe "edit group" do
     before(:each) do
-      @group = Factory.create(:group)
-      @user = Factory.build(:user)
-      set_status_and_role("active", "adult sponsor")
-      @group.users << @user
-      @user.save!
-      @group.save!
-      sign_in @user
+      build_group_with_admin
+      @user = seed_additional_group
     end
     
     describe "#edit" do
       it "should assign :adult_sponsor" do
+        sign_in @admin
         get :edit, :permalink => @group.permalink
         assigns[:adult_sponsor].name.should == "Han Solo"
+      end
+      
+      it "should not allow a member of another group to edit" do
+        sign_in @user
+        get :edit, :permalink => @group.permalink
+        response.should be_redirect
       end
     end
     
     describe "#update" do
       it "should update a group with new values" do
+        sign_in @admin
         put :update, {:permalink => @group.permalink, :group => {:display_name => "Rebel Alliance"}}
         @group.reload.display_name.should == "Rebel Alliance"
         @group.reload.name.should == "rebel alliance"
+      end
+      
+      it "should not allow anyone to update except the group admins" do
+        sign_in @user
+        put :update, {:permalink => @group.permalink, :group => {:display_name => "Rebel Alliance"}}
+        response.should redirect_to("/")
       end
     end
   end
   
   describe "request group membership" do
-    before do
-      @group = Factory.create(:group)
-      @user = Factory.build(:user)
-      set_status_and_role("active", "adult sponsor")
-      @group.users << @user
-      @user.save!
-      @group.save!
+    before(:each) do
+      build_group_with_admin
+      @user = seed_additional_group
     end
     
     describe "#create_membership_request" do
       it "should allow a user to request to join a group" do
         put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
-        @user = @group.users.last
-        @user.email.should == "bobba.fett@gmail.com"
-        @user.status.should == "pending"
-        @user.role.should == "pending"
+        @group.reload.users.last.email.should == "bobba.fett@gmail.com"
+        @group.reload.users.last.status.should == "pending"
+        @group.reload.users.last.role.should == "pending"
       end
     
       it "should enforce user validations" do
-        user = Factory.build(:user, :first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com", :status => "pending", :role => "pending")
-        @group.users << user
-        @group.save
-        put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+        put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "member@gmail.com"}}
         response.should render_template('groups/request_membership')
       end
     
@@ -190,7 +191,21 @@ describe GroupsController do
     
       it "should send group sponsor an membership notification" do
         put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
-        ActionMailer::Base.deliveries.last.to.should == [@group.users.adult_sponsor.first.email]
+        ActionMailer::Base.deliveries.last.to.should == [@group.reload.users.adult_sponsor.first.email]
+      end
+    end
+    
+    describe "#pending_membership_request" do
+      it "should allow a group adult sponsor to see all the pending members" do
+        sign_in @admin
+        get :pending_membership_requests, :permalink => @group.permalink
+        response.should render_template("groups/pending_membership_requests")
+      end
+      
+      it "should not allow a member of another group to view pending members" do
+        sign_in @user
+        get :pending_membership_requests, :permalink => @group.permalink
+        response.should redirect_to("/")
       end
     end
   end
