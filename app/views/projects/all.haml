@@ -1,0 +1,12 @@
+= title "All Projects"
+
+%div#groupTop.group
+  %h2.left
+    Projects
+
+%ul#projectsList    
+  - @projects.each do |project|
+    %li
+      %strong
+        = link_to project.project_name, "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
+      = link_to project.group_name, "/groups/#{project.group_permalink}"

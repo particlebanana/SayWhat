@@ -6,6 +6,15 @@ Given /^there is a group named "([^"]*)"$/ do |name|
   create_group(name)
 end
 
+# Create multiple groups
+Given /^there are "([^"]*)" groups in the system$/ do |count|
+  count.to_i.times do |i|
+    group = Factory.build(:group, :display_name => "Group_" + i.to_s)
+    group.status = 'active'
+    group.save
+  end
+end
+
 Then /^the group should be approved$/ do
   @group = Group.find(@group.id)
   @group.status.should == "active"

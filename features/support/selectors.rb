@@ -25,6 +25,9 @@ module HtmlSelectorsHelper
       
     when /the youth sponsor/
       "li#youthSponsor"
+      
+    when /the projects list/
+      "ul#projectsList li"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +

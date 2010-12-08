@@ -4,7 +4,12 @@
   %h2.left
     Projects
 
-= link_to "new project", "/groups/#{@group.permalink}/projects/new"
+%ul#projectNav
+  %li
+    = link_to "everyone's projects", "/projects"
+  %li
+    = link_to "new project", "/groups/#{@group.permalink}/projects/new"
+    
 %ul#projectsList    
   - @projects.each do |project|
     %li
