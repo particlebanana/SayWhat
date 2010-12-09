@@ -99,5 +99,31 @@ describe ProjectsController do
       response.should render_template('projects/all')
     end
   end
+  
+  describe "#filter" do
+    before(:each) do
+      seed_full_data_set
+      sign_in User.first
+    end
+    
+    it "should filter projects by focus" do
+      get :filter, :focus => "Secondhand Smoke Exposure", :audience => ""
+      response.should render_template('projects/all')
+      assigns[:projects].count.should == 3
+    end
+    
+    it "should filter projects by audience" do
+      get :filter, :focus => "", :audience => "Middle School Students"
+      response.should render_template('projects/all')
+      assigns[:projects].count.should == 3
+    end
+    
+    it "should filter projects by focus and audience" do
+      get :filter, :focus => "Secondhand Smoke Exposure", :audience => "Elementary Students"
+      response.should render_template('projects/all')
+      assigns[:projects].count.should == 3
+    end
+
+  end
 
 end

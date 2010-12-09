@@ -47,5 +47,27 @@ describe ProjectCache do
     end
   
   end
+  
+  describe "#filters" do
+    before(:each) do
+      seed_full_data_set
+    end
+        
+    it "should filter based on focus" do
+      results = ProjectCache.filter("Secondhand Smoke Exposure", "")
+      results.count.should == 3
+    end
+    
+    it "should filter based on audience" do
+      results = ProjectCache.filter("", "Elementary Students")
+      results.count.should == 3
+    end
+    
+    it "should filter based on focus AND audience" do
+      results = ProjectCache.filter("Secondhand Smoke Exposure", "Elementary Students")
+      results.count.should == 3
+    end
+  
+  end
       
 end
