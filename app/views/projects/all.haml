@@ -2,11 +2,13 @@
 
 %div#groupTop.group
   %h2.left
-    Projects
+    All Projects
 
 %ul#projectsList    
   - @projects.each do |project|
     %li
+      = image_tag("http://placehold.it/200x100")
       %strong
         = link_to project.project_name, "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
-      = link_to project.group_name, "/groups/#{project.group_permalink}"
+      %span
+        = link_to project.group_name, "/groups/#{project.group_permalink}"
