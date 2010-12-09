@@ -5,14 +5,24 @@ Given /^there is a project named "([^"]*)"$/ do |name|
 end
 
 # Seed each group with x projects
-Given /^each group has "([^"]*)" project$/ do |count|
+Given /^each group has "([^"]*)" projects$/ do |count|
   groups = Group.all
+  time = 1
+  focus_array = ['Secondhand Smoke Exposure', 'General Education', 'Health Effects']
+  audience_array = ['Elementary Students', 'Middle School Students', 'High School Students']
   groups.each do |group|
     count.to_i.times do |i|
-      project = Factory.build(:project, :display_name => "Project_" + i.to_s)
+      project = Factory.build(:project, :display_name => "Project_" + (time + i).to_s, :focus => focus_array[i], :audience => audience_array[i])
       group.projects << project
       project.save!
-      group.save!
     end
+    group.save!
+    time += 1
   end
 end
+
+# Count all projects returned from the filter search
+Then /^I should see (\d+) projects$/ do |num|
+  all('ul#projectsList li').length.should == num.to_i
+end
+
