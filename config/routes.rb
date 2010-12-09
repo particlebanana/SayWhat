@@ -70,6 +70,7 @@ SayWhat::Application.routes.draw do
   
   # Projects
   match "/projects" => "projects#all", :via => "get"
+  match "/projects/filter" => "projects#filter", :via => "get"
   
   
   # Projects - CRUD

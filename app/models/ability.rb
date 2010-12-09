@@ -43,6 +43,7 @@ class Ability
       can :send_invite, Group
       
       can :all, Project
+      can :filter, Project
       can :index, Project
       
       can :new, Project do |project|

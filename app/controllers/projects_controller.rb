@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   layout "main"
   
   before_filter :authenticate_user!
-  before_filter :set_group_by_permalink, :except => [:all]
+  before_filter :set_group_by_permalink, :except => [:all, :filter]
   before_filter :set_project, :only => [:show, :edit, :update]
   
   load_and_authorize_resource :except => [:new, :create]
@@ -11,8 +11,16 @@ class ProjectsController < ApplicationController
   
   # GET - Global Project Index
   def all
+    @options = (Project.new()).filters
     @projects = ProjectCache.all.desc(:created_at)
     respond_with(@projects)
+  end
+  
+  # GET - Filter Projects Index
+  def filter
+    @options = (Project.new()).filters
+    @projects = ProjectCache.filter(params[:focus], params[:audience])
+    render :action => "all"
   end
   
   # GET - Group Project Index
@@ -74,7 +82,7 @@ class ProjectsController < ApplicationController
     end
     
     def set_group_by_permalink
-      @group = Group.find(:first, :conditions => {:permalink => params[:permalink]})
+      @group = Group.where(:permalink => params[:permalink]).first
     end
     
     def set_project
