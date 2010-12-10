@@ -3,8 +3,8 @@ Feature: View and filter all projects from all groups
 
   Background: 
     Given I am logged in as "han.solo@gmail.com"
-    And there are "3" groups in the system
-    And each group has "3" projects
+    And there are 3 groups in the system
+    And each of the groups have 3 projects
 
   Scenario: I want to view all projects
     Given I am on my group page
@@ -20,4 +20,18 @@ Feature: View and filter all projects from all groups
     And I select "" from "audience"
     Then I press "Filter"
     Then I should see 3 projects
+    
+  Scenario: I want to filter by the audience field
+    Given I am on the all projects page
+    And I select "" from "focus"
+    And I select "High School Students" from "audience"
+    Then I press "Filter"
+    Then I should see 3 projects
+    
+  Scenario: I want to filter by the audience field
+    Given I am on the all projects page
+    And I select "Secondhand Smoke Exposure" from "focus"
+    And I select "Middle School Students" from "audience"
+    Then I press "Filter"
+    Then I should see 0 projects
     

@@ -5,12 +5,11 @@ Given /^there is a project named "([^"]*)"$/ do |name|
 end
 
 # Seed each group with x projects
-Given /^each group has "([^"]*)" projects$/ do |count|
-  groups = Group.all
+Given /^each of the groups have (\d+) projects$/ do |count|
   time = 1
   focus_array = ['Secondhand Smoke Exposure', 'General Education', 'Health Effects']
   audience_array = ['Elementary Students', 'Middle School Students', 'High School Students']
-  groups.each do |group|
+  @groups.each do |group|
     count.to_i.times do |i|
       project = Factory.build(:project, :display_name => "Project_" + (time + i).to_s, :focus => focus_array[i], :audience => audience_array[i])
       group.projects << project

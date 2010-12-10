@@ -7,12 +7,22 @@ Given /^there is a group named "([^"]*)"$/ do |name|
 end
 
 # Create multiple groups
-Given /^there are "([^"]*)" groups in the system$/ do |count|
-  count.to_i.times do |i|
-    group = Factory.build(:group, :display_name => "Group_" + i.to_s)
-    group.status = 'active'
-    group.save
+Given /^there are (\d+) groups in the system$/ do |num|
+  (num.to_i - 1).times do |count|
+    group = Factory.build(:group, :display_name => "group_" + (count.to_i).to_s, :permalink => "group_" + (count.to_i).to_s)
+    admin = build_a_generic_admin(count)
+    group.users << admin
+    group.save!
   end
+  @groups = Group.all
+  assert @groups.count.should == num.to_i
+end
+
+def build_a_generic_admin(i)
+  admin = Factory.build(:user, :email => "admin_" + i.to_s + "@gmail.com")
+  admin.status = "active"
+  admin.role = "adult sponsor"
+  admin
 end
 
 Then /^the group should be approved$/ do
