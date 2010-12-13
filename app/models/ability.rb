@@ -8,6 +8,7 @@ class Ability
       can :request_group, Group
       can :create, Group
       can :pending_request, Group
+      can :index, Group
       can :show, Group
       can :request_membership, Group
       can :create_membership_request, Group
@@ -38,6 +39,7 @@ class Ability
       can :edit_password, User
       can :update_password, User
       
+      can :index, Group
       can :show, Group
       can :create_invite, Group
       can :send_invite, Group

@@ -1,0 +1,13 @@
+= title "Groups"
+
+%div#groupTop.group
+  %h2.left
+    Groups
+
+
+%ul#projectsList    
+  - @groups.each do |group|
+    %li
+      = image_tag(group.profile_photo_url(:small))
+      %strong
+        = link_to group.display_name, "/groups/#{group.permalink}"

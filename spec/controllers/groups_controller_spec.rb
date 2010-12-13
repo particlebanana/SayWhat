@@ -164,6 +164,23 @@ describe GroupsController do
     end
   end
   
+  describe "#index" do
+    before(:each) do
+      build_group_with_admin
+      seed_additional_group
+    end
+    
+    it "should list all the groups in the system" do
+      get :index
+      assigns[:groups].count.should == 2
+    end
+    
+    it "should render the groups index" do
+      get :index
+      response.should render_template('groups/index')
+    end
+  end
+  
   describe "request group membership" do
     before(:each) do
       build_group_with_admin
