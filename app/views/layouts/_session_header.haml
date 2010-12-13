@@ -4,6 +4,8 @@
     %strong
       = link_to current_user.name, "/settings/profile"
       |
+      = link_to "My Group", "/groups/#{current_user.group.permalink}"
+      |
       = link_to "Logout", destroy_user_session_path
   - else
     %strong
