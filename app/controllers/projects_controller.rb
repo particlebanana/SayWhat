@@ -19,7 +19,7 @@ class ProjectsController < ApplicationController
   # GET - Filter Projects Index
   def filter
     @options = (Project.new()).filters
-    @projects = ProjectCache.filter(params[:focus], params[:audience])
+    @projects = ProjectCache.filter(params[:focus], params[:audience]).desc(:created_at)
     render :action => "all"
   end
   
