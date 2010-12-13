@@ -44,5 +44,11 @@ Then /^I should have a valid permalink$/ do
   @group.permalink.should_not == nil
 end
 
+# Add an image to the project
+Given /^I select a group photo to attach$/ do
+  attach_file('group_profile_photo', "#{Rails.root}/features/fixtures/profile.png")
+end
+
+
 
 

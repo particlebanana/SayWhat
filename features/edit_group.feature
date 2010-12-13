@@ -13,3 +13,11 @@ Feature: Edit a group
     And I press "Update"
     Then I should see "Han Shot Second" within the page title
     
+  
+  Scenario: I upload a project image
+    Given I am on my group page
+    Then I follow "admin"
+    And I select a group photo to attach
+    And I press "Update"
+    Then I should see an image
+    
