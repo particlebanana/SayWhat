@@ -20,7 +20,7 @@
 %ul#projectsList    
   - @projects.each do |project|
     %li
-      = image_tag("http://placehold.it/200x100")
+      = image_tag(project.profile_photo)
       %strong
         = link_to project.project_name, "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
       %span

@@ -4,9 +4,20 @@
   Edit 
   = @project.display_name
   
-= form_for @project, :url => "/groups/#{@group.permalink}/projects/#{@project.name}", :method => "put" do |f|
+= form_for @project, :url => "/groups/#{@group.permalink}/projects/#{@project.name}",:html => { :multipart => true}, :method => "put" do |f|
   
   = errors_for(@project, "Opps, there were some problems updating your project").html_safe
+  
+  %p.group
+    = f.label :picture
+    = image_tag(@project.profile_photo_url(:small), :class => "left") if @project.profile_photo_filename?
+    - if @project.profile_photo_filename?
+      %span.avatarOptions
+        = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @project.profile_photo_filename?
+        =# link_to "Delete this image", delete_profile_photo_project_url(@user), :class => "avatarOption" if @project.profile_photo_filename?
+
+    %span.avatarUpload  
+      = f.file_field :profile_photo
         
   %p.group
     = f.label :name

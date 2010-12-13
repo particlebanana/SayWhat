@@ -6,7 +6,9 @@
 
   - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
     = render :partial => "sponsor_actions"
-    
+   
+= image_tag(@project.profile_photo_url(:profile))
+  
 %ul
   %li
     %strong

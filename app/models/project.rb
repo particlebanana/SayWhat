@@ -13,6 +13,7 @@ class Project
   field :involves
   embedded_in :group, :inverse_of => :projects
   embeds_many :comments
+  mount_uploader :profile_photo, ProfileUploader
   
   attr_protected :name, :group, :comments
 
@@ -44,7 +45,8 @@ class Project
         :project_name => self.display_name, 
         :project_permalink => self.name, 
         :focus => self.focus, 
-        :audience => self.audience
+        :audience => self.audience,
+        :profile_photo => self.profile_photo_url(:small)
       )
       cache.save
     end
