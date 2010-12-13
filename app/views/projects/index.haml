@@ -13,4 +13,5 @@
 %ul#projectsList    
   - @projects.each do |project|
     %li
+      = image_tag(project.profile_photo_url(:small))
       = link_to project.display_name, "/groups/#{@group.permalink}/projects/#{project.name}"

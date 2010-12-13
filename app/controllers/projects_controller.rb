@@ -25,7 +25,7 @@ class ProjectsController < ApplicationController
   
   # GET - Group Project Index
   def index
-    @projects = @group.projects
+    @projects = @group.projects.asc(:start_date)
     respond_with(@projects)
   end
   
