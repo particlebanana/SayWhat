@@ -327,6 +327,11 @@ ul#settingsNav {
     font-size: 14px;
     font-weight: normal; }
 
+#groupTop h2 {
+  margin-bottom: 12px; }
+  #groupTop h2 span {
+    display: block;
+    font-size: 60%; }
 #groupTop ul#actions {
   float: right; }
   #groupTop ul#actions li {

@@ -1,5 +1,12 @@
 #groupTop {
-  
+  h2 {
+		margin-bottom: 12px;
+		span {
+			display: block;
+			font-size:60%;
+		}
+	}
+	
   ul#actions {
     float: right;
     li {

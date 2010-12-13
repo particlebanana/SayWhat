@@ -3,18 +3,15 @@
 %div#groupTop.group
   %h2.left
     = @project.display_name
+    %span
+      = link_to @group.display_name, "/groups/#{@project.group.permalink}"
 
   - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
     = render :partial => "sponsor_actions" if current_user.group == @group
    
 = image_tag(@project.profile_photo_url(:profile))
   
-%ul
-  %li
-    %strong
-      Group:
-    = @group.display_name
-    
+%ul  
   %li
     %strong
       Location:
