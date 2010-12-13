@@ -15,3 +15,12 @@ Feature: Edit a project
       | project_display_name  | Build Another Death Star    |
     And I press "Save Project"
     Then I should see "Build Another Death Star" within the page title
+    
+  
+  Scenario: I upload a project image
+    Given I am on my groups projects page
+    Then I follow "Build The Death Star"
+    Then I follow "edit"
+    And I select a project photo to attach
+    And I press "Save Project"
+    Then I should see an image

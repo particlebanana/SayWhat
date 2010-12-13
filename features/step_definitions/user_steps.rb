@@ -58,7 +58,7 @@ Given /^I login using "([^"]*)" and "([^"]*)"$/ do |email, password|
 end
 
 # Edit User Profile
-Given /^I select a file to attach$/ do
+Given /^I select an avatar to attach$/ do
   attach_file('user_avatar', "#{Rails.root}/features/fixtures/default.png")
 end
 

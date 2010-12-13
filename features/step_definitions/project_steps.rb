@@ -25,3 +25,7 @@ Then /^I should see (\d+) projects$/ do |num|
   all('ul#projectsList li').length.should == num.to_i
 end
 
+# Add an image to the project
+Given /^I select a project photo to attach$/ do
+  attach_file('project_profile_photo', "#{Rails.root}/features/fixtures/profile.png")
+end

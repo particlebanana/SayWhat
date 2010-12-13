@@ -25,7 +25,7 @@ Feature: Edit a user's profile
     
   Scenario: I upload a profile image
     Given I am on my profile settings page
-    And I select a file to attach
+    And I select an avatar to attach
     And I press "Save"
     Then I should see an image within the form fields
     
