@@ -5,10 +5,21 @@
   %h2.sectionTitle
     Edit Your Group
   
-  = form_for @group, :url => "/groups/#{@group.permalink}", :method => "put" do |f|
+  = form_for @group, :url => "/groups/#{@group.permalink}", :html => { :multipart => true}, :method => "put" do |f|
   
     = errors_for(@group, "Opps, there were some problems with your group information").html_safe
 
+    %p.group
+      = f.label :picture
+      = image_tag(@group.profile_photo_url(:thumb), :class => "left") if @group.profile_photo_filename?
+      - if @group.profile_photo_filename?
+        %span.avatarOptions
+          = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @group.profile_photo_filename?
+          = link_to "Delete this image", "/groups/#{@group.permalink}/delete_photo", :class => "avatarOption" if @group.profile_photo_filename?
+
+      %span.avatarUpload  
+        = f.file_field :profile_photo
+        
     %p.group
       = f.label :name
       = f.text_field :display_name

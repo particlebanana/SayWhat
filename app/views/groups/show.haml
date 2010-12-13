@@ -11,7 +11,8 @@
     
 %div#groupSidebar.left
   
-  %img{:id => "groupLogo", :src => "http://placehold.it/349x200/8fe86b/333333"}
+  
+  = image_tag(@group.profile_photo_url(:large), :id => "groupLogo")
   
   = render :partial => "group_action_button"
   

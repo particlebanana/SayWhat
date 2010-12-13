@@ -11,10 +11,11 @@ class Group
   field :esc_region, :default => 'pending'
   field :dshs_region, :default => 'pending'
   field :area, :default => 'pending'
+  mount_uploader :profile_photo, ProfileUploader
   references_many :users, :dependent => :delete
   embeds_many :projects
   
-  attr_accessible :display_name, :city, :organization, :description, :esc_region, :dshs_region, :area
+  attr_accessible :display_name, :city, :organization, :description, :esc_region, :dshs_region, :area, :profile_photo
 
   validates_presence_of [:name, :display_name, :city, :organization, :status, :esc_region, :dshs_region, :area]
   validates_uniqueness_of [:name]
