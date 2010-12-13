@@ -35,7 +35,7 @@ describe ProjectsController do
     
     it 'returns all of a groups projects' do
       get :index, :permalink => @group.permalink
-      assigns[:projects].should == @group.projects
+      assigns[:projects].count.should == @group.projects.count
     end
 
   end
