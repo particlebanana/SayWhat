@@ -5,7 +5,7 @@
     = @project.display_name
 
   - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
-    = render :partial => "sponsor_actions"
+    = render :partial => "sponsor_actions" if current_user.group == @group
    
 = image_tag(@project.profile_photo_url(:profile))
   

@@ -5,7 +5,8 @@
     = @group.display_name
   
   - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
-    = render :partial => "sponsor_actions"
+    = render :partial => "sponsor_actions" if current_user.group == @group
+    = render :partial => "member_actions" unless current_user.group == @group
   - elsif current_user && current_user.role == "member"
     = render :partial => "member_actions"
     
