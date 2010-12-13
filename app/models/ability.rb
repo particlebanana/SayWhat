@@ -77,6 +77,10 @@ class Ability
         user.group == group
       end
       
+      can :delete_photo, Group do |group|
+        user.group == group
+      end
+      
       can :update, Group do |group|
         user.group == group
       end
@@ -104,6 +108,10 @@ class Ability
     # Youth Sponsor
     elsif user && user.youth_sponsor?
       can :edit, Group do |group|
+        user.group == group
+      end
+      
+      can :delete_photo, Group do |group|
         user.group == group
       end
       

@@ -21,6 +21,14 @@ class GroupsController < ApplicationController
     respond_with(@group)
   end
   
+  # GET - Delete Profile Photo
+  def delete_photo
+    @group.remove_profile_photo!
+    @group.profile_photo_filename = nil
+    @group.save
+    redirect_to "/groups/#{@group.permalink}/edit"
+  end
+  
   # PUT - Update Group
   def update
     if @group.update_attributes(params[:group])
