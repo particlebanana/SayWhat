@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :set_group_by_permalink, :except => [:all, :filter]
-  before_filter :set_project, :only => [:show, :edit, :update]
+  before_filter :set_project, :only => [:show, :edit, :update, :delete_photo]
   
   load_and_authorize_resource :except => [:new, :create]
   
@@ -72,6 +72,14 @@ class ProjectsController < ApplicationController
       @options = @project.filters
       render :action => "edit"
     end
+  end
+  
+  # GET - Delete Profile Photo
+  def delete_photo
+    @project.remove_profile_photo!
+    @project.profile_photo_filename = nil
+    @project.save
+    redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}/edit"
   end
   
   

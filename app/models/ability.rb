@@ -89,6 +89,10 @@ class Ability
         user.group == project.group
       end
       
+      can :delete_photo, Project do |project|
+        user.group == project.group
+      end
+      
       can :update, Project do |project|
         user.group == project.group
       end
@@ -108,6 +112,10 @@ class Ability
       end
       
       can :edit, Project do |project|
+        user.group == project.group
+      end
+      
+      can :delete_photo, Project do |project|
         user.group == project.group
       end
       

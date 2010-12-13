@@ -14,7 +14,7 @@
     - if @project.profile_photo_filename?
       %span.avatarOptions
         = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @project.profile_photo_filename?
-        =# link_to "Delete this image", delete_profile_photo_project_url(@user), :class => "avatarOption" if @project.profile_photo_filename?
+        = link_to "Delete this image", "/groups/#{@group.permalink}/projects/#{@project.name}/delete_photo", :class => "avatarOption" if @project.profile_photo_filename?
 
     %span.avatarUpload  
       = f.file_field :profile_photo

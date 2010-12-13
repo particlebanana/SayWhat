@@ -78,6 +78,7 @@ SayWhat::Application.routes.draw do
   match "/groups/:permalink/projects" => "projects#create", :via => "post"
   match "/groups/:permalink/projects/new" => "projects#new", :via => "get"
   match "/groups/:permalink/projects/:name/edit" => "projects#edit", :via => "get"
+  match "/groups/:permalink/projects/:name/delete_photo" => "projects#delete_photo", :via => "get"
   match "/groups/:permalink/projects/:name" => "projects#show", :via => "get"
   match "/groups/:permalink/projects/:name" => "projects#update", :via => "put"
   match "/groups/:permalink/projects/:name" => "projects#destroy", :via => "delete"
