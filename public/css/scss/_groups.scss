@@ -23,6 +23,9 @@
 				margin: 0;
 				color: #bbb;
 			}
+			a {
+				font-size:18px;
+			}
 		}
 	}
 	
@@ -54,11 +57,11 @@
 		background: #e5e5e5;
     border: 1px solid #222;
     padding: 8px;
-		margin:0 auto;
+		margin:0 auto 25px auto;
   }
   
   .groupActionButton {
-    margin: 20px 0;
+    margin: 0 0 20px 0;
     display: block;
     font-size: 16px;
     text-align: center;

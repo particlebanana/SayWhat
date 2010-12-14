@@ -353,6 +353,8 @@ ul#settingsNav {
     font-size: 20px;
     margin: 0;
     color: #bbb; }
+  #groupContent article header a {
+    font-size: 18px; }
 #groupContent ul#recentProjects {
   margin: 25px 0 0 0; }
   #groupContent ul#recentProjects li {
@@ -373,9 +375,9 @@ ul#settingsNav {
   background: #e5e5e5;
   border: 1px solid #222;
   padding: 8px;
-  margin: 0 auto; }
+  margin: 0 auto 25px auto; }
 #groupSidebar .groupActionButton {
-  margin: 20px 0;
+  margin: 0 0 20px 0;
   display: block;
   font-size: 16px;
   text-align: center;

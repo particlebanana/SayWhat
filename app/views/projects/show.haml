@@ -1,16 +1,15 @@
 = title @project.display_name
-
--# if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
-  =# render :partial => "sponsor_actions" if current_user.group == @group
   
 %section#groupContent.group.leftCol
   
   %article
     %header
-      %h1
-        = @project.display_name
-      %p
-        = link_to @group.display_name, "/groups/#{@project.group.permalink}"
+      %hgroup.group
+        %h1.left
+          = @project.display_name
+      
+        - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
+          = link_to "edit", "/groups/#{@group.permalink}/projects/#{@project.name}/edit", :class => "right" if current_user.group == @group
     
   %article   
     %header

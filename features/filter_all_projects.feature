@@ -8,7 +8,7 @@ Feature: View and filter all projects from all groups
 
   Scenario: I want to view all projects
     Given I am on my group page
-    Then I follow "projects"
+    Then I follow "View All"
     Then I follow "everyone's projects"
     Then I should see "Project_1" 
     And I should see "Project_2" 

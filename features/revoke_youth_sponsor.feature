@@ -8,8 +8,8 @@ Feature: Revoke a Youth Sponsor from a group
     
   Scenario: I want to revoke Youth Sponsorship privileges from a member
     Given I am on my group page
-    Then I should see "admin"
-    And I follow "admin"
+    Then I should see "edit"
+    And I follow "edit"
     Then I should see "Group Sponsors"
     And I should see "Luke Skywalker" within the youth sponsor
     And I follow "revoke"

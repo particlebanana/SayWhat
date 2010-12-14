@@ -6,7 +6,8 @@ Feature: Create a new group project
 
   Scenario: I want to create a new project
     Given I am on my group page
-    Then I follow "projects"
+    Then I should see "View All"
+    Then I follow "View All"
     Then I follow "new project"
     And I fill in the following:
       | project_display_name      | Build The Death Star                            |
@@ -21,7 +22,8 @@ Feature: Create a new group project
     
   Scenario: I create an invalid project
     Given I am on my group page
-    Then I follow "projects"
+    Then I should see "View All"
+    Then I follow "View All"
     Then I follow "new project"
     And I fill in the following:
     | project_display_name      |                                                 |
