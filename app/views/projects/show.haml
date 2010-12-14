@@ -1,88 +1,103 @@
 = title @project.display_name
 
-%div#groupTop.group
-  %h2.left
-    = @project.display_name
-    %span
-      = link_to @group.display_name, "/groups/#{@project.group.permalink}"
-
-  - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
-    = render :partial => "sponsor_actions" if current_user.group == @group
-   
-= image_tag(@project.profile_photo_url(:profile))
+-# if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
+  =# render :partial => "sponsor_actions" if current_user.group == @group
   
-%ul  
-  %li
-    %strong
-      Location:
-    = @project.location
+%section#groupContent.group.leftCol
+  
+  %article
+    %header
+      %h1
+        = @project.display_name
+      %p
+        = link_to @group.display_name, "/groups/#{@project.group.permalink}"
     
-  %li
-    %strong
-      Date:
-    = @project.start_date
-    thru
-    = @project.end_date
+  %article   
+    %header
+      %h3
+        Goal of the Project:
     
-  %li
-    %strong
-      Focus of the Project:
-    = @project.focus
+    %p
+      = @project.goal
     
-  %li
-    %strong
-      Target Audience for the Project:
-    = @project.audience
+  %article   
+    %header
+      %h3
+        Description of the Project:
+    
+    %p
+      = @project.description
+    
+  %article   
+    %header
+      %h3
+        Who is involved with the Project:
 
-%p
-  %strong
-    Goal of the Project:
-  = @project.goal
+    %p
+      = @project.involves
+    
+  
+  %div#comments
+    %h2.sectionTitle
+      Comments
+
+    - if notice
+      %p.notice
+        = notice
+
+    - if @comments
+      %ul#comments
+        - @comments.each do |comment|
+          %li
+            = image_tag(comment.user.avatar_url(:thumb))
+            = comment.user.name
+            %p
+              = comment.comment
+              - if comment.user == current_user
+                = link_to "edit", {:controller => :comments, :action => :edit, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}
+              - if current_user.sponsor? && (current_user.group == @group)
+                = link_to "delete", {:controller => :comments, :action => :destroy, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}, :confirm => "Are you sure?", :method => :delete
+
+
+    = form_for [@group, @project, @comment], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/comments" do |f|
+
+      - if alert
+        %p.alert
+          = alert
+
+      = errors_for(@comment, "Opps, there were some problems adding your comment").html_safe
+
+      %p.group
+        = f.label :comment
+        = f.text_area :comment
+
+      %button.submit{:type => 'submit'}
+        Leave Comment
+
+
+%div#groupSidebar.rightCol
+
+  = image_tag(@project.profile_photo_url(:profile), :id => "groupLogo")
+
+  %ul#groupVitals
+    %li
+      %strong
+        Location:
+      = @project.location
       
-%p
-  %strong
-    Description:
-  = @project.description
+    %li
+      %strong
+        Date:
+      = @project.start_date
+      thru
+      = @project.end_date
+      
+    %li
+      %strong
+        Focus of the Project:
+      = @project.focus
 
-%p
-  %strong
-    Involves:
-  = @project.involves
-  
-
-%div#comments
-  %h2.sectionTitle
-    Comments
-  
-  - if notice
-    %p.notice
-      = notice
-        
-  - if @comments
-    %ul#comments
-      - @comments.each do |comment|
-        %li
-          = image_tag(comment.user.avatar_url(:thumb))
-          = comment.user.name
-          %p
-            = comment.comment
-            - if comment.user == current_user
-              = link_to "edit", {:controller => :comments, :action => :edit, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}
-            - if current_user.sponsor? && (current_user.group == @group)
-              = link_to "delete", {:controller => :comments, :action => :destroy, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}, :confirm => "Are you sure?", :method => :delete
-  
-  
-  = form_for [@group, @project, @comment], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/comments" do |f|
-    
-    - if alert
-      %p.alert
-        = alert
-        
-    = errors_for(@comment, "Opps, there were some problems adding your comment").html_safe
-
-    %p.group
-      = f.label :comment
-      = f.text_area :comment
-
-    %button.submit{:type => 'submit'}
-      Leave Comment
+    %li
+      %strong
+        Target Audience for the Project:
+      = @project.audience

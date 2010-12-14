@@ -7,10 +7,15 @@
 		header {
 			h1 {
 				font-size: 33.160px;
-				color: #A0CF67;
+				color: #ccc;
 			}
 			h2 {
 				font-size: 24px;
+				color: #A0CF67;
+			}
+			h3 {
+				font-size: 20px;
+				margin: 0 0 15px 0;
 				color: #A0CF67;
 			}
 			p {
@@ -45,9 +50,11 @@
 #groupSidebar {
   
   img#groupLogo {
+		display: block;
 		background: #e5e5e5;
     border: 1px solid #222;
     padding: 8px;
+		margin:0 auto;
   }
   
   .groupActionButton {

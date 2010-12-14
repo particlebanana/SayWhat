@@ -164,12 +164,12 @@ body {
 
 /* Links */
 a:link, a:visited {
-  color: #A0CF67;
+  color: #816ad8;
   text-decoration: none;
   outline: none; }
 
 a:hover {
-  color: #39c; }
+  color: #6a4fd1; }
 
 /* Misc */
 hr, .hide {
@@ -341,9 +341,13 @@ ul#settingsNav {
   margin: 0 0 25px 0; }
   #groupContent article header h1 {
     font-size: 33.160px;
-    color: #A0CF67; }
+    color: #ccc; }
   #groupContent article header h2 {
     font-size: 24px;
+    color: #A0CF67; }
+  #groupContent article header h3 {
+    font-size: 20px;
+    margin: 0 0 15px 0;
     color: #A0CF67; }
   #groupContent article header p {
     font-size: 20px;
@@ -365,9 +369,11 @@ ul#settingsNav {
         margin: 0 0 8px 0; }
 
 #groupSidebar img#groupLogo {
+  display: block;
   background: #e5e5e5;
   border: 1px solid #222;
-  padding: 8px; }
+  padding: 8px;
+  margin: 0 auto; }
 #groupSidebar .groupActionButton {
   margin: 20px 0;
   display: block;
