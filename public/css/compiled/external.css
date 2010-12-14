@@ -147,18 +147,24 @@ label, input[type=button], input[type=submit], button {
 /*  Title:   Global styles for screen media
 /*  Author:  cs62@txstate.edu
 /**************************************************/
+/* COLORS
+------------------------------
+Light Green - A0CF67
+Dark Green - 5E9732
+Grey - 3B3B3B
+------------------------------*/
 /* BASE
 --------------------------------------------------------------------------------- */
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
+  color: #ccc;
   font-size: 62.5%;
-  background: #fff;
+  background: #3b3b3b;
   text-align: center; }
 
 /* Links */
 a:link, a:visited {
-  color: #369;
+  color: #A0CF67;
   text-decoration: none;
   outline: none; }
 
@@ -202,8 +208,8 @@ h4 {
 
 p {
   font-size: 14px;
-  margin: 0 0 1em 0;
-  line-height: 1.6em; }
+  margin: 0 0 1.8em 0;
+  line-height: 1.8em; }
 
 /* STRUCTURE
 --------------------------------------------------------------------------------- */
@@ -216,6 +222,15 @@ p {
     margin: 25px 0;
     font-size: 14px; }
 
+.leftCol {
+  float: left;
+  width: 558px;
+  padding: 0 35px 0 0; }
+
+.rightCol {
+  float: left;
+  width: 367px; }
+
 /* ROUNDED
 --------------------------------------------------------------------------------- */
 /* GRADIENTS
@@ -224,28 +239,21 @@ p {
 --------------------------------------------------------------------------------- */
 /* HEADER
 --------------------------------------------------------------------------------- */
-#top {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 50px;
-  border-bottom: 1px solid #000; }
-
-header {
+#pageHeader {
   width: 100%;
   height: 50px; }
-  header h1 {
+  #pageHeader h1 {
     font-size: 22px;
     padding: 10px 0 0 0; }
-  header p {
+  #pageHeader p {
     font-size: 14px;
     padding: 12px 0 0 0;
     line-height: 25px; }
-    header p img {
+    #pageHeader p img {
       display: block;
       float: left;
       margin-right: 8px; }
-    header p strong {
+    #pageHeader p strong {
       float: left;
       display: block;
       line-height: 25px; }

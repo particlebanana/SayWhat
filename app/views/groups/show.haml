@@ -1,17 +1,42 @@
 = title @group.display_name
 
-%div#groupTop.group
-  %h2.left
-    = @group.display_name
+%section#groupContent.group.leftCol
   
-  - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
-    = render :partial => "sponsor_actions" if current_user.group == @group
-    = render :partial => "member_actions" unless current_user.group == @group
-  - elsif current_user && current_user.role == "member"
-    = render :partial => "member_actions"
+  %article
+    %header
+      %h1
+        = @group.display_name
+      %p
+        = @group.organization
     
-%div#groupSidebar.left
+  %article        
+    = raw(@group.description)
+    
+  %article
+    
+    %header
+      %h2
+        Upcoming Projects
+    
+    %ul#recentProjects
+      - @group.projects.asc(:end_date).limit(2).each do |project|
+        %li.group
+          = image_tag(project.profile_photo_url(:small))
+          %div.about
+            %h3
+              %a{:href => "/groups/#{@group.permalink}/projects/#{project.name}"}
+                = project.display_name
+            %p
+              = project.goal
   
+  -# if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
+    =# render :partial => "sponsor_actions" if current_user.group == @group
+    =# render :partial => "member_actions" unless current_user.group == @group
+  -# elsif current_user && current_user.role == "member"
+    =# render :partial => "member_actions"
+    
+    
+%div#groupSidebar.rightCol
   
   = image_tag(@group.profile_photo_url(:large), :id => "groupLogo")
   
@@ -44,11 +69,4 @@
       = @group.area.capitalize
   
   = render :partial => "member_list"
-  
-
-%div#groupContent.right
-  
-  %div#groupAbout
-    %p
-      = @group.description
   

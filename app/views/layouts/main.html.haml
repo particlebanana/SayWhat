@@ -8,17 +8,22 @@
  
     = stylesheet_link_tag "/css/compiled/application.css"
     
-    = javascript_include_tag "/js/modernizr-1.5.min.js"
+    = javascript_include_tag "/js/head.load.min.js"
+    
+    %script
+      head.js(
+      {jquery: "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"},
+      {rails: "/javascripts/rails.js"},
+      {functions: "/js/functions.js"}
+      );
 
     = csrf_meta_tag
 
   %body
-  
-    %div#top
-    
+      
     %div#wrapper
     
-      %header
+      %header#pageHeader
         %h1.left
           SayWhat!
         
@@ -28,6 +33,4 @@
         = yield
         
     
-    %script{:src => "//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"}
-    %script{:src => "/javascripts/rails.js"}
-    %script{:src => "/js/functions.js"}
+    

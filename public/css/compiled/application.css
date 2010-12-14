@@ -147,18 +147,24 @@ label, input[type=button], input[type=submit], button {
 /*  Title:   Global styles for screen media
 /*  Author:  cs62@txstate.edu
 /**************************************************/
+/* COLORS
+------------------------------
+Light Green - A0CF67
+Dark Green - 5E9732
+Grey - 3B3B3B
+------------------------------*/
 /* BASE
 --------------------------------------------------------------------------------- */
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
+  color: #ccc;
   font-size: 62.5%;
-  background: #fff;
+  background: #3b3b3b;
   text-align: center; }
 
 /* Links */
 a:link, a:visited {
-  color: #369;
+  color: #A0CF67;
   text-decoration: none;
   outline: none; }
 
@@ -202,8 +208,8 @@ h4 {
 
 p {
   font-size: 14px;
-  margin: 0 0 1em 0;
-  line-height: 1.6em; }
+  margin: 0 0 1.8em 0;
+  line-height: 1.8em; }
 
 /* STRUCTURE
 --------------------------------------------------------------------------------- */
@@ -216,6 +222,15 @@ p {
     margin: 25px 0;
     font-size: 14px; }
 
+.leftCol {
+  float: left;
+  width: 558px;
+  padding: 0 35px 0 0; }
+
+.rightCol {
+  float: left;
+  width: 367px; }
+
 /* ROUNDED
 --------------------------------------------------------------------------------- */
 /* GRADIENTS
@@ -224,28 +239,21 @@ p {
 --------------------------------------------------------------------------------- */
 /* HEADER
 --------------------------------------------------------------------------------- */
-#top {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 50px;
-  border-bottom: 1px solid #000; }
-
-header {
+#pageHeader {
   width: 100%;
   height: 50px; }
-  header h1 {
+  #pageHeader h1 {
     font-size: 22px;
     padding: 10px 0 0 0; }
-  header p {
+  #pageHeader p {
     font-size: 14px;
     padding: 12px 0 0 0;
     line-height: 25px; }
-    header p img {
+    #pageHeader p img {
       display: block;
       float: left;
       margin-right: 8px; }
-    header p strong {
+    #pageHeader p strong {
       float: left;
       display: block;
       line-height: 25px; }
@@ -327,60 +335,73 @@ ul#settingsNav {
     font-size: 14px;
     font-weight: normal; }
 
-#groupTop h2 {
-  margin-bottom: 12px; }
-  #groupTop h2 span {
-    display: block;
-    font-size: 60%; }
-#groupTop ul#actions {
-  float: right; }
-  #groupTop ul#actions li {
-    float: left;
-    margin: 0 0 0 15px;
-    line-height: 33.160px; }
-    #groupTop ul#actions li a {
-      font-size: 13px;
-      font-weight: normal;
-      background: #cdcdcd;
-      padding: 6px 8px;
-      color: #333; }
-      #groupTop ul#actions li a:hover {
-        background: #dedede; }
+#groupContent article {
+  border-bottom: 1px solid #5d5d5d;
+  padding: 0 0 25px 0;
+  margin: 0 0 25px 0; }
+  #groupContent article header h1 {
+    font-size: 33.160px;
+    color: #A0CF67; }
+  #groupContent article header h2 {
+    font-size: 24px;
+    color: #A0CF67; }
+  #groupContent article header p {
+    font-size: 20px;
+    margin: 0;
+    color: #bbb; }
+#groupContent ul#recentProjects {
+  margin: 25px 0 0 0; }
+  #groupContent ul#recentProjects li {
+    margin: 50px 0; }
+    #groupContent ul#recentProjects li img {
+      float: left; }
+    #groupContent ul#recentProjects li .about {
+      width: 343px;
+      float: left;
+      margin: 0 0 0 15px; }
+      #groupContent ul#recentProjects li .about h3 {
+        font-size: 18px;
+        font-weight: normal;
+        margin: 0 0 8px 0; }
 
-#groupSidebar {
-  width: 367px;
-  margin: 25px 0; }
-  #groupSidebar img#groupLogo {
-    border: 1px solid #cdcdcd;
-    padding: 8px; }
-  #groupSidebar .groupActionButton {
-    margin: 20px 0;
-    display: block;
-    font-size: 16px;
-    text-align: center;
-    padding: 8px;
-    border: 1px solid #ababab;
-    background: #cdcdcd;
-    color: #333;
-    font-weight: bold; }
-  #groupSidebar #groupVitals li {
-    margin: 8px 0; }
-  #groupSidebar #groupMemberList {
-    margin: 20px 0; }
-    #groupSidebar #groupMemberList ul {
-      margin: 15px 0; }
-      #groupSidebar #groupMemberList ul li {
-        margin: 8px 0;
-        font-weight: bold;
-        line-height: 25px; }
-        #groupSidebar #groupMemberList ul li img {
-          float: left;
-          margin-right: 10px; }
-
-#groupContent {
-  width: 563px;
-  padding: 0 0 0 30px;
-  margin: 25px 0; }
+#groupSidebar img#groupLogo {
+  background: #e5e5e5;
+  border: 1px solid #222;
+  padding: 8px; }
+#groupSidebar .groupActionButton {
+  margin: 20px 0;
+  display: block;
+  font-size: 16px;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #5E9732;
+  color: #222;
+  font-weight: bold;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border--radius: 4px;
+  background: #A0CF67;
+  /* old browsers */
+  background: -moz-linear-gradient(top, #a0cf67 0%, #88c340 45%, #76ab36 100%);
+  /* firefox */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #a0cf67), color-stop(45%, #88c340), color-stop(100%, #76ab36));
+  /* webkit */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#A0CF67', endColorstr='#76AB36',GradientType=0 );
+  /* ie */
+  text-shadow: -1px 1px 2px #e5e5e5; }
+#groupSidebar #groupVitals li {
+  margin: 8px 0; }
+#groupSidebar #groupMemberList {
+  margin: 20px 0; }
+  #groupSidebar #groupMemberList ul {
+    margin: 15px 0; }
+    #groupSidebar #groupMemberList ul li {
+      margin: 8px 0;
+      font-weight: bold;
+      line-height: 25px; }
+      #groupSidebar #groupMemberList ul li img {
+        float: left;
+        margin-right: 10px; }
 
 /* Group Edit */
 h2.sectionTitle {
