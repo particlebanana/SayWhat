@@ -107,8 +107,13 @@ class Ability
         user.group == comment.project.group
       end
       
-      can :new, Report
-      can :create, Report
+      can :new, Report do |report|
+        user.group == report.project.group
+      end
+      
+      can :create, Report do |report|
+        user.group == report.project.group
+      end
     
     # Youth Sponsor
     elsif user && user.youth_sponsor?
@@ -140,8 +145,13 @@ class Ability
         user.group == comment.project.group
       end
       
-      can :new, Report
-      can :create, Report
+      can :new, Report do |report|
+        user.group == report.project.group
+      end
+      
+      can :create, Report do |report|
+        user.group == report.project.group
+      end
       
     end
       
