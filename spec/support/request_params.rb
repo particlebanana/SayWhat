@@ -40,3 +40,25 @@ def build_comment_params
     }
   }
 end
+
+def build_report_params
+  report_params = {
+    :permalink => @group.permalink, 
+    :name => @project.name,
+    :report => {
+      :number_of_youth_reached  => "10",
+      :number_of_adults_reached => "10",
+      :percent_male => "5",
+      :percent_female => "5",
+      :percent_african_american => "5",
+      :percent_asian => "5",
+      :percent_caucasian => "5",
+      :percent_hispanic => "5",
+      :percent_other => "80",
+      :money_spent => "$100+",
+      :prep_time => "1 month +",
+      :other_resources => "Lasers",
+      :comment => "This was a success! We can blow up planets!"
+    }
+  }
+end

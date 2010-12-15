@@ -106,6 +106,9 @@ class Ability
       can :destroy, Comment do |comment|
         user.group == comment.project.group
       end
+      
+      can :new, Report
+      can :create, Report
     
     # Youth Sponsor
     elsif user && user.youth_sponsor?
@@ -136,6 +139,10 @@ class Ability
       can :destroy, Comment do |comment|
         user.group == comment.project.group
       end
+      
+      can :new, Report
+      can :create, Report
+      
     end
       
   end

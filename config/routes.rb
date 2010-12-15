@@ -91,6 +91,10 @@ SayWhat::Application.routes.draw do
   match "/groups/:permalink/projects/:name/comments/:comment_id" => "comments#update", :via => "put"
   match "/groups/:permalink/projects/:name/comments/:comment_id" => "comments#destroy", :via => "delete"
   
-
+  # Project Reporting
+  match "/groups/:permalink/projects/:name/report/new" => "reports#new", :via => "get"
+  match "/groups/:permalink/projects/:name/report" => "reports#create", :via => "post"
+  
+  
   root :to => "groups#request_group"
 end

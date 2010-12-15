@@ -13,6 +13,7 @@ class Project
   field :involves
   embedded_in :group, :inverse_of => :projects
   embeds_many :comments
+  embeds_one :report
   mount_uploader :profile_photo, ProfileUploader
   
   attr_protected :name, :group, :comments
