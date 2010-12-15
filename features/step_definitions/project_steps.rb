@@ -4,6 +4,14 @@ Given /^there is a project named "([^"]*)"$/ do |name|
   create_project(name)
 end
 
+Given /^the project has already happened$/ do
+  end_date = DateTime.now - 2.days
+  @project.start_date = end_date - 2.days
+  @project.end_date = end_date
+  @project.save
+end
+
+
 # Seed each group with x projects
 Given /^each of the groups have (\d+) projects$/ do |count|
   time = 1

@@ -1,0 +1,65 @@
+= title "Reporting"
+
+%div#groupRequestForm
+  
+  %h2.pageTitle
+    Create a report
+    
+  = form_for [@group, @project, @report], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/report" do |f|
+  
+    = errors_for(@report, "Opps, there were some problems creating your report").html_safe
+            
+    %p.group
+      = f.label :number_of_youth_reached
+      = f.text_field :number_of_youth_reached
+    
+    %p.group
+      = f.label :number_of_adults_reached
+      = f.text_field :number_of_adults_reached
+    
+    %p.group
+      = f.label :percent_male
+      = f.text_field :percent_male
+    
+    %p.group
+      = f.label :percent_female
+      = f.text_field :percent_female
+      
+    %p.group
+      = f.label :percent_african_american
+      = f.text_field :percent_african_american
+    
+    %p.group
+      = f.label :percent_asian
+      = f.text_field :percent_asian
+
+    %p.group
+      = f.label :percent_caucasian
+      = f.text_field :percent_caucasian
+
+    %p.group
+      = f.label :percent_hispanic
+      = f.text_field :percent_hispanic
+      
+    %p.group
+      = f.label :percent_other
+      = f.text_field :percent_other
+      
+    %p.group
+      = f.label :money_spent
+      = f.select(:money_spent, @options[:money])
+      
+    %p.group
+      = f.label :prep_time
+      = f.select(:prep_time, @options[:prep])
+      
+    %p.group
+      = f.label :other_resources_used
+      = f.text_area :other_resources
+      
+    %p.group
+      = f.label :comments_on_the_project
+      = f.text_area :comment
+    
+    %button.submit{:type => 'submit'}
+      Submit Report
