@@ -21,20 +21,20 @@
     
     %header.group
       %h2.left
-        Upcoming Projects
+        Recent Projects
       
-      = link_to "View All", "/groups/#{@group.permalink}/projects", :class => "right"
+      = link_to "View All", "/groups/#{@group.permalink}/projects", :class => "right" if current_user
     
     %ul#recentProjects
-      - @group.projects.asc(:end_date).limit(2).each do |project|
+      - @recent_projects.each do |project|
         %li.group
-          = image_tag(project.profile_photo_url(:small))
+          = image_tag(project.profile_photo)
           %div.about
             %h3
-              %a{:href => "/groups/#{@group.permalink}/projects/#{project.name}"}
-                = project.display_name
+              %a{:href => "/groups/#{@group.permalink}/projects/#{project.project_permalink}"}
+                = project.project_name
             %p
-              = project.goal
+              = @group.projects.find(project.project_id).goal
     
     
 %div#groupSidebar.rightCol

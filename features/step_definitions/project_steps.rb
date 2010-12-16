@@ -11,6 +11,13 @@ Given /^the project has already happened$/ do
   @project.save
 end
 
+Given /^the project has been reported on$/ do
+  @report = Factory.build(:report)
+  @project.report = @report
+  @report.save
+end
+
+
 
 # Seed each group with x projects
 Given /^each of the groups have (\d+) projects$/ do |count|

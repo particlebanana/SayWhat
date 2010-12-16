@@ -32,6 +32,9 @@ module NavigationHelpers
     when /my group page/
       "/groups/#{@group.permalink}"
       
+    when /the groups home page/
+      "/groups/#{@group.permalink}"
+      
     when /my profile settings page/
       '/settings/profile'
       

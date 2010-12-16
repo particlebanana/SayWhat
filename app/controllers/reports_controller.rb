@@ -5,9 +5,6 @@ class ReportsController < ApplicationController
   before_filter :set_group_by_permalink
   before_filter :set_project
   
-  #load_and_authorize_resource
-  #load_resource
-  
   respond_to :html
   
   # GET - Reporting form for a project
@@ -23,7 +20,8 @@ class ReportsController < ApplicationController
     authorize! :new, @project.report = Report.new
     @report = Report.new(params[:report])
     @project.report = @report
-    if @report.save && @project.save
+    #if @report.save && @project.save
+    if @report.save
       redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Report Successfully Submitted"
     else
       @options = @report.filters

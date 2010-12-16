@@ -28,6 +28,9 @@ module HtmlSelectorsHelper
       
     when /the projects list/
       "ul#projectsList li"
+      
+    when /Recent Projects/
+      "ul#recentProjects"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +

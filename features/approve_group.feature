@@ -2,8 +2,8 @@
 Feature: Site Admin approves the creation of a group
 
   Background: 
-    Given I am logged in
-    And I am a 'Site Admin'
+    Given I am a Site Admin
+    And I am logged in
     And there is a pending group named "Han Shot First"
 
   Scenario: I approve the creation of a group

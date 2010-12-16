@@ -17,6 +17,7 @@ class GroupsController < ApplicationController
   
   # GET - Group Homepage
   def show
+    @recent_projects = ProjectCache.where(:group_id => @group.id.to_s, :reported => true).asc(:updated_at).limit(2)
     respond_with(@group)
   end
   
