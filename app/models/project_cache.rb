@@ -10,6 +10,7 @@ class ProjectCache
   field :focus
   field :audience
   field :profile_photo
+  field :reported, :type => Boolean, :default => false
     
   validates_presence_of [:group_id, :project_id, :group_name, :group_permalink, :project_name, :project_permalink, :focus, :audience]
   validates_uniqueness_of [:project_id]

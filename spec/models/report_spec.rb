@@ -27,15 +27,26 @@ describe Report do
         should_not allow_value("").for(:prep_time)
       end
     end
-    
-    describe "of system generated fields" do
-      it "should automatically create name field based on display name input" do
-        @project = Factory.build(:project)
-        @project.valid?.should == true
-        @project.name.should == "build+death+star"
-      end
-    end
         
+  end
+  
+  describe "update project cache" do
+    before(:each) do
+      build_group_with_admin
+      build_project
+    end
+    
+    it "should have a flag of false for reported" do
+      ProjectCache.first.reported.should == false
+    end
+    
+    it "should flag reported on report save" do
+      @report = Factory.build(:report)
+      @project.report = @report
+      @report.save
+      ProjectCache.first.reported.should == true
+    end
+    
   end
   
 end
