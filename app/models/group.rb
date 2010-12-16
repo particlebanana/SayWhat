@@ -25,18 +25,12 @@ class Group
   
   before_validation :downcase_name
   
-  before_save :downcase_area
-  
   protected
   
     def downcase_name
       if self.display_name
         self.name = self.display_name.downcase
       end
-    end
-    
-    def downcase_area
-      area.downcase!
     end
 
 end
