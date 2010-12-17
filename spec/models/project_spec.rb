@@ -31,7 +31,13 @@ describe Project do
       it "should automatically create name field based on display name input" do
         @project = Factory.build(:project)
         @project.valid?.should == true
-        @project.name.should == "build+death+star"
+        @project.name.should == "build-death-star"
+      end
+      
+      it "should escape special characters from the input" do
+        @project = Factory.build(:project, :display_name => "This Isn't A Valid Name!?!?!")
+        @project.valid?.should == true
+        @project.name.should == "this-isnt-a-valid-name"
       end
     end
         

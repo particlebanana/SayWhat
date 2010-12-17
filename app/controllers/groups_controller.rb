@@ -156,7 +156,8 @@ class GroupsController < ApplicationController
   # PUT - Setup Phase - Create group permalink
   def set_permalink
     @group = Group.find(:first, :conditions => {:id => current_user.group_id})
-    @group.permalink = CGI.escape(params[:group][:permalink].downcase)
+    @group.permalink = params[:group][:permalink]
+    #@group.make_slug(params[:group][:permalink])
     @user = current_user
     if @group.save
       @user.status = "active"

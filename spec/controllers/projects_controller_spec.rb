@@ -76,7 +76,7 @@ describe ProjectsController do
       response.should be_redirect
       project = @group.reload.projects.first
       project.display_name.should == "Build Another Death Star"
-      project.name.should == "build+another+death+star"
+      project.name.should == "build-another-death-star"
     end
     
     it "should redirect if the user is not a sponsor" do

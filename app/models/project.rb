@@ -21,7 +21,7 @@ class Project
   validates_presence_of [:name, :display_name, :location, :start_date, :end_date, :focus, :goal, :description, :audience, :involves]
   validates_uniqueness_of [:name]
   
-  before_validation :downcase_name
+  before_validation :escape_name
   
   after_save :cache_project
   
@@ -30,9 +30,9 @@ class Project
 
   protected
   
-    def downcase_name
+    def escape_name
       if self.display_name
-        self.name = CGI.escape(self.display_name.downcase)
+        self.name = (self.display_name.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-')
       end
     end
     

@@ -113,7 +113,12 @@ describe GroupsController do
     
       it "should escape a group's permalink" do
         put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "this is a test"}}
-        @group.reload.permalink.should == "this+is+a+test"
+        @group.reload.permalink.should == "this-is-a-test"
+      end
+      
+      it "should remove special characters from a permalink" do
+        put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "It's A Trap!?!?!"}}
+        @group.reload.permalink.should == "its-a-trap"
       end
     
       it "should set a user's status to active" do
