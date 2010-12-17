@@ -26,8 +26,8 @@ class ProjectsController < ApplicationController
   # GET - Group Project Index
   def index
     @projects = {
-      :upcoming => @group.projects.desc(:end_date).find_all{ |project| project.end_date > DateTime.now},
-      :completed => @group.projects.desc(:end_date).find_all{ |project| project.end_date < DateTime.now}
+      :upcoming => @group.projects.asc(:end_date).find_all{ |project| project.end_date >= Date.today},
+      :completed => @group.projects.desc(:end_date).find_all{ |project| project.end_date < Date.today}
     }
     respond_with(@projects)
   end
