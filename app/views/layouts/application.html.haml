@@ -6,7 +6,7 @@
     %title
       = "SayWhat / #{yield(:title)}"
  
-    = stylesheet_link_tag "/css/compiled/external.css"
+    = stylesheet_link_tag 'application', :media => :screen
     
     = javascript_include_tag "/js/modernizr-1.5.min.js"
 

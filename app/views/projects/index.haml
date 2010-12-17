@@ -9,9 +9,5 @@
     = link_to "everyone's projects", "/projects"
   %li
     = link_to "new project", "/groups/#{@group.permalink}/projects/new" if current_user.group == @group
-    
-%ul#projectsList    
-  - @projects.each do |project|
-    %li
-      = image_tag(project.profile_photo_url(:small))
-      = link_to project.display_name, "/groups/#{@group.permalink}/projects/#{project.name}"
+
+= render 'group_projects', :projects => @projects

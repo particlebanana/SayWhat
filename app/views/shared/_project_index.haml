@@ -1,0 +1,8 @@
+%ul.projectsList    
+  - projects.each do |project|
+    %li
+      = project_photo(project, true)
+      %strong
+        = link_to project.project_name, "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
+      %span
+        = link_to project.group_name, "/groups/#{project.group_permalink}"

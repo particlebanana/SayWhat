@@ -17,17 +17,4 @@
     %button.submit{:type => 'submit'}
       Filter
 
-%ul#projectsList    
-  - @projects.each do |project|
-    %li
-      = image_tag(project.profile_photo)
-      %strong
-        = link_to project.project_name, "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
-      %span
-        = link_to project.group_name, "/groups/#{project.group_permalink}"
-      %span
-        Focus:
-        = project.focus
-      %span
-        Audience:
-        = project.audience
+= list_projects_from_cache(@projects)

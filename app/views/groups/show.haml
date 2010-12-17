@@ -28,13 +28,12 @@
     %ul#recentProjects
       - @recent_projects.each do |project|
         %li.group
-          = image_tag(project.profile_photo)
+          = project_photo(project)
           %div.about
             %h3
-              %a{:href => "/groups/#{@group.permalink}/projects/#{project.project_permalink}"}
-                = project.project_name
+              = project_link(project)
             %p
-              = @group.projects.find(project.project_id).goal
+              = project.goal
     
     
 %div#groupSidebar.rightCol

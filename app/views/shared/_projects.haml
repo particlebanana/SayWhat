@@ -1,0 +1,5 @@
+%ul.projectsList.group 
+  - projects.each do |project|
+    %li
+      = project_photo(project)
+      = project_link(project)

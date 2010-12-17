@@ -37,7 +37,7 @@ end
 
 # Count all projects returned from the filter search
 Then /^I should see (\d+) projects$/ do |num|
-  all('ul#projectsList li').length.should == num.to_i
+  all('ul.projectsList li').length.should == num.to_i
 end
 
 # Add an image to the project
