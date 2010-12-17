@@ -33,9 +33,14 @@ describe ProjectsController do
       sign_in @user
     end
     
-    it 'returns all of a groups projects' do
+    it 'returns all of a groups upcoming projects' do
       get :index, :permalink => @group.permalink
-      assigns[:projects].count.should == @group.projects.count
+      assigns[:projects][:upcoming].count.should == @group.projects.desc(:end_date).find_all{ |project| project.end_date > DateTime.now}.count
+    end
+    
+    it 'returns all of a groups completed projects' do
+      get :index, :permalink => @group.permalink
+      assigns[:projects][:completed].count.should == @group.projects.desc(:end_date).find_all{ |project| project.end_date < DateTime.now}.count
     end
 
   end
