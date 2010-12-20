@@ -23,7 +23,7 @@ class Group
   validates_uniqueness_of [:permalink]
   validates_length_of :permalink, :minimum => 4, :maximum => 20, :allow_nil => true
   
-  before_validation :downcase_name, :make_slug
+  before_validation :downcase_name
   
   protected
   
@@ -33,6 +33,8 @@ class Group
       end
     end
     
+  public
+  
     def make_slug
       self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
     end

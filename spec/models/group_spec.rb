@@ -69,7 +69,7 @@ describe Group do
     it "should escape special characters" do
       @group = Factory.build(:pending_group)
       @group.permalink = "It's A Trap!?!?!"
-      @group.valid?
+      @group.make_slug
       @group.permalink.should == "its-a-trap"
     end
     

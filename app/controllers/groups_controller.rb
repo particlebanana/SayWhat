@@ -17,7 +17,7 @@ class GroupsController < ApplicationController
   
   # GET - Group Homepage
   def show
-    @recent_projects = @group.projects.desc(:end_date).find_all{ |project| project.end_date < DateTime.now}
+    @recent_projects = @group.projects.desc(:end_date).find_all{ |project| project.end_date < Date.today}
     respond_with(@group)
   end
   
@@ -157,7 +157,7 @@ class GroupsController < ApplicationController
   def set_permalink
     @group = Group.find(:first, :conditions => {:id => current_user.group_id})
     @group.permalink = params[:group][:permalink]
-    #@group.make_slug(params[:group][:permalink])
+    @group.make_slug
     @user = current_user
     if @group.save
       @user.status = "active"
