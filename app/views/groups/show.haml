@@ -23,7 +23,7 @@
       %h2.left
         Recent Projects
       
-      = link_to "View All", "/groups/#{@group.permalink}/projects", :class => "right" if current_user
+      = link_to "View All", "/groups/#{@group.permalink}/projects", :class => "right"
     
     %ul#recentProjects
       - @recent_projects.each do |project|

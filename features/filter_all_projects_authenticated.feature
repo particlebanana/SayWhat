@@ -1,9 +1,10 @@
-@project
-Feature: View and filter all projects from all groups
+@projects
+@filters
+Feature: View and filter all projects from all groups as a user
 
   Background: 
     Given I am logged in as "han.solo@gmail.com"
-    And there are 3 groups in the system
+    And there are 2 other groups in the system
     And each of the groups have 3 projects
 
   Scenario: I want to view all projects
@@ -28,7 +29,7 @@ Feature: View and filter all projects from all groups
     Then I press "Filter"
     Then I should see 3 projects
     
-  Scenario: I want to filter by the audience field
+  Scenario: I want to filter by the focus field AND the audience field
     Given I am on the all projects page
     And I select "Secondhand Smoke Exposure" from "focus"
     And I select "Middle School Students" from "audience"

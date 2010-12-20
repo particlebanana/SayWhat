@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   layout "main"
   
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:all, :index, :filter]
   before_filter :set_group_by_permalink, :except => [:all, :filter]
   before_filter :set_project, :only => [:show, :edit, :update, :delete_photo]
   
@@ -10,20 +10,25 @@ class ProjectsController < ApplicationController
   respond_to :html
   
   # GET - Global Project Index
+  # Only show upcoming projects to authenticated users for privacy reasons
   def all
     @options = (Project.new()).filters
-    @projects = ProjectCache.all.desc(:created_at)
+    @projects = ProjectCache.all.desc(:end_date) if current_user
+    @projects = ProjectCache.desc(:end_date).find_all{ |project| project.end_date < Date.today} unless current_user
     respond_with(@projects)
   end
   
   # GET - Filter Projects Index
+  # Only show upcoming projects to authenticated users for privacy reasons
   def filter
     @options = (Project.new()).filters
-    @projects = ProjectCache.filter(params[:focus], params[:audience]).desc(:created_at)
+    @projects = ProjectCache.filter(params[:focus], params[:audience]).desc(:end_date) if current_user
+    @projects = ProjectCache.filter(params[:focus], params[:audience]).desc(:end_date).find_all{ |project| project.end_date < Date.today} unless current_user
     render :action => "all"
   end
   
   # GET - Group Project Index
+  # Only show upcoming projects to authenticated users for privacy reasons
   def index
     @projects = {
       :upcoming => @group.projects.asc(:end_date).find_all{ |project| project.end_date >= Date.today},

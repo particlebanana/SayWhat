@@ -6,9 +6,23 @@ Given /^there is a group named "([^"]*)"$/ do |name|
   create_group(name)
 end
 
-# Create multiple groups
+# Create multiple groups other than the one created by user creation
+Given /^there are (\d+) other groups in the system$/ do |num|
+  (num.to_i).times do |count|
+    group = Factory.build(:group, :display_name => "group_" + (count.to_i).to_s, :permalink => "group_" + (count.to_i).to_s)
+    admin = build_a_generic_admin(count)
+    group.users << admin
+    group.save!
+  end
+  @groups = Group.all
+  assert @groups.count.should == num.to_i + 1
+end
+
+# Create multiple groups without a logged in user
 Given /^there are (\d+) groups in the system$/ do |num|
-  (num.to_i - 1).times do |count|
+  Group.delete_all # start with a clean slate
+  ProjectCache.delete_all
+  (num.to_i).times do |count|
     group = Factory.build(:group, :display_name => "group_" + (count.to_i).to_s, :permalink => "group_" + (count.to_i).to_s)
     admin = build_a_generic_admin(count)
     group.users << admin

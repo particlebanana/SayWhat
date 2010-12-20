@@ -53,6 +53,9 @@ module NavigationHelpers
     when /my groups projects page/
       "/groups/#{@group.permalink}/projects"
       
+    when /the groups projects page/
+      "/groups/#{@group.permalink}/projects"
+      
     when /the project page/
       "/groups/#{@group.permalink}/projects/#{@project.name}"
       

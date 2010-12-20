@@ -47,7 +47,9 @@ class Project
         :project_permalink => self.name, 
         :focus => self.focus, 
         :audience => self.audience,
-        :profile_photo => self.profile_photo_url(:small)
+        :profile_photo => self.profile_photo_url(:small),
+        :start_date => self.start_date,
+        :end_date => self.end_date
       )
       cache.save
     end

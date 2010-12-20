@@ -13,6 +13,9 @@ class Ability
       can :request_membership, Group
       can :create_membership_request, Group
       can :membership_request_submitted, Group
+      can :all, Project
+      can :index, Project
+      can :filter, Project
     
     # Site Admin
     elsif user.admin?

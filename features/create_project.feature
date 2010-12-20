@@ -1,4 +1,4 @@
-@project
+@projects
 Feature: Create a new group project
 
   Background: 

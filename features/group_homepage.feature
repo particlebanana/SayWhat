@@ -12,7 +12,7 @@ Feature: View a Group's Homepage
     Given I am on the groups home page
     Then I should see "Request To Join This Group"
     And I should see "Build The Death Star" within Recent Projects
-    And I should not see "View All"
+    And I should see "View All"
     And I should not see "Edit"
     And I should not see "Member List"
     

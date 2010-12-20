@@ -31,6 +31,12 @@ module HtmlSelectorsHelper
       
     when /Recent Projects/
       "ul#recentProjects"
+      
+    when /Completed Projects/
+      "ul.completed"
+      
+    when /Upcoming Projects/
+      "ul.upcoming"
     
     else
       raise "Can't find mapping from \"#{scope}\" to a selector.\n" +

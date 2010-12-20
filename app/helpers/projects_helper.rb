@@ -1,8 +1,8 @@
 module ProjectsHelper
   
-  def list_projects(projects)
+  def list_projects(projects, css="")
     if projects.any?
-      render 'shared/projects', :projects => projects
+      render 'shared/projects', :projects => projects, :css => css
     end
   end
   

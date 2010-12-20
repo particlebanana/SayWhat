@@ -1,4 +1,4 @@
-@project
+@reports
 Feature: Report on a project
 
   Background: 

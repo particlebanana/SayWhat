@@ -31,3 +31,6 @@ Then /^The "([^"]*)" should receive an email at "([^"]*)" with the subject "([^"
   emails.include?(subject)
 end
 
+Then /^I should see "([^"]*)" (\d+) times within "([^"]*)"$/ do |text, count, selector|
+  page.find(:css, selector, :count => count, :text => text)
+end

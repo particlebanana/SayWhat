@@ -4,7 +4,7 @@
     Upcoming Projects:
   
   - if @projects[:upcoming].any?
-    = list_projects(@projects[:upcoming])
+    = list_projects(@projects[:upcoming], "upcoming")
   - else
     %p
       No upcoming projects scheduled
@@ -13,7 +13,7 @@
   Completed Projects:
   
 - if @projects[:completed].any?
-  = list_projects(@projects[:completed])
+  = list_projects(@projects[:completed], "completed")
 - else
   %p
     No projects have been completed yet

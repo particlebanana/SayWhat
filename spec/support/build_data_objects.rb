@@ -22,6 +22,15 @@ def build_project
   @group.save
 end
 
+def build_completed_project
+  project = Factory.build(:project, :display_name => "Completed Project")
+  project.start_date = Date.today - 2.days
+  project.end_date = Date.today - 1.day
+  @group.projects << project
+  project.save
+  @group.save
+end
+
 def add_comment
   @comment = Factory.build(:comment)
   @comment.user = @user
@@ -39,7 +48,9 @@ def create_project_cache
     :project_name => @project.display_name, 
     :project_permalink => @project.name, 
     :focus => @project.focus, 
-    :audience => @project.audience
+    :audience => @project.audience,
+    :start_date => Date.today - 1.day,
+    :end_date => Date.today
   )
   @project_cache.group_id = @group.id.to_s
   @project_cache.project_id = @project.id.to_s

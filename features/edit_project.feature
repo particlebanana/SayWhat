@@ -1,4 +1,4 @@
-@project
+@projects
 Feature: Edit a project
 
   Background: 

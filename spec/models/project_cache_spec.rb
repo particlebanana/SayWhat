@@ -27,11 +27,11 @@ describe ProjectCache do
     describe "fail when missing" do
       before(:each) do
         build_project
-        create_project_cache
+        @project_cache = ProjectCache.first
       end
       
       it "nothing" do
-        @project_cache.should_not be_valid
+        @project_cache.should be_valid
       end
       
       it "group_id" do
