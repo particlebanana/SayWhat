@@ -4,6 +4,7 @@ describe ReportsController do
   before(:each) do
     build_group_with_admin
     build_project
+    set_project_dates_for_reports
     sign_in @admin
   end
   
@@ -17,6 +18,14 @@ describe ReportsController do
     it "should render the reporting form" do
       get :new, :permalink => @group.permalink, :name => @project.name
       response.should render_template("reports/new")
+    end
+    
+    it "should not allow reports on upcoming projects" do
+      @project.end_date = Date.today + 1.day
+      @project.save
+      get :new, :permalink => @group.permalink, :name => @project.name
+      response.should be_redirect
+      response.should redirect_to("/groups/#{@group.permalink}/projects/#{@project.name}")
     end
     
   end
@@ -54,6 +63,15 @@ describe ReportsController do
       report[:report][:number_of_youth_reached] = ''
       post :create, report
       response.should redirect_to("/")
+    end
+    
+    it "should not allow reports on upcoming projects" do
+      @project.end_date = Date.today + 1.day
+      @project.save
+      report = build_report_params
+      post :create, report
+      response.should be_redirect
+      response.should redirect_to("/groups/#{@group.permalink}/projects/#{@project.name}")
     end
     
   end

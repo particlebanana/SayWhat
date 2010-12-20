@@ -9,23 +9,30 @@ class ReportsController < ApplicationController
   
   # GET - Reporting form for a project
   def new
-    authorize! :new, @project.report = Report.new
-    @report = Report.new()
-    @options = @report.filters
-    respond_with(@report)
+    if @project.end_date < Date.today
+      authorize! :new, @project.report = Report.new
+      @report = Report.new()
+      @options = @report.filters
+      respond_with(@report)
+    else
+      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Can only report on finished projects"
+    end
   end
   
   # POST - Create a report for a project
   def create
-    authorize! :new, @project.report = Report.new
-    @report = Report.new(params[:report])
-    @project.report = @report
-    #if @report.save && @project.save
-    if @report.save
-      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Report Successfully Submitted"
+    if @project.end_date < Date.today
+      authorize! :new, @project.report = Report.new
+      @report = Report.new(params[:report])
+      @project.report = @report
+      if @report.save
+        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Report Successfully Submitted"
+      else
+        @options = @report.filters
+        render :action => 'new'
+      end
     else
-      @options = @report.filters
-      render :action => 'new'
+      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Can only report on finished projects"
     end
   end
   
