@@ -78,7 +78,7 @@
 
   = image_tag(@project.profile_photo_url(:profile), :id => "groupLogo")
   
-  - if (can? :create, @project.report = Report.new) && (@project.end_date < DateTime.now)
+  - if (can? :create, @project.report = Report.new) && (@project.end_date < Date.today)
     = link_to "Report on this project", "/groups/#{@group.permalink}/projects/#{@project.name}/report/new", :class => "groupActionButton" unless @project.report.valid?
 
   %ul#groupVitals
