@@ -1,7 +1,7 @@
 class ProjectsController < ApplicationController
   layout "main"
   
-  before_filter :authenticate_user!, :except => [:all, :index, :filter]
+  before_filter :authenticate_user!, :except => [:all, :index, :filter, :show]
   before_filter :set_group_by_permalink, :except => [:all, :filter]
   before_filter :set_project, :only => [:show, :edit, :update, :delete_photo]
   
@@ -38,10 +38,14 @@ class ProjectsController < ApplicationController
   end
   
   # GET - Project Page
+  # Only show upcoming projects to authenticated users for privacy reasons
   def show
-    @comments = @project.comments
-    @comment = Comment.new
-    respond_with(@project)
+    if @project.end_date >= Date.today && !current_user
+      redirect_to "/groups/#{@group.permalink}/projects", :notice => "error with project lookup"
+    else
+      @comment = Comment.new() if current_user
+      respond_with(@project)
+    end
   end
   
   # GET - New Project Page

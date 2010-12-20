@@ -1,0 +1,36 @@
+%div#comments
+  %h2.sectionTitle
+    Comments
+
+  - if notice
+    %p.notice
+      = notice
+
+  - if @project.comments.any?
+    %ul#comments
+      - @project.comments.each do |comment|
+        %li
+          = image_tag(comment.user.avatar_url(:thumb))
+          = comment.user.name
+          %p
+            = comment.comment
+            - if comment.user == current_user
+              = link_to "edit", {:controller => :comments, :action => :edit, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}
+            - if current_user.sponsor? && (current_user.group == @group)
+              = link_to "delete", {:controller => :comments, :action => :destroy, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}, :confirm => "Are you sure?", :method => :delete
+
+
+  = form_for [@group, @project, @comment], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/comments" do |f|
+
+    - if alert
+      %p.alert
+        = alert
+
+    = errors_for(@comment, "Opps, there were some problems adding your comment").html_safe
+
+    %p.group
+      = f.label :comment
+      = f.text_area :comment
+
+    %button.submit{:type => 'submit'}
+      Leave Comment

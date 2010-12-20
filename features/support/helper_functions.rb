@@ -24,12 +24,13 @@ end
 def create_group(name)
   @group = Factory.build(:group, :display_name => name)
   @group.status = 'active'
-  @user = Factory.build(:user)
+  email = (1..8).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join + "@gmail.com"
+  @user = Factory.build(:user, :email => email)
   @user.status = 'active'
   @user.role = 'adult sponsor'
   @group.users << @user
-  @user.save
-  @group.save
+  @user.save!
+  @group.save!
 end
 
 def create_user(email)

@@ -16,6 +16,7 @@ class Ability
       can :all, Project
       can :index, Project
       can :filter, Project
+      can :show, Project
     
     # Site Admin
     elsif user.admin?
