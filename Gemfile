@@ -3,7 +3,7 @@
 source 'http://rubygems.org'
 
 # Base Files
-gem 'rails', '3.0.0'
+gem 'rails', '3.0.3'
 
 
 # Required System Gems
