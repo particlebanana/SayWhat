@@ -26,6 +26,7 @@ module SayWhat
     config.encoding = "utf-8"
     
     config.middleware.use "ServeGridfsImage"
+    config.middleware.use "ServeStaticThemeFiles"
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
