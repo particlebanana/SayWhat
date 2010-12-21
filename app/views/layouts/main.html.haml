@@ -20,17 +20,16 @@
     = csrf_meta_tag
 
   %body
-      
-    %div#wrapper
-    
-      %header#pageHeader
+        
+    %header#pageHeader
+      %div#innerHeader.group
         %h1.left
           SayWhat!
         
         = render :partial => "layouts/session_header"
               
-      %div#content.group
-        = yield
+    %div#content.group
+      = yield
         
     
     

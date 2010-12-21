@@ -1,0 +1,33 @@
+%div#groupSidebar.rightCol
+
+  = image_tag(@group.profile_photo_url(:large), :id => "groupLogo")
+
+  = render :partial => "group_action_button"
+
+  %ul#groupVitals
+    %li
+      %strong
+        Established: 
+      = @group.created_at.to_s(:mdy)
+
+    %li
+      %strong
+        Members: 
+      = @group.users.active.count
+
+    %li
+      %strong
+        City: 
+      = @group.city
+
+    %li
+      %strong
+        Organization: 
+      = @group.organization
+
+    %li
+      %strong
+        Region: 
+      = @group.area.capitalize
+
+  = render :partial => "member_list"
