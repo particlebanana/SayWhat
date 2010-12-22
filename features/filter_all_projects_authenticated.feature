@@ -9,7 +9,7 @@ Feature: View and filter all projects from all groups as a user
 
   Scenario: I want to view all projects
     Given I am on my group page
-    Then I follow "View All"
+    Then I follow "view all"
     Then I follow "everyone's projects"
     Then I should see "Project_1" 
     And I should see "Project_2" 
