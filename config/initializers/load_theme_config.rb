@@ -1,3 +1,5 @@
+require 'rack/mime'
+
 raw_config = File.read(Rails.root.to_s + "/config/theme.yml")
 THEME = YAML.load(raw_config)
 
@@ -20,7 +22,8 @@ class ServeStaticThemeFiles
       image_path = File.join(PATH, path)
       content = File.read(image_path)
       length = "".respond_to?(:bytesize) ? content.bytesize.to_s : content.size.to_s
-      [200, {'Content-Length' => length,
+      [200, {"Content-Type"   => Rack::Mime.mime_type(File.extname(image), 'text/plain'),
+            'Content-Length' => length,
             'Cache-Control' => "public, max-age=#{60 * 60 * 24 * 365}",
             'Expires' => (Time.now + 1.hour).rfc2822}, [content]]
     else
