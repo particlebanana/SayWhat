@@ -8,9 +8,7 @@ Feature: View and filter all projects from all groups as a user
     And each of the groups have 3 projects
 
   Scenario: I want to view all projects
-    Given I am on my group page
-    Then I follow "view all"
-    Then I follow "everyone's projects"
+    Given I am on the all projects page
     Then I should see "Project_1" 
     And I should see "Project_2" 
     And I should see "Project_3" 

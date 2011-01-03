@@ -9,7 +9,7 @@ module HtmlSelectorsHelper
       "ul"
       
     when /the page title/
-      "#groupHeader header h1"
+      "h1"
       
     when /the page header/
       "header"

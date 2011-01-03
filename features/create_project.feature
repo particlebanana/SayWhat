@@ -8,7 +8,7 @@ Feature: Create a new group project
     Given I am on my group page
     Then I should see "view all"
     Then I follow "view all"
-    Then I follow "new project"
+    Then I follow "start a new project"
     And I fill in the following:
       | project_display_name      | Build The Death Star                            |
       | project_location          | Outer Space                                     |
@@ -18,13 +18,13 @@ Feature: Create a new group project
     And I select "Secondhand Smoke Exposure" from "project_focus"
     And I select "Elementary Students" from "project_audience"
     And I press "Create Project"
-    Then I should see "Build The Death Star" within the page title
+    Then I should see "Build The Death Star" 
     
   Scenario: I create an invalid project
     Given I am on my group page
     Then I should see "view all"
     Then I follow "view all"
-    Then I follow "new project"
+    Then I follow "start a new project"
     And I fill in the following:
     | project_display_name      |                                                 |
     | project_location          | Outer Space                                     |
