@@ -1,0 +1,38 @@
+%div#projectInfo
+
+  %ul#tabbedNav.group
+    %li#pinfo.active
+      %a{:href => '#'}
+        Project Info
+        
+    %li#pdiscussion
+      %a{:href => '#'}
+        Discussion
+  
+  %div#info    
+    %article   
+      %header
+        %h3
+          Goal of the Project:
+    
+      %p
+        = @project.goal
+    
+    %article   
+      %header
+        %h3
+          Description of the Project:
+    
+      %p
+        = @project.description
+    
+    %article   
+      %header
+        %h3
+          Who is involved with the Project:
+
+      %p
+        = @project.involves
+      
+    
+  = render :partial => "comments", :group => @group, :project => @project, :comment => @comment if current_user

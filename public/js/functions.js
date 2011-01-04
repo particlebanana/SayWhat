@@ -15,5 +15,29 @@ head.ready(function() {
 	} else {
 		$('.avatarUpload').show();
 	}
+	
+	
+	var tabs = $('ul#tabbedNav li');
+	tabs.click(function(e){
+		var element = $(this);
+		var id = element.attr('id');
+		
+		if(element.find('.active').length) return false;
+		//$('#projectInfo div').each(function(){$(this).fadeOut('fast');});
+		
+		tabs.each(function(){ $(this).removeClass('active'); });
+		element.addClass('active');
+			
+		if(id == 'pinfo'){
+			$('div#comments').fadeOut('fast', function(){
+				$('div#info').fadeIn('fast');
+			});
+		} else if(id == 'pdiscussion') {
+			$('div#info').fadeOut('fast', function(){
+				$('div#comments').fadeIn('fast');
+			});
+		}
+		
+	})
 
 });

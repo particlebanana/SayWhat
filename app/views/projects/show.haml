@@ -1,73 +1,22 @@
 = title @project.display_name
-  
-%section#groupContent.group.leftCol
-  
-  %article
-    %header
-      %hgroup.group
-        %h1.left
+
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
           = @project.display_name
+        %h3
+          = group_link(@group)
       
-        - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
-          = link_to "edit", "/groups/#{@group.permalink}/projects/#{@project.name}/edit", :class => "right" if current_user.group == @group
-          
-      %p
-        = group_link(@group)
-    
-  %article   
-    %header
-      %h3
-        Goal of the Project:
-    
-    %p
-      = @project.goal
-    
-  %article   
-    %header
-      %h3
-        Description of the Project:
-    
-    %p
-      = @project.description
-    
-  %article   
-    %header
-      %h3
-        Who is involved with the Project:
+      - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
+        = link_to "edit", "/groups/#{@group.permalink}/projects/#{@project.name}/edit", :class => "right" if current_user.group == @group
+        
 
-    %p
-      = @project.involves
-    
+%div.centeredWrap
+
+  = render :partial => "project_info"
   
-  = render :partial => "comments", :group => @group, :project => @project, :comment => @comment if current_user
+  = render :partial => "project_sidebar"
 
 
-%div#groupSidebar.rightCol
-
-  = image_tag(@project.profile_photo_url(:profile), :id => "groupLogo")
-  
-  - if (can? :create, @project.report = Report.new) && (@project.end_date < Date.today)
-    = link_to "Report on this project", "/groups/#{@group.permalink}/projects/#{@project.name}/report/new", :class => "groupActionButton" unless @project.report.valid?
-
-  %ul#groupVitals
-    %li
-      %strong
-        Location:
-      = @project.location
-      
-    %li
-      %strong
-        Date:
-      = @project.start_date
-      thru
-      = @project.end_date
-      
-    %li
-      %strong
-        Focus of the Project:
-      = @project.focus
-
-    %li
-      %strong
-        Target Audience for the Project:
-      = @project.audience
