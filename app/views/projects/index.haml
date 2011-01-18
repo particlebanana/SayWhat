@@ -15,13 +15,13 @@
       %li#reached
         %strong
           %span
-            1000
-        people reached
-      %li#money
+            = @group.youth_reached_tally
+        youth reached
+      %li#reached
         %strong
           %span
-            $250
-        money spent
+            = @group.adults_reached_tally
+        adults reached
 
 - if current_user && current_user.group == @group        
   %div#projectStart
