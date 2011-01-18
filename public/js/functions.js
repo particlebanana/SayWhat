@@ -39,5 +39,9 @@ head.ready(function() {
 		}
 		
 	})
+	
+	// Datepicker
+	$('#projectForm #startDate input').datepicker();
+	$('#projectForm #endDate input').datepicker();
 
 });

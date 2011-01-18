@@ -1,61 +1,17 @@
 = title "New Project"
 
-%div#groupRequestForm
+= title "Edit Project"
+
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          New Project
+        
+%div#projectForm.centeredWrap.group
   
-  %h2.pageTitle
-    Create a new project
-    
   = form_for [@group, @project], :url => "/groups/#{@group.permalink}/projects", :html => { :multipart => true} do |f|
-  
     = errors_for(@project, "Opps, there were some problems creating your project").html_safe
     
-    %p.group
-      = f.label :picture
-      = image_tag(@project.profile_photo_url(:small), :class => "left") if @project.profile_photo_filename?
-      - if @project.profile_photo_filename?
-        %span.avatarOptions
-          = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @project.profile_photo_filename?
-
-      %span.avatarUpload  
-        = f.file_field :profile_photo
-        
-    %p.group
-      = f.label :name
-      = f.text_field :display_name
-    
-    %p.group
-      = f.label :location
-      = f.text_field :location
-    
-    %p.group
-      = f.label :start_date
-      = f.date_select :start_date
-    
-    %p.group
-      = f.label :end_date
-      = f.date_select :end_date
-      
-    %p.group
-      = f.label :focus_of_the_project
-      = f.select(:focus, @options[:focus])
-      
-    %p.group
-      = f.label :target_audience_for_the_project
-      = f.select(:audience, @options[:audience])
-      
-    %p.group
-      = f.label :goal_of_the_project
-      = f.text_area :goal
-    
-    %p.group
-      = f.label :description
-      = f.text_area :description
-            
-    %p.group
-      = f.label :who_will_be_involved_in_the_project
-      = f.text_area :involves
-    
-    %button.submit{:type => 'submit'}
-      Create Project
-      
-    
+    = render 'form', :f => f

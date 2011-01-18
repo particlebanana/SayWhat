@@ -7,6 +7,7 @@
       = "SayWhat / #{yield(:title)}"
  
     = stylesheet_link_tag 'application', :media => :screen
+    = stylesheet_link_tag 'flick/jquery-ui-1.8.8.custom.css', :media => :screen
     
     = javascript_include_tag "/js/head.load.min.js"
     
@@ -14,6 +15,7 @@
       head.js(
       "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js",
       "/js/modernizr-1.5.min.js",
+      "/js/jquery-ui-1.8.8.custom.min.js",
       "/javascripts/rails.js",
       "/js/functions.js");
 
