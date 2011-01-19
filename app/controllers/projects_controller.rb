@@ -60,6 +60,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(:group_id => @group.id.to_s)
     authorize! :new, @project
+    format_calendar_dates
     @project = Project.new(params[:project])
     @group.projects << @project
     if @project.save && @group.save

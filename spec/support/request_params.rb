@@ -19,8 +19,8 @@ def build_project_params
     :project => {
       :display_name =>  "Build Death Star",
       :location => "Outer Space",
-      :start_date => "11-11-2011",
-      :end_date => "11-12-2011",
+      :start_date => "11/11/2011",
+      :end_date => "11/12/2011",
       :focus => "Alderaan",
       :audience => "People of Aldreaan...for a flash",
       :goal => "Destroy planets",
