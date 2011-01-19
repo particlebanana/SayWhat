@@ -4,10 +4,11 @@
     %li#pinfo.active
       %a{:href => '#'}
         Project Info
-        
-    %li#pdiscussion
-      %a{:href => '#'}
-        Discussion
+    
+    - if current_user    
+      %li#pdiscussion
+        %a{:href => '#'}
+          Discussion
   
   %div#info    
     %article   

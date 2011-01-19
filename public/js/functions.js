@@ -23,7 +23,6 @@ head.ready(function() {
 		var id = element.attr('id');
 		
 		if(element.find('.active').length) return false;
-		//$('#projectInfo div').each(function(){$(this).fadeOut('fast');});
 		
 		tabs.each(function(){ $(this).removeClass('active'); });
 		element.addClass('active');
@@ -37,7 +36,7 @@ head.ready(function() {
 				$('div#comments').fadeIn('fast');
 			});
 		}
-		
+		return false;
 	})
 	
 	// Datepicker
