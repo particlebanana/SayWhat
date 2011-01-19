@@ -20,8 +20,8 @@ class ProjectCache
     
   def self.filter(focus, audience)
     projects = Mongoid::Criteria.new(self)
-    projects = projects.where(:focus => focus) unless focus == ''
-    projects = projects.where(:audience => audience) unless audience == ''
+    projects = projects.where(:focus => focus) unless focus == 'Filter by Focus'
+    projects = projects.where(:audience => audience) unless audience == 'Filter by Audience'
     projects
   end
   

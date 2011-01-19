@@ -65,8 +65,8 @@ class Project
   public
   
     def filters
-      focus = ['', 'Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
-      audience = ['', 'Elementary Students', 'Middle School Students', 'High School Students', 'Community Members', 'Government Officials']
+      focus = ['Filter by Focus', 'Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
+      audience = ['Filter by Audience', 'Elementary Students', 'Middle School Students', 'High School Students', 'Community Members', 'Government Officials']
       filters = {
         :focus => focus.map { |focus| [focus, focus] },
         :audience => audience.map { |audience| [audience, audience] }

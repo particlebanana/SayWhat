@@ -1,20 +1,23 @@
 = title "All Projects"
 
-%div#groupTop.group
-  %h2.left
-    All Projects
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          All Projects
 
-%div#projectFiltering
-  = form_tag("/projects/filter", :method => "get") do
-    %p.group
-      = label_tag(:focus, "Focus")
-      = select_tag(:focus, options_for_select(@options[:focus].map {|item| [item[0], item[1]]}))
-      
-    %p.group
-      = label_tag(:audience, "Audience")
-      = select_tag(:audience, options_for_select(@options[:audience].map {|item| [item[0], item[1]]}))
-      
-    %button.submit{:type => 'submit'}
-      Filter
+%div.centeredWrap.group
 
-= list_projects_from_cache(@projects)
+  %div#projectFiltering.group
+    = form_tag("/projects/filter", :method => "get") do
+      %p.group
+        = select_tag(:focus, options_for_select(@options[:focus].map {|item| [item[0], item[1]]}))
+      
+      %p.group
+        = select_tag(:audience, options_for_select(@options[:audience].map {|item| [item[0], item[1]]}))
+      
+      %button.submit{:type => 'submit'}
+        Filter
+
+  = list_projects_from_cache(@projects)
