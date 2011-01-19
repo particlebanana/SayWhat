@@ -111,10 +111,10 @@ class ProjectsController < ApplicationController
     end
     
     def format_calendar_dates
-      start = Date.strptime(params[:project][:start_date], "%m/%d/%Y")
-      stop = Date.strptime(params[:project][:end_date], "%m/%d/%Y")
-      params[:project][:start_date] = start
-      params[:project][:end_date] = stop
+      start = Date.strptime(params[:project][:start_date], "%m/%d/%Y") if params[:project][:start_date]
+      stop = Date.strptime(params[:project][:end_date], "%m/%d/%Y") if params[:project][:end_date]
+      params[:project][:start_date] = start if start
+      params[:project][:end_date] = stop if stop
     end
   
 end
