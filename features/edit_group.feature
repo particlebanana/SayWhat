@@ -11,7 +11,7 @@ Feature: Edit a group
     And I fill in the following:
       | group_display_name  | Han Shot Second     |
     And I press "Update"
-    Then I should see "Han Shot Second" within the page title
+    Then I should see "Han Shot Second" 
     
   
   Scenario: I upload a project image

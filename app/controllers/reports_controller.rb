@@ -26,6 +26,8 @@ class ReportsController < ApplicationController
       @report = Report.new(params[:report])
       @project.report = @report
       if @report.save
+        @group.update_report_tally(params[:report]['number_of_adults_reached'], params[:report]['number_of_youth_reached'])
+        @group.save
         redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Report Successfully Submitted"
       else
         @options = @report.filters

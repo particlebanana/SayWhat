@@ -1,13 +1,35 @@
 = title "Projects"
 
-%div#groupTop.group
-  %h2.left
-    Projects
+%div#projectStats
+  %div.centeredWrap.group
+      
+    %ul#stats.group
+      %li#completed
+        %strong
+          %span
+            = @projects[:completed].count.to_s
+        completed
+      %li.people
+        %strong
+          %span
+            = @group.youth_reached_tally
+        youth reached
+      %li.people
+        %strong
+          %span
+            = @group.adults_reached_tally
+        adults reached
 
-%ul#projectNav
-  %li
-    = link_to "everyone's projects", "/projects"
-  %li
-    = link_to "new project", "/groups/#{@group.permalink}/projects/new" if current_user && current_user.group == @group
+- if current_user && current_user.group == @group        
+  %div#projectStart
+    %div.centeredWrap.group
+      = link_to "start a new project", "/groups/#{@group.permalink}/projects/new", :class => "left"
+      %p.big
+        Do you have an awesome idea for your group?
+      %p
+        Start a project and begin planning it out with the help of other group members!
+    
+    
+%div#groupProjects.centeredWrap.group
 
-= render 'group_projects', :projects => @projects
+  = render 'group_projects', :projects => @projects

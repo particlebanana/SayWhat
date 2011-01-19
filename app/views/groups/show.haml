@@ -2,44 +2,35 @@
 
 %div#foldDown
   %section.group
-  
-    %article.article
-      %header
-        %hgroup.group
-          %h1.left
-            = @group.display_name
     
-          - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
-            = link_to "edit", "/groups/#{@group.permalink}/edit", :class => "right" if current_user.group == @group
+    = render :partial => "group_sidebar", :group => @group
+    
+    %div#groupHeader.left
+    
+      %article.article
+        %header
+          %hgroup.group
+            %h1.left
+              = @group.display_name
+    
+            - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
+              = link_to "edit", "/groups/#{@group.permalink}/edit", :class => "right groupActionButton" if current_user.group == @group
         
+          %h3
+            = @group.organization
+        
+      %article
         %p
-          = @group.organization
-        
-    %article 
-      = raw(@group.description)
+          = raw(@group.description)
+      
+  
       
 %section#lowerContent.group
 
-  %section#groupContent.group.leftCol
-        
-    %article.article
-    
-      %header.group
-        %h2.left
-          Recent Projects
-      
-        = link_to "View All", "/groups/#{@group.permalink}/projects", :class => "right"
-    
-      %ul#recentProjects
-        - @recent_projects.each do |project|
-          %li.group
-            = project_photo(project)
-            %div.about
-              %h3
-                = project_link(project)
-              %p
-                = project.goal
+  = render :partial => "group_recent_projects"
+
+  
                 
                 
-  = render :partial => "group_sidebar", :group => @group
+  
   

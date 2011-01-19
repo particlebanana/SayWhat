@@ -1,24 +1,27 @@
 %div#comments
-  %h2.sectionTitle
-    Comments
 
   - if notice
     %p.notice
       = notice
 
   - if @project.comments.any?
-    %ul#comments
+    %ul#commentList
       - @project.comments.each do |comment|
-        %li
-          = image_tag(comment.user.avatar_url(:thumb))
-          = comment.user.name
-          %p
-            = comment.comment
-            - if comment.user == current_user
-              = link_to "edit", {:controller => :comments, :action => :edit, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}
-            - if current_user.sponsor? && (current_user.group == @group)
-              = link_to "delete", {:controller => :comments, :action => :destroy, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}, :confirm => "Are you sure?", :method => :delete
-
+        %li.group
+          %div.author
+            = comment.created_at.strftime('%m/%d/%Y')
+            %span
+              = comment.user.name
+            
+          %div.commentBody.group
+            = image_tag(comment.user.avatar_url(:small), :width => 50, :height => 50)
+            %p
+              = comment.comment
+              - if comment.user == current_user
+                = link_to "edit", {:controller => :comments, :action => :edit, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}
+              - if current_user.sponsor? && (current_user.group == @group)
+                = link_to "delete", {:controller => :comments, :action => :destroy, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}, :confirm => "Are you sure?", :method => :delete
+                      
 
   = form_for [@group, @project, @comment], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/comments" do |f|
 

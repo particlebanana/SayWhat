@@ -11,6 +11,8 @@ class Group
   field :esc_region, :default => 'pending'
   field :dshs_region, :default => 'pending'
   field :area, :default => 'pending'
+  field :adults_reached_tally, :type => Integer, :default => 0
+  field :youth_reached_tally, :type => Integer, :default => 0
   mount_uploader :profile_photo, ProfileUploader
   references_many :users, :dependent => :delete
   embeds_many :projects
@@ -37,6 +39,11 @@ class Group
   
     def make_slug
       self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
+    end
+    
+    def update_report_tally(adults, youth)
+      self.adults_reached_tally += adults.to_i
+      self.youth_reached_tally += youth.to_i
     end
 
 end

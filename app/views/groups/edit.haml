@@ -1,82 +1,63 @@
 = title "Edit Group"
 
-%div#groupProperties.left
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Edit Group
 
-  %h2.sectionTitle
-    Edit Your Group
+%div.centeredWrap.group        
   
-  = form_for @group, :url => "/groups/#{@group.permalink}", :html => { :multipart => true}, :method => "put" do |f|
+  %div#groupProperties.left
   
-    = errors_for(@group, "Opps, there were some problems with your group information").html_safe
+    = form_for @group, :url => "/groups/#{@group.permalink}", :html => { :multipart => true}, :method => "put" do |f|
+  
+      = errors_for(@group, "Opps, there were some problems with your group information").html_safe
 
-    %p.group
-      = f.label :picture
-      = image_tag(@group.profile_photo_url(:thumb), :class => "left") if @group.profile_photo_filename?
-      - if @group.profile_photo_filename?
-        %span.avatarOptions
-          = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @group.profile_photo_filename?
-          = link_to "Delete this image", "/groups/#{@group.permalink}/delete_photo", :class => "avatarOption" if @group.profile_photo_filename?
-
-      %span.avatarUpload  
-        = f.file_field :profile_photo
-        
-    %p.group
-      = f.label :name
-      = f.text_field :display_name
-
-    %p.group
-      = f.label :city, :class => "required"
-      = f.text_field :city
-  
-    %p.group
-      = f.label :organization, :class => "required"
-      = f.text_field :organization
-  
-    %p.group
-      = f.label :description
-      = f.text_area :description
+      = render 'form', :f => f
     
-    %button.submit{:type => 'submit'}
-      Update
+      %button.submit{:type => 'submit'}
+        Update
 
 
-%div#sponsorProperties.right
+  %div#sponsorProperties.right
 
-  %h2.sectionTitle
-    Group Sponsors
+    %h2.sectionTitle
+      Group Sponsors
     
-  %ul
-    %li#adultSponsor.group
-      = image_tag(@adult_sponsor.avatar_url(:thumb))
-      %div.group
-        %strong
-          = @adult_sponsor.name
-          - if current_user.adult_sponsor?
-            %em
-              (you)
-        %em
-          Adult Sponsor
-    
-    %li#youthSponsor.group
-      - if @youth_sponsor
-        = image_tag(@youth_sponsor.avatar_url(:thumb))
+    %ul
+      %li#adultSponsor.group
+        = image_tag(@adult_sponsor.avatar_url(:thumb))
         %div.group
           %strong
-            = @youth_sponsor.name
-            -if current_user.adult_sponsor?
-              %em
-                = link_to "revoke", {:controller => :users, :action => :revoke_youth_sponsor, :permalink => @group.permalink, :user_id => @youth_sponsor.id.to_s}, :method => :put
-            - elsif current_user.youth_sponsor?
+            = @adult_sponsor.name
+            - if current_user.adult_sponsor?
               %em
                 (you)
           %em
-            Youth Sponsor
+            Adult Sponsor
+    
+      %li#youthSponsor.group
+        - if @youth_sponsor
+          = image_tag(@youth_sponsor.avatar_url(:thumb))
+          %div.group
+            %strong
+              = @youth_sponsor.name
+              -if current_user.adult_sponsor?
+                %em
+                  = link_to "revoke", {:controller => :users, :action => :revoke_youth_sponsor, :permalink => @group.permalink, :user_id => @youth_sponsor.id.to_s}, :method => :put
+              - elsif current_user.youth_sponsor?
+                %em
+                  (you)
+            %em
+              Youth Sponsor
       
-      - else
-        %div.group
-          %strong
-            = link_to "Assign a youth sponsor", "/groups/#{@group.permalink}/edit/choose_youth_sponsor"
-          %em
-            Youth Sponsor
+        - else
+          %div.group
+            %strong
+              = link_to "Assign a youth sponsor", "/groups/#{@group.permalink}/edit/choose_youth_sponsor"
+            %em
+              Youth Sponsor
        
       

@@ -26,6 +26,11 @@ module ApplicationHelper
     end
     html
   end  
+  
+  def snippit(str, limit=100)
+    #str.gsub(/^(.{10}[\w.]*)(.*)/) {$2.empty? ? $1 : $1 + '…'}
+    str.split[0..(limit-1)].join(" ") +(str.split.size > limit ? "..." : "") 
+  end
 
 
 end

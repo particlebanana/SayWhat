@@ -1,0 +1,54 @@
+%div#projectSpecs.group
+    
+  %fieldset.vitals.group.left
+    %p.group
+      = f.label :name
+      = f.text_field :display_name
+  
+    %p.group
+      = f.label :location
+      = f.text_field :location
+  
+  %fieldset.avatar.group.right
+    %p.group
+      = f.label :picture
+      = image_tag(@project.profile_photo_url(:small), :class => "left") if @project.profile_photo_filename?
+      - if @project.profile_photo_filename?
+        %span.avatarOptions
+          = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @project.profile_photo_filename?
+          = link_to "Delete this image", "/groups/#{@group.permalink}/projects/#{@project.name}/delete_photo", :class => "avatarOption" if @project.profile_photo_filename?
+
+      %span.avatarUpload  
+        = f.file_field :profile_photo
+        
+%fieldset.auxDetails.group
+  %p.group.left#startDate
+    = f.label :start_date
+    = f.text_field :start_date, :value => (f.object.start_date.strftime('%m/%d/%Y') unless f.object.start_date.nil?)
+  
+  %p.group.left#endDate
+    = f.label :end_date
+    = f.text_field :end_date, :value => (f.object.end_date.strftime('%m/%d/%Y') unless f.object.end_date.nil?)
+    
+  %p.group.left
+    = f.label :focus_of_the_project
+    = f.select(:focus, @options[:focus])
+    
+  %p.group.left
+    = f.label :target_audience_for_the_project
+    = f.select(:audience, @options[:audience])
+    
+%p.group
+  = f.label :goal_of_the_project
+  = f.text_area :goal
+  
+%p.group
+  = f.label :description
+  = f.text_area :description
+          
+%p.group
+  = f.label :who_will_be_involved_in_the_project
+  = f.text_area :involves
+    
+%button.submit{:type => 'submit'}
+  Save Project

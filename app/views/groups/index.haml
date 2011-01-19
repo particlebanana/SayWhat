@@ -1,13 +1,18 @@
 = title "Groups"
 
-%div#groupTop.group
-  %h2.left
-    Groups
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          All Groups
 
 
-%ul#projectsList    
-  - @groups.each do |group|
-    %li
-      = image_tag(group.profile_photo_url(:small))
-      %strong
-        = link_to group.display_name, "/groups/#{group.permalink}"
+%div#groupIndex.centeredWrap.group
+
+  %ul.projectsList.group    
+    - @groups.each do |group|
+      %li
+        = link_to image_tag(group.profile_photo_url(:small)), "/groups/#{group.permalink}"
+        %strong
+          = link_to group.display_name, "/groups/#{group.permalink}"

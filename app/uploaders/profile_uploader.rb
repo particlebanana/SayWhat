@@ -15,7 +15,7 @@ class ProfileUploader < CarrierWave::Uploader::Base
   # end
   
   def default_url
-    "/images/fallback/" + [version_name, "profile.png"].compact.join('_')
+    "/default/fallback/" + [version_name, "profile.png"].compact.join('_')
   end
   
   process :resize_to_fit => [800, 800]
@@ -33,7 +33,7 @@ class ProfileUploader < CarrierWave::Uploader::Base
   end
   
   version :large do
-    process :resize_to_fit => [350, 350]
+    process :resize_to_fit => [278, 278]
   end
 
   # Add a white list of extensions which are allowed to be uploaded.

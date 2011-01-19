@@ -60,6 +60,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(:group_id => @group.id.to_s)
     authorize! :new, @project
+    format_calendar_dates
     @project = Project.new(params[:project])
     @group.projects << @project
     if @project.save && @group.save
@@ -78,6 +79,7 @@ class ProjectsController < ApplicationController
   
   # PUT - Update Project
   def update
+    format_calendar_dates
     if @project.update_attributes(params[:project])
       redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}" 
     else
@@ -107,6 +109,13 @@ class ProjectsController < ApplicationController
     
     def set_project
       @project = @group.projects.where(:name => params[:name]).first
+    end
+    
+    def format_calendar_dates
+      start = Date.strptime(params[:project][:start_date], "%m/%d/%Y") if params[:project][:start_date]
+      stop = Date.strptime(params[:project][:end_date], "%m/%d/%Y") if params[:project][:end_date]
+      params[:project][:start_date] = start if start
+      params[:project][:end_date] = stop if stop
     end
   
 end

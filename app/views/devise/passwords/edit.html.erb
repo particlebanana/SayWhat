@@ -1,5 +1,16 @@
-<h2>Change your password</h2>
+<%= title "Password Reset" %>
 
+<div id='projectHeader'> 
+  <div class='centeredWrap group'> 
+    <header class='group'> 
+      <hgroup class='left'> 
+        <h1>Reset Your Password</h1> 
+      </hgroup> 
+    </header> 
+  </div> 
+</div>
+
+<div class='centeredWrap group' id='login'> 
 <%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f| %>
   <%= devise_error_messages! %>
   <%= f.hidden_field :reset_password_token %>
@@ -14,3 +25,4 @@
 <% end %>
 
 <%= render :partial => "devise/shared/links" %>
+</div>

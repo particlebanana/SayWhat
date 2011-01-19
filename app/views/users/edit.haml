@@ -1,48 +1,56 @@
 = title "Profile"
 
-- if notice 
-  %p.notice
-    = notice
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Edit Your Profile
+          
+      %div.options.right
+        %a{ :href => "/settings/password" }
+          Change Your Password &raquo;
+
+%div.centeredWrap.group
+          
+  - if notice 
+    %p.notice
+      = notice
         
-- if alert 
-  %p.alert
-    = alert
-    
-= render :partial => "settings_nav", :locals => {:active => "profile"}
-      
-%h2
-  Edit Your Profile
+  - if alert 
+    %p.alert
+      = alert      
   
-= form_for(@user, :html => { :multipart => true}) do |f|
+  = form_for(@user, :html => { :multipart => true}) do |f|
   
-  = errors_for(@user, "Opps, there were some problems with your profile information").html_safe
+    = errors_for(@user, "Opps, there were some problems with your profile information").html_safe
 
-  %p.group
-    = f.label :picture
-    = image_tag(@user.avatar_url(:small), :class => "left") if @user.avatar_filename?
-    - if @user.avatar_filename?
-      %span.avatarOptions
-        = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @user.avatar_filename?
-        = link_to "Delete this image", delete_avatar_user_url(@user), :class => "avatarOption" if @user.avatar_filename?
+    %p.group
+      = f.label :picture
+      = image_tag(@user.avatar_url(:small), :class => "left") if @user.avatar_filename?
+      - if @user.avatar_filename?
+        %span.avatarOptions
+          = link_to "Change image", "#", :class => "avatarOption", :id => "changeAvatar" if @user.avatar_filename?
+          = link_to "Delete this image", delete_avatar_user_url(@user), :class => "avatarOption" if @user.avatar_filename?
     
-    %span.avatarUpload  
-      = f.file_field :avatar
+      %span.avatarUpload  
+        = f.file_field :avatar
 
-  %p.group
-    = f.label :first_name
-    = f.text_field :first_name
+    %p.group
+      = f.label :first_name
+      = f.text_field :first_name
     
-  %p.group
-    = f.label :last_name
-    = f.text_field :last_name
+    %p.group
+      = f.label :last_name
+      = f.text_field :last_name
 
-  %p.group
-    = f.label :email
-    = f.text_field :email
+    %p.group
+      = f.label :email
+      = f.text_field :email
   
-  %p.group
-    = f.label :bio
-    = f.text_area :bio
+    %p.group
+      = f.label :bio
+      = f.text_area :bio
     
-  %button.submit{:type => 'submit'}
-    Save
+    %button.submit{:type => 'submit'}
+      Save

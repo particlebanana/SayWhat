@@ -74,6 +74,20 @@ describe ReportsController do
       response.should redirect_to("/groups/#{@group.permalink}/projects/#{@project.name}")
     end
     
+    it "should update the group tally for adults reached" do
+      @group.adults_reached_tally.should == 0
+      report = build_report_params
+      post :create, report
+      @group.reload.adults_reached_tally.should == 10
+    end
+    
+    it "should update the group tally for youth reached" do
+      @group.youth_reached_tally.should == 0
+      report = build_report_params
+      post :create, report
+      @group.reload.youth_reached_tally.should == 10
+    end
+    
   end
   
 end

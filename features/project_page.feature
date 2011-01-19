@@ -10,7 +10,7 @@ Feature: View a project page
     And I am on the project page
     Then I should see "Rebuild The Falcon"
     And I should see "Wookies United"
-    And I should not see "Comments"
+    And I should not see "Discussion"
     And I should not see "edit"
     
   Scenario: A group member views the project page
@@ -19,7 +19,7 @@ Feature: View a project page
     And I am on the project page
     Then I should see "Rebuild The Falcon"
     Then I should see "Wookies United"
-    And I should see "Comments"
+    And I should see "Discussion"
     And I should see "edit"
     
   Scenario: A public user tries to view an upcoming project

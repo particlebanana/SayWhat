@@ -1,0 +1,29 @@
+%div#projectSidebar
+
+  = image_tag(@project.profile_photo_url(:large))
+  
+  - if (can? :create, @project.report = Report.new) && (@project.end_date < Date.today)
+    = link_to "Report on this project", "/groups/#{@group.permalink}/projects/#{@project.name}/report/new", :class => "groupActionButton" unless @project.report.valid?
+
+  %ul#groupVitals
+    %li
+      %strong
+        Location:
+      = @project.location
+      
+    %li
+      %strong
+        Date:
+      = @project.start_date
+      thru
+      = @project.end_date
+      
+    %li
+      %strong
+        Focus:
+      = @project.focus
+
+    %li
+      %strong
+        Target Audience:
+      = @project.audience
