@@ -1,9 +1,13 @@
 = title "Invite Member"
 
-%div#membershipRequestForm
-  
-  %h2.pageTitle
-    Invite a friend to join
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Invite a friend to join
+          
+%div#membershipRequestForm.centeredWrap.group   
     
   = form_for @user, :url => "/groups/#{@group.permalink}/send_invite" do |u|
       

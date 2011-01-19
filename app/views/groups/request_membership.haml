@@ -1,10 +1,14 @@
 = title "Membership Request"
 
-%div#membershipRequestForm
-  
-  %h2.pageTitle
-    Request To Join Group
-    
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Request To Join Group
+          
+%div#membershipRequestForm.centeredWrap.group  
+      
   = form_for @user, :url => "/groups/#{@group.permalink}/create_membership_request", :method => "post" do |u|
       
     = errors_for(@user, "Opps, there were some problems with your information").html_safe

@@ -60,9 +60,7 @@ class GroupsController < ApplicationController
   def request_group
     @group = Group.new
     @user = User.new
-    respond_with @group do |format|
-      format.html { render :layout => "application" }
-    end
+    respond_with(@group)
   end
   
   

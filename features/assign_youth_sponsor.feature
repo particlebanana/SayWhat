@@ -14,6 +14,6 @@ Feature: Assign a Youth Sponsor to a group
     And I should see "Assign a youth sponsor"
     And I follow "Assign a youth sponsor"
     Then I should see "Luke Skywalker"
-    And I follow "assign"
+    And I follow "promote"
     Then I should see "Luke Skywalker" within the youth sponsor
     And The "sponsor" should receive an email at "luke.skywalker@gmail.com" with the subject "You have been promoted to a sponsor for the group Evil Empire on SayWhat!"

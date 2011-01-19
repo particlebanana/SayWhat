@@ -1,6 +1,13 @@
-%div
-  %h2
-    Pending Membership Request
+= title "Pending Members"
+
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Pending Membership Requests
+          
+%div.centeredWrap.group  
     
   - if @group.users.pending.count > 0
     %ul#pendingMembers
