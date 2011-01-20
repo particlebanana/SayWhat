@@ -35,3 +35,11 @@ def build_a_generic_project(i)
   audience_array = ['Elementary Students', 'Middle School Students', 'High School Students']
   project = Factory.build(:project, :display_name => "project_" + i.to_s, :focus => focus_array[i], :audience => audience_array[i])
 end
+
+def seed_messages(count)
+  count.to_i.times do
+    message = Factory.build(:message)
+    @user.messages << message
+    @user.save
+  end
+end

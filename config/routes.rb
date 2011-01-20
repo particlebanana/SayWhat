@@ -30,6 +30,9 @@ SayWhat::Application.routes.draw do
     
   end
   
+  # Messaging
+  resources :messages
+  
   # Groups
   match "/groups" => "groups#index", :via => "get"
   match "/groups" => "groups#create", :via => "post"

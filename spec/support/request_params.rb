@@ -62,3 +62,12 @@ def build_report_params
     }
   }
 end
+
+def build_message_params
+  message_params = {
+    :message => {
+      :message_subject => "Test Subject",
+      :message_content => "This is a test message"
+    }
+  }
+end

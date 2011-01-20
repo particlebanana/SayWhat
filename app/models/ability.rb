@@ -43,6 +43,8 @@ class Ability
       can :edit_password, User
       can :update_password, User
       
+      can :index, Message
+      
       can :index, Group
       can :show, Group
       can :create_invite, Group
@@ -78,6 +80,8 @@ class Ability
       can :choose_youth_sponsor, User
       can :assign_youth_sponsor, User
       can :revoke_youth_sponsor, User
+      
+      can :create, Message
       
       can :edit, Group do |group|
         user.group == group
@@ -121,6 +125,9 @@ class Ability
     
     # Youth Sponsor
     elsif user && user.youth_sponsor?
+      
+      can :create, Message
+      
       can :edit, Group do |group|
         user.group == group
       end

@@ -10,6 +10,7 @@ class User
   field :authentication_token
   referenced_in :group
   references_many :comments
+  embeds_many :messages
   mount_uploader :avatar, AvatarUploader
 
 
@@ -48,6 +49,11 @@ class User
     end    
     
   public
+  
+    # Create a message object
+    def create_message_object(message_object)
+      self.messages << Message.new(message_object)
+    end
     
     # Role Checks  
     def admin?

@@ -45,6 +45,14 @@ class Group
       self.adults_reached_tally += adults.to_i
       self.youth_reached_tally += youth.to_i
     end
+    
+    # Sends a message to all the members inboxes
+    def send_group_message(message_object)
+      self.users.each do |member|
+        member.create_message_object(message_object)
+        member.save!
+      end
+    end
 
 end
 
