@@ -50,7 +50,6 @@ class Group
     def send_group_message(message_object)
       self.users.each do |member|
         member.create_message_object(message_object)
-        member.save!
       end
     end
 

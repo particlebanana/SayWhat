@@ -8,7 +8,7 @@ class Message
   field :message_content
   field :message_payload
   
-  attr_accessible :message_subject, :message_content
+  attr_accessible :_id, :message_subject, :message_content
   
   validates_presence_of [:message_type, :message_subject, :message_content]
 end

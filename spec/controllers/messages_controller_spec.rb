@@ -42,4 +42,18 @@ describe MessagesController do
     
   end
   
+  describe "#show" do
+    before(:each) do
+      @user = build_a_generic_user(1)
+      sign_in @user
+      seed_messages(5)
+    end
+    
+    it "should display the message" do
+      get :show, {:id => @user.messages.last.id.to_s}
+      assigns[:message].message_subject.should == "Generic Message"
+      assigns[:message].message_content.should == "This is a generic message"
+    end
+  end
+  
 end

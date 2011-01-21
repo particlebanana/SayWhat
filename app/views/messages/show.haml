@@ -1,0 +1,19 @@
+= title "Message"
+
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Inbox        
+
+%div.centeredWrap
+
+  %p
+    Subject:
+    = @message.message_subject
+    
+  %p
+    = @message.message_content
+
+

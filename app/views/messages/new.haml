@@ -1,0 +1,24 @@
+= title "Compose Message"
+
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Inbox
+        
+%div.centeredWrap
+
+  = form_for @message do |f|
+    = errors_for(@message, "Opps, there were some problems sending your message").html_safe
+    
+    %p.group
+      = f.label :subject
+      = f.text_field :message_subject
+      
+    %p.group
+      = f.text_area :message_content
+
+    %button.submit{:type => 'submit'}
+      Send
+        

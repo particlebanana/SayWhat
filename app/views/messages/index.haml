@@ -1,0 +1,23 @@
+= title "Inbox"
+
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Inbox
+        
+%div.centeredWrap
+
+  = link_to "Compose", "/messages/new" if current_user.sponsor?
+  
+  - if @messages.any?
+    %ul
+      - @messages.each do |message|
+        %li
+          = link_to message.message_subject, "/messages/#{message.id}"
+  
+  - else
+    %p
+      Inbox is currently empty
+        

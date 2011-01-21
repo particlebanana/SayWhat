@@ -52,7 +52,12 @@ class User
   
     # Create a message object
     def create_message_object(message_object)
-      self.messages << Message.new(message_object)
+      message = Message.new
+      message.message_type = message_object[:message_type]
+      message.message_subject = message_object[:message_subject]
+      message.message_content = message_object[:message_content]
+      self.messages << message
+      message.save!
     end
     
     # Role Checks  

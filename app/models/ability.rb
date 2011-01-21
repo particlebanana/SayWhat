@@ -44,6 +44,7 @@ class Ability
       can :update_password, User
       
       can :index, Message
+      can :show, Message
       
       can :index, Group
       can :show, Group
