@@ -24,6 +24,7 @@ class MessagesController < ApplicationController
   def create
     message = params[:message]
     message[:message_type] = "message"
+    message[:message_author] = @user.name
     @user.group.send_group_message(message)
     redirect_to "/messages"
   end

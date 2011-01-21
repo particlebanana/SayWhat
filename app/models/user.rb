@@ -54,6 +54,7 @@ class User
     def create_message_object(message_object)
       message = Message.new
       message.message_type = message_object[:message_type]
+      message.message_author = message_object[:message_author]
       message.message_subject = message_object[:message_subject]
       message.message_content = message_object[:message_content]
       self.messages << message

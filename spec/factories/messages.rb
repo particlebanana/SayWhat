@@ -2,6 +2,7 @@
 # Creates a membership request message
 Factory.define :member_request, :class => Message do |r|
   r.message_type "request"
+  r.message_author "Han Solo"
   r.message_subject "New Membership Request"
   r.message_content "You have a new membership request from Gaylord Focker"
 end
