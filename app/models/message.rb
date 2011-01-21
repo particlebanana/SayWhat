@@ -8,6 +8,7 @@ class Message
   field :message_subject
   field :message_content
   field :message_payload
+  field :read, :type => Boolean, :default => false
   
   attr_accessible :message_subject, :message_content
   

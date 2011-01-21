@@ -31,6 +31,8 @@ class MessagesController < ApplicationController
   
   # GET - Display a message
   def show
+    @message.read = true
+    @message.save
     respond_with(@message)
   end
   

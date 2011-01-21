@@ -54,6 +54,14 @@ describe MessagesController do
       assigns[:message].message_subject.should == "Generic Message"
       assigns[:message].message_content.should == "This is a generic message"
     end
+    
+    it "should mark the message as read" do
+      message = @user.messages.last
+      message.read.should == false
+      get :show, :id => message.id.to_s
+      assigns[:message].read.should == true
+    end
+    
   end
   
     
