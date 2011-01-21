@@ -9,11 +9,27 @@
 
 %div.centeredWrap
 
-  %p
-    Subject:
-    = @message.message_subject
+  %ul#messageOptions.group
+    %li#inbox
+      %a{ :href => "/messages"}
+        &laquo; Inbox
+    %li#delete
+      = link_to "Delete", "/messages/#{@message.id}", :method => "delete"
+  
+  %div#messageHeader
+    %p.group
+      %span.label
+        From:
+      %span.content
+        = @message.message_author
     
-  %p
-    = @message.message_content
+    %p.group
+      %span.label
+        Subject:
+      %span.content
+        = @message.message_subject
+        
+    
+  = simple_format(@message.message_content)
 
 
