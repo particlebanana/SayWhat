@@ -56,4 +56,19 @@ describe MessagesController do
     end
   end
   
+    
+  describe "#destroy" do
+    before(:each) do
+      @user = build_a_generic_user(1)
+      sign_in @user
+      seed_messages(1)
+    end
+    
+    it "should allow the user to delete a message" do
+      delete :destroy, :id => @user.messages.last.id.to_s
+      @user.reload.messages.count.should == 0
+    end
+    
+  end
+  
 end

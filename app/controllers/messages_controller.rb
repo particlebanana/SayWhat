@@ -3,7 +3,7 @@ class MessagesController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :set_user
-  before_filter :set_message, :only => [:show]
+  before_filter :set_message, :only => [:show, :destroy]
   load_and_authorize_resource
   
   respond_to :html
@@ -31,6 +31,12 @@ class MessagesController < ApplicationController
   # GET - Display a message
   def show
     respond_with(@message)
+  end
+  
+  # DELETE - Destroy a message
+  def destroy
+    @message.destroy
+    redirect_to "/messages", :notice => "Message has been deleted"
   end
   
   private

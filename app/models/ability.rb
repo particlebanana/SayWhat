@@ -45,6 +45,7 @@ class Ability
       
       can :index, Message
       can :show, Message
+      can :destroy, Message
       
       can :index, Group
       can :show, Group

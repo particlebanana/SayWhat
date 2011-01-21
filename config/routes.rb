@@ -35,6 +35,7 @@ SayWhat::Application.routes.draw do
   match "/messages" => "messages#create", :via => "post"
   match "/messages/new" => "messages#new", :via => "get"
   match "/messages/:id" => "messages#show", :via => "get"
+  match "/messages/:id" => "messages#destroy", :via => "delete"
   
   # Groups
   match "/groups" => "groups#index", :via => "get"

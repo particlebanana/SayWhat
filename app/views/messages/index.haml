@@ -11,11 +11,17 @@
 
   = link_to "Compose", "/messages/new" if current_user.sponsor?
   
+  - if notice
+    %p.notice
+      = notice
+  
   - if @messages.any?
     %ul
       - @messages.each do |message|
         %li
           = link_to message.message_subject, "/messages/#{message.id}"
+          |
+          = link_to "Delete", "/messages/#{message.id}", :method => "delete"
   
   - else
     %p
