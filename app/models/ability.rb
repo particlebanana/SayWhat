@@ -79,6 +79,7 @@ class Ability
     if user && user.adult_sponsor?
       
       can :approve_pending_membership, User
+      can :deny_pending_membership, User
       can :choose_youth_sponsor, User
       can :assign_youth_sponsor, User
       can :revoke_youth_sponsor, User

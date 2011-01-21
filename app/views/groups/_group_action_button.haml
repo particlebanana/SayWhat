@@ -2,6 +2,3 @@
   = link_to "Invite Someone To Join This Group", "/groups/#{@group.permalink}/invite", :id => "groupInvite", :class => "groupActionButton"
 - else
   = link_to "Request To Join This Group", "/groups/#{@group.permalink}/join", :id => "groupRequest", :class => "groupActionButton" unless current_user
-    
-- if current_user && current_user.role == "adult sponsor" && current_user.group == @group
-  = link_to "New Pending Members", "/groups/#{@group.permalink}/pending_memberships", :class => "groupActionButton" if @group.users.pending.count > 0

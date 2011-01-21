@@ -14,7 +14,7 @@
       %a{ :href => "/messages"}
         &laquo; Inbox
     %li#delete
-      = link_to "Delete", "/messages/#{@message.id}", :method => "delete"
+      = link_to "Delete", "/messages/#{@message.id}", :method => "delete" if @message.message_type != "request"
   
   %div#messageHeader
     %p.group
@@ -31,5 +31,11 @@
         
     
   = simple_format(@message.message_content)
+  
+  - if @message.message_type == "request"
+    %p
+      = link_to "Approve Member", approve_pending_membership_user_path(@message.message_payload, :message => @message.id)
+      |
+      = link_to "Deny Member", deny_pending_membership_user_path(@message.message_payload, :message => @message.id)
 
 

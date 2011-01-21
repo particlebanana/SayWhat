@@ -211,6 +211,9 @@ class GroupsController < ApplicationController
       adult_sponsor = @group.users.adult_sponsor.first
       UserMailer.sponsor_pending_membership_request(adult_sponsor, @group, @user).deliver
       
+      # Create a new message and add it to the Adult Sponsor's inbox
+      adult_sponsor.create_message_request_object(@user.name, @user.email, @user.id.to_s)
+      
       redirect_to "/groups/#{@group.permalink}/request_submitted"
     else
       render :action => 'request_membership'

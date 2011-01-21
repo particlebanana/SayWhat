@@ -61,6 +61,20 @@ class User
       message.save!
     end
     
+    # Create a message request object
+    def create_message_request_object(request_name, request_email, request_id)
+      message = Message.new(:message_subject => "New Membership Request")
+      message.message_author = "Automated Message"
+      message.message_type = "request"
+      message.message_content = "
+      You have a pending membership request. Please review the information below and choose to either accept or deny the member.<br/>
+      Name: #{request_name}
+      Email: #{request_email}"
+      message.message_payload = request_id
+      self.messages << message
+      message.save!
+    end
+    
     # Role Checks  
     def admin?
       role == "admin" ? true : false

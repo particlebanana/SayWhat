@@ -132,11 +132,21 @@ class UsersController < ApplicationController
     @user.status = "setup"
     @user.role = "member"
     if @user.save
+      message = current_user.messages.find(params[:message])
+      message.delete
       UserMailer.send_approved_notice(@user, @user.group, request.env["HTTP_HOST"]).deliver
-      redirect_to "/groups/#{@user.group.permalink}/pending_memberships"
+      redirect_to "/messages", :notice => "Member has been added"
     else
-      redirect_to "/groups/#{@user.group.permalink}/pending_memberships", :notice => "There was an error approving user"
+      redirect_to "/messages", :notice => "There was an error approving user"
     end
+  end
+  
+  # GET - Deny Pending Group Member
+  def deny_pending_membership
+    message = current_user.messages.find(params[:message])
+    message.delete
+    @user.delete
+    redirect_to "/messages", :notice => "Member has been removed"
   end
   
   # GET - Setup Phase - New User Password Form

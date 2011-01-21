@@ -24,6 +24,7 @@ SayWhat::Application.routes.draw do
       get :delete_avatar
       put :update_password
       get :approve_pending_membership
+      get :deny_pending_membership
       get :setup_member
       put :create_member
     end
