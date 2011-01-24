@@ -20,10 +20,8 @@
             = @group.organization
         
       %article
-        %p
-          = raw(@group.description)
+        = simple_format(@group.description)
       
-  
       
 %section#lowerContent.group
 

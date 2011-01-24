@@ -17,7 +17,7 @@
           Goal of the Project:
     
       %p
-        = @project.goal
+        = simple_format(@project.goal)
     
     %article   
       %header
@@ -25,7 +25,7 @@
           Description of the Project:
     
       %p
-        = @project.description
+        = simple_format(@project.description)
     
     %article   
       %header
@@ -33,7 +33,7 @@
           Who is involved with the Project:
 
       %p
-        = @project.involves
+        = simple_format(@project.involves)
       
     
   = render :partial => "comments", :group => @group, :project => @project, :comment => @comment if current_user
