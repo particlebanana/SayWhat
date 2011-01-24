@@ -13,7 +13,7 @@ Feature: View a Group's Homepage
     Then I should see "Request To Join This Group"
     And I should see "Build The Death Star" within Recent Projects
     And I should see "view all"
-    And I should not see "Edit"
+    And I should not see "edit"
     And I should not see "Member List"
     
   Scenario: A group member views the group's page
@@ -22,5 +22,5 @@ Feature: View a Group's Homepage
     Then I should see "Invite Someone To Join This Group"
     And I should see "Build The Death Star" within Recent Projects
     And I should see "view all"
-    And I should not see "Edit"
+    And I should not see "edit"
     And I should see "Member List"
