@@ -68,22 +68,23 @@ describe UsersController do
       @group.users << @user
       @user.save
       @group.save
+      @message = @admin.create_message_request_object(@user.name, @user.email, @user.id.to_s)
       sign_in @admin
     end
     
     describe "#approve_pending_membership" do
       it "should change the users status to setup" do
-        put :approve_pending_membership, {:id => @user.id.to_s}
+        put :approve_pending_membership, {:id => @user.id.to_s, :message => @message.id.to_s}
         @user.reload.status.should == "setup"
       end
     
       it "should change the users role to member" do
-        put :approve_pending_membership, {:id => @user.id.to_s}
+        put :approve_pending_membership, {:id => @user.id.to_s, :message => @message.id.to_s}
         @user.reload.role.should == "member"
       end
     
       it "should send the new member an email with their setup link" do
-        put :approve_pending_membership, {:id => @user.id.to_s}
+        put :approve_pending_membership, {:id => @user.id.to_s, :message => @message.id.to_s}
         ActionMailer::Base.deliveries.last.to.should == [@user.email]
       end
     end

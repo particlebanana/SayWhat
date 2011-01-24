@@ -73,6 +73,7 @@ class User
       message.message_payload = request_id
       self.messages << message
       message.save!
+      message
     end
     
     # Role Checks  
