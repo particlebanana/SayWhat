@@ -11,7 +11,7 @@
       %li
         %strong
           Established: 
-        = @group.created_at.to_s(:mdy)
+        = @group.created_at.strftime("%b, %Y")
 
       %li
         %strong

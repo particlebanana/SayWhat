@@ -14,9 +14,9 @@
     %li
       %strong
         Date:
-      = @project.start_date
+      = @project.start_date.strftime("%m/%d/%Y")
       thru
-      = @project.end_date
+      = @project.end_date.strftime("%m/%d/%Y")
       
     %li
       %strong
