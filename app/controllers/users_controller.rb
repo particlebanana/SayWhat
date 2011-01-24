@@ -5,7 +5,16 @@ class UsersController < ApplicationController
   load_and_authorize_resource
   
   respond_to :html
+
+  ################################
+  # Admin Panel
+  ################################
   
+  # GET - Admin Panel
+  def admin_panel
+    
+  end
+    
   ################################
   # Setup A Sponsor Account
   ################################

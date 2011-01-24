@@ -31,6 +31,8 @@ SayWhat::Application.routes.draw do
     
   end
   
+  match "/admin" => "users#admin_panel", :via => "get"
+  
   # Messaging
   match "/messages" => "messages#index", :via => "get"
   match "/messages" => "messages#create", :via => "post"

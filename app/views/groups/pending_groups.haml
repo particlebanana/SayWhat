@@ -1,6 +1,13 @@
-%div
-  %h2
-    Pending Groups
+= title "Pending Groups"
+
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Pending Groups        
+
+%div.centeredWrap
     
   - if @groups.size > 0
     %ul
