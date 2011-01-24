@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     if resource.is_a?(User) && resource.status == "active" && (resource.role == "adult sponsor" || resource.role == "youth sponsor" || resource.role == "member")
       '/groups/' + resource.group.permalink
+    elsif resource.is_a?(User) && resource.role == "admin"
+      '/admin'
     else
       super
     end

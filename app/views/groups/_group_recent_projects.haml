@@ -8,25 +8,30 @@
     
       = link_to "view all", "/groups/#{@group.permalink}/projects", :class => "right groupActionButton"
   
-    %ul#recentProjects
-      - @recent_projects.each do |project|
-        %li.group
-          %div.header.group
-            %h3.left
-              = project_link(project)
-            %span.right
-              = project.end_date.strftime('%b %Y')
+    - if @recent_projects.size > 0
+      %ul#recentProjects
+        - @recent_projects.each do |project|
+          %li.group
+            %div.header.group
+              %h3.left
+                = project_link(project)
+              %span.right
+                = project.end_date.strftime('%b %Y')
           
-          %div.side.left
-            = project_photo(project)
-            %span
-              %strong
-                Location:
-              = project.location
-            %span
-              %strong
-                Focus:
-              = project.focus
+            %div.side.left
+              = project_photo(project)
+              %span
+                %strong
+                  Location:
+                = project.location
+              %span
+                %strong
+                  Focus:
+                = project.focus
               
-          %p.about.right
-            = snippit(project.goal, 65)
+            %p.about.right
+              = snippit(project.goal, 65)
+              
+    - else
+      %p
+        There are currently no completed projects.

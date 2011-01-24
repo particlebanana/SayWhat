@@ -5,11 +5,11 @@
     
       %li#userTag.group
         = image_tag(current_user.avatar_url(:thumb), :width => 25, :height => 25)
-        %strong
-          = current_user.name
+        %span#userInfo.group
+          %strong
+            = current_user.name
+          = link_to "Edit Account", "/settings/profile"
         
-        = link_to "Edit Account", "/settings/profile"
-      
       %li#allGroups.iconOption
         = link_to "All Groups", "/groups", :title => "All Groups"
         
