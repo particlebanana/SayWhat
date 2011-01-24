@@ -9,7 +9,7 @@
         
 %div#messageInbox.centeredWrap
 
-  - if current_user.sponsor?
+  - if current_user.sponsor? || current_user.admin?
     %ul#messageOptions.group
       %li
         = link_to "Compose message", "/messages/new"
@@ -32,7 +32,6 @@
             
             %span.date
               = message.created_at.strftime("%m/%d/%Y")
-          =# link_to "Delete", "/messages/#{message.id}", :method => "delete"
   
   - else
     %p#empty

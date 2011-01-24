@@ -25,7 +25,14 @@ class MessagesController < ApplicationController
     message = params[:message]
     message[:message_type] = "message"
     message[:message_author] = @user.name
-    @user.group.send_group_message(message)
+    if @user.admin?
+      @sponsors = User.sponsors
+      @sponsors.each do |sponsor|
+        sponsor.create_message_object(message)
+      end
+    elsif @user.sponsor?
+      @user.group.send_group_message(message)
+    end
     redirect_to "/messages"
   end
   

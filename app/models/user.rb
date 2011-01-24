@@ -31,6 +31,7 @@ class User
   
   scope :adult_sponsor, :where => {:role => "adult sponsor" }
   scope :youth_sponsor, :where => {:role => "youth sponsor" }
+  scope :sponsors, :where => {:role.in => ["adult sponsor", "youth sponsor", "admin"]}
   scope :members, :where => {:role => "member"}
   
   
@@ -59,6 +60,11 @@ class User
       message.message_content = message_object[:message_content]
       self.messages << message
       message.save!
+    end
+    
+    # Create an admin notification
+    def create_admin_notification(message_object)
+      
     end
     
     # Create a message request object
