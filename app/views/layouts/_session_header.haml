@@ -10,10 +10,10 @@
         
         = link_to "Edit Account", "/settings/profile"
       
-      %li.iconOption
-        = link_to image_tag("http://placehold.it/25"), "/groups/#{current_user.group.permalink}" if current_user.group
+      %li#myGroup.iconOption
+        = link_to "My Group", "/groups/#{current_user.group.permalink}" if current_user.group
       
-      %li.iconOption
+      %li#myMessages.iconOption
         = link_to image_tag("http://placehold.it/25"), "/messages"
         
       %li#logoutAction
