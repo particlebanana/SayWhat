@@ -15,12 +15,21 @@
         
       %li#allProjects.iconOption
         = link_to "All Projects", "/projects", :title => "All Projects"
-        
-      %li#myGroup.iconOption
-        = link_to "My Group", "/groups/#{current_user.group.permalink}", :title => "My Group" if current_user.group
+      
+      - if current_user.group  
+        %li#myGroup.iconOption
+          = link_to "My Group", "/groups/#{current_user.group.permalink}", :title => "My Group"
+      
+      - if current_user.admin?
+        %li#admin.iconOption
+          = link_to "Admin", "/admin", :title => "Admin"
       
       %li#myMessages.iconOption
-        = link_to "Inbox", "/messages", :title => "Inbox"
+        %a{:href => "/messages", :title => "Inbox"}
+          Inbox
+          - if current_user.messages.unread.count > 0
+            %span.counter
+              = current_user.messages.unread.count
         
       %li#logoutAction
         = link_to "Logout", destroy_user_session_path

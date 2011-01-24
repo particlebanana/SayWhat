@@ -13,4 +13,7 @@ class Message
   attr_accessible :message_subject, :message_content
   
   validates_presence_of [:message_type, :message_author, :message_subject, :message_content]
+  
+  scope :unread, :where => {:read => false}
+  
 end
