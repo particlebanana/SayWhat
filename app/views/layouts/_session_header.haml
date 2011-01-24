@@ -10,11 +10,17 @@
         
         = link_to "Edit Account", "/settings/profile"
       
+      %li#allGroups.iconOption
+        = link_to "All Groups", "/groups", :title => "All Groups"
+        
+      %li#allProjects.iconOption
+        = link_to "All Projects", "/projects", :title => "All Projects"
+        
       %li#myGroup.iconOption
-        = link_to "My Group", "/groups/#{current_user.group.permalink}" if current_user.group
+        = link_to "My Group", "/groups/#{current_user.group.permalink}", :title => "My Group" if current_user.group
       
       %li#myMessages.iconOption
-        = link_to image_tag("http://placehold.it/25"), "/messages"
+        = link_to "Inbox", "/messages", :title => "Inbox"
         
       %li#logoutAction
         = link_to "Logout", destroy_user_session_path
