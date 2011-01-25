@@ -5,6 +5,8 @@ class Ability
     
     # Not Logged In    
     if !user
+      can :home, Group
+      
       can :request_group, Group
       can :create, Group
       can :pending_request, Group
@@ -72,7 +74,7 @@ class Ability
       can :update, Comment
       
       # TEMP FOR HOMEPAGE
-      can :request_group, Group
+      can :home, Group
     end
     
     # Adult Sponsor

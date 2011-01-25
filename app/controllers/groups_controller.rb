@@ -1,13 +1,18 @@
 class GroupsController < ApplicationController
   layout "main"
   
-  before_filter :authenticate_user!, :except => [:request_group, :create, :pending_request, :index, :show, :request_membership, :create_membership_request, :membership_request_submitted]
+  before_filter :authenticate_user!, :except => [:home, :request_group, :create, :pending_request, :index, :show, :request_membership, :create_membership_request, :membership_request_submitted]
   before_filter :find_by_permalink, :except => [:request_group, :create, :pending_request, :pending_groups, :setup, :setup_permalink, :set_permalink, :index]
   before_filter :set_group, :only => [:pending_group, :approve_group]
     
   load_and_authorize_resource
   
   respond_to :html
+  
+  # GET - Home Page
+  def home
+  
+  end
   
   # GET - Group Index
   def index

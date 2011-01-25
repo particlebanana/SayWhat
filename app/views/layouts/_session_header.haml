@@ -36,5 +36,11 @@
         
     - else
     
+      %li#allGroups.iconOption
+        = link_to "All Groups", "/groups", :title => "All Groups"
+        
+      %li#allProjects.iconOption
+        = link_to "All Projects", "/projects", :title => "All Projects"
+    
       %li#loginAction
         = link_to "Login", new_user_session_path

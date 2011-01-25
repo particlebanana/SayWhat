@@ -106,5 +106,5 @@ SayWhat::Application.routes.draw do
   match "/groups/:permalink/projects/:name/report" => "reports#create", :via => "post"
   
   
-  root :to => "groups#request_group"
+  root :to => "groups#home"
 end
