@@ -15,7 +15,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   # end
   
   def default_url
-    "/default/fallback/" + [version_name, "default.png"].compact.join('_')
+    "/default/fallback/" + [version_name, "default.jpg"].compact.join('_')
   end
   
   version :thumb do

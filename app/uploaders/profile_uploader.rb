@@ -15,7 +15,7 @@ class ProfileUploader < CarrierWave::Uploader::Base
   # end
   
   def default_url
-    "/default/fallback/" + [version_name, "profile.png"].compact.join('_')
+    "/default/fallback/" + [version_name, "profile.jpg"].compact.join('_')
   end
   
   process :resize_to_fit => [800, 800]
