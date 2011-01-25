@@ -3,7 +3,7 @@
 source 'http://rubygems.org'
 
 # Base Files
-gem 'rails', '3.0.3'
+gem 'rails', '~>3.0.3'
 
 
 # Required System Gems
@@ -13,11 +13,11 @@ gem 'haml'
 
 # Database
 gem 'mongoid', '2.0.0.beta.19'
-gem 'bson_ext', '1.1.1'
+gem 'bson_ext', '~>1.1.1'
 
 
 # Authentication
-gem 'devise', '1.1.3'
+gem 'devise', '~>1.1.3'
 gem 'cancan'
 
 
