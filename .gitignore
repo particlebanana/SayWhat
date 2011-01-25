@@ -4,8 +4,6 @@
 db/*.sqlite3
 log/*.log
 tmp/**/*
-config/database.yml
-config/theme.yml
 *.log
 .sass-cache/
 public/uploads/tmp
