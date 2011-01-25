@@ -28,10 +28,11 @@ class MessagesController < ApplicationController
     if @user.admin?
       @sponsors = User.sponsors
       @sponsors.each do |sponsor|
-        sponsor.create_message_object(message)
+        message = sponsor.create_message_object(message)
+        UserMailer.send_message_notification(sponsor, @user.name, message.message_content).deliver
       end
     elsif @user.sponsor?
-      @user.group.send_group_message(message)
+      @user.group.send_group_message(message, @user.name)
     end
     redirect_to "/messages"
   end

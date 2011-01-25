@@ -44,4 +44,16 @@ class UserMailer < ActionMailer::Base
          :subject => "You have been demoted from sponsor for the group #{group.display_name} on SayWhat!")
   end
   
+  # Sends a notification when a message is sent out
+  def send_message_notification(user, author, message)
+    @user = user
+    @author = author
+    @message = message
+    mail(:to => user.email,
+         :subject => "You have a new message on SayWhat!") do |format|
+      format.html {render 'send_message_notification'}
+      format.text {render 'send_message_notification'}
+    end
+  end
+  
 end

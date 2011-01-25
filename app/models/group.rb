@@ -47,9 +47,10 @@ class Group
     end
     
     # Sends a message to all the members inboxes
-    def send_group_message(message_object)
+    def send_group_message(message_object, author)
       self.users.each do |member|
-        member.create_message_object(message_object)
+        message = member.create_message_object(message_object)
+        UserMailer.send_message_notification(member, author, message.message_content).deliver
       end
     end
 

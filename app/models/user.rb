@@ -60,13 +60,9 @@ class User
       message.message_content = message_object[:message_content]
       self.messages << message
       message.save!
+      message
     end
-    
-    # Create an admin notification
-    def create_admin_notification(message_object)
-      
-    end
-    
+        
     # Create a message request object
     def create_message_request_object(request_name, request_email, request_id)
       message = Message.new(:message_subject => "New Membership Request")
