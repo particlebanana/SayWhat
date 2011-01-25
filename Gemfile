@@ -13,7 +13,7 @@ gem 'haml'
 
 # Database
 gem 'mongoid', '2.0.0.beta.19'
-gem 'bson_ext', '~>1.1.1'
+gem 'bson_ext', '~>1.2.0'
 
 
 # Authentication

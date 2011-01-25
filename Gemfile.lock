@@ -51,7 +51,7 @@ GEM
     autotest-growl (0.2.9)
     bcrypt-ruby (2.1.4)
     bson (1.2.0)
-    bson_ext (1.1.5)
+    bson_ext (1.2.0)
     builder (2.1.2)
     cancan (1.5.1)
     capybara (0.4.0)
@@ -184,7 +184,7 @@ PLATFORMS
 DEPENDENCIES
   autotest
   autotest-growl
-  bson_ext (~> 1.1.1)
+  bson_ext (~> 1.2.0)
   cancan
   capybara (= 0.4.0)
   carrierwave!
