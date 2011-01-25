@@ -11,7 +11,8 @@ class GroupsController < ApplicationController
   
   # GET - Home Page
   def home
-  
+    @projects = ProjectCache.desc(:end_date).limit(3).find_all{ |project| project.end_date < Date.today}
+    render :layout => "application"
   end
   
   # GET - Group Index

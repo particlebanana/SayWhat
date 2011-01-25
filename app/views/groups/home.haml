@@ -1,14 +1,77 @@
 = title "TAG LINE HERE"
 
 %div#projectHeader
-  %div.centeredWrap.group
-    %header.group
-      %hgroup.left
-        %h1
-          TAG LINE HERE
+  %div#aboveFold.centeredWrap.group
+    %h2
+      Changing How Texans View Tobacco Use 
 
+    %p
+      The 
+      %strong
+        Say What! Movement
+      was created and designed by more than 250 young people from across Texas to link to all high school groups in Texas who are actively working to eliminate tobacco from their schools and communities. 
 
-%div#groupIndex.centeredWrap.group
+    %p
+      By linking our efforts we have a unified voice to create change across the state.
 
-  %p
-    Blah Blah Blah
+    - if current_user
+      %a{:href => "/groups/#{current_user.group.permalink}/invite"}
+        Invite a friend to the movement!
+    - else
+      %a{:href => "/groups/new"}
+        Join the Say What! Movement!
+      
+
+%div.centeredWrap.group
+  
+  %div#landingProjects.left
+    %h3
+      Group Projects
+    
+    %ul
+      - @projects.each do |project|
+        %li
+          = image_tag(project.profile_photo, :width => 200, :height => 100)
+          = link_to project.project_name, "/groups/#{project.group_permalink}/projects/#{project.project_permalink}", :class => "projectName"
+          = link_to project.group_name, "/groups/#{project.group_permalink}", :class => "projectGroup"
+        
+    
+  %div#landingDesc.right
+    %h3
+      Who Is Involved?
+      
+    %p
+      %strong S
+      tudents (high school age) changing social norms about tobacco use in Texas
+      
+    %p
+      %strong A
+      dults supporting student efforts
+      
+    %p
+      %strong Y
+      outh (younger students) preparing to make the choice not to use tobacco
+      
+    %h3
+      What Are We Doing?
+      
+    %p
+      %strong W
+      orking
+      
+    %p
+      %strong H
+      ard
+      
+    %p
+      %strong A
+      gainst
+      
+    %p
+      %strong T
+      obacco!
+  
+  
+  
+      
+  
