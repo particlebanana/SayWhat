@@ -29,8 +29,8 @@
                   Focus:
                 = project.focus
               
-            %p.about.right
-              = snippit(project.goal, 65)
+            %div.about.right
+              = simple_format(truncate(project.goal, :length => 450, :seperator => ' '))
               
     - else
       %p

@@ -26,6 +26,7 @@ class Group
   validates_length_of :permalink, :minimum => 4, :maximum => 20, :allow_nil => true
   
   before_validation :downcase_name
+  after_validation :sanitize
   
   protected
   
@@ -33,6 +34,10 @@ class Group
       if self.display_name
         self.name = self.display_name.downcase
       end
+    end
+    
+    def sanitize
+      self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
     end
     
   public

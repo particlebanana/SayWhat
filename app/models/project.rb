@@ -1,4 +1,4 @@
-class Project
+class Project  
   include Mongoid::Document
   include Mongoid::Timestamps
   field :name
@@ -22,6 +22,7 @@ class Project
   validates_uniqueness_of [:name]
   
   before_validation :escape_name
+  after_validation :sanitize
   
   after_save :cache_project
   
@@ -34,6 +35,12 @@ class Project
       if self.display_name
         self.name = (self.display_name.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-')
       end
+    end
+    
+    def sanitize
+      self.goal = Sanitize.clean(self.goal, Sanitize::Config::RESTRICTED) if self.goal
+      self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
+      self.involves = Sanitize.clean(self.involves, Sanitize::Config::RESTRICTED) if self.involves
     end
     
   private
@@ -72,5 +79,5 @@ class Project
         :audience => audience.map { |audience| [audience, audience] }
       }
     end
-
+        
 end

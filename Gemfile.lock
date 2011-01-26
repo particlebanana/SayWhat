@@ -158,6 +158,8 @@ GEM
     rspec-rails (2.0.0.beta.22)
       rspec (= 2.0.0.beta.22)
     rubyzip (0.9.4)
+    sanitize (2.0.0)
+      nokogiri (~> 1.4.4)
     selenium-webdriver (0.1.2)
       childprocess (~> 0.1.5)
       ffi (~> 0.6.3)
@@ -199,11 +201,13 @@ DEPENDENCIES
   launchy
   mini_magick
   mongoid (= 2.0.0.beta.19)
+  nokogiri
   pickle
   rack-test
   rails (~> 3.0.3)
   remarkable
   remarkable_mongoid
   rspec-rails (= 2.0.0.beta.22)
+  sanitize
   shoulda
   spork (= 0.8.4)

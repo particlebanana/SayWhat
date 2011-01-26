@@ -9,4 +9,12 @@ class Comment
 
   validates_presence_of [:comment, :user_id]
   
+  after_validation :sanitize
+  
+  protected
+  
+    def sanitize
+      self.comment = Sanitize.clean(self.comment, Sanitize::Config::RESTRICTED) if self.comment
+    end
+  
 end

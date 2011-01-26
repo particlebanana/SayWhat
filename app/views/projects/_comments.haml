@@ -16,7 +16,7 @@
           %div.commentBody.group
             = image_tag(comment.user.avatar_url(:small), :width => 50, :height => 50)
             %p
-              = comment.comment
+              = auto_link(simple_format(comment.comment))
               - if comment.user == current_user
                 = link_to "edit", {:controller => :comments, :action => :edit, :permalink => @group.permalink, :name => @project.name, :comment_id => comment.id.to_s}
               - if (current_user.sponsor? && (current_user.group == @group)) || current_user.admin?
