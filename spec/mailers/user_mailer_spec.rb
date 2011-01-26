@@ -74,9 +74,6 @@ describe UserMailer do
       mail.to.should == [user.email]
     end
 
-    it "should display the group's name in the email" do
-      mail.body.encoded.should match(group.display_name)
-    end  
   end
 
 end

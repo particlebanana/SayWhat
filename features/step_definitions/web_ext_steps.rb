@@ -20,7 +20,7 @@ end
 
 Then /^I should receive an email with the subject "([^"]*)"$/ do |subject|
   @email = ActionMailer::Base.deliveries.last
-  @email.from.should == ["admin@example.com"]
+  @email.from.should == ["admin@txsaywhat.com"]
   @email.to.should == [@user.email]
   @email.subject.should include(subject)
 end
