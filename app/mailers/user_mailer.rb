@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "admin@example.com"
+  default :from => "admin@txsaywhat.com"
   
   # Sends an email to the pending member that they successfully submiited a membership request
   def successful_membership_request(user, group)

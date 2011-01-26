@@ -1,5 +1,5 @@
 class GroupMailer < ActionMailer::Base
-  default :from => "admin@example.com"
+  default :from => "admin@txsaywhat.com"
   
   # Sends an email to a pending group's adult sponsor
   def successful_group_request(user, group)
