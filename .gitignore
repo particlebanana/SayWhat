@@ -7,4 +7,3 @@ tmp/**/*
 *.log
 .sass-cache/
 public/uploads/tmp
-public/stylesheets
