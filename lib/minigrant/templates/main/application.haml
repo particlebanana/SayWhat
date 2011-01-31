@@ -1,0 +1,158 @@
+%div#applicationForm
+
+  %form{:action => '/grants/apply', :method => 'POST'}
+    
+    - if @grant_app.errors
+      %ul#errors
+        - @grant_app.errors.full_messages.each do |error|
+          %li= error
+      
+    %div#step1.step
+      
+      %div.stepHeader.group
+        %h2 Group Information
+        %span 1/5
+    
+      %p.big
+        %label Group Name
+        %input{:type => 'text', :name => 'application[group_name]'}
+        
+      %p.buttons
+        %a{:href => '#', :rel => 'step2', :class => 'next'} Next &raquo;
+
+
+    %div#step2.step{:style => "display:none;"}
+    
+      %div.stepHeader.group
+        %h2 Contacts
+        %span 2/5
+      
+      %div.group  
+      
+        %div.float.left
+            
+          %h3 Adult Contact
+    
+          %p
+            %label Name
+            %input{:type => 'text', :name => 'application[adult_name]'}
+      
+          %p
+            %label Phone
+            %input{:type => 'text', :name => 'application[adult_phone]'}
+      
+          %p
+            %label Email
+            %input{:type => 'text', :name => 'application[adult_email]'}
+
+          %p
+            %label Mailing Address
+            %textarea{:name => 'application[adult_address]'}
+          
+        %div.float.right
+	
+          %h3 Youth Contact
+      
+          %p
+            %label Name
+            %input{:type => 'text', :name => 'application[youth_name]'}
+      
+          %p
+            %label Email
+            %input{:type => 'text', :name => 'application[youth_email]'}
+      
+      %p.buttons
+        %a{:href => '#', :rel => 'step1', :class => 'prev'} &laquo; Prev
+        %a{:href => '#', :rel => 'step3', :class => 'next'} Next &raquo;
+      
+  
+  
+    %div#step3.step{:style => "display:none;"}
+    
+      %div.stepHeader.group
+        %h2 Proposed Project Details
+        %span 3/5
+        
+      %p
+        %label 
+          Brief description of project: 
+          %span (250 characters)
+        %textarea{:name => 'application[project_description]'}
+      
+      %p
+        %label 
+          When will it occur: 
+          %span (50 characters)
+        %textarea{:name => 'application[project_when]'}
+      
+      %p
+        %label 
+          Where will it happen: 
+          %span (100 characters)
+        %textarea{:name => 'application[project_where]'}
+      
+      %p
+        %label 
+          Who will be involved in planning and implementing this project 
+          %span (how many volunteers, partnering groups, etc.): (250 characters)
+        %textarea{:name => 'application[project_who]'}
+  
+      %p
+        %label 
+          Who will be served by this project: 
+          %span (250 characters)
+        %textarea{:name => 'application[project_serve]'}
+      
+      %p
+        %label 
+          What are the project goals 
+          %span (list at least 3): (250 characters)
+        %textarea{:name => 'application[project_goals]'}
+      
+      %p.buttons
+        %a{:href => '#', :rel => 'step2', :class => 'prev'} &laquo; Prev
+        %a{:href => '#', :rel => 'step4', :class => 'next'} Next &raquo;
+  
+  
+
+    %div#step4.step{:style => "display:none;"}
+    
+      %div.stepHeader.group
+        %h2 Funding Need
+        %span 4/5
+
+      %p
+        %label 
+          What will be purchased with the funds:
+          %span (250 characters)
+        %textarea{:name => 'application[funds_need]'}
+          
+      %p
+        %em Please note, funds may not be used to purchase equipment (computer, camera, etc.) or pay for adult sponsor time
+
+      %p.buttons
+        %a{:href => '#', :rel => 'step3', :class => 'prev'} Prev
+        %a{:href => '#', :rel => 'step5', :class => 'next'} Next
+
+      
+    %div#step5.step{:style => "display:none;"}
+    
+      %div.stepHeader.group
+        %h2 Community and/or School Partnerships
+        %span 5/5
+        
+      %p
+        %label 
+          Will other school or community groups be assisting you in your project - please list: 
+          %span (250 characters)
+        %textarea{:name => 'application[community_partnerships]'}
+
+      %p
+        %label 
+          What resources (volunteers, donations, funding) will be provided by other organizations: 
+          %span (250 characters)
+        %textarea{:name => 'application[community_resources]'}
+    
+      %p.buttons
+        %a{:href => '#', :rel => 'step4', :class => 'prev'} Prev
+        %input{:type => 'submit', :value => "Submit Application"}

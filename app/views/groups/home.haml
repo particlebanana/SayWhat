@@ -14,7 +14,7 @@
     %p
       By linking our efforts we have a unified voice to create change across the state.
 
-    - if current_user
+    - if current_user && !current_user.admin?
       %a{:href => "/groups/#{current_user.group.permalink}/invite"}
         Invite a friend to the movement!
     - else

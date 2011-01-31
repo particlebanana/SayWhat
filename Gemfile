@@ -5,6 +5,10 @@ source 'http://rubygems.org'
 # Base Files
 gem 'rails', '~>3.0.3'
 
+# Sinatra Plugins
+gem 'sinatra'
+gem 'pony'
+
 
 # Required System Gems
 gem 'json'

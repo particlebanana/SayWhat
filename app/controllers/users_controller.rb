@@ -12,7 +12,31 @@ class UsersController < ApplicationController
   
   # GET - Admin Panel
   def admin_panel
-    
+
+  end
+  
+  # GET - Manage Mini-Grants
+  def manage_grants
+    @pending = Grant.pending.desc('created_at')
+    @approved = Grant.approved.desc('created_at')
+  end
+  
+  # GET - View A Grant Application
+  def view_grant
+    @grant = Grant.find(params[:grant_id])
+    render :layout => "form"
+  end
+  
+  # PUT - Approve A Grant
+  def approve_grant
+    @grant = Grant.find(params[:grant_id])
+    @grant.status = true
+    if @grant.save
+      UserMailer.send_grant_approval(@grant).deliver
+      redirect_to "/admin/manage_grants"
+    else
+      redirect_to "/admin/manage_grants", :notice => "Error saving record"
+    end
   end
     
   ################################

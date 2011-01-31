@@ -56,4 +56,11 @@ class UserMailer < ActionMailer::Base
     end
   end
   
+  # Sends Grant Approval Notification
+  def send_grant_approval(grant)
+    @grant = grant
+    mail(:to => grant.adult_email,
+         :subject => "SayWhat! Mini-Grant Has Been Approved")
+  end
+  
 end

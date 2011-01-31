@@ -1,4 +1,16 @@
+require 'minigrant/MiniGrant.rb'
+
 SayWhat::Application.routes.draw do
+  
+  # Mount Mini-Grant application
+  authenticate :user do
+    match "/grants" => MiniGrant::Main, :anchor => false
+  end
+  
+  # Manage Mini-Grants
+  match "/admin/manage_grants" => "users#manage_grants", :via => "get"
+  match "/admin/grant/:grant_id" => "users#view_grant", :via => "get"
+  match "/admin/grant/approve/:grant_id" => "users#approve_grant", :via => "put"
   
   devise_for :users do
     get "/login" => "devise/sessions#new"
