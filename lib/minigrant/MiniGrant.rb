@@ -32,25 +32,25 @@ module MiniGrant
                   :subject => "SayWhat! Mini-Grant Information",
                   :body => erb(:approved_email),
                   :via => :smtp,
-                  :smtp => {
+                  :via_options => {
+                    :address   => 'smtp.sendgrid.net',
                     :port   => '25',
                     :user_name  => ENV['SENDGRID_USERNAME'],
                     :password   => ENV['SENDGRID_PASSWORD'],
-                    :address   => 'smtp.sendgrid.net',
                     :authentication   => :plain,
                     :domain => ENV['SENDGRID_DOMAIN']
                   }
                   
-        Pony.main :to => "info@txsaywhat.com",
+        Pony.mail :to => "info@txsaywhat.com",
                   :from => "admin@txsaywhat.com",
                   :subject => "SayWhat! Mini-Grant Application",
                   :body => erb(:application_email),
                   :via => :smtp,
-                  :smtp => {
+                  :via_options => {
+                    :address   => 'smtp.sendgrid.net',
                     :port   => '25',
                     :user_name  => ENV['SENDGRID_USERNAME'],
                     :password   => ENV['SENDGRID_PASSWORD'],
-                    :address   => 'smtp.sendgrid.net',
                     :authentication   => :plain,
                     :domain => ENV['SENDGRID_DOMAIN']
                   }

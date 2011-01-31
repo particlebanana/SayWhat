@@ -30,6 +30,10 @@
           - if current_user.messages.unread.count > 0
             %span.counter
               = current_user.messages.unread.count
+              
+      - if current_user.adult_sponsor?
+        %li#miniGrant.iconOption
+          = link_to "Minigrant Application", "/grants", :title => "Mini-Grant App"
         
       %li#logoutAction
         = link_to "Logout", destroy_user_session_path
