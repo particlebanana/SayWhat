@@ -1,8 +1,8 @@
-%ul.projectsList    
+%ul.projectsList.group    
   - projects.each do |project|
     %li
       = project_photo(project, true)
       %strong
-        = link_to project.project_name, "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
+        = link_to truncate(project.project_name, :length => 50), "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
       %span
-        = link_to project.group_name, "/groups/#{project.group_permalink}"
+        = link_to truncate(project.group_name, :length => 30), "/groups/#{project.group_permalink}"

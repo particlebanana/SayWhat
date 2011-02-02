@@ -10,27 +10,30 @@
   
     - if @recent_projects.size > 0
       %ul#recentProjects
+        - i = 0
         - @recent_projects.each do |project|
-          %li.group
-            %div.header.group
-              %h3.left
-                = project_link(project)
-              %span.right
-                = project.end_date.strftime('%b %Y')
+          - if i < 3
+            %li.group
+              %div.header.group
+                %h3.left
+                  = link_to truncate(h(project.display_name), :length => 40), "/groups/#{project.group.permalink}/projects/#{project.name}"
+                %span.right
+                  = project.end_date.strftime('%b %Y')
           
-            %div.side.left
-              = project_photo(project)
-              %span
-                %strong
-                  Location:
-                = project.location
-              %span
-                %strong
-                  Focus:
-                = project.focus
+              %div.side.left
+                = project_photo(project)
+                %span
+                  %strong
+                    Location:
+                  = project.location
+                %span
+                  %strong
+                    Focus:
+                  = project.focus
               
-            %div.about.right
-              = simple_format(truncate(project.goal, :length => 450, :seperator => ' '))
+              %div.about.right
+                = simple_format(truncate(project.goal, :length => 450, :seperator => ' '))
+            - i += 1
               
     - else
       %p
