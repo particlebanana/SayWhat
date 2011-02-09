@@ -16,7 +16,7 @@
     
   = form_for @group, :url => "/groups/#{@group.id}/set_permalink", :method => :put do |f|
     
-    = errors_for(@group, "Opps, there were some problems setting your group's URL").html_safe
+    = errors_for(@group, "Oops, there were some problems setting your group's URL").html_safe
     
     %p.group
       = f.label :url

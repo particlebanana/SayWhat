@@ -11,7 +11,7 @@
     
   = form_for @user, :url => "/groups/#{@group.permalink}/send_invite" do |u|
       
-    = errors_for(@user, "Opps, there were some problems with your invite").html_safe
+    = errors_for(@user, "Oops, there were some problems with your invite").html_safe
           
     %p.group
       = u.label :email, :class => "required"

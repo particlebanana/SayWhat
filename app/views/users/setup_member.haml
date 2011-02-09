@@ -10,7 +10,7 @@
 
   = form_for @user, :url => create_member_user_url(@user), :method => :put do |f|
 
-    = errors_for(@user, "Opps, there were some errors creating your account").html_safe
+    = errors_for(@user, "Oops, there were some errors creating your account").html_safe
 
     %p.group
       = f.label :password

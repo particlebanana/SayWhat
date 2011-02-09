@@ -14,7 +14,7 @@
     
   = form_for [@group, @project, @report], :url => "/groups/#{@group.permalink}/projects/#{@project.name}/report" do |f|
   
-    = errors_for(@report, "Opps, there were some problems creating your report").html_safe
+    = errors_for(@report, "Oops, there were some problems creating your report").html_safe
             
     %p.group
       = f.label :number_of_youth_reached

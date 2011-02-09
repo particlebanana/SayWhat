@@ -13,7 +13,7 @@
       
   = form_for @user, :url => create_sponsor_user_url(current_user), :method => :put do |f|
       
-    = errors_for(@user, "Opps, there were some errors creating your sponsor account").html_safe
+    = errors_for(@user, "Oops, there were some errors creating your sponsor account").html_safe
           
     %p.group
       = f.label :password

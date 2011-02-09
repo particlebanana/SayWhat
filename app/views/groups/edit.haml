@@ -13,7 +13,7 @@
   
     = form_for @group, :url => "/groups/#{@group.permalink}", :html => { :multipart => true}, :method => "put" do |f|
   
-      = errors_for(@group, "Opps, there were some problems with your group information").html_safe
+      = errors_for(@group, "Oops, there were some problems with your group information").html_safe
 
       = render 'form', :f => f
     

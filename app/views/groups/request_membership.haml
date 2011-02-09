@@ -11,7 +11,7 @@
       
   = form_for @user, :url => "/groups/#{@group.permalink}/create_membership_request", :method => "post" do |u|
       
-    = errors_for(@user, "Opps, there were some problems with your information").html_safe
+    = errors_for(@user, "Oops, there were some problems with your information").html_safe
         
     %p.group            
       = u.label :first_name, :class => "required"

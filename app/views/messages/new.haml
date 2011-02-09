@@ -10,7 +10,7 @@
 %div.centeredWrap
 
   = form_for @message do |f|
-    = errors_for(@message, "Opps, there were some problems sending your message").html_safe
+    = errors_for(@message, "Oops, there were some problems sending your message").html_safe
     
     %p.group
       = f.label :subject

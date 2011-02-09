@@ -11,7 +11,7 @@
   
   = form_for @comment, :url => "/groups/#{@group.permalink}/projects/#{@project.name}/comments/#{@comment.id.to_s}", :method => "put" do |f|
   
-    = errors_for(@comment, "Opps, there were some problems updating your comment").html_safe
+    = errors_for(@comment, "Oops, there were some problems updating your comment").html_safe
             
     %p.group
       = f.label :comment

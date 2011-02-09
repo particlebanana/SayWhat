@@ -10,6 +10,6 @@
 %div#projectForm.centeredWrap.group
   
   = form_for @project, :url => "/groups/#{@group.permalink}/projects/#{@project.name}",:html => { :multipart => true}, :method => "put" do |f|
-    = errors_for(@project, "Opps, there were some problems updating your project").html_safe
+    = errors_for(@project, "Oops, there were some problems updating your project").html_safe
     
     = render 'form', :f => f
