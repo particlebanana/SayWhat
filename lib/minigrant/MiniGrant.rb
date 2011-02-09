@@ -31,29 +31,13 @@ module MiniGrant
                   :from => "admin@txsaywhat.com",
                   :subject => "SayWhat! Mini-Grant Information",
                   :body => erb(:approved_email),
-                  :via => :smtp,
-                  :via_options => {
-                    :address   => 'smtp.sendgrid.net',
-                    :port   => '25',
-                    :user_name  => ENV['SENDGRID_USERNAME'],
-                    :password   => ENV['SENDGRID_PASSWORD'],
-                    :authentication   => :plain,
-                    :domain => ENV['SENDGRID_DOMAIN']
-                  }
+                  :via => :sendmail
                   
         Pony.mail :to => "info@txsaywhat.com",
                   :from => "admin@txsaywhat.com",
                   :subject => "SayWhat! Mini-Grant Application",
                   :body => erb(:application_email),
-                  :via => :smtp,
-                  :via_options => {
-                    :address   => 'smtp.sendgrid.net',
-                    :port   => '25',
-                    :user_name  => ENV['SENDGRID_USERNAME'],
-                    :password   => ENV['SENDGRID_PASSWORD'],
-                    :authentication   => :plain,
-                    :domain => ENV['SENDGRID_DOMAIN']
-                  }
+                  :via => :sendmail
                             
         redirect '/grants/completed'
       else
