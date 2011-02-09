@@ -17,7 +17,7 @@ class GroupsController < ApplicationController
   
   # GET - Group Index
   def index
-    @groups = Group.all.asc(:name)
+    @groups = Group.desc(:created_at).find_all{ |group| group.users.first.status == 'active'}
     respond_with(@groups)
   end
   
@@ -76,6 +76,8 @@ class GroupsController < ApplicationController
     @user = User.new(params[:group][:user])
     
     set_pending_attributes
+    
+    @group.permalink = rand(36**5).to_s(36)
     
     if @group.valid? & @user.valid?
       @group.users << @user
