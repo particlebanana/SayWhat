@@ -17,7 +17,7 @@ class GroupsController < ApplicationController
   
   # GET - Group Index
   def index
-    @groups = Group.desc(:created_at).find_all{ |group| group.users.first.status == 'active'}
+    @groups = Group.desc(:created_at).find_all{ |group| group.status == 'active'}
     respond_with(@groups)
   end
   
@@ -164,6 +164,7 @@ class GroupsController < ApplicationController
     @group = Group.find(:first, :conditions => {:id => current_user.group_id})
     @group.permalink = params[:group][:permalink]
     @group.make_slug
+    @group.status = 'active'
     @user = current_user
     if @group.save
       @user.status = "active"
@@ -255,7 +256,7 @@ class GroupsController < ApplicationController
     end
     
     def set_approved_attributes
-      @group.status = "active"
+      @group.status = "setup"
       @user.role = "adult sponsor"
       @user.status = "setup"
     end
