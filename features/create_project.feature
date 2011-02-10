@@ -36,6 +36,6 @@ Feature: Create a new group project
     | project_involves          | Stormtroopers, Sith Lords, Vader, A Big Laser   |
     | project_description       | A Top Secret project                            |
     And I press "Save Project"
-    Then I should see "Opps, there were some problems creating your project"
+    Then I should see "Oops, there were some problems creating your project"
     
     
