@@ -4,12 +4,10 @@
   %div.centeredWrap.group
     %header.group
       %hgroup.left
-        %h1
-          New Group Setup
+        %h1 New Group Setup
           
 %div.centeredWrap.group
-  %h2
-    Set you group's URL:
+  %h2 Set you group's URL:
     
   %p
     Choose a URL for your group's homepage. It must be unique and can't be changed.
@@ -20,7 +18,7 @@
     
     %p.group
       = f.label :url
-      = f.text_field :permalink
+      = f.text_field :permalink, :value => ''
     
     %button.submit{:type => 'submit'}
       Continue
