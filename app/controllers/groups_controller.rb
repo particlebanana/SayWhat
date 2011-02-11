@@ -24,6 +24,9 @@ class GroupsController < ApplicationController
   # GET - Group Homepage
   def show
     @recent_projects = @group.projects.desc(:end_date).find_all{ |project| project.end_date < Date.today}
+    @adult_sponsor = @group.users.adult_sponsor.first
+    @youth_sponsor = @group.users.youth_sponsor.first
+    @members = @group.users.active.sort_by {rand}[0..19]
     respond_with(@group)
   end
   

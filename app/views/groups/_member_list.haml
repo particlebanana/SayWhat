@@ -1,11 +1,23 @@
+%div#groupSponsors
+  %ul
+    %li.group
+      = image_tag(@adult_sponsor.avatar_url(:small), :width => 40, :height => 40)
+      %span.title
+        = @adult_sponsor.name
+        %em Adult Sponsor
+  
+    - if @youth_sponsor    
+      %li.group
+        = image_tag(@youth_sponsor.avatar_url(:small), :width => 40, :height => 40)
+        %span.title
+          = @youth_sponsor.name
+          %em Youth Sponsor
+
 - if current_user
   %div#groupMemberList
-  
-    %h4
-      Member List
-      
-    %ul
-      - @group.users.active.each do |member|
-        %li.group
-          = image_tag(member.avatar_url(:thumb))
-          = member.name
+        
+    %ul.group
+      - @members.each do |member|
+        - unless member.sponsor?
+          %li
+            = image_tag(member.avatar_url(:small), :width => 40, :height => 40, :alt => member.name, :title => member.name)

@@ -9,29 +9,24 @@
     = render :partial => "group_action_button"
 
     %ul#groupVitals
-      %li
-        %strong
-          Established: 
-        = @group.created_at.strftime("%b, %Y")
+      %li.group
+        %strong Established: 
+        %span= @group.created_at.strftime("%b, %Y")
+        
+      %li.group
+        %strong City: 
+        %span= @group.city
 
-      %li
-        %strong
-          Members: 
-        = @group.users.active.count
+      %li.group
+        %strong Organization: 
+        %span= @group.organization
 
-      %li
-        %strong
-          City: 
-        = @group.city
-
-      %li
-        %strong
-          Organization: 
-        = @group.organization
-
-      %li
-        %strong
-          Region: 
-        = @group.area.capitalize
+      %li.group
+        %strong Region: 
+        %span= @group.area.capitalize
+          
+      %li.group
+        %strong Members: 
+        %span= @group.users.active.count
 
     = render :partial => "member_list"
