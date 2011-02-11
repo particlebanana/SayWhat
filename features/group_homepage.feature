@@ -14,7 +14,6 @@ Feature: View a Group's Homepage
     And I should see "Build The Death Star" within Recent Projects
     And I should see "view all"
     And I should not see "edit"
-    And I should not see "Member List"
     
   Scenario: A group member views the group's page
     Given I am logged in
@@ -23,4 +22,3 @@ Feature: View a Group's Homepage
     And I should see "Build The Death Star" within Recent Projects
     And I should see "view all"
     And I should not see "edit"
-    And I should see "Member List"

@@ -1,10 +1,11 @@
 %div#groupSponsors
   %ul
-    %li.group
-      = image_tag(@adult_sponsor.avatar_url(:small), :width => 40, :height => 40)
-      %span.title
-        = @adult_sponsor.name
-        %em Adult Sponsor
+    - if @adult_sponsor
+      %li.group
+        = image_tag(@adult_sponsor.avatar_url(:small), :width => 40, :height => 40)
+        %span.title
+          = @adult_sponsor.name
+          %em Adult Sponsor
   
     - if @youth_sponsor    
       %li.group
