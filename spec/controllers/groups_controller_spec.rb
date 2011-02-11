@@ -51,7 +51,7 @@ describe GroupsController do
     describe "#approve_group" do
       it "should change a group's status to active" do
         put :approve_group, {:group_id => @group.id.to_s}
-        @group.reload.status.should == "active"
+        @group.reload.status.should == "setup"
       end
     
       it "should set the first user's role to adult sponsor" do
@@ -120,12 +120,17 @@ describe GroupsController do
         put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "It's A Trap!?!?!"}}
         @group.reload.permalink.should == "its-a-trap"
       end
+      
+      it "should set the groups status to active" do
+        put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "It's A Trap!?!?!"}}
+        @group.reload.status.should == "active"
+      end
     
       it "should set a user's status to active" do
         put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "test"}}
         @user.reload.status.should == "active"
       end
-    
+          
       it "should send the adult sponsor an email notice with the group's permalink" do
         put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "test"}}
         ActionMailer::Base.deliveries.last.to.should == [@group.reload.users.first.email]
