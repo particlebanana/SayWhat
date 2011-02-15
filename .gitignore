@@ -12,5 +12,4 @@ config/theme.yml
 public/uploads/tmp
 public/stylesheets/application.css
 public/stylesheets/external.css
-public/stylesheets/project_profile.css
 
