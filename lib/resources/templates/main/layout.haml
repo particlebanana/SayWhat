@@ -1,0 +1,29 @@
+!!!
+%html{:xmlns => "http://www.w3.org/1999/xhtml"}
+  %head
+    %title SayWhat! Resources
+    %link{:href => "/resources/css/main.css", :media => "screen", :rel => "stylesheet"}
+    
+    %script{:src => "/js/modernizr-1.5.min.js"}
+  
+  %body
+  
+    %div#top
+      %span
+        %a{:href => "/"}
+          &laquo; back to SayWhat!
+
+    %header.group
+      %h1.left
+        %a{:href => "/"}
+          SayWhat!
+          
+      %h3.right
+        Say What Resources
+
+    %div#content.group
+      = yield
+    
+    
+    
+
