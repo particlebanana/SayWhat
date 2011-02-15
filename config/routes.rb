@@ -1,10 +1,12 @@
 require 'minigrant/MiniGrant.rb'
+require 'resources/Resources.rb' if THEME['static_resources']
 
 SayWhat::Application.routes.draw do
   
-  # Mount Mini-Grant application
+  # Mount Mini-Grant application & Static Resources
   authenticate :user do
     match "/grants" => MiniGrant::Main, :anchor => false
+    match "/resources" => StaticResources::Main, :anchor => false if THEME['static_resources']
   end
   
   # Manage Mini-Grants

@@ -24,3 +24,6 @@ javascripts: "js"
 # This is where your images from your stylesheet are served from.
 # EX: background: src('/img/example-file.png)
 images: "img"
+
+# Toggle for displaying static resources page
+static_resources: false

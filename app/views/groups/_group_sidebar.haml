@@ -7,6 +7,8 @@
         = image_tag(@group.profile_photo_url(:large))
 
     = render :partial => "group_action_button"
+    
+    = link_to "Browse Resources", "/resources", :class => "groupAssetButton" if current_user && THEME['static_resources']
 
     %ul#groupVitals
       %li.group
