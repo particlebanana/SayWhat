@@ -3,8 +3,11 @@
   %ul#smallResourceNav.group
     %li
       %a{:href => "/resources/downloads"} Downloads
-    %li
-      %a{:href => "/grants"} Mini-Grants
+    
+    - if THEME['minigrant_app']
+      %li
+        %a{:href => "/grants"} Mini-Grants
+    
     %li
       %a{:href => "/resources/links"} Media Campaigns
       

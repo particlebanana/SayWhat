@@ -31,7 +31,7 @@
             %span.counter
               = current_user.messages.unread.count
               
-      - if current_user.adult_sponsor?
+      - if current_user.adult_sponsor? && THEME['minigrant_app']
         %li#miniGrant.iconOption
           = link_to "Minigrant Application", "/grants", :title => "Mini-Grant App"
         

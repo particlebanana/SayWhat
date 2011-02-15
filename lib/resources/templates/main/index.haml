@@ -9,8 +9,9 @@
     %li
       %a{:href => "/resources/downloads"} Downloads
     
-    %li
-      %a{:href => "/"} Mini-Grant
+    - if THEME['minigrant_app']
+      %li 
+        %a{:href => "/"} Mini-Grant
             
     %li
       %a{:href => "/"} Media Campaigns

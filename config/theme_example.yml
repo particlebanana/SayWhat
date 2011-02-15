@@ -25,5 +25,17 @@ javascripts: "js"
 # EX: background: src('/img/example-file.png)
 images: "img"
 
-# Toggle for displaying static resources page
+#
+# Add-On Application Toggles
+#
+# Used to load stand-alone rack applications from the 
+# lib directory. Currently included are:
+#   - Mini Grant Application Form
+#   - Static Resources Directory
+#
+
+# Toggle for displaying minigrant application (/grants)
+minigrant_app: false
+
+# Toggle for displaying static resources application (/resources)
 static_resources: false
