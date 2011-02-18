@@ -1,5 +1,7 @@
 head.ready(function() {
-  
+
+	manageDropDown();	
+	
 	// All Projects :nth-child selector (for use in IE)
 	$(".projectsList li:nth-child(4n+1)").addClass("nthLeft");
 	$('.projectsList li:nth-child(4n+4)').addClass("nthRight");
@@ -44,3 +46,48 @@ head.ready(function() {
 	$('#projectForm #endDate input').datepicker();
 
 });
+
+/* Based on the method used by Twitter */
+/* http://davidwalsh.name/twitter-dropdown-jquery */
+function manageDropDown() {
+	var activeClass = 'active', showingDropdown, showingMenu, showingParent;
+
+	var hideMenu = function() {
+		if(showingDropdown) {
+			showingDropdown.removeClass('active');
+			showingDropdown.css('top', '-999px');
+		}
+	};
+
+	$('#session span').each(function(){
+		var dropdown = $('#session .dropdown');
+	  var parent = $('#session .relative');
+		var clickArea = $(this);
+
+	  var showMenu = function() {
+	    hideMenu();
+	    showingDropdown = dropdown.addClass('active');
+	    showingDropdown.css('top', '36px');
+	    showingParent = parent;
+	  };
+		
+		$(clickArea).bind('click',function(e) {
+			if(e) e.stopPropagation();
+		  if(e) e.preventDefault();
+		  showMenu();
+		});
+		
+		$(clickArea).bind('focus',function() {
+			showMenu();
+		});
+	})
+
+	$(document.body).bind('click',function(e) {
+		if(showingParent) {
+			var parentElement = showingParent[0];
+	    if(!$.contains(parentElement,e.target) || !parentElement == e.target) {
+				hideMenu();
+			}
+		}
+	});	
+}
