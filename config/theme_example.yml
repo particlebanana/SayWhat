@@ -25,6 +25,9 @@ javascripts: "js"
 # EX: background: src('/img/example-file.png)
 images: "img"
 
+# Google Analytics Code
+ga_code: ""
+
 #
 # Add-On Application Toggles
 #
