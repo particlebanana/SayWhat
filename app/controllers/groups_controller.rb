@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  layout "main"
+  layout "application"
   
   before_filter :authenticate_user!, :except => [:home, :request_group, :create, :pending_request, :index, :show, :request_membership, :create_membership_request, :membership_request_submitted]
   before_filter :find_by_permalink, :except => [:request_group, :create, :pending_request, :pending_groups, :setup, :setup_permalink, :set_permalink, :index]
@@ -12,7 +12,6 @@ class GroupsController < ApplicationController
   # GET - Home Page
   def home
     @projects = ProjectCache.desc(:end_date).find_all{ |project| project.end_date < Date.today}
-    render :layout => "application"
   end
   
   # GET - Group Index

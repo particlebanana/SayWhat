@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  layout "main"
+  layout "application"
   
   before_filter :authenticate_user!
   before_filter :set_group_by_permalink

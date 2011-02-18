@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  layout "main"
+  layout "application"
   
   before_filter :authenticate_user!
   load_and_authorize_resource

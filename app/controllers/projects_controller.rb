@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  layout "main"
+  layout "application"
   
   before_filter :authenticate_user!, :except => [:all, :index, :filter, :show]
   before_filter :set_group_by_permalink, :except => [:all, :filter]
