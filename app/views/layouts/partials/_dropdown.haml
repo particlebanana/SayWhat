@@ -10,7 +10,7 @@
           %li= link_to "Settings", "/settings/profile"
           %li= link_to "Mini-Grants", "/grants" if THEME['minigrant_app']
           %li= link_to "Downloads", "/resources/downloads" if THEME['static_resources'] 
-          %li= link_to "Links/Campaigns", "/resources/links" if THEME['static_resources']
+          %li= link_to "Links", "/resources/links" if THEME['static_resources']
           %li= link_to "Sign out", destroy_user_session_path
         
     - else

@@ -14,7 +14,7 @@ module StaticResources
   class Main < AppBase
     
     get "/" do
-      haml :index
+      redirect '/resources/downloads'
     end
     
     get "/downloads" do
