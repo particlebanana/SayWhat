@@ -11,7 +11,7 @@ Feature: Setup a group
       | user_password               | testpassword     |
       | user_password_confirmation  | testpassword     |
     And I press "Continue"
-    Then I should see "Url"
+    Then I should see "Permalink URL"
     
   
   Scenario: I setup a permalink for my group

@@ -44,9 +44,9 @@ module NavigationHelpers
     when /the request group membership page/
       "/groups/#{@group.permalink}/join"
       
-    when /the pending members page/
-      "/groups/#{@group.permalink}/pending_memberships"
-      
+    when /my messages page/
+      "/messages"
+              
     when /the invite member page/
       "/groups/#{@group.permalink}/invite"
       

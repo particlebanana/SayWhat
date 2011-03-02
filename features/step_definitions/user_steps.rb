@@ -84,6 +84,7 @@ Given /^there is a pending member$/ do
   @group.users << user
   user.save!
   @group.save
+  @user.create_message_request_object(user.name, user.email, user.id.to_s)
 end
 
 Given /^a user exists with an email "([^"]*)"$/ do |email|

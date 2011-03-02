@@ -1,4 +1,5 @@
 @group
+@messages
 Feature: Group Sponsor approves pending membership request
 
   Background: 
@@ -8,9 +9,12 @@ Feature: Group Sponsor approves pending membership request
     And there is a pending member
 
   Scenario: I approve a pending membership
-    When I go to the pending members page
-    Then I should see "Han Solo" within the pending members list
-    Then I click "approve" within the pending members list
-    Then I should see "No Pending Members"
+    When I go to my messages page
+    Then I should see "New Membership Request"
+    And I follow "New Membership Request"
+    Then I should see "Approve Member"
+    And I should see "Deny Member"
+    When I follow "Approve Member"
+    Then I should see "Member has been added"
     And the member should be approved
     And The "member" should receive an email at "billy.bob.jo@gmail.com" with the subject "You have been approved for membership on SayWhat!"
