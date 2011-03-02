@@ -41,7 +41,7 @@ end
 
 Then /^the group should be approved$/ do
   @group = Group.find(@group.id)
-  @group.status.should == "active"
+  @group.status.should == "setup"
 end
 
 Given /^I follow the group setup link that was emailed to me$/ do
