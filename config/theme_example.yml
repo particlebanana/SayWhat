@@ -4,7 +4,7 @@
 # Requires the use of SASS but stylesheets can be written in plain css
 
 # The name of your theme folder
-theme: "default"
+theme: "txsaywhat"
 
 # The name of your stylesheet folder
 # Must contain an "application" stylesheet that either:

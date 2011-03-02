@@ -1,0 +1,267 @@
+#foldDown {
+	background: #231f20 url('/img/desc-shadow.png') top repeat-x;
+	width:100%;
+	margin: 0 0 25px 0;
+	
+	section {
+		position: relative;
+		width: 960px;
+		margin:0 auto;
+	}
+	
+	header a.groupActionButton {
+		font-size:14px;
+		padding: 4px 10px;
+		margin:8px 0 0 0;
+  }
+}
+
+.article {
+	padding: 0 0 10px 0;
+	margin: 0 0 10px 0;
+	header {
+		margin: 0 0 20px 0;
+		h1 { color: #c0dd92; }
+		h2 { color: #A0CF67; }
+		h3 { color: #ccc; }
+		p {
+			margin: 0;
+			color: #bbb;
+		}
+		a {
+			font-size:18px;
+		}
+	}
+}
+
+#groupHeader {
+	padding: 10px 0;
+	width: 558px;
+}
+
+#groupSidebar {
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: url('/img/sidebar-orn.png') bottom right no-repeat;
+	width: 390px;
+	padding: 0 0 315px 0;
+	
+	.inner {
+		width: 336px;
+		background: #000;
+		padding: 16px;
+		margin-left: 22px;
+	}
+
+  #groupLogo {
+		width: 329px;
+		height: 321px;
+		background: url('/img/img-splat.jpg') no-repeat;
+		margin:0 auto 10px auto;
+		padding: 16px 0;
+		span {
+			display: block;
+			background: #fff;
+			width: 278px;
+			height: 278px;
+			margin: 0 22px;
+			border:1px solid #c0dd92;
+		}
+  }
+  
+  .groupActionButton, .groupAssetButton {
+    margin: 0 0 20px 0;
+    display: block;
+  }
+  
+  #groupVitals {
+		background: #F8F9F7;
+		border: 3px solid #2a2a2a;
+		padding: 8px;
+		color: #222;
+    li { 
+			margin: 3px 0; 
+			font-size: 13px;
+			strong {
+				display: block;
+				float: left;
+				text-align: right;
+				width: 95px;
+			}
+			span {
+				display: block;
+				float: left;
+				width: 200px;
+				margin-left: 10px;
+				line-height: 1.5;
+			}
+		}
+  }
+  
+	#groupSponsors {
+		padding: 8px;
+		ul {
+      margin: 0;
+      li {
+        margin: 20px 0;
+        font-weight: bold;
+        line-height: 25px;
+        img { 
+          float: left;
+          margin: 2px 10px 0 0;
+					border: 2px solid #2a2a2a;
+        }
+				span.title {
+					display: block;
+					float: left;
+					width: 265px;
+					margin: 4px 0 0 0;
+					line-height: 1.4;
+					em {
+						display: block;
+						margin: 3px 0 0 0;
+						color: #C0DD92;
+						font-style: normal;
+						font-size: 12px;
+						font-weight: normal;
+					}
+				}
+      }
+    }
+	}
+	
+  #groupMemberList {
+    margin: 0;
+    ul {
+      margin: 0;
+      li {
+				float: left;
+				margin: 8px;
+				width: 40px;
+				height: 40px;
+				img { border: 2px solid #2a2a2a; }
+      }
+    }
+  }
+
+}
+
+#lowerContent {
+	width: 960px;
+	margin: 0 auto;
+}
+
+#groupRecentProjects {
+	
+	header a.groupActionButton {
+		font-size:14px;
+		padding: 4px 10px;
+  }
+	
+	article {
+		padding: 0 0 25px 0;
+		margin: 0 0 25px 0;
+		
+		h2 {color: #222;}
+		
+		p { color: #222; font-weight: bold; }
+	}
+	
+	ul#recentProjects {
+		margin: 25px 0 0 0;
+		color: #111;
+		li {
+			margin:25px 0;
+			padding-bottom: 25px;
+			.header {
+				border-bottom: 1px solid #ddd;
+				padding: 0 0 10px 0;
+				margin: 0 0 16px 0;
+				h3 {
+					font-size: 22px;
+				}
+				span {
+					font-size: 16px;
+					font-weight: bold;
+					color: #3b3b3b;
+				}
+			}
+			.side {
+				float:left;
+				img { 
+					display:block;
+					padding: 4px;
+					background: #fff;
+					border: 1px solid #ddd;
+				}
+				span {
+					strong { display: block; color: #3b3b3b; padding-bottom: 3px;}
+					display: block;
+					margin: 8px 0;
+					font-size: 14px;
+					color: #666;
+				}
+			}
+			.about {
+				float:left;
+				width: 333px;
+				margin: 0 0 0 15px;
+			}
+		}
+	}
+	
+}
+
+
+/* Group Edit */
+#groupProperties, #sponsorProperties { color: #3B3B3B; label {font-weight: bold;} }
+#groupProperties {
+  width:60%;
+  margin-right:5%;
+}
+
+#sponsorProperties {
+  width: 35%;
+  
+  ul {
+        
+    li {
+      margin: 20px 0;
+      
+      img {
+        display: block;
+        float: left; 
+        margin: 4px 0 0 0;
+      }
+      
+      div {
+        float: left;
+        margin-left: 8px;
+        
+        strong {
+          font-size: 15px;
+          
+          em {
+            display: inline;
+            font-style: normal;
+            font-weight: normal;
+            color: #4e4e4e;
+          }
+          
+        }
+        
+        em {
+          display: block;
+          font-style: normal;
+          font-size: 13px;
+          color: #4e4e4e;
+        }
+        
+      }
+      
+    }
+    
+  }
+  
+}

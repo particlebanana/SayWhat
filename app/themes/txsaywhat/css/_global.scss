@@ -1,0 +1,400 @@
+/**************************************************/ 
+/*  Title:   Global styles for screen media
+/*  Author:  cs62@txstate.edu
+/**************************************************/ 
+
+/* COLORS
+------------------------------
+Light Green - A0CF67
+Dark Green - 5E9732
+Grey - 3B3B3B
+------------------------------*/
+
+/* BASE
+--------------------------------------------------------------------------------- */
+
+body {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #ccc;
+	font-size: 62.5%;
+	background: #f8f9f7;
+}
+
+/* Links */
+
+a:link, a:visited {
+	color: #a0cf67;
+	text-decoration: none;
+	outline: none;
+}
+
+a:hover {color: #88c340;}
+
+/* Misc */
+
+hr, .hide {display: none;}
+
+a img {border: none;}
+
+/* self-clear floats */
+
+.group:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+* html .group{height:1%}
+*:first-child+html .group{min-height:1px}
+
+#innerHeader h1 a, .iconOption a, #aboveFold { behavior: url('/default/ie/iepngfix.htc') }
+
+.left {float: left;}
+.right {float: right;}
+
+
+/* BASE FONT STYLES
+--------------------------------------------------------------------------------- */
+
+h1 {
+	font-size: 33.160px;
+	color: #c0dd92;
+}
+h2 {
+	font-size: 26px;
+	color: #A0CF67;
+}
+h3 {
+	font-size: 20px;
+	color: #231F20;
+}
+
+h4 {
+  font-size: 18.662px;
+}
+
+p {
+  font-size: 14px;
+	margin: 0 0 1.8em 0;
+	line-height: 1.8em;
+}
+
+/* STRUCTURE
+--------------------------------------------------------------------------------- */
+
+#wrap { position: relative; }
+
+#pageHeader {
+	height: 157px;
+	width: 100%;
+	background: url('/img/top-bg.jpg') repeat-x;
+	z-index: 2000;
+}
+
+#content {
+  font-size: 14px;
+	text-align: left;
+	z-index: 0;
+}
+
+.centeredWrap {
+	width: 960px;
+	margin:0 auto;
+	color: #3B3B3B;
+}
+
+.leftCol {
+	float: left;
+	width: 558px;
+  padding:0 35px 0 0;
+}
+
+.rightCol {
+	float: left;
+	width: 367px;
+	background: #080808;
+}
+
+/* ROUNDED
+--------------------------------------------------------------------------------- */
+
+@mixin rounded($radius: 6px) {
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  border--radius: $radius;
+}
+
+@mixin rounded-top($radius: 6px) {
+  -webkit-border-radius: $radius $radius 0 0;
+  -moz-border-radius: $radius $radius 0 0;
+  border-radius: $radius $radius 0 0;
+}
+
+@mixin rounded-bottom($radius: 6px) {
+  -webkit-border-radius: 0 0 $radius $radius;
+  -moz-border-radius: 0 0 $radius $radius;
+  border-radius: 0 0 $radius $radius;
+}
+
+
+/* GRADIENTS
+--------------------------------------------------------------------------------- */
+
+@mixin green-gradient() {
+	background: #A0CF67; /* old browsers */
+	background: -moz-linear-gradient(top, #A0CF67 0%, #88C340 45%, #76AB36 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#A0CF67), color-stop(45%,#88C340), color-stop(100%,#76AB36)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A0CF67', endColorstr='#76AB36',GradientType=0 ); /* ie */
+}
+
+@mixin green-gradient-reverse() {
+	background: #A0CF67; /* old browsers */
+	background: -moz-linear-gradient(top, #76AB36 0%, #88C340 45%, #A0CF67 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#76AB36), color-stop(45%,#88C340), color-stop(100%,#A0CF67)); /* webkit */	
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#76AB36', endColorstr='#A0CF67',GradientType=0 ); /* ie */
+}
+
+@mixin grey-gradient() {
+	background: #eeeeee; /* old browsers */
+	background: -moz-linear-gradient(top, #eeeeee 29%, #cccccc 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(29%,#eeeeee), color-stop(100%,#cccccc)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* ie */
+}
+
+@mixin grey-gradient-reverse() {
+	background: #cccccc; /* old browsers */
+	background: -moz-linear-gradient(top, #cccccc 29%, #eeeeee 100%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(29%,#cccccc), color-stop(100%,#eeeeee)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cccccc', endColorstr='#eeeeee',GradientType=0 ); /* ie */
+}
+
+@mixin red-gradient() {
+	background: #ff3019; /* old browsers */
+	background: -moz-linear-gradient(top, #ff3019 0%, #cf0404 73%); /* firefox */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ff3019), color-stop(73%,#cf0404)); /* webkit */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=0 ); /* ie */
+}
+
+
+/* TEXT SHADOW
+--------------------------------------------------------------------------------- */
+
+
+/* BUTTONS
+--------------------------------------------------------------------------------- */
+
+a.groupActionButton {
+  font-size: 16px;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #5E9732;
+  color: #222;
+  font-weight: bold;
+	@include rounded(4px);
+	@include green-gradient();
+	text-shadow: -1px 1px 2px #e5e5e5;
+	.ie6 & {color: #222;}
+}
+
+	a.groupActionButton:hover {	@include green-gradient-reverse(); }
+	
+a.groupAssetButton {
+  font-size: 16px;
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #888;
+  color: #222;
+  font-weight: bold;
+	@include rounded(4px);
+	@include grey-gradient();
+	text-shadow: -1px 1px 2px #e5e5e5;
+	.ie6 & {color: #222;}
+}
+
+	a.groupAssetButton:hover {	@include grey-gradient-reverse(); }
+
+/* HEADER
+--------------------------------------------------------------------------------- */
+
+#innerHeader {
+	position: relative;
+  width: 960px;
+	height: 157px;
+	margin: 0 auto;
+	background: url('/img/yeti-head.jpg') bottom right no-repeat;
+
+  h1 {
+		text-indent: -9999em;
+		margin: 8px 0 0 0;
+		
+		a {
+			display: block;
+			width: 316px;
+			height: 144px;
+			background: url('/img/logo.png') no-repeat;
+		}
+  }
+  
+
+	#mainNav{
+		background: #231f20;
+		background: rgba(35,31,32,0.97);
+    font-size: 13px;
+    padding: 4px 0 4px 18px;
+    line-height: 25px;
+		@include rounded-bottom;
+		.ie7 & {
+			position: relative;
+			display: block;
+			width: 425px;
+		}
+
+		.static-links {
+			float: left;
+			
+			.iconOption {
+				position: relative;
+				float: left;
+				padding: 6px 0 0 0;
+				margin: 0 20px 0 0;
+				a {
+					display: block;
+					width: 25px;
+					height: 25px;
+					text-indent: -9999em;
+					margin: 0;
+					padding: 0;
+				}
+			}
+			
+			#allGroups a { background: url('/img/header-sprite.png') 0 0 no-repeat; }
+			#allProjects a { background: url('/img/header-sprite.png') -75px 0 no-repeat; }
+			#myGroup a, #admin a { background: url('/img/header-sprite.png') -25px 0 no-repeat; }
+			#myMessages a { background: url('/img/header-sprite.png') -50px 0 no-repeat; }
+			#myMessages a span.counter {
+				position: absolute;
+				top: 3px;
+				right: -7px;
+				background: red;
+				color: #fff;
+				font-weight:bold;
+				font-size: 10px;
+				text-indent: 0;
+				padding: 0 4px;
+				line-height: 1.5em;
+				@include rounded(8px);
+			}
+		} // closes .static-links
+		
+		#session {
+			float: right;
+			min-width: 152px;
+			max-width: 270px;
+			text-align: right;
+			padding: 6px 0 6px 18px;
+			border-left: 1px solid;
+			border-color: #ccc;
+			border-color: rgba(204,204,204,0.4);
+			
+			
+			img {
+				display: inline-block;
+				vertical-align: middle;
+				width: 25px;
+				height: 25px;
+				margin-top: -4px;
+				margin-right: 6px;
+				border: none;
+				cursor: pointer;
+			}
+			
+			#screen-name { 
+				margin-right: 7px;
+				padding-right: 25px;
+				background: url('/img/sprite-icons.png') no-repeat right center;
+				cursor: pointer;
+			}
+			
+			#loginAction {
+				a {
+					display: block;
+					font-weight: bold;
+					line-height: 25px;
+					text-align: center;
+					margin-right: 18px;
+					font-size: 18px;
+				}
+			}
+			
+		} // closes #session
+
+	} // closes #mainNav
+	
+	.dropdown {
+		top: -999px;
+		clear: both;
+		position: absolute;
+		margin-top: 8px;
+		text-align: left;
+		right: 7px;
+		z-index: 100;
+		background: #231f20;
+		background: rgba(35,31,32,0.97);
+		width: 152px;
+		border: {
+			style: solid;
+			color: #000;
+			width: 1px;
+		}
+		@include rounded-bottom(6px);
+		box-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
+		-moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
+		-webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.6);
+				
+		ul {
+			max-height: 350px;
+			overflow-x: hidden;
+			width: 152px;
+			font-size: 11px;
+			float: left;
+			list-style: none;
+			margin: 0;
+			
+			li {
+				clear: both;
+				display: block;
+				width: 100%;
+				margin: 0;
+				padding: 0;
+				float: left;
+				cursor: pointer;
+				
+				a {
+					clear: both;
+					display: block;
+					background-image: none;
+					padding: 6px 15px;
+					width: 122px;
+					color: #ccc;
+				}
+				
+				a:hover {
+					color: #fff;
+					background: rgba(255,255,255,0.1);
+				}
+			}
+		}
+		
+	}
+	
+} // closes #innerHeader
+
+/* PAGE TITLES
+--------------------------------------------------------------------------------- */
+
+h2.pageTitle {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
