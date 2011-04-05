@@ -40,6 +40,16 @@
         
     
   %div#landingDesc.right
+    
+    %video{:width => "550", :height => "309", :controls => "controls", :preload => "true"}
+      %source{:type => "video/webm; codecs='vp8, vorbis'", :src => "/media/say-what-promo.webm"}
+      %source{:type => "video/ogg", :src => "/media/say-what-promo.ogv"}
+      %source{:src => "/media/say-what-promo.mp4"}
+      %object{:width => "550", :height => "309", :type => "application/x-shockwave-flash", :data => "/js/flashmediaelement.swf"}
+        %param{:name => "movie", :value => "/media/flashmediaelement.swf"}
+        %param{:name => "flashvars", :value => "controls=true&amp;poster=/media/poster.jpg&amp;file=/media/say-what-promo.mp4"}
+        %img{:src => "/media/poster.jpg", :width => "550", :height => "309", :title => "No video playback capabilities"}
+  
     %h3
       Who Is Involved?
       

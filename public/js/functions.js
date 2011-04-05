@@ -1,5 +1,7 @@
 head.ready(function() {
-
+	
+	$('video').mediaelementplayer();
+	
 	manageDropDown();	
 	
 	// All Projects :nth-child selector (for use in IE)
