@@ -213,6 +213,18 @@
 	
 }
 
+.notification {
+	float: left;
+	width: 518px;
+	margin: 0 35px 35px 0;
+	padding: 20px;
+	background: #fffdc8;
+	color: #444;
+	border: 1px solid #fbf300;
+	
+	h3 { margin-bottom: 12px; }
+	p { margin-bottom: 0; }
+}
 
 /* Group Edit */
 #groupProperties, #sponsorProperties { color: #3B3B3B; label {font-weight: bold;} }

@@ -10,21 +10,24 @@
       %article.article
         %header
           %hgroup.group
-            %h1.left
-              = @group.display_name
+            %h1.left= @group.display_name
     
             - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
               = link_to "edit", "/groups/#{@group.permalink}/edit", :class => "right groupActionButton" if current_user.group == @group
         
-          %h3
-            = @group.organization
+          %h3= @group.organization
         
         %article
           = simple_format(@group.description)
       
       
 %section#lowerContent.group
-
+  
+  - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
+    .notification
+      %h3 Want $500 for a group project?
+      %p <a href="/grants"><strong>Apply for a Mini-Grant</strong></a> by May 31, 2011 to be eligible for a <strong>$500</strong> grant that can assist in promoting the Say What! movement within your community or school.
+  
   = render :partial => "group_recent_projects"
 
   
