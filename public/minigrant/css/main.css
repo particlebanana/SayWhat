@@ -254,6 +254,15 @@ ul#errors {
 			.step .float h3 {
 				margin: 0 0 15px 0;
 			}
+			
+			.step .float span {
+				display: block;
+				font-size: 13px;
+				color: #808080;
+				margin-bottom: 12px;
+				line-height: 1.4em;
+				padding: 0 8px;
+			}
 		
 			.step .float p {
 				padding: 0 8px;
