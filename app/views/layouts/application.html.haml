@@ -27,6 +27,10 @@
               
       %div#content.group
         = yield
+    
+    - if current_page? root_path    
+      %div#footer
+        %p This is a project of the <a href="http://txssc.txstate.edu">Texas School Safety Center</a>
           
     = javascript_include_tag "/js/iepngfix_tilebg.js"
     
