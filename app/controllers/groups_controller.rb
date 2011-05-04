@@ -115,7 +115,7 @@ class GroupsController < ApplicationController
   
   # GET - Displays all pending group requests to a site admin
   def pending_groups
-    @groups = Group.find(:conditions => {:status => "pending"})
+    @groups = Group.where(:status => "pending").all
     respond_with(@groups)
   end
   
@@ -151,19 +151,19 @@ class GroupsController < ApplicationController
   
   # GET - Setup Phase - Begin the setup process for a group
   def setup
-    @group = Group.find(:first, :conditions => {:id => current_user.group_id})
+    @group = Group.find(current_user.group_id)
     respond_with(@group)
   end
     
   # GET - Setup Phase - Group Permalink Form
   def setup_permalink
-    @group = Group.find(:first, :conditions => {:id => current_user.group_id})
+    @group = Group.find(current_user.group_id)
     respond_with(@group)
   end
   
   # PUT - Setup Phase - Create group permalink
   def set_permalink
-    @group = Group.find(:first, :conditions => {:id => current_user.group_id})
+    @group = Group.find(current_user.group_id)
     @group.permalink = params[:group][:permalink]
     @group.make_slug
     @group.status = 'active'
@@ -243,7 +243,7 @@ class GroupsController < ApplicationController
     end
     
     def find_by_permalink
-      @group = Group.find(:first, :conditions => {:permalink => params[:permalink]})
+      @group = Group.where(:permalink => params[:permalink]).first
     end
   
     def set_pending_attributes

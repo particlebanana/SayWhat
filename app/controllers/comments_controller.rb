@@ -59,7 +59,7 @@ class CommentsController < ApplicationController
   private 
     
     def set_group_by_permalink
-      @group = Group.find(:first, :conditions => {:permalink => params[:permalink]})
+      @group = Group.where(:permalink => params[:permalink]).first
     end
     
     def set_project

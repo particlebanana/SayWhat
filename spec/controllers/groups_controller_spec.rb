@@ -17,7 +17,7 @@ describe GroupsController do
       it "should add an adult sponsor with status of pending" do 
         request = build_group_request     
         post :create, request
-        @group = Group.find(:first, :conditions => {:display_name => "Han Shot First"})
+        @group = Group.where(:display_name => "Han Shot First").first
         @group.users.first.status.should == "pending"
       end
     

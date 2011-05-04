@@ -99,7 +99,7 @@ Given /^a user exists with an email "([^"]*)"$/ do |email|
 end
 
 Then /^the member should be approved$/ do
-  @group = Group.find(:first, :conditions => {:display_name => "Han Shot First"})
+  @group = Group.where(:display_name => "Han Shot First").first
   @group.users.last.status.should == "setup"
 end
 

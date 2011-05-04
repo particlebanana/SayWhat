@@ -62,7 +62,7 @@ class Project
     end
     
     def set_cache
-      @cache = ProjectCache.find(:first, :conditions => {:group_id => self.group.id.to_s, :project_id => self.id.to_s})
+      @cache = ProjectCache.where(:group_id => self.group.id.to_s, :project_id => self.id.to_s).first
     end
     
     def destroy_cache
