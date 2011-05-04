@@ -18,7 +18,7 @@ gem 'nokogiri'
 gem 'sanitize'
 
 # Database
-gem 'mongoid', '~>2.0.1'
+gem 'mongoid', '2.0.0.beta.19'
 gem 'bson_ext'
 
 
