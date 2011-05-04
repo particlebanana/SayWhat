@@ -9,7 +9,12 @@
       %h4 Group: 
 
       %p
-        %strong= @grant.group_name
+        %strong Group Name:
+        = @grant.group_name
+        
+      %p
+        %strong Make Check Payable:
+        = @grant.check_payable
 
     - if @grant.status == false
       %div.button.right
