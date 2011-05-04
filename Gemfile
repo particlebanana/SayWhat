@@ -13,12 +13,13 @@ gem 'pony'
 # Required System Gems
 gem 'json'
 gem 'haml'
+gem 'sass'
 gem 'nokogiri'
 gem 'sanitize'
 
 # Database
-gem 'mongoid', '2.0.0.beta.19'
-gem 'bson_ext', '~>1.2.0'
+gem 'mongoid', '~>2.0.1'
+gem 'bson_ext'
 
 
 # Authentication
