@@ -94,6 +94,7 @@ GEM
     i18n (0.5.0)
     json (1.5.1)
     json_pure (1.5.1)
+    kgio (2.3.3)
     launchy (0.4.0)
       configuration (>= 0.0.5)
       rake (>= 0.8.1)
@@ -178,6 +179,9 @@ GEM
     treetop (1.4.9)
       polyglot (>= 0.3.1)
     tzinfo (0.3.27)
+    unicorn (3.6.2)
+      kgio (~> 2.3)
+      rack
     warden (1.0.4)
       rack (>= 1.0)
     will_paginate (3.0.pre2)
@@ -190,7 +194,7 @@ PLATFORMS
 DEPENDENCIES
   autotest
   autotest-growl
-  bson_ext
+  bson_ext (~> 1.3.0)
   cancan
   capybara (= 0.4.0)
   carrierwave!
@@ -218,3 +222,4 @@ DEPENDENCIES
   shoulda
   sinatra
   spork (= 0.8.4)
+  unicorn

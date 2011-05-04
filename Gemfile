@@ -4,6 +4,7 @@ source 'http://rubygems.org'
 
 # Base Files
 gem 'rails', '~>3.0.3'
+gem 'unicorn'
 
 # Sinatra Plugins
 gem 'sinatra'
@@ -19,7 +20,7 @@ gem 'sanitize'
 
 # Database
 gem 'mongoid', '2.0.0.beta.19'
-gem 'bson_ext'
+gem 'bson_ext', '~>1.3.0'
 
 
 # Authentication
