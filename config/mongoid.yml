@@ -16,5 +16,5 @@ test:
 
 # set these environment variables on your prod server
 production:
-  <<: *defaults
+  host: localhost
   database: saywhat_production
