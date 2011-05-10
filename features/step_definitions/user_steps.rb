@@ -53,11 +53,9 @@ Given /^I am a Site Admin$/ do
   @user.save!
 end
 
-
 Given /^I am an 'Adult Sponsor'$/ do
   @user.adult_sponsor?
 end
-
 
 # Login using email and password parameters
 Given /^I login using "([^"]*)" and "([^"]*)"$/ do |email, password|
@@ -85,22 +83,20 @@ Given /^there is a pending member$/ do
   user.save!
   @group.save
   @user.create_message_request_object(user.name, user.email, user.id.to_s)
+  @pending_member = user
 end
 
 Given /^a user exists with an email "([^"]*)"$/ do |email|
-  group = Factory.build(:group, :display_name => 'Rebel Alliance')
-  group.status = 'active'
   user = Factory.build(:user, :email => email)
   user.status = 'active'
   user.role = 'adult sponsor'
-  group.users << user
-  user.save
-  group.save
+  user.save!
 end
 
 Then /^the member should be approved$/ do
   @group = Group.where(:display_name => "Han Shot First").first
-  @group.users.last.status.should == "setup"
+  user = @group.users.select{|u| u.email == @pending_member.email}[0]
+  user.status.should == "setup"
 end
 
 Given /^I follow the member setup link that was emailed to me$/ do
