@@ -88,7 +88,8 @@ describe CommentsController do
     it "should allow the group sponsor to delete" do
       sign_in @admin
       delete :destroy, :permalink => @group.permalink, :name => @project.name, :comment_id => @comment.id.to_s
-      @group.reload.projects.first.comments.find(@comment.id).should == nil
+      comment = @group.reload.projects.first.comments.select{|c| c.id == @comment.id}[0]
+      comment.should be_nil
       @group.reload.projects.first.comments.count.should == 0
     end
     

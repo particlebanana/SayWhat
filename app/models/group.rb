@@ -1,6 +1,7 @@
 class Group
   include Mongoid::Document
   include Mongoid::Timestamps
+  
   field :name
   field :display_name
   field :city
@@ -13,8 +14,10 @@ class Group
   field :area, :default => 'pending'
   field :adults_reached_tally, :type => Integer, :default => 0
   field :youth_reached_tally, :type => Integer, :default => 0
+  
   mount_uploader :profile_photo, ProfileUploader
-  references_many :users, :dependent => :delete
+
+  has_many :users, :dependent => :delete, autosave: true
   embeds_many :projects
   
   attr_accessible :display_name, :city, :organization, :description, :esc_region, :dshs_region, :area, :profile_photo

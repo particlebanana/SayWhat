@@ -40,6 +40,6 @@ def seed_messages(count)
   count.to_i.times do
     message = Factory.build(:message)
     @user.messages << message
-    @user.save
+    @user.save!
   end
 end

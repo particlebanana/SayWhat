@@ -1,6 +1,8 @@
 require 'carrierwave/orm/mongoid'
 class User
-  include Mongoid::Document      
+  include Mongoid::Document  
+  include Mongoid::Timestamps  
+    
   devise :database_authenticatable, :token_authenticatable, :recoverable, :rememberable, :validatable
   field :first_name
   field :last_name
@@ -8,9 +10,11 @@ class User
   field :status
   field :bio
   field :authentication_token
-  referenced_in :group
-  references_many :comments
+
+  belongs_to :group
+  has_many :comments
   embeds_many :messages
+  
   mount_uploader :avatar, AvatarUploader
   
   default_scope asc(:created_at)

@@ -1,9 +1,10 @@
 class Message
   include Mongoid::Document
   include Mongoid::Timestamps
-  embedded_in :user, :inverse_of => :messages, :index => true
-  # Message Type can be: "request", "message"
-  field :message_type
+  
+  embedded_in :user, autosave: true
+  
+  field :message_type # Message Type can be: "request", "message"
   field :message_author
   field :message_subject
   field :message_content

@@ -33,10 +33,9 @@ end
 
 def add_comment
   @comment = Factory.build(:comment)
-  @comment.user = @user
+  @user.comments << @comment
   @project.comments << @comment
   @comment.save!
-  @project.save!
 end
 
 def create_project_cache

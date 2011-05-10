@@ -1,8 +1,10 @@
 class Comment
   include Mongoid::Document
   include Mongoid::Timestamps
-  referenced_in :user, :inverse_of => :comments, :index => true
-  embedded_in :project, :inverse_of => :comments, :index => true
+
+  belongs_to :user
+  belongs_to :project
+
   field :comment
   
   attr_accessible :comment

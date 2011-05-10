@@ -1,6 +1,7 @@
 class Project  
   include Mongoid::Document
   include Mongoid::Timestamps
+  
   field :name
   field :display_name
   field :location
@@ -11,9 +12,11 @@ class Project
   field :description
   field :audience
   field :involves
-  embedded_in :group, :inverse_of => :projects
-  embeds_many :comments
+
+  embedded_in :group
+  has_many :comments
   embeds_one :report
+  
   mount_uploader :profile_photo, ProfileUploader
   
   attr_protected :name, :group, :comments

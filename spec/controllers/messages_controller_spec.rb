@@ -12,6 +12,7 @@ describe MessagesController do
   describe "#index" do
     before do
       @user = build_a_generic_user(1)
+      @user.save
       sign_in @user
       seed_messages(5)
     end
@@ -22,7 +23,7 @@ describe MessagesController do
     end
     
   end
-  
+
   describe "#create" do
     before(:each) do
       build_group_with_admin
@@ -77,6 +78,5 @@ describe MessagesController do
       @user.reload.messages.count.should == 0
     end
     
-  end
-  
+  end 
 end

@@ -1,6 +1,7 @@
 class ProjectCache
   include Mongoid::Document
   include Mongoid::Timestamps
+  
   field :group_id
   field :group_name
   field :group_permalink

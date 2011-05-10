@@ -1,6 +1,7 @@
 class Report
   include Mongoid::Document
   include Mongoid::Timestamps
+  
   field :number_of_youth_reached, :type => Integer
   field :number_of_adults_reached, :type => Integer
   field :percent_male, :type => Integer
@@ -15,7 +16,8 @@ class Report
   field :other_resources
   field :comment
   field :level_of_impact
-  embedded_in :project, :inverse_of => :report
+  
+  embedded_in :project
   
   attr_protected :level_of_impact
 
