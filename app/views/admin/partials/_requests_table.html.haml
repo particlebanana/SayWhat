@@ -1,0 +1,9 @@
+%tr
+  %th Group Name
+  %th Sponsor Name
+  %th.last Sponsor Email
+- @groups.each do |group|
+  %tr{:class => cycle("odd", "even")}
+    %td= group.display_name
+    %td= group.users.first.name
+    %td= group.users.first.email
