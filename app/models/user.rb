@@ -12,7 +12,8 @@ class User
   references_many :comments
   embeds_many :messages
   mount_uploader :avatar, AvatarUploader
-
+  
+  default_scope asc(:created_at)
 
   attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remember_me
 

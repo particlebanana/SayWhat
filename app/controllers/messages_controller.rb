@@ -10,7 +10,7 @@ class MessagesController < ApplicationController
   
   # GET - List all of a users messages
   def index
-    @messages = @user.messages.desc(:created_at)
+    @messages = @user.messages
     respond_with(@messages)
   end
   
