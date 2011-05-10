@@ -3,13 +3,12 @@
 source 'http://rubygems.org'
 
 # Base Files
-gem 'rails', '~>3.0.3'
+gem 'rails', '~> 3.0.3'
 gem 'unicorn'
 
 # Sinatra Plugins
 gem 'sinatra'
 gem 'pony'
-
 
 # Required System Gems
 gem 'json'
@@ -19,23 +18,20 @@ gem 'nokogiri'
 gem 'sanitize'
 
 # Database
-gem 'mongoid', '2.0.0.beta.19'
-gem 'bson_ext', '~>1.3.0'
-
+gem 'mongoid', '~> 2.0.0'
+gem 'bson_ext', '~> 1.3'
 
 # Authentication
-gem 'devise', '~>1.1.3'
+gem 'devise', '~> 1.1.3'
 gem 'cancan'
 
-
 # Application Wide
-gem 'carrierwave', :git => "git://github.com/jnicklas/carrierwave.git"
+gem 'carrierwave', '~> 0.5.3'
 gem 'mini_magick'
 
 
 group :development, :test do
   gem 'rspec-rails', '2.0.0.beta.22'
-  gem 'flutie'
 end
 
 
@@ -43,9 +39,9 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'pickle'
-  gem 'capybara', '0.4.0'
+  gem 'capybara', '~> 0.4.0'
   gem 'rack-test'
-  gem 'cucumber-rails', :git => "git://github.com/aslakhellesoy/cucumber-rails.git"
+  gem 'cucumber-rails'
   gem 'cucumber'
   gem 'shoulda'
   gem 'launchy'
