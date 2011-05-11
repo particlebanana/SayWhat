@@ -139,7 +139,10 @@ class GroupsController < ApplicationController
   
   # POST - Delete the group and user
   def deny_group
+    group = @group
+    user = @group.users.first
     if @group.destroy
+      GroupMailer.send_denied_notice(user, group).deliver
       flash[:notice] = "Group and Sponsor successfully removed" 
       redirect_to "/admin/requests"
     else

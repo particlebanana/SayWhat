@@ -62,7 +62,40 @@ describe GroupMailer do
       user.save
       mail.body.encoded.should include_text("http://localhost:3000/setup?auth_token=#{user.authentication_token}")
     end
-
+    
+    it "should have a descriptive subject line" do
+      user.role = "pending"
+      user.status = "pending"
+      user.save
+      mail.subject.should == "Your group has been approved on SayWhat!"
+    end
+  end
+  
+  describe "denied group notification" do
+    let(:user) { Factory.build(:user_input) }
+    let(:group) { Factory.create(:pending_group) }
+    let(:mail) { GroupMailer.send_denied_notice(user, group) }
+    
+    it "renders the reciever's email address" do
+      user.role = "pending"
+      user.status = "pending"
+      user.save
+      mail.to.should == [user.email]
+    end
+    
+    it "should display the group's name in the email" do
+      user.role = "pending"
+      user.status = "pending"
+      user.save
+      mail.body.encoded.should match(group.display_name)
+    end
+    
+    it "should have a descriptive subject line" do
+      user.role = "pending"
+      user.status = "pending"
+      user.save
+      mail.subject.should == "Your group has been denied on SayWhat!"
+    end
   end
   
   describe "setup completed notification" do

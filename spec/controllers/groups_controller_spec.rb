@@ -68,12 +68,14 @@ describe GroupsController do
     
         it "should send the adult sponsor an email alert that their group has been approved" do
           put :approve_group, {:group_id => @group.id.to_s}
-          ActionMailer::Base.deliveries.last.to.should == [@group.users.first.email]
+          ActionMailer::Base.deliveries.last.subject.should == "Your group has been approved on SayWhat!"
         end
       end
     end
   
     describe "deny a pending group" do
+      after(:each) { @group.destroy }
+      
       describe "#deny_group" do
         it "should remove a group from the database" do
           post :deny_group, {:group_id => @group.id.to_s}
@@ -83,6 +85,11 @@ describe GroupsController do
         it "should remove the user from the database" do
           post :deny_group, {:group_id => @group.id.to_s}
           User.where(:group_id => @group.id).first.should == nil
+        end
+        
+        it "should send the adult sponsor an email alert that their group has been denied" do
+          post :deny_group, {:group_id => @group.id.to_s}
+          ActionMailer::Base.deliveries.last.subject.should == "Your group has been denied on SayWhat!"
         end
       end
     end
