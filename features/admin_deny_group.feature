@@ -14,4 +14,4 @@ Feature: Site Admin denies a group
     And I should see "Sponsor Email: user007@gmail.com"
     And I follow "Deny"
     Then the group should be denied
-    #And The "adult sponsor" should receive an email at "user007@gmail.com" with the subject "Your group has been approved on SayWhat!"
+    And The "adult sponsor" should receive an email at "user007@gmail.com" with the subject "Your group has been denied on SayWhat!"

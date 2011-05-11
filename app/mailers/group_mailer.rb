@@ -28,6 +28,14 @@ class GroupMailer < ActionMailer::Base
          :subject => "Your group has been approved on SayWhat!")
   end
   
+  # Sends a link to an denied group's sponsor
+  def send_denied_notice(user, group)
+    @user = user
+    @group = group
+    mail(:to => user.email,
+         :subject => "Your group has been denied on SayWhat!")
+  end
+  
   # Sends a notice to the adult sponsor with their groups homepage
   def send_completed_setup_notice(user, group, url)
     @user = user
