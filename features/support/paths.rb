@@ -20,9 +20,6 @@ module NavigationHelpers
     when /request new group page/
       "/groups/new"
       
-    when /the pending groups page/
-      '/groups/pending_groups'
-      
     when /\/setup\?auth_token=/
       '/setup'
 

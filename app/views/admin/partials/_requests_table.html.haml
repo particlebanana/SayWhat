@@ -4,6 +4,6 @@
   %th.last Sponsor Email
 - @groups.each do |group|
   %tr{:class => cycle("odd", "even")}
-    %td= group.display_name
+    %td= link_to group.display_name, "/admin/requests/#{group.id.to_s}"
     %td= group.users.first.name
     %td= group.users.first.email

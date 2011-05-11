@@ -28,7 +28,7 @@
           %ul.wat-cf
             %li{:class => controller.action_name == 'index' ? 'active' : '' }
               %a{:href => '/admin/dashboard'} Dashboard
-            %li{:class => controller.action_name == 'show_requests' ? 'active' : '' }
+            %li{:class => controller.action_name == 'show_requests' || controller.action_name == "view_request" ? 'active' : '' }
               %a{:href => '/admin/requests'} Requests
       #wrapper.wat-cf
         .flash

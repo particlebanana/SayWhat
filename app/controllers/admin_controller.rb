@@ -15,4 +15,11 @@ class AdminController < ApplicationController
     respond_with(@groups)
   end
   
+  # GET - View a single group request
+  def view_request
+    @group = Group.find(params[:id])
+    @sponsor = @group.users.first
+    respond_with(@group)
+  end
+  
 end

@@ -1,1 +1,15 @@
 /* Override here any style defined by web-app-theme */
+.inner h3 {
+	border-bottom: 1px solid #d9dbdd;
+	padding-bottom: 10px;
+	margin: 15px 0;
+}
+
+.inner label { 
+	float: left; 
+	width: 100px;
+	text-align: right;
+	margin-right: 15px;
+}
+
+.inner p input, .inner p textarea { padding: 3px; }

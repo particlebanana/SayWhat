@@ -107,25 +107,11 @@ class GroupsController < ApplicationController
   ###############################################  
   
   #  
-  # Admin functions to approve a pending group.
+  # Admin function to approve a pending group.
   # Once approved an email should be sent to the group sponsor
   # This email should contain a link with a login token that will
   # allow the sponsor to set a password and to set-up the group
-  #
-  
-  # GET - Displays all pending group requests to a site admin
-  def pending_groups
-    @groups = Group.where(:status => "pending").all
-    respond_with(@groups)
-  end
-  
-  
-  # GET - Display a pending group's information to a site admin
-  def pending_group
-    @user = @group.users.first
-    respond_with(@group)
-  end
-  
+  #  
   
   # PUT - Set a groups status to approved
   def approve_group
@@ -134,7 +120,7 @@ class GroupsController < ApplicationController
       
     if @group.update_attributes(params[:group]) & @user.save
       GroupMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
-      redirect_to "/groups/pending_groups"
+      redirect_to "/admin/requests"
     else
       render :action => 'pending_group'
     end
