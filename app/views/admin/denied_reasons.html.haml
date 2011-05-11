@@ -1,0 +1,24 @@
+#modalWindow
+  %p.main Are you sure you want to deny this group?
+  
+  %p
+    Reason:
+    %select
+      %option{:value => ""}
+      - @reasons.each do |reason|
+        %option{:value => reason[0]}= reason[1]
+        
+  %p.options.group
+    = link_to "Deny", "/groups/#{params[:group_id]}/deny_group", :method => :post, :class => 'deny'
+    = link_to "Cancel", "#", :id => 'cancel'
+    
+:javascript
+  $('a#cancel').click(function(){
+  $.facebox.close();
+  });
+  $("#modalWindow select").change(function(){
+  var selectedValue = $(this).find(":selected").val();
+  var url = $('a.deny').attr('href');
+  var newUrl = build_dynamic_url(url, selectedValue);
+  $('a.deny').attr('href', newUrl);
+  });

@@ -22,4 +22,10 @@ class AdminController < ApplicationController
     respond_with(@group)
   end
   
+  # Load group denied reasons from YAML file and return as json
+  def denied_reasons
+    @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']
+    render :layout => false
+  end
+  
 end

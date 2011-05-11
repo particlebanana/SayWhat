@@ -46,4 +46,4 @@
     
     %button.approve.submit{:type => 'submit'} Approve
     |
-    = link_to "Deny", "/groups/#{@group.id.to_s}/deny_group", :method => :post, :class => 'deny'
+    = link_to "Deny", "/admin/denied_reasons?group_id=#{@group.id.to_s}", :id => "deny"
