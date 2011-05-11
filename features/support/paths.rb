@@ -13,7 +13,10 @@ module NavigationHelpers
     
     when /the login page/
       '/users/sign_in'
-        
+    
+    when /the requests page/
+      "/admin/requests"
+          
     when /request new group page/
       "/groups/new"
       
