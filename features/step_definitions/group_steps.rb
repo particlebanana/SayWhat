@@ -2,6 +2,10 @@ Given /^there is a pending group named "([^"]*)"$/ do |name|
   create_pending_group(name)
 end
 
+Given /^there are no pending groups$/ do
+  Group.delete_all
+end
+
 Given /^there is a group named "([^"]*)"$/ do |name|
   create_group(name)
 end

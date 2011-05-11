@@ -2,7 +2,11 @@
   .content
     %h2.title All Group Requests
     .inner
-      %table.table
-        = render :partial => "admin/partials/requests_table"
+      - if @groups.empty?
+        %p No pending group requests
+      - else
+        %table.table
+          = render :partial => "admin/partials/requests_table"
+       
         
 = content_for :sidebar, render(:partial => 'admin/partials/sidebar')
