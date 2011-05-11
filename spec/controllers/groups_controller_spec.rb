@@ -37,8 +37,8 @@ describe GroupsController do
     
   end
     
-  describe "approve a pending_group" do
-    before do
+  describe "managing group request" do  
+    before(:each) do
       @group = Factory.create(:pending_group)
       @user = Factory.build(:user_input)
       set_status_and_role("pending", "pending")
@@ -47,25 +47,43 @@ describe GroupsController do
       login_admin
     end
     
-    describe "#approve_group" do
-      it "should change a group's status to active" do
-        put :approve_group, {:group_id => @group.id.to_s}
-        @group.reload.status.should == "setup"
-      end
+    describe "approve a pending_group" do
+      after(:each) { @group.destroy }
+      
+      describe "#approve_group" do
+        it "should change a group's status to active" do
+          put :approve_group, {:group_id => @group.id.to_s}
+          @group.reload.status.should == "setup"
+        end
     
-      it "should set the first user's role to adult sponsor" do
-        put :approve_group, {:group_id => @group.id.to_s}
-        @group.reload.users.first.role.should == "adult sponsor"
-      end
+        it "should set the first user's role to adult sponsor" do
+          put :approve_group, {:group_id => @group.id.to_s}
+          @group.reload.users.first.role.should == "adult sponsor"
+        end
     
-      it "should set the adult sponsor's status to setup" do
-        put :approve_group, {:group_id => @group.id.to_s}
-        @group.reload.users.first.status.should == "setup"
-      end
+        it "should set the adult sponsor's status to setup" do
+          put :approve_group, {:group_id => @group.id.to_s}
+          @group.reload.users.first.status.should == "setup"
+        end
     
-      it "should send the adult sponsor an email alert that their group has been approved" do
-        put :approve_group, {:group_id => @group.id.to_s}
-        ActionMailer::Base.deliveries.last.to.should == [@group.users.first.email]
+        it "should send the adult sponsor an email alert that their group has been approved" do
+          put :approve_group, {:group_id => @group.id.to_s}
+          ActionMailer::Base.deliveries.last.to.should == [@group.users.first.email]
+        end
+      end
+    end
+  
+    describe "deny a pending group" do
+      describe "#deny_group" do
+        it "should remove a group from the database" do
+          post :deny_group, {:group_id => @group.id.to_s}
+          Group.where(:id => @group.id).first.should == nil
+        end
+        
+        it "should remove the user from the database" do
+          post :deny_group, {:group_id => @group.id.to_s}
+          User.where(:group_id => @group.id).first.should == nil
+        end
       end
     end
   end

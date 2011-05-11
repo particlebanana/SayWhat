@@ -68,11 +68,12 @@ SayWhat::Application.routes.draw do
   
   
   # Groups - Create/Setup a group (no permalink created yet)
-  match "/groups/:group_id/pending_group" => "groups#pending_group", :via => "get"
-  match "/groups/:group_id/approve_group" => "groups#approve_group", :via => "put"
-  match "/groups/:group_id/setup" => "groups#setup", :via => "get"
-  match "/groups/:group_id/setup_permalink" => "groups#setup_permalink", :via => "get"
-  match "/groups/:group_id/set_permalink" => "groups#set_permalink", :via => "put"
+  match "/groups/:group_id/approve_group"     => "groups#approve_group",    :via => "put"
+  match "/groups/:group_id/deny_group"        => "groups#deny_group",       :via => "post"
+  
+  match "/groups/:group_id/setup"             => "groups#setup",            :via => "get"
+  match "/groups/:group_id/setup_permalink"   => "groups#setup_permalink",  :via => "get"
+  match "/groups/:group_id/set_permalink"     => "groups#set_permalink",    :via => "put"
   
   
   match "/groups/:permalink/edit" => "groups#edit", :via => "get"
