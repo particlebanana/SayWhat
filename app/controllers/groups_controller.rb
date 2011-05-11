@@ -122,7 +122,29 @@ class GroupsController < ApplicationController
       GroupMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
       redirect_to "/admin/requests"
     else
-      render :action => 'pending_group'
+      flash[:error] = "Error approving group!"
+      redirect_to "/admin/requests/#{@group.id.to_s}"
+    end
+  end
+  
+  ###############################################
+  # DENY A GROUP
+  ###############################################  
+  
+  #  
+  # Admin function to deny a pending group.
+  # If denied then the group will be deleted and
+  # the adult sponsor user will be deleted.
+  #
+  
+  # POST - Delete the group and user
+  def deny_group
+    if @group.destroy
+      flash[:notice] = "Group and Sponsor successfully removed" 
+      redirect_to "/admin/requests"
+    else
+      flash[:error] = "Error removing group!"
+      redirect_to "/admin/requests/#{@group.id.to_s}"
     end
   end
   
