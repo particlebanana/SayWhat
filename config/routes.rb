@@ -51,6 +51,8 @@ SayWhat::Application.routes.draw do
   match "/admin/requests"       => "admin#show_requests",   :via => "get"
   match "/admin/requests/:id"   => "admin#view_request",    :via => "get"
   
+  match "/admin/denied_reasons" => "admin#denied_reasons",  :via => "get"
+  
   # Messaging
   match "/messages" => "messages#index", :via => "get"
   match "/messages" => "messages#create", :via => "post"

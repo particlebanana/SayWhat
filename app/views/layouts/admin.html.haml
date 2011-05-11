@@ -2,14 +2,9 @@
 %html
   %head
     %title Say What! Manager
-    = stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/drastic-dark/style", "web-app-theme/override"#, :cache => true
-    = javascript_include_tag "/js/head.load.min.js"
-    
-    %script
-      head.js(
-      "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js",
-      "/javascripts/rails.js");
-    
+    = stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/drastic-dark/style", "web-app-theme/override", "facebox.css"#, :cache => true
+    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "/javascripts/rails.js", "/js/facebox.js", "/js/admin_functions.js"
+        
     = csrf_meta_tag
   %body
     #container
