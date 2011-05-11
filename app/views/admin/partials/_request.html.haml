@@ -45,3 +45,4 @@
   %p.group.formAction
     
     %button.approve.submit{:type => 'submit'} Approve
+    = link_to "Deny", "/groups/#{@group.id.to_s}/deny_group", :method => :post, :class => 'deny'
