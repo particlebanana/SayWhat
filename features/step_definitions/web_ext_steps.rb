@@ -13,9 +13,8 @@ end
 
 
 Then /^I should receive an email at "([^"]*)" with the subject "([^"]*)"$/ do |email, subject|
-  emails = ActionMailer::Base.deliveries
-  emails.include?(email)
-  emails.include?(subject)
+  email = ActionMailer::Base.deliveries.select {|e| e.to == [email]}
+  email.select{|e| e.subject == subject}.count.should == 1
 end
 
 Then /^I should receive an email with the subject "([^"]*)"$/ do |subject|
@@ -26,9 +25,8 @@ Then /^I should receive an email with the subject "([^"]*)"$/ do |subject|
 end
 
 Then /^The "([^"]*)" should receive an email at "([^"]*)" with the subject "([^"]*)"$/ do |person, email, subject|
-  emails = ActionMailer::Base.deliveries
-  emails.include?(email)
-  emails.include?(subject)
+  email = ActionMailer::Base.deliveries.select {|e| e.to == [email]}
+  email.select{|e| e.subject == subject}.count.should == 1
 end
 
 Then /^I should see "([^"]*)" (\d+) times within "([^"]*)"$/ do |text, count, selector|
