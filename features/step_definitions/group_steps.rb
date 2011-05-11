@@ -44,6 +44,11 @@ Then /^the group should be approved$/ do
   @group.status.should == "setup"
 end
 
+Then /^the group should be denied$/ do
+  Group.where(:_id => @group.id).first.should == nil
+  User.where(:group_id => @group.id).first.should == nil
+end
+
 Given /^I follow the group setup link that was emailed to me$/ do
   create_setup_group("Rebel Alliance")
   visit "/groups/#{@group.id}/setup?auth_token=#{@user.authentication_token}"
