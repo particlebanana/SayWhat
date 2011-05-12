@@ -139,12 +139,19 @@ class GroupsController < ApplicationController
   
   # POST - Delete the group and user
   def deny_group
-    group = @group
-    user = @group.users.first
-    if @group.destroy
-      GroupMailer.send_denied_notice(user, group).deliver
-      flash[:notice] = "Group and Sponsor successfully removed" 
-      redirect_to "/admin/requests"
+    if params[:reason] && params[:reason] != "" # require a reason
+      group = @group
+      user = @group.users.first
+      reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']
+      reason = reasons.select{|r| r['name'] == params[:reason]}[0]
+      if @group.destroy
+        GroupMailer.send_denied_notice(user, group, reason['email_text']).deliver
+        flash[:notice] = "Group and Sponsor successfully removed" 
+        redirect_to "/admin/requests"
+      else
+        flash[:error] = "Error removing group!"
+        redirect_to "/admin/requests/#{@group.id.to_s}"
+      end
     else
       flash[:error] = "Error removing group!"
       redirect_to "/admin/requests/#{@group.id.to_s}"

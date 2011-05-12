@@ -29,9 +29,10 @@ class GroupMailer < ActionMailer::Base
   end
   
   # Sends a link to an denied group's sponsor
-  def send_denied_notice(user, group)
+  def send_denied_notice(user, group, reason)
     @user = user
     @group = group
+    @reason = reason
     mail(:to => user.email,
          :subject => "Your group has been denied on SayWhat!")
   end

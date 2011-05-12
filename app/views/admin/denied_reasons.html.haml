@@ -6,7 +6,7 @@
     %select
       %option{:value => ""}
       - @reasons.each do |reason|
-        %option{:value => reason[0]}= reason[1]
+        %option{:value => reason['name']}= reason['short_text']
         
   %p.options.group
     = link_to "Deny", "/groups/#{params[:group_id]}/deny_group", :method => :post, :class => 'deny'
