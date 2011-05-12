@@ -3,13 +3,13 @@
   
   %p
     Reason:
-    %select
+    %select#deniedReasons
       %option{:value => ""}
       - @reasons.each do |reason|
         %option{:value => reason['name']}= reason['short_text']
         
   %p.options.group
-    = link_to "Deny", "/groups/#{params[:group_id]}/deny_group", :method => :post, :class => 'deny'
+    = link_to "Deny Group", "/groups/#{params[:group_id]}/deny_group", :method => :post, :class => 'deny'
     = link_to "Cancel", "#", :id => 'cancel'
     
 :javascript
