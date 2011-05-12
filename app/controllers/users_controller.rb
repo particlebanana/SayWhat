@@ -9,12 +9,7 @@ class UsersController < ApplicationController
   ################################
   # Admin Panel
   ################################
-  
-  # GET - Admin Panel
-  def admin_panel
-
-  end
-  
+    
   # GET - Manage Mini-Grants
   def manage_grants
     @pending = Grant.pending.desc('created_at')
