@@ -77,18 +77,33 @@ describe GroupsController do
       after(:each) { @group.destroy }
       
       describe "#deny_group" do
-        it "should remove a group from the database" do
+        it "should fail if no reason is given" do
           post :deny_group, {:group_id => @group.id.to_s}
+          response.should redirect_to("/admin/requests/#{@group.id.to_s}")
+        end
+        
+        it "should fail if reason is blank" do
+          post :deny_group, {:group_id => @group.id.to_s, :reason => ""}
+          response.should redirect_to("/admin/requests/#{@group.id.to_s}")
+        end
+        
+        it "should succeed if a reason is given" do
+          post :deny_group, {:group_id => @group.id.to_s, :reason => "age"}
+          response.should redirect_to("/admin/requests")
+        end
+        
+        it "should remove a group from the database" do
+          post :deny_group, {:group_id => @group.id.to_s, :reason => "organization"}
           Group.where(:_id => @group.id).first.should == nil
         end
         
         it "should remove the user from the database" do
-          post :deny_group, {:group_id => @group.id.to_s}
+          post :deny_group, {:group_id => @group.id.to_s, :reason => "missing"}
           User.where(:group_id => @group.id).first.should == nil
         end
         
         it "should send the adult sponsor an email alert that their group has been denied" do
-          post :deny_group, {:group_id => @group.id.to_s}
+          post :deny_group, {:group_id => @group.id.to_s, :reason => "age"}
           ActionMailer::Base.deliveries.last.subject.should == "Your group has been denied on SayWhat!"
         end
       end

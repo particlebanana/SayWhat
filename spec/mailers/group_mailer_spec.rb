@@ -74,7 +74,8 @@ describe GroupMailer do
   describe "denied group notification" do
     let(:user) { Factory.build(:user_input) }
     let(:group) { Factory.create(:pending_group) }
-    let(:mail) { GroupMailer.send_denied_notice(user, group) }
+    let(:reason) { "This is a test reason" }
+    let(:mail) { GroupMailer.send_denied_notice(user, group, reason) }
     
     it "renders the reciever's email address" do
       user.role = "pending"
@@ -95,6 +96,13 @@ describe GroupMailer do
       user.status = "pending"
       user.save
       mail.subject.should == "Your group has been denied on SayWhat!"
+    end
+    
+    it "should include the denied reason" do
+      user.role = "pending"
+      user.status = "pending"
+      user.save
+      mail.body.encoded.should match("This is a test reason")
     end
   end
   
