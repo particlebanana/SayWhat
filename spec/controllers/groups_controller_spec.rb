@@ -24,7 +24,7 @@ describe GroupsController do
         @sponsor = Factory.create(:admin)
         request = build_group_request
         post :create, request
-        ActionMailer::Base.deliveries.first.to.should == [request[:group][:user][:email]]
+        ActionMailer::Base.deliveries.select {|m| m.to == 'luke.skywalker@gmail.com' }.should_not == nil
       end
     
       it "should send the admins an email alert" do
