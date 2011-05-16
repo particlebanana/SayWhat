@@ -46,15 +46,17 @@ SayWhat::Application.routes.draw do
   end
   
   # Admin Panel
-  match "/admin"                => redirect('/admin/dashboard')
-  match "/admin/dashboard"      => "admin#index",                 :via => "get"
-  match "/admin/requests"       => "admin#show_requests",         :via => "get"
-  match "/admin/requests/:id"   => "admin#view_request",          :via => "get"
+  match "/admin"                =>  redirect('/admin/dashboard')
+  match "/admin/dashboard"      =>  "admin#index",                  :via => "get"
+  match "/admin/requests"       =>  "admin#show_requests",          :via => "get"
+  match "/admin/requests/:id"   =>  "admin#view_request",           :via => "get"
   
-  match "/admin/denied_reasons" => "admin#denied_reasons",        :via => "get"
+  match "/admin/denied_reasons" =>  "admin#denied_reasons",         :via => "get"
   
-  match "/admin/grants"         => "admin#show_grants",           :via => "get"
-  match "/admin/grants/pending" => "admin#show_pending_grants",   :via => "get"
+  match "/admin/grants"         =>  "admin#show_grants",            :via => "get"
+  match "/admin/grants/pending" =>  "admin#show_pending_grants",    :via => "get"
+  match "/admin/grants/:id"     =>  "admin#view_grant",             :via => "get"
+  match "/admin/grants/:id"     =>  "admin#approve_grant",          :via => "put"
   
   # Messaging
   match "/messages" => "messages#index", :via => "get"

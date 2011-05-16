@@ -14,6 +14,8 @@
 
 .inner p input, .inner p textarea { padding: 3px; }
 
+.inner p.block b { display: block; }
+
 #modalWindow {
 	width: 400px;
 	padding: 12px;

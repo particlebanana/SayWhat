@@ -4,6 +4,6 @@
   %th.last Sponsor Email
 - @grants.each do |grant|
   %tr{:class => cycle("odd", "even")}
-    %td= link_to grant.group_name, "#"
+    %td= link_to grant.group_name, "/admin/grants/#{grant.id.to_s}"
     %td= grant.adult_name
     %td= grant.adult_email

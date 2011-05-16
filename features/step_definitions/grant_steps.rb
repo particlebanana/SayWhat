@@ -13,3 +13,7 @@ end
 Given /^there are no pending grant applications$/ do
   Grant.delete_all
 end
+
+Then /^the grant application should be approved$/ do
+  @grant.reload.status.should == true
+end

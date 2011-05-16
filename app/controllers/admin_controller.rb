@@ -34,7 +34,7 @@ class AdminController < ApplicationController
   
   #-----------------
   # GRANTS
-  #-----------------  
+  #-----------------
   
   # GET - Display active grant applications
   def show_grants
@@ -46,6 +46,24 @@ class AdminController < ApplicationController
   def show_pending_grants
     @grants = Grant.pending.desc('created_at')
     respond_with(@grants)
+  end
+  
+  # GET - View single grant application
+  def view_grant
+    @grant = Grant.find(params[:id])
+    respond_with(@grant)
+  end
+  
+  # PUT - Approve a Mini-Grant
+  def approve_grant
+    @grant = Grant.find(params[:id])
+    @grant.status = true
+    if @grant.save
+      UserMailer.send_grant_approval(@grant).deliver
+      redirect_to "/admin/grants"
+    else
+      redirect_to "/admin/grants/#{@grant.id.to_s}", :notice => "Error saving record"
+    end
   end
   
 end
