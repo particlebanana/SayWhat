@@ -73,7 +73,15 @@ describe UserMailer do
     it "renders the reciever's email address" do
       mail.to.should == [user.email]
     end
-
+  end
+  
+  describe "send mini-grant approval email" do
+    let(:grant) { Factory.create(:minigrant, :status => true) }
+    let(:mail) { UserMailer.send_grant_approval(grant) }
+    
+    it "renders the reciever's email address" do
+      mail.to.should == [grant.adult_email]
+    end
   end
 
 end

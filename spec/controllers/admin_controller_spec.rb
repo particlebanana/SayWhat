@@ -57,5 +57,27 @@ describe AdminController do
       assigns[:grants].count.should == 1
     end
   end
+  
+  describe "#approve_grant" do
+    before(:each) do
+      @grant = Factory.create(:minigrant, :status => false)
+      login_admin
+    end
+    
+    context "successfully" do
+      before(:each) { do_approve_grant(id: "#{@grant.id}") }
+      
+      it "should redirect to /admin/grants" do
+        response.should redirect_to('/admin/grants')
+      end
+      
+      it "should send the adult contact an email" do
+        ActionMailer::Base.deliveries.last.subject.should == "SayWhat! Mini-Grant Has Been Approved"
+      end
+      
+      subject{ @grant.reload }
+      its(:status) { should == true }
+    end
+  end
 
 end
