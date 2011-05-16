@@ -16,6 +16,12 @@ module NavigationHelpers
     
     when /the requests page/
       "/admin/requests"
+      
+    when /the grants page/
+      "/admin/grants"
+      
+    when /the pending grants page/
+      "/admin/grants/pending"
           
     when /request new group page/
       "/groups/new"

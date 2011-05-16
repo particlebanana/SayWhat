@@ -33,5 +33,29 @@ describe AdminController do
       assigns[:group].should_not be_nil
     end
   end
+  
+  describe "#show_grants" do
+    before do
+      @grant = Factory.create(:minigrant, :status => true)
+      login_admin
+    end
+    
+    it "should list all the active grants" do
+      get :show_grants
+      assigns[:grants].count.should == 1
+    end
+  end
+  
+  describe "#show_pending_grants" do
+    before do
+      @grant = Factory.create(:minigrant, :status => false)
+      login_admin
+    end
+    
+    it "should list all the pending grants" do
+      get :show_pending_grants
+      assigns[:grants].count.should == 1
+    end
+  end
 
 end

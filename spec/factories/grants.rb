@@ -1,0 +1,20 @@
+# Creates a pending Mini-Grant Application
+Factory.define :minigrant, :class => Grant do |g|
+  g.group_name "Rebel Alliance"
+  g.check_payable "Han Solo"
+  g.adult_name "Han Solo"
+  g.adult_phone "123-456-7890"
+  g.adult_email "han.solo@gmail.com"
+  g.adult_address "123 Falcon Dr"
+  g.youth_name "Luke Skywalker"
+  g.youth_email "luke.skywalker@gmail.com"
+  g.project_description "Blow Up The Deathstar"
+  g.project_when "ASAP"
+  g.project_where "Space"
+  g.project_who "Rebel Alliance"
+  g.project_serve "Humanity"
+  g.project_goals "Destroy the empire"
+  g.funds_need "$500"
+  g.community_partnerships "galaxy"
+  g.community_resources "what is available"
+end

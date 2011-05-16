@@ -1,0 +1,17 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active= link_to "Active Grant Applications", "/admin/grants"
+      %li= link_to "Pending Grant Applications", "/admin/grants/pending"
+          
+  .content
+    %h2.title Active Mini-Grant Applications
+    .inner
+      - if @grants.empty?
+        %p No active grant applications. Approve some to see them here.
+      - else
+        %table.table
+          = render :partial => "admin/partials/grants_table"
+       
+        
+= content_for :sidebar, render(:partial => 'admin/partials/sidebar')
