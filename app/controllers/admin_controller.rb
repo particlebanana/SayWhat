@@ -9,6 +9,10 @@ class AdminController < ApplicationController
   def index
   end
   
+  #-----------------
+  # REQUESTS
+  #-----------------
+  
   # GET - Displays all pending group requests to a site admin
   def show_requests
     @groups = Group.where(:status => "pending").all
@@ -26,6 +30,22 @@ class AdminController < ApplicationController
   def denied_reasons
     @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']
     render :layout => false
+  end
+  
+  #-----------------
+  # GRANTS
+  #-----------------  
+  
+  # GET - Display active grant applications
+  def show_grants
+    @grants = Grant.approved.desc('created_at')
+    respond_with(@grants)
+  end
+  
+  # GET - Display pending grant applications
+  def show_pending_grants
+    @grants = Grant.pending.desc('created_at')
+    respond_with(@grants)
   end
   
 end
