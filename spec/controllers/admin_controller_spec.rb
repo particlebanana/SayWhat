@@ -146,5 +146,5 @@ describe AdminController do
       its(:name) { should == "rebel alliance" }
     end
   end
-  
+
 end

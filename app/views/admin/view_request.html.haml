@@ -16,5 +16,6 @@
             %button.approve.submit{:type => 'submit'} Approve
             |
             = link_to "Deny", "/admin/denied_group_reasons?group_id=#{@group.id.to_s}", :id => "deny"
+        = render :partial => "admin/partials/request"
         
 = content_for :sidebar, render(:partial => 'admin/partials/sidebar')
