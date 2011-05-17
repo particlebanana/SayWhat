@@ -9,11 +9,6 @@ SayWhat::Application.routes.draw do
     match "/resources" => StaticResources::Main, :anchor => false if THEME['static_resources']
   end
   
-  # Manage Mini-Grants
-  match "/admin/manage_grants" => "users#manage_grants", :via => "get"
-  match "/admin/grant/:grant_id" => "users#view_grant", :via => "get"
-  match "/admin/grant/approve/:grant_id" => "users#approve_grant", :via => "put"
-  
   devise_for :users do
     get "/login" => "devise/sessions#new"
     get "/logout" => "devise/sessions#destroy"
