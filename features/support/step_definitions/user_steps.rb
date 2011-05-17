@@ -67,7 +67,7 @@ end
 
 # Edit User Profile
 Given /^I select an avatar to attach$/ do
-  attach_file('user_avatar', "#{Rails.root}/features/fixtures/default.png")
+  attach_file('user_avatar', "#{Rails.root}/features/support/fixtures/default.png")
 end
 
 Then /^I should see an image$/ do

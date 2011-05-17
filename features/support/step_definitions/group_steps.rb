@@ -69,7 +69,7 @@ end
 
 # Add an image to the project
 Given /^I select a group photo to attach$/ do
-  attach_file('group_profile_photo', "#{Rails.root}/features/fixtures/profile.png")
+  attach_file('group_profile_photo', "#{Rails.root}/features/support/fixtures/profile.png")
 end
 
 
