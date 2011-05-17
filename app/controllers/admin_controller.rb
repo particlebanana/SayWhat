@@ -35,6 +35,11 @@ class AdminController < ApplicationController
   #-----------------
   # GRANTS
   #-----------------
+  # 
+  # Unlike the group requests mini-grant applications are handled
+  # through an embedded sinatra app. Because of that the approve and deny
+  # logic must be included in the admin actions.
+  #
   
   # GET - Display active grant applications
   def show_grants
@@ -63,6 +68,29 @@ class AdminController < ApplicationController
       redirect_to "/admin/grants"
     else
       redirect_to "/admin/grants/#{@grant.id.to_s}", :notice => "Error saving record"
+    end
+  end
+  
+  # Load grant denied reasons from YAML file and return as json
+  def denied_grant_reasons
+    @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants']
+    render :layout => false
+  end
+  
+  # POST - Deny a Mini-Grant
+  def deny_grant
+    if params[:reason] && params[:reason] != "" # require a reason
+      @grant = Grant.find(params[:id])
+      reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants']
+      reason = reasons.select{|r| r['name'] == params[:reason]}[0]
+      if @grant.destroy
+        UserMailer.send_grant_denied(@grant, reason['email_text']).deliver
+        redirect_to "/admin/grants/pending", :notice => "Grant application has been removed" 
+      else
+        redirect_to "/admin/grants/#{@grant.id.to_s}", :error => "Error removing grant application from the system"
+      end
+    else
+      redirect_to "/admin/grants/#{params[:id]}", :error => "Error removing grant application from the system"
     end
   end
   

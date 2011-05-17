@@ -82,6 +82,23 @@ describe UserMailer do
     it "renders the reciever's email address" do
       mail.to.should == [grant.adult_email]
     end
+    
+    it "renders the correct subject" do
+      mail.subject.should == "SayWhat! Mini-Grant Has Been Approved"
+    end
+  end
+  
+  describe "send mini-grant denied email" do
+    let(:grant) { Factory.create(:minigrant, :status => false) }
+    let(:mail) { UserMailer.send_grant_denied(grant, "reason") }
+    
+    it "renders the reciever's email address" do
+      mail.to.should == [grant.adult_email]
+    end
+    
+    it "renders the correct subject" do
+      mail.subject.should == "SayWhat! Mini-Grant Has Been Denied"
+    end
   end
 
 end
