@@ -142,7 +142,7 @@ class GroupsController < ApplicationController
     if params[:reason] && params[:reason] != "" # require a reason
       group = @group
       user = @group.users.first
-      reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']
+      reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
       reason = reasons.select{|r| r['name'] == params[:reason]}[0]
       if @group.destroy
         GroupMailer.send_denied_notice(user, group, reason['email_text']).deliver
