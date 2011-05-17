@@ -1,20 +1,17 @@
 .block
   .secondary-navigation
     %ul.wat-cf
-      %li.first <a href="/admin/requests">&laquo; back</a>
+      %li.first <a href="/admin/groups">&laquo; back</a>
       
   .content
-    %h2.title Pending Group Request
+    %h2.title View Group
     .inner
       %table.table
-        = form_for @group, :url => "/groups/#{@group.id}/approve_group", :method => :put do |f|
+        = form_for @group, :url => "/admin/groups/#{@group.id.to_s}", :method => :put do |f|
           = errors_for(@group, "Oops, there were some problems with your group information").html_safe
-          
           = render :partial => "admin/partials/group", :locals => {:f => f}
           
           %p.group.formAction
-            %button.approve.submit{:type => 'submit'} Approve
-            |
-            = link_to "Deny", "/admin/denied_group_reasons?group_id=#{@group.id.to_s}", :id => "deny"
+            %button.approve.submit{:type => 'submit'} Update
         
 = content_for :sidebar, render(:partial => 'admin/partials/sidebar')

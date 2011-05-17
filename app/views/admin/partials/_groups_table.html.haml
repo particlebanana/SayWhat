@@ -1,0 +1,9 @@
+%tr
+  %th Group Name
+  %th Organization Name
+  %th.last Status
+- @groups.each do |group|
+  %tr{:class => cycle("odd", "even")}
+    %td= link_to group.display_name, "/admin/groups/#{group.id}"
+    %td= group.organization
+    %td= group.status

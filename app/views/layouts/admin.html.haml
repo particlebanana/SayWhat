@@ -28,6 +28,8 @@
             - if THEME['minigrant_app']
               %li{:class => ['show_grants', 'show_pending_grants', 'view_grant'].include?(controller.action_name) ? 'active' : '' }
                 %a{:href => '/admin/grants'} Grants
+            %li{:class => ['show_groups', 'view_group'].include?(controller.action_name) ? 'active' : '' }
+              %a{:href => '/admin/groups'} Groups
       #wrapper.wat-cf
         .flash
           - flash.each do |type, message|

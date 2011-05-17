@@ -55,6 +55,10 @@ SayWhat::Application.routes.draw do
   match "/admin/grants/:id"     =>  "admin#approve_grant",          :via => "put"
   match "/admin/grants/:id"     =>  "admin#deny_grant",             :via => "post"
   
+  match "/admin/groups"         =>  "admin#show_groups",            :via => "get"
+  match "/admin/groups/:id"     =>  "admin#view_group",             :via => "get"
+  match "/admin/groups/:id"     =>  "admin#update_group",           :via => "put"
+  
   # Messaging
   match "/messages" => "messages#index", :via => "get"
   match "/messages" => "messages#create", :via => "post"

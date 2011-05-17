@@ -87,10 +87,38 @@ class AdminController < ApplicationController
         UserMailer.send_grant_denied(@grant, reason['email_text']).deliver
         redirect_to "/admin/grants/pending", :notice => "Grant application has been removed" 
       else
-        redirect_to "/admin/grants/#{@grant.id.to_s}", :error => "Error removing grant application from the system"
+        flash[:error] = "Error removing grant application from the system"
+        redirect_to "/admin/grants/#{@grant.id.to_s}"
       end
     else
-      redirect_to "/admin/grants/#{params[:id]}", :error => "Error removing grant application from the system"
+      flash[:error] = "Error removing grant application from the system"
+      redirect_to "/admin/grants/#{params[:id]}"
+    end
+  end
+  
+  #-----------------
+  # GROUPS
+  #-----------------
+  
+  # GET - View All Groups
+  def show_groups
+    @groups = Group.asc('name')
+  end
+  
+  # GET - View single group
+  def view_group
+    @group = Group.find(params[:id])
+    @sponsor = @group.status == 'pending' ? @group.users.first : @group.users.adult_sponsor.first
+  end
+  
+  # PUT - Update a groups basic settings
+  def update_group
+    @group = Group.find(params[:id])
+    if @group.update_attributes(params[:group])
+      redirect_to "/admin/groups", :notice => "Record updated successfully"
+    else
+      flash[:error] = "Problem updating record"
+      redirect_to "/admin/groups/#{@group.id.to_s}"
     end
   end
   
