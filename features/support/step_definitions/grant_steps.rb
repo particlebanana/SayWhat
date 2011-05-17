@@ -17,3 +17,7 @@ end
 Then /^the grant application should be approved$/ do
   @grant.reload.status.should == true
 end
+
+Then /^the grant application should be denied$/ do
+  Grant.where(:_id => @grant.id).first.should == nil
+end

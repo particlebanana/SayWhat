@@ -9,4 +9,10 @@ reasons:
     - name: "missing"
       short_text: "Unclear focus"
       email_text: "It was unclear what your group's focus is. Say What! is currently open to groups of high school and junior high age students who are working to combat the effects of tobacco use in their school and/or community."
-  
+  grants:
+    - name: "curriculum"
+      short_text: "Incorrect curriculum"
+      email_text: "The funding can not be used to purchase or implement specific curriculum or classroom materials or for adults to provide presentations to youth."
+    - name: "youth"
+      short_text: "Not enough youth involvement"
+      email_text: "The projects must be youth-led and demonstrate a significant amount of youth engagement and involvement."

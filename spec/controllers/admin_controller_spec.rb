@@ -67,17 +67,44 @@ describe AdminController do
     context "successfully" do
       before(:each) { do_approve_grant(id: "#{@grant.id}") }
       
-      it "should redirect to /admin/grants" do
-        response.should redirect_to('/admin/grants')
-      end
-      
+      subject { response }
+      it { should redirect_to('/admin/grants') }
+            
       it "should send the adult contact an email" do
         ActionMailer::Base.deliveries.last.subject.should == "SayWhat! Mini-Grant Has Been Approved"
       end
-      
+            
       subject{ @grant.reload }
       its(:status) { should == true }
     end
   end
-
+  
+  describe "#deny_grant" do
+    before(:each) do
+      @grant = Factory.create(:minigrant, :status => false)
+      login_admin
+    end
+    
+    context "successfully" do
+      before(:each) { do_deny_grant(id: "#{@grant.id.to_s}", reason: "curriculum")}
+      
+      subject{ response }
+      it { should redirect_to('/admin/grants/pending') }
+      
+      it "should destroy the application" do
+        Grant.where(_id: "#{@grant.id}").first.should == nil
+      end
+      
+      subject{ ActionMailer::Base.deliveries.last }
+      its(:subject) { should == "SayWhat! Mini-Grant Has Been Denied" }
+      its(:to) { should == ["han.solo@gmail.com"] }  
+    end
+    
+    context "un-successfully" do
+      before(:each) { do_deny_grant(id: "#{@grant.id.to_s}", reason: "") }
+      
+      subject { response }
+      it { should redirect_to("/admin/grants/#{@grant.id}") }
+    end
+  end
 end
