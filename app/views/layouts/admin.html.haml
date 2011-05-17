@@ -25,8 +25,9 @@
               %a{:href => '/admin/dashboard'} Dashboard
             %li{:class => controller.action_name == 'show_requests' || controller.action_name == "view_request" ? 'active' : '' }
               %a{:href => '/admin/requests'} Requests
-            %li{:class => ['show_grants', 'show_pending_grants', 'view_grant'].include?(controller.action_name) ? 'active' : '' }
-              %a{:href => '/admin/grants'} Grants
+            - if THEME['minigrant_app']
+              %li{:class => ['show_grants', 'show_pending_grants', 'view_grant'].include?(controller.action_name) ? 'active' : '' }
+                %a{:href => '/admin/grants'} Grants
       #wrapper.wat-cf
         .flash
           - flash.each do |type, message|
