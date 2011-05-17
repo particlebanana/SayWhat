@@ -27,8 +27,8 @@ class AdminController < ApplicationController
   end
   
   # Load group denied reasons from YAML file and return as json
-  def denied_reasons
-    @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']
+  def denied_group_reasons
+    @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
     render :layout => false
   end
   
