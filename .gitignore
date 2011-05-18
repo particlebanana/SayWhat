@@ -7,7 +7,6 @@ tmp/**/*
 *.log
 *.db
 .sass-cache/
-.rvmrc
 config/theme.yml
 public/uploads/tmp
 
