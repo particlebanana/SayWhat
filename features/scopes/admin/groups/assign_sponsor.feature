@@ -1,5 +1,4 @@
 @admin
-@sponsor_assign
 Feature: Site Admin manually assigns a new sponsor
 
   Background: 

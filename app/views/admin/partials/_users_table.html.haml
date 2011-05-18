@@ -1,0 +1,11 @@
+%tr
+  %th Name
+  %th Email
+  %th Group
+  %th.last Role
+- @users.each do |user|
+  %tr{:class => cycle("odd", "even")}
+    %td= link_to user.name, "/admin/users/#{user.id.to_s}"
+    %td= user.email
+    %td= user.group.display_name if user.group
+    %td= user.role.capitalize

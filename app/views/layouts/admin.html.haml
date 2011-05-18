@@ -30,6 +30,8 @@
                 %a{:href => '/admin/grants'} Grants
             %li{:class => ['show_groups', 'view_group'].include?(controller.action_name) ? 'active' : '' }
               %a{:href => '/admin/groups'} Groups
+            %li{:class => ['show_users', 'view_user'].include?(controller.action_name) ? 'active' : '' }
+              %a{:href => '/admin/users'} Users
 
       #wrapper.wat-cf
         .flash

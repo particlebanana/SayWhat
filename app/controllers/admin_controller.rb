@@ -141,4 +141,38 @@ class AdminController < ApplicationController
     end
   end
   
+  #-----------------
+  # USERS
+  #-----------------
+  
+  # GET - View all registered users
+  def show_users
+    @users = User.asc(:last_name)
+  end
+  
+  # GET - View single user
+  def view_user
+    @user = User.find(params[:id])
+  end
+  
+  # GET - Remove an inappropriate avatar
+  def remove_avatar
+    @user = User.find(params[:id])
+    @user.remove_avatar!
+    @user.avatar_filename = nil
+    @user.save
+    redirect_to "/admin/users/#{@user.id}", :notice => "Avatar removed"
+  end
+  
+  # PUT - Update a user
+  def update_user
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      redirect_to "/admin/users/#{@user.id.to_s}", :notice => "User has been updated"
+    else
+      flash[:error] = "Error updating user"
+      redirect_to "/admin/users/#{@user.id.to_s}"
+    end
+  end
+  
 end

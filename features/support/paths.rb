@@ -25,6 +25,9 @@ module NavigationHelpers
       
     when /the admin groups page/
       "/admin/groups"
+      
+    when /the users listing page/
+      "/admin/users"
           
     when /request new group page/
       "/groups/new"

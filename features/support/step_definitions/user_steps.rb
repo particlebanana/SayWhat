@@ -38,6 +38,14 @@ Given /^there is a group member with the email "([^"]*)"$/ do |email|
   @new_user.save
 end
 
+# Create multiple group users
+Given /^the group has (\d+) members$/ do |user_count|
+  user_count.to_i.times do
+    email = (1..8).collect { (i = Kernel.rand(62); i += ((i < 10) ? 48 : ((i < 36) ? 55 : 61 ))).chr }.join + "@gmail.com"
+    Factory.create(:user, :email => email, :group_id => @group.id, :status => "active", :role => "member")
+  end
+end
+
 Given /^I am a group sponsor$/ do
   @user.role = "adult sponsor"
   @user.save!

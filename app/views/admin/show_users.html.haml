@@ -1,0 +1,9 @@
+.block
+  .content
+    %h2.title All Registered Users
+    .inner
+      - if @users.all.empty?
+        %p No Registered Users....Ouch
+      - else
+        %table.table
+          = render :partial => "admin/partials/users_table"

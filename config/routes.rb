@@ -62,6 +62,11 @@ SayWhat::Application.routes.draw do
   match "/admin/groups/:id/choose_sponsor"    =>  "admin#choose_sponsor",       :via => "get"
   match "/admin/groups/:id/reassign_sponsor"  =>  "admin#reassign_sponsor",     :via => "put"
   
+  match "/admin/users"                        =>  "admin#show_users",           :via => "get"
+  match "/admin/users/:id"                    =>  "admin#view_user",            :via => "get"
+  match "/admin/users/:id/remove_avatar"      =>  "admin#remove_avatar",        :via => "get"
+  match "/admin/users/:id"                    =>  "admin#update_user",          :via => "put"
+  
   # Messaging
   match "/messages" => "messages#index", :via => "get"
   match "/messages" => "messages#create", :via => "post"
