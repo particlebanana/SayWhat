@@ -158,5 +158,26 @@ describe AdminController do
       assigns[:members].count.should == 1
     end
   end
+  
+  describe "#reassign_sponsor" do
+    before(:each) do
+      @user = build_decaying_group
+      login_admin
+    end
+    
+    context "admin to group member" do
+      before(:each) { do_reassign_sponsor }
+      
+      subject { @captain_zissou.reload }
+      its(:role) { should == "member" }
+    end
+    
+    context "member to group sponsor" do
+      before(:each) { do_reassign_sponsor }
+            
+      subject { @user.reload }
+      its(:role) { should == "adult sponsor" }
+    end
+  end
 
 end

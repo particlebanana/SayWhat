@@ -129,4 +129,16 @@ class AdminController < ApplicationController
     render :layout => false
   end
   
+  # PUT - Reassigns the adult sponsor
+  def reassign_sponsor
+    group = Group.find(params[:id])
+    if params[:user] && !params[:user].empty?
+      group.reassign_sponsor(params[:user])
+      redirect_to "/admin/groups/#{group.id.to_s}", :notice => "Group sponsor updated!"
+    else
+      flash[:error] = "Must select a valid user to be group sponsor"
+      redirect_to "/admin/groups/#{group.id.to_s}"
+    end
+  end
+  
 end

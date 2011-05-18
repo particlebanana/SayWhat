@@ -53,6 +53,10 @@ Then /^the group should be denied$/ do
   User.where(:group_id => @group.id).first.should == nil
 end
 
+Then /^the adult sponsor should be "([^"]*)"$/ do |sponsor_email|
+  @group.reload.users.adult_sponsor.first.email.should == sponsor_email
+end
+
 Given /^I follow the group setup link that was emailed to me$/ do
   create_setup_group("Rebel Alliance")
   visit "/groups/#{@group.id}/setup?auth_token=#{@user.authentication_token}"

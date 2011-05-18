@@ -74,5 +74,22 @@ describe Group do
     end
     
   end
+  
+  describe ".reassign_sponsor" do
+    before(:each) do
+      @user = build_decaying_group
+      @group.reassign_sponsor(@user.id)
+    end
+          
+    context "user" do
+      subject{ @user.reload }
+      its(:role) { should == "adult sponsor" }
+    end
+    
+    context "admin" do  
+      subject{ @captain_zissou.reload }
+      its(:role) { should == "member" }
+    end
+  end
 
 end

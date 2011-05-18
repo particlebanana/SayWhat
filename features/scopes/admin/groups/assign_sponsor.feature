@@ -17,5 +17,6 @@ Feature: Site Admin manually assigns a new sponsor
     And I should see "assign new sponsor"
     When I follow "assign new sponsor"
     And I select "Luke Skywalker" from "members"
-    And I follow "Promote Member"
+    And I press "Promote Member"
+    Then I should see "Sponsor Name: Luke Skywalker"
     Then the adult sponsor should be "student@gmail.com"

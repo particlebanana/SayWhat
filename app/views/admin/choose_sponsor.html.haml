@@ -1,24 +1,20 @@
 #modalWindow
   %p.main Choose a new member to be group sponsor.
   
-  %p
-    Members:
-    %select#members
-      %option{:value => ""}
-      - @members.each do |member|
-        %option{:value => member.id.to_s}= member.name
-        
-  %p.options.group
-    = link_to "Promote Member", "#", :method => :put, :class => 'promote'
-    = link_to "Cancel", "#", :id => 'cancel'
+  = form_tag ("/admin/groups/#{params[:id]}/reassign_sponsor"), :method => "put" do
+    %p
+      Members:
+      %select#members{:name => "user"}
+        %option{:value => ""}
+        - @members.each do |member|
+          %option{:value => member.id.to_s}= member.name
     
+    %p.options.group
+      %button.approve.submit{:type => 'submit'} Promote Member
+      = link_to "Cancel", "#", :id => 'cancel'
+      
 :javascript
-  //$('a#cancel').click(function(){
-  //$.facebox.close();
-  //});
-  //$("#modalWindow select").change(function(){
-  //var selectedValue = $(this).find(":selected").val();
-  //var url = $('a.deny').attr('href');
-  //var newUrl = build_dynamic_url(url, selectedValue);
-  //$('a.deny').attr('href', newUrl);
-  //});
+  $('a#cancel').click(function(){
+  $.facebox.close();
+  return false;
+  });

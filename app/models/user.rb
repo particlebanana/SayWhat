@@ -56,6 +56,12 @@ class User
     
   public
   
+    # Demote/promote users to a certain access level
+    def change_role_level(level)
+      self.role = level
+      self.save
+    end
+  
     # Create a message object
     def create_message_object(message_object)
       message = Message.new

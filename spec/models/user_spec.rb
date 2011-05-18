@@ -104,5 +104,24 @@ describe User do
     end
         
   end 
+  
+  describe ".change_role_level" do
+    before(:each) { @user = build_decaying_group }
+    
+    context "promote user to adult sponsor" do
+      before(:each) { @user.change_role_level('adult sponsor') }
+      
+      subject{ @user.reload }
+      its(:role) { should == 'adult sponsor' }
+    end
+    
+    context "demote an admin to member" do
+      before(:each) { @captain_zissou.change_role_level('member') }
+      
+      subject{ @captain_zissou.reload }
+      its(:role) { should == 'member' }
+    end
+    
+  end
  
 end

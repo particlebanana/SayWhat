@@ -16,14 +16,11 @@ end
 
 def build_decaying_group
   @group = Factory(:group)
-  @admin = Factory.build(:user, :email => "admin@gmail.com")
-  @admin.status = "active"
-  @admin.role = "adult sponsor"
-  @admin.group = @group  
-  @admin.save
-  user = Factory.build(:user_input, :email => "billy.bob@gmail.com")
-  user.status = 'active'
-  user.role = 'member'
+  @captain_zissou = build_a_generic_admin(1)
+  @captain_zissou.group = @group  
+  @captain_zissou.save
+  user = build_a_generic_user(1)
   user.group = @group
   user.save
+  user
 end

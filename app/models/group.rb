@@ -61,6 +61,16 @@ class Group
         UserMailer.send_message_notification(member, author, message.message_content).deliver
       end
     end
+    
+    # Reassign a a group sponsor to anothe group member
+    def reassign_sponsor(user_id)
+      current_sponsor = self.users.adult_sponsor.first
+      proposed_sponsor = self.users.find(user_id)
+      if current_sponsor && proposed_sponsor
+        current_sponsor.change_role_level("member")
+        proposed_sponsor.change_role_level("adult sponsor")
+      end
+    end
 
 end
 

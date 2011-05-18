@@ -49,7 +49,15 @@
 			border-top: 1px solid #cdcdcd;
 		}
 		
-			#modalWindow p.options a {
+			#modalWindow p.options button {
+				border: none;
+				font-family: helvetica, arial, sans-serif;
+				font-size: 18px;
+				color: #36393D;
+			}
+		
+			#modalWindow p.options a, #modalWindow p.options button {
+				cursor: pointer;
 				display: block;
 				float: left;
 				padding: 8px 12px;
