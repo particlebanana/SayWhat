@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('a#deny').facebox();
+	$('a[rel*=facebox]').facebox()
 });
 
 function build_dynamic_url(url, queryString) {
