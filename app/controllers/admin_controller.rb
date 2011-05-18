@@ -122,4 +122,11 @@ class AdminController < ApplicationController
     end
   end
   
+  # GET - Pull a list of potential group members
+  def choose_sponsor
+    group = Group.find(params[:id])
+    @members = group.users.select {|u| ["youth sponsor", "member"].include?(u.role) && u.status == 'active' }
+    render :layout => false
+  end
+  
 end

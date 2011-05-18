@@ -146,5 +146,17 @@ describe AdminController do
       its(:name) { should == "rebel alliance" }
     end
   end
+  
+  describe "#choose_a_sponsor" do
+    before do
+      build_decaying_group
+      login_admin
+    end
+    
+    it "should pull a list of group members" do
+      get :choose_sponsor, { id: @group.id.to_s }
+      assigns[:members].count.should == 1
+    end
+  end
 
 end

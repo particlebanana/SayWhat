@@ -1,4 +1,6 @@
-%h3 Sponsor Information
+%h3
+  Sponsor Information 
+  %span= link_to "assign new sponsor", "/admin/groups/#{@group.id.to_s}/choose_sponsor", :id => "choose_sponsor", :rel => "facebox"
     
 %p.group
   %b Sponsor Name:

@@ -29,6 +29,14 @@ Given /^I belong to the group$/ do
   @user.save
 end
 
+# Create a group user
+Given /^there is a group member with the email "([^"]*)"$/ do |email|
+  @new_user = Factory.build(:user, :email => email, :first_name => "Luke", :last_name => "Skywalker")
+  @new_user.status = 'active'
+  @new_user.role = 'member'
+  @new_user.group = @group
+  @new_user.save
+end
 
 Given /^I am a group sponsor$/ do
   @user.role = "adult sponsor"
