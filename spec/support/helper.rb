@@ -35,3 +35,10 @@ def do_reassign_sponsor(options={})
   attributes.merge!(options)
   put :reassign_sponsor, attributes
 end
+
+# DELETE - /admin/users/:id/remove_avatar
+def do_remove_avatar(options={})
+  attributes = { :id => @user.id }
+  attributes.merge!(options)
+  delete :remove_avatar, attributes
+end

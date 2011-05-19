@@ -66,6 +66,7 @@ SayWhat::Application.routes.draw do
   match "/admin/users/:id"                    =>  "admin#view_user",            :via => "get"
   match "/admin/users/:id/remove_avatar"      =>  "admin#remove_avatar",        :via => "get"
   match "/admin/users/:id"                    =>  "admin#update_user",          :via => "put"
+  match "/admin/users/:id"                    =>  "admin#destroy_user",         :via => "delete"
   
   # Messaging
   match "/messages" => "messages#index", :via => "get"

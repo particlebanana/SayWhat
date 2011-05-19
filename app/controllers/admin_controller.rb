@@ -175,4 +175,15 @@ class AdminController < ApplicationController
     end
   end
   
+  # DELETE - Delete a user
+  def destroy_user
+    @user = User.find(params[:id])
+    if @user.destroy
+      redirect_to "/admin/users", :notice => "User has been deleted"
+    else
+      flash[:error] = "Error removing user"
+      redirect_to "/admin/users/#{@user.id.to_s}"
+    end
+  end
+  
 end
