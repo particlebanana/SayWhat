@@ -5,8 +5,9 @@
       
       %div.dashBox
         %h3 Pending
-          
-        %p= "No pending requests" if @group_requests == 0 && @grant_requests == 0
+        
+        - if @group_requests == 0 && @grant_requests == 0
+          %p= "No pending requests"
         - if @group_requests > 0
           %a{:href => "/admin/requests"}
             %strong="#{@group_requests}"
