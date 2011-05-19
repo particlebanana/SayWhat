@@ -6,6 +6,8 @@ source 'http://rubygems.org'
 gem 'rails', '~> 3.0.3'
 gem 'unicorn'
 
+gem 'capistrano'
+
 # Sinatra Plugins
 gem 'sinatra'
 gem 'pony'
