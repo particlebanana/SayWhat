@@ -50,24 +50,8 @@ body {
   padding: 0 20px;
 }
 
-#header {
-  position: relative;
-  padding-top: 1px;  
-}
-
-#header h1 {
-  margin: 0;
-  padding: 10px 0;  
-  font-size: 26px;
-}
-
-#header h1 a:link, #header h1 a:active, #header h1 a:hover, #header h1 a:visited {
-  text-decoration: none;
-}
-
 #main {  
-  width: 70%;
-  float: left;    
+  width: 100%;   
 }
 
 .actions-bar {
@@ -130,27 +114,22 @@ body {
   margin-top: 0;
 }
 
-#user-navigation {
-  position: absolute;
-  top: 0px;
-  right: 20px;  
+#main-nav {
+  width: 960px;
+	margin: 0 auto;
 }
 
-#main-navigation {
-  width: 100%;
-}
-
-#user-navigation ul, #main-navigation ul, .secondary-navigation ul, #sidebar ul.navigation {
+#user-navigation ul, #main-nav ul, .secondary-navigation ul, #sidebar ul.navigation {
   margin: 0;
   padding: 0;
   list-style-type: none;
 }
 
-#user-navigation ul li, #main-navigation ul li, .secondary-navigation ul li {
+#user-navigation ul li, #main-nav ul li, .secondary-navigation ul li {
   float: left;  
 }
 
-#main-navigation ul li {
+#main-nav ul li {
   margin-right: 5px;
 }
 
@@ -158,13 +137,13 @@ body {
   padding: 5px 10px;
 }
 
-#main-navigation ul li a:link, #main-navigation ul li a:visited, #main-navigation ul li a:hover, #main-navigation ul li a:active,
+#main-nav ul li a:link, #main-nav ul li a:visited, #main-nav ul li a:hover, #main-nav ul li a:active,
 .secondary-navigation ul li a:link, .secondary-navigation ul li a:visited, .secondary-navigation ul li a:hover, .secondary-navigation ul li a:active,
 #user-navigation ul li a:link, #user-navigation ul li a:visited, #user-navigation ul li a:hover, #user-navigation ul li a:active {
   text-decoration: none;
 }
 
-#main-navigation ul li a {
+#main-nav ul li a {
   font-size: 14px;
   line-height: 14px;
   display: block;

@@ -1,48 +1,44 @@
 !!!
-%html
+!= cc_html(:lang => 'en') do
   %head
-    %title Say What! Manager
-    = stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/drastic-dark/style", "web-app-theme/override", "facebox.css"#, :cache => true
-    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "/javascripts/rails.js", "/js/facebox.js", "/js/admin_functions.js"
-        
+    %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
+    
+    %title
+      = "Say What! Manager"
+ 
+    = stylesheet_link_tag 'application', :media => :screen
+    = stylesheet_link_tag 'flick/jquery-ui-1.8.8.custom.css', :media => :screen
+    = stylesheet_link_tag "web-app-theme/base", "web-app-theme/themes/drastic-dark/style", "web-app-theme/override", "facebox.css"
+    = javascript_include_tag "/js/modernizr-1.5.min.js"
+    = javascript_include_tag "/js/head.load.min.js"
+    = javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "/js/jquery-ui-1.8.8.custom.min.js", "/javascripts/rails.js", "/js/facebox.js", "/js/admin_functions.js"
+    
     = csrf_meta_tag
-  %body
-    #container
-      #header
-        %h1
-          %a{:href => "/"} Say What! System Manager
-        #user-navigation
-          %ul.wat-cf
-            %li
-              %a{:href => "#"}= t("web-app-theme.profile", :default => "Profile")
-            %li
-              %a{:href => "#"}= t("web-app-theme.settings", :default => "Settings")
-            %li
-              %a.logout{:href => "/logout"}= t("web-app-theme.logout", :default => "Logout")
-        #main-navigation
-          %ul.wat-cf
-            %li{:class => controller.action_name == 'index' ? 'active' : '' }
-              %a{:href => '/admin/dashboard'} Dashboard
-            %li{:class => controller.action_name == 'show_requests' || controller.action_name == "view_request" ? 'active' : '' }
-              %a{:href => '/admin/requests'} Requests
-            - if THEME['minigrant_app']
-              %li{:class => ['show_grants', 'show_pending_grants', 'view_grant'].include?(controller.action_name) ? 'active' : '' }
-                %a{:href => '/admin/grants'} Grants
-            %li{:class => ['show_groups', 'view_group'].include?(controller.action_name) ? 'active' : '' }
-              %a{:href => '/admin/groups'} Groups
-            %li{:class => ['show_users', 'view_user'].include?(controller.action_name) ? 'active' : '' }
-              %a{:href => '/admin/users'} Users
 
-      #wrapper.wat-cf
-        .flash
-          - flash.each do |type, message|
-            %div{:class => "message #{type}"}
-              %p= message
-        #main
-          = yield
-          #footer
-            .block
-              %p
-                Copyright &copy; #{Time.now.year} Web App.
-        #sidebar
-          = yield :sidebar
+  %body
+    %div#wrap    
+      = render :partial => "layouts/partials/header"
+      
+      #content.group
+        #adminHeader
+          #main-nav
+            %ul.wat-cf
+              %li{:class => controller.action_name == 'index' ? 'active' : '' }
+                %a{:href => '/admin/dashboard'} Dashboard
+              %li{:class => controller.action_name == 'show_requests' || controller.action_name == "view_request" ? 'active' : '' }
+                %a{:href => '/admin/requests'} Requests
+              - if THEME['minigrant_app']
+                %li{:class => ['show_grants', 'show_pending_grants', 'view_grant'].include?(controller.action_name) ? 'active' : '' }
+                  %a{:href => '/admin/grants'} Grants
+              %li{:class => ['show_groups', 'view_group'].include?(controller.action_name) ? 'active' : '' }
+                %a{:href => '/admin/groups'} Groups
+              %li{:class => ['show_users', 'view_user'].include?(controller.action_name) ? 'active' : '' }
+                %a{:href => '/admin/users'} Users
+
+        #wrapper.wat-cf.centeredWrap
+          .flash
+            - flash.each do |type, message|
+              %div{:class => "message #{type}"}
+                %p= message
+          #main
+            = yield

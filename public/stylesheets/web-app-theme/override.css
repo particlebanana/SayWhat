@@ -1,4 +1,12 @@
 /* Override here any style defined by web-app-theme */
+
+#adminHeader {
+	background: #231f20 url('/img/desc-shadow.png') top repeat-x;
+	width:100%;
+	padding: 25px 0 0 0;
+	margin: 0 0 25px 0;
+}
+
 .inner h3 {
 	border-bottom: 1px solid #d9dbdd;
 	padding-bottom: 10px;
@@ -15,6 +23,8 @@
 .inner p input, .inner p textarea { padding: 3px; }
 
 .inner p.block b { display: block; }
+
+.table a { text-decoration: underline; }
 
 #modalWindow {
 	width: 400px;
