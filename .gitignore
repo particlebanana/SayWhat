@@ -9,4 +9,6 @@ tmp/**/*
 .sass-cache/
 config/theme.yml
 public/uploads/tmp
+public/profile
+public/avatars
 
