@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$('a[rel*=facebox]').facebox()
+	manageDropDown();
 });
 
 function build_dynamic_url(url, queryString) {
