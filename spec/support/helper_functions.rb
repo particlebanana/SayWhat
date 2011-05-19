@@ -24,3 +24,11 @@ def build_decaying_group
   user.save
   user
 end
+
+def setup_user_avatar
+  @user = Factory.build(:user)
+  @user.status = "active"
+  @user.role = "member"
+  @user.avatar = File.open(File.join(File.dirname(__FILE__), 'fixtures', 'profile.png'))
+  @user.save!
+end

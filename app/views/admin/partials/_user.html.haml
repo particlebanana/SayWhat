@@ -3,7 +3,7 @@
   = @user.avatar_filename? ? image_tag(@user.avatar_url(:small), :class => "left") : "N/A"
   - if @user.avatar_filename?
     %span.avatarOptions
-      = link_to "Delete this image", "/admin/users/#{@user.id.to_s}/remove_avatar", :class => "avatarOption" if @user.avatar_filename?
+      = link_to "Delete this image", "/admin/users/#{@user.id.to_s}/remove_avatar", :method => "delete", :class => "avatarOption" if @user.avatar_filename?
 
   %span.avatarUpload  
     = f.file_field :avatar

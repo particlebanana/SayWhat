@@ -10,6 +10,7 @@ Spork.prefork do
     require 'remarkable/mongoid'
     require 'shoulda'
     require 'factory_girl_rails'
+    require 'carrierwave/test/matchers'
     
     # Requires supporting files with custom matchers and macros, etc,
     # in ./support/ and its subdirectories.

@@ -1,4 +1,5 @@
 require 'spec_helper'
+include CarrierWave::Test::Matchers
 
 describe AdminController do
 
@@ -177,6 +178,20 @@ describe AdminController do
             
       subject { @user.reload }
       its(:role) { should == "adult sponsor" }
+    end
+  end
+  
+  describe "#remove_avatar" do
+    before(:each) do
+      setup_user_avatar
+      login_admin
+    end
+        
+    context "user" do
+      before(:each) { do_remove_avatar }
+      
+      subject { @user.reload }
+      its(:avatar_filename) { should == nil }
     end
   end
 
