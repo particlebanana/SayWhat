@@ -96,3 +96,30 @@
 			font-size: 14px;
 			font-weight: normal;
 		}
+		
+/* Dashboard */
+
+.dashBox {
+	float: left;
+	width: 25%;
+	margin: 0 20px;
+}
+	
+	.dashBox a {
+		display: block;
+		margin: 0 0 12px 0;
+		font-size: 16px;
+		text-decoration: none;
+	}
+	
+		.dashBox a strong { color: #a2ce3d; }
+
+	#main .block .content .dashBox p {
+		font-size: 16px;
+		padding: 0 8px;
+	}
+	
+		.dashBox p strong, .dashBox a strong {
+			font-size: 26px;
+			margin-right: 15px;
+		}

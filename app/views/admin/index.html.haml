@@ -1,12 +1,32 @@
 #block-text.block
   .content
     %h2.title Dashboard
-    .inner
-      %p.first Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <span class="hightlight">Excepteur sint occaecat cupidatat non proident</span>, sunt in culpa qui officia deserunt mollit anim id est laborum.
-      %p
-        %span.small Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
-        %span.gray Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore
+    .inner.group
       
-      %hr
-      
-      %p Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. <span class="hightlight">Excepteur sint occaecat cupidatat non proident</span>, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      %div.dashBox
+        %h3 Pending
+          
+        %p= "No pending requests" if @group_requests == 0 && @grant_requests == 0
+        - if @group_requests > 0
+          %a{:href => "/admin/requests"}
+            %strong="#{@group_requests}"
+            Group Requests
+        - if @grant_requests > 0
+          %a{:href => "/admin/grants/pending"}
+            %strong= "#{@grant_requests}"
+            Grant Applications
+            
+      %div.dashBox
+        %h3 Group Stats
+        
+        %p
+          %strong= @groups
+          Total Groups
+          
+      %div.dashBox
+        %h3 Project Stats
+
+        %p
+          %strong= @projects
+          Total Projects
+          
