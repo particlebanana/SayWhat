@@ -86,7 +86,6 @@ hr {
 }
 
 #main .block .content {
-  background: #FFF;
   padding-top: 1px;
 }
 
@@ -98,6 +97,8 @@ hr {
   text-transform: normal;
   letter-spacing: -1px;
   line-height: 1.2em;
+	color: #3B3B3B;
+	padding: 15px 0;
 }
 
 #main .block .content p {
@@ -167,7 +168,7 @@ hr {
 }
 
 #main-nav ul li.active {
-  background: #f0f0ee;
+  background: #F8F9F7;
 }
 
 #main-nav ul li a:link, #main-nav ul li a:visited, #main-nav ul li a:hover, #main-nav ul li a:active,

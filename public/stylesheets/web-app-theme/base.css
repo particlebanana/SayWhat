@@ -217,6 +217,8 @@ body {
   text-align: right;
 }
 
+.table a:link, .table a:visited { color: #3B3B3B; text-decoration: underline; }
+
 /* forms */
 
 input.checkbox {
