@@ -194,5 +194,31 @@ describe AdminController do
       its(:avatar_filename) { should == nil }
     end
   end
+  
+  describe "#destroy_user" do
+    before(:each) do
+      @user = build_a_generic_user(1)
+      @user.save
+      @sponsor = build_a_generic_admin(1)
+      @sponsor.save
+      login_admin
+    end
+    
+    context "member" do
+      before(:each) { do_destroy_user(id: @user.id) }
+      
+      it "should delete" do
+        User.where(_id: @user.id).first.should == nil
+      end
+    end
+    
+    context "adult sponsor" do
+      before(:each) { do_destroy_user(id: @sponsor.id) }
+      
+      it "should not delete" do
+        User.where(_id: @sponsor.id).first.should_not == nil
+      end
+    end
+  end
 
 end

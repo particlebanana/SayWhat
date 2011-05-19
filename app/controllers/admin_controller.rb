@@ -178,11 +178,17 @@ class AdminController < ApplicationController
   # DELETE - Delete a user
   def destroy_user
     @user = User.find(params[:id])
-    if @user.destroy
-      redirect_to "/admin/users", :notice => "User has been deleted"
-    else
-      flash[:error] = "Error removing user"
+    # Don't delete is user is a groups adult sponsor
+    if @user.role == "adult sponsor"
+      flash[:error] = "Must assign a new adult sponsor before you can delete this user"
       redirect_to "/admin/users/#{@user.id.to_s}"
+    else
+      if @user.destroy
+        redirect_to "/admin/users", :notice => "User has been deleted"
+      else
+        flash[:error] = "Error removing user"
+        redirect_to "/admin/users/#{@user.id.to_s}"
+      end
     end
   end
   

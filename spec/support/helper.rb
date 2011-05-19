@@ -42,3 +42,10 @@ def do_remove_avatar(options={})
   attributes.merge!(options)
   delete :remove_avatar, attributes
 end
+
+# DELTE - /admin/users/:id
+def do_destroy_user(options={})
+  attributes = {}
+  attributes.merge!(options)
+  delete :destroy_user, attributes
+end
