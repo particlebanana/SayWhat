@@ -19,3 +19,6 @@ reasons:
     - name: "youth"
       short_text: "Not enough youth involvement"
       email_text: "The projects must be youth-led and demonstrate a significant amount of youth engagement and involvement."
+    - name: "funds"
+      short_text: "Scholarship Funds"
+      email_text: "Mini-grant funds cannot be used for scholarship purposes."
