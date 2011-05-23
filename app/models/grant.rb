@@ -21,7 +21,8 @@ class Grant
   field :community_resources, :type => String
   field :status, :type => Boolean, :default => false
   
-  validates_presence_of :group_name, :check_payable, :adult_name, :adult_phone, :adult_email, :adult_address, :youth_name, :youth_email, :project_description, :project_when, :project_where, :project_who, :project_serve, :project_goals, :funds_need, :community_partnerships, :community_resources
+  validates_presence_of :group_name, :adult_name, :adult_phone, :adult_email, :adult_address, :youth_name, :youth_email, :project_description, :project_when, :project_where, :project_who, :project_serve, :project_goals, :funds_need, :community_partnerships, :community_resources
+  validates_presence_of :check_payable, :on => :create
   validates_format_of :adult_email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
   validates_format_of :youth_email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
   
