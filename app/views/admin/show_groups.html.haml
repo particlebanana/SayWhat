@@ -1,6 +1,12 @@
 .block
   .content
-    %h2.title All Groups
+    .group
+      %h2.title.left All Groups
+      %ul#sort.groupSort.right.group
+        %li <a href="#original-order" class="selected">original-order</a>
+        %li <a href="#name">name</a>
+        %li <a href="#status">status</a>
+        
     .inner
       - if @groups.all.empty?
         %p No Groups
