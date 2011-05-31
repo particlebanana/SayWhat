@@ -3,6 +3,10 @@ module ApplicationHelper
   def title(page_title)
     content_for(:title) { page_title }
   end
+  
+  def description(desc)
+    content_for(:description) { desc }
+  end
     
   def errors_for(object, message=nil)
     html = ""
