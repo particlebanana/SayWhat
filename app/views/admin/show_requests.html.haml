@@ -5,5 +5,5 @@
       - if @groups.empty?
         %p No pending group requests
       - else
-        %table.table
+        %div#requestsTable.adminTableView
           = render :partial => "admin/partials/requests_table"

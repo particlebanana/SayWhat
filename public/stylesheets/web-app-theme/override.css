@@ -196,3 +196,19 @@
 			font-size: 26px;
 			margin-right: 15px;
 		}
+		
+/* Index Table Views */
+
+.adminTableView .header, .adminTableView .table { width: 100%; }
+
+.adminTableView .user_name { width: 275px; }
+.adminTableView .user_email { width: 275px; }
+.adminTableView .user_group { width: 200px; }
+.adminTableView .user_role { width: 100px; }
+
+.adminTableView .group_name, .adminTableView .grant_group, .adminTableView .request_group, 
+.adminTableView .group_organization , .adminTableView .grant_sponsor, .adminTableView .request_sponsor
+{ width: 335px; }
+
+.adminTableView .group_status, .adminTableView .grant_email, .adminTableView .request_email
+{ width: 200px; }

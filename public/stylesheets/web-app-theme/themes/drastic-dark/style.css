@@ -229,16 +229,16 @@ hr {
 
 /* tables */
 
-.table th {
+.header .th {
   background: #36393d;  
   color: #FFF;
 }
 
-.table td {
+.table .tr {
   border-bottom:1px solid #F0F0EE;
 }
 
-.table tr.even {
+.table .tr.even {
   background: #ebebeb;
 }
 

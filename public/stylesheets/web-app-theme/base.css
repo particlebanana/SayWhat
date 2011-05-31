@@ -187,21 +187,21 @@ body {
 /* tables */
 .table {
   width: 100%;
-  border-collapse: collapse;  
   margin-bottom: 15px;
 }
 
-.table th {
+.header .th {
+  float: left;
   padding: 10px;
   font-weight: bold;
   text-align: left;
 }
 
-.table th.first {
+.table .first {
   width: 30px;
 }
 
-.table th.last {
+.table .last {
   width: 200px;  
 }
 
@@ -209,11 +209,12 @@ body {
   margin-left: 10px;
 }
 
-.table td {
+.table .td {
   padding: 10px;
+  float: left;
 }
 
-.table td.last {
+.table .td.last {
   text-align: right;
 }
 

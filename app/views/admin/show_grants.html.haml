@@ -10,5 +10,5 @@
       - if @grants.empty?
         %p No active grant applications. Approve some to see them here.
       - else
-        %table.table
+        %div#grantsTable.adminTableView
           = render :partial => "admin/partials/grants_table"

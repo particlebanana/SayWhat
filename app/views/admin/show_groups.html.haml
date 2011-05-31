@@ -5,5 +5,5 @@
       - if @groups.all.empty?
         %p No Groups
       - else
-        %table.table
+        %div#groupsTable.adminTableView
           = render :partial => "admin/partials/groups_table"

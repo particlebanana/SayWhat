@@ -10,5 +10,5 @@
       - if @grants.empty?
         %p No pending grant applications. Your on top of your game!
       - else
-        %table.table
+        %div#grantsTable.adminTableView
           = render :partial => "admin/partials/grants_table"

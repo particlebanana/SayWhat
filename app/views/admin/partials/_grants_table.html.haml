@@ -1,9 +1,11 @@
-%tr
-  %th Group Name
-  %th Sponsor Name
-  %th.last Sponsor Email
-- @grants.each do |grant|
-  %tr{:class => cycle("odd", "even")}
-    %td= link_to grant.group_name, "/admin/grants/#{grant.id.to_s}"
-    %td= grant.adult_name
-    %td= grant.adult_email
+.header.group
+  .th.grant_group Group Name
+  .th.grant_sponsor Sponsor Name
+  .th.grant_email Sponsor Email
+  
+.table
+  - @grants.each do |grant|
+    .tr.group{:class => cycle("odd", "even")}
+      .td.grant_group= link_to grant.group_name, "/admin/grants/#{grant.id.to_s}"
+      .td.grant_sponsor= grant.adult_name
+      .td.grant_email= grant.adult_email
