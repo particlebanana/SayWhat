@@ -31,6 +31,44 @@
 
 .inner p.block b { display: block; }
 
+.inner button { 
+  border: none;
+  background: rgb(127,191,77);
+  background: -moz-linear-gradient(top, rgba(127,191,77,1) 0%, rgba(102,160,57,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(127,191,77,1)), color-stop(100%,rgba(102,160,57,1)));
+  background: -webkit-linear-gradient(top, rgba(127,191,77,1) 0%,rgba(102,160,57,1) 100%);
+  background: -o-linear-gradient(top, rgba(127,191,77,1) 0%,rgba(102,160,57,1) 100%);
+  background: -ms-linear-gradient(top, rgba(127,191,77,1) 0%,rgba(102,160,57,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7fbf4d', endColorstr='#66a039',GradientType=0 );
+  background: linear-gradient(top, rgba(127,191,77,1) 0%,rgba(102,160,57,1) 100%);
+  border: 1px solid #66a039;
+  border-bottom: 1px solid #7fbf4d;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 0 0 #9acc72;
+  -moz-box-shadow: inset 0 1px 0 0 #9acc72;
+  box-shadow: inset 0 1px 0 0 #9acc72;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 7px 15px 8px 15px;
+  text-align: center;
+  text-shadow: 0 -1px 0 #4e7a2c;
+  color: #fff;
+}
+
+  .inner button:hover {
+    background: rgb(119,187,67);
+    background: -moz-linear-gradient(top, rgba(119,187,67,1) 0%, rgba(97,153,55,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(119,187,67,1)), color-stop(100%,rgba(97,153,55,1)));
+    background: -webkit-linear-gradient(top, rgba(119,187,67,1) 0%,rgba(97,153,55,1) 100%);
+    background: -o-linear-gradient(top, rgba(119,187,67,1) 0%,rgba(97,153,55,1) 100%);
+    background: -ms-linear-gradient(top, rgba(119,187,67,1) 0%,rgba(97,153,55,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#77bb43', endColorstr='#619937',GradientType=0 );
+    background: linear-gradient(top, rgba(119,187,67,1) 0%,rgba(97,153,55,1) 100%);
+    cursor: pointer;
+  }
+
 .table a { text-decoration: underline; }
 
 #modalWindow {
@@ -119,7 +157,7 @@
 
 .actionBox {
   margin: 0 0 35px 0;
-  padding: 20px;
+  padding: 10px;
   background: #fffdc8;
   color: #444;
   border: 1px solid #fbf300;
