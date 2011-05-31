@@ -146,6 +146,20 @@ class AdminController < ApplicationController
     end
   end
   
+  # PUT - Resend a group approval email
+  def group_approval_email
+    group = Group.find(params[:id])
+    if group.status == 'setup'
+      user = group.users.first 
+      GroupMailer.send_approved_notice(user, group, request.env["HTTP_HOST"]).deliver
+      flash[:notice] = "Approval email has been sent"
+      redirect_to "/admin/groups/#{group.id.to_s}"
+    else
+      flash[:notice] = "Group must be in setup state to re-send approval email"
+      redirect_to "/admin/groups/#{group.id.to_s}"
+    end
+  end
+  
   #-----------------
   # USERS
   #-----------------

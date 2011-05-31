@@ -108,6 +108,22 @@
 			font-weight: normal;
 		}
 		
+/* Action Alert */
+
+.actionBox {
+  margin: 0 0 35px 0;
+  padding: 20px;
+  background: #fffdc8;
+  color: #444;
+  border: 1px solid #fbf300;
+}
+
+	#main .block .content .actionBox p { 
+	  text-align: center;
+	  font-weight: bold;
+	  margin-bottom: 0; 
+	}
+
 /* Dashboard */
 
 .dashBox {

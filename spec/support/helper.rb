@@ -26,6 +26,15 @@ def do_update_group(options={})
   put :update_group, attributes
 end
 
+# PUT - /admin/groups/:id/setup_email
+def do_group_approval_email(options={})
+  attributes = {
+    :id => @group.id.to_s
+  }
+  attributes.merge!(options)
+  put :group_approval_email, attributes
+end
+
 # PUT - /admin/groups/reassign_sponsor
 def do_reassign_sponsor(options={})
   attributes = {

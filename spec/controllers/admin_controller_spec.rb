@@ -148,6 +148,25 @@ describe AdminController do
     end
   end
   
+  describe "#group_approval_email" do
+    before do
+      @group = Factory.create(:pending_group, :status => "setup")
+      @user = Factory.build(:user_input)
+      set_status_and_role("setup", "admin")
+      @group.users << @user
+      @user.save!
+      login_admin
+    end
+    
+    context "send approval email" do
+      before(:each) { do_group_approval_email }
+    
+      subject{ ActionMailer::Base.deliveries.last }
+      its(:subject) { should == "Your group has been approved on SayWhat!" }
+      its(:to) { should == ["han.solo@gmail.com"] }
+    end
+  end
+  
   describe "#choose_a_sponsor" do
     before do
       build_decaying_group
