@@ -10,7 +10,7 @@ class AdminController < ApplicationController
   def index
     @group_requests = Group.where(:status => "pending").count
     @grant_requests = Grant.pending.count
-    @groups = Group.count
+    @groups = Group.where(:status => "active").count
     @projects = ProjectCache.count
   end
   
