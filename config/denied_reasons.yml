@@ -23,5 +23,5 @@ reasons:
       short_text: "Scholarship Funds"
       email_text: "Mini-grant funds cannot be used for scholarship purposes."
     - name: "timeline"
-      short_text: "incorrect timeline"
+      short_text: "Incorrect Timeline"
       email_text: "Your proposed project does not occur within the time frame allowed by this round of funding."
