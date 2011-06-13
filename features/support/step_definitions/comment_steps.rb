@@ -4,6 +4,5 @@ Given /^there is a comment on the project$/ do
   @comment.user = @user
   @project.comments << @comment
   @comment.save!
-  @project.save!
+  #@project.save!
 end
-

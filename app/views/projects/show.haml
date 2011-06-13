@@ -9,8 +9,8 @@
         %h3
           = group_link(@group)
       
-      - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
-        = link_to "edit", "/groups/#{@group.permalink}/projects/#{@project.name}/edit", :class => "right" if current_user.group == @group
+      - if (current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")) || (current_user && current_user.role = "admin")
+        = link_to "edit", "/groups/#{@group.permalink}/projects/#{@project.name}/edit", :class => "right" if current_user.group == @group || current_user.role == 'admin'
         
 
 %div.centeredWrap

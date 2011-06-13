@@ -1,9 +1,9 @@
 %div#projectSidebar
-
+  - showReport = @project.report.valid? if @project.report
   = image_tag(@project.profile_photo_url(:large))
   
   - if (can? :create, @project.report = Report.new) && (@project.end_date < Date.today)
-    = link_to "Report on this project", "/groups/#{@group.permalink}/projects/#{@project.name}/report/new", :class => "groupActionButton" unless @project.report.valid?
+    = link_to "Report on this project", "/groups/#{@group.permalink}/projects/#{@project.name}/report/new", :class => "groupActionButton" unless showReport
 
   %ul#groupVitals
     %li
