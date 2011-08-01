@@ -5,7 +5,7 @@ describe UsersController do
   describe "setup a new group" do
     before(:each) do
       @group = Factory.create(:group)
-      @user = Factory.build(:user_input)
+      @user = Factory.build(:user)
       set_status_and_role("setup", "adult sponsor")
       @group.users << @user
       @user.save!
@@ -63,7 +63,7 @@ describe UsersController do
   describe "approve a pending membership request" do
     before(:each) do
       build_group_with_admin
-      @user = Factory.build(:user_input, :email => "billy.bob@gmail.com")
+      @user = Factory.build(:user, :email => "billy.bob@gmail.com")
       set_status_and_role("pending", "pending")
       @group.users << @user
       @user.save
@@ -94,7 +94,7 @@ describe UsersController do
   describe "setup a member account" do
     before(:each) do
       build_group_with_admin
-      @user = Factory.build(:user_input, :email => "billy.bob@gmail.com")
+      @user = Factory.build(:user, :email => "billy.bob@gmail.com")
       set_status_and_role("setup", "member")
       @group.users << @user
       @user.save!

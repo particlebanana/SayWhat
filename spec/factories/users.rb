@@ -1,12 +1,5 @@
 
 # User Input Fields
-Factory.define :user_input, :class => "user" do |u|
-  u.first_name 'Han'
-  u.last_name 'Solo'
-  u.email 'han.solo@gmail.com'
-end
-
-# Creates an active user
 Factory.define :user do |u|
   u.first_name 'Han'
   u.last_name 'Solo'

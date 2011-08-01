@@ -32,7 +32,7 @@ describe User do
         set_status_and_role("pending", "pending")
         @user.save
         
-        user = Factory.build(:user_input)
+        user = Factory.build(:user)
         user.should_not be_valid
         
         user.errors.full_messages.first.should =~ /is already taken/i
@@ -46,13 +46,23 @@ describe User do
         should allow_value("a@b.com").for(:email)
         should allow_value("asdf@asdf.com").for(:email)
       end
+      
+      it "fails if missing password" do
+        @user = Factory.build(:user)
+        set_status_and_role("pending", "pending")
+        @user.password = nil
+        @user.password_confirmation = nil
+        @user.should_not be_valid
+        
+        @user.errors.full_messages.first.should =~ /password can't be blank/i
+      end
             
     end
     
     describe "of roles and status" do
       
       it "requires presence of role" do
-        user = Factory.build(:user_input)
+        user = Factory.build(:user)
         user.status = "pending"
         user.should_not be_valid
         
@@ -61,7 +71,7 @@ describe User do
       end
       
       it "requires presence of status" do
-        user = Factory.build(:user_input)
+        user = Factory.build(:user)
         user.role = "pending"
         user.should_not be_valid
         
@@ -74,7 +84,7 @@ describe User do
     describe "of system generated fields" do
       
       it "downcases email addresss" do
-        @user = Factory.build(:user_input)
+        @user = Factory.build(:user)
         set_status_and_role("pending", "pending")
         
         @user.email = "This.Is.A.Test@gmail.com"
@@ -82,14 +92,8 @@ describe User do
         @user.email.should == "this.is.a.test@gmail.com"
       end
       
-      it "generates a temporary password if no password exists" do
-        user = Factory.build(:user_input)
-        user.should_not be_valid
-        user.encrypted_password.should_not == ""
-      end
-      
       it "generate an authentication token" do
-        @user = Factory.build(:user_input)
+        @user = Factory.build(:user)
         set_status_and_role("pending", "pending")
         @user.should be_valid
         @user.save
@@ -97,7 +101,7 @@ describe User do
       end
       
       it "combines first name and last name" do
-        @user = Factory.build(:user_input)
+        @user = Factory.build(:user)
         @user.name.should == "Han Solo"
       end
       

@@ -2,7 +2,7 @@
 def create_pending_group(name)
   @group = Factory.build(:pending_group, :display_name => name)
   @group.status = 'pending'
-  user = Factory.build(:user_input, :email => "user007@gmail.com")
+  user = Factory.build(:user, :email => "user007@gmail.com")
   user.status = 'pending'
   user.role = 'pending'
   @group.users << user
@@ -13,7 +13,7 @@ end
 def create_setup_group(name)
   @group = Factory.build(:pending_group, :display_name => name)
   @group.status = 'active'
-  @user = Factory.build(:user_input)
+  @user = Factory.build(:user)
   @user.status = 'setup'
   @user.role = 'adult sponsor'
   @group.users << @user

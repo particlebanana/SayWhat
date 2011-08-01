@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe UserMailer do
   describe "successful membership request email" do
-    let(:user) { Factory.build(:user_input) }
+    let(:user) { Factory.build(:user) }
     let(:group) { Factory.build(:pending_group) }
     let(:mail) { UserMailer.successful_membership_request(user, group) }
     
@@ -19,7 +19,7 @@ describe UserMailer do
   describe "sponsor pending membership request email" do
     let(:user) { Factory.build(:adult_sponsor) }
     let(:group) { Factory.build(:group) }
-    let(:member) { Factory.build(:user_input) }
+    let(:member) { Factory.build(:user) }
     let(:mail) { UserMailer.sponsor_pending_membership_request(user, group, member) }
     
     it "renders the reciever's email address" do

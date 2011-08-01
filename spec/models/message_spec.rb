@@ -29,7 +29,7 @@ describe Message do
     
     describe "of payloads" do
       before do
-        @user = Factory.build(:user_input, :email => "billy.bob@gmail.com")
+        @user = Factory.build(:user, :email => "billy.bob@gmail.com")
         set_status_and_role("pending", "pending")
         @group.users << @user
         @user.save

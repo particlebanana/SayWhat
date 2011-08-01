@@ -6,7 +6,7 @@ describe AdminController do
   describe "#show_requests" do
     before do
       @group = Factory.create(:pending_group)
-      @user = Factory.build(:user_input)
+      @user = Factory.build(:user)
       set_status_and_role("pending", "pending")
       @group.users << @user
       @user.save!
@@ -22,7 +22,7 @@ describe AdminController do
   describe "#view_request" do
     before do
       @group = Factory.create(:pending_group)
-      @user = Factory.build(:user_input)
+      @user = Factory.build(:user)
       set_status_and_role("pending", "pending")
       @group.users << @user
       @user.save!
@@ -151,7 +151,7 @@ describe AdminController do
   describe "#group_approval_email" do
     before do
       @group = Factory.create(:pending_group, :status => "setup")
-      @user = Factory.build(:user_input)
+      @user = Factory.build(:user)
       set_status_and_role("setup", "admin")
       @group.users << @user
       @user.save!

@@ -40,7 +40,7 @@ describe GroupsController do
   describe "managing group request" do  
     before(:each) do
       @group = Factory.create(:pending_group)
-      @user = Factory.build(:user_input)
+      @user = Factory.build(:user)
       set_status_and_role("pending", "pending")
       @group.users << @user
       @user.save!
@@ -115,7 +115,7 @@ describe GroupsController do
     describe "#setup" do
       before do
         @group = Factory.create(:setup_group)
-        @user = Factory.build(:user_input)
+        @user = Factory.build(:user)
         set_status_and_role("setup", "adult sponsor")
         @group.users << @user
         @user.save!
@@ -137,7 +137,7 @@ describe GroupsController do
     describe "#set_permalink" do
       before do
         @group = Factory.create(:setup_group)
-        @user = Factory.build(:user_input)
+        @user = Factory.build(:user)
         set_status_and_role("setup", "adult sponsor")
         @group.users << @user
         @user.save!
@@ -239,7 +239,16 @@ describe GroupsController do
       end
       
       it "should allow a user to request to join a group" do
-        put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+        put :create_membership_request, {
+          :permalink => @group.permalink, 
+          :user => {
+            :first_name => "Bobba", 
+            :last_name => "Fett", 
+            :email => "bobba.fett@gmail.com", 
+            :password => "test123", 
+            :password_confiration => "test1234"
+          }
+        }
         user = @group.reload.users.select {|u| u.email == "bobba.fett@gmail.com"}[0]
         user.should_not be_nil
         user.status.should == "pending"
@@ -247,18 +256,45 @@ describe GroupsController do
       end
     
       it "should enforce user validations" do
-        put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "member@gmail.com"}}
+        put :create_membership_request, {
+          :permalink => @group.permalink, 
+          :user => {
+            :first_name => "Bobba", 
+            :last_name => "Fett", 
+            :email => "member@gmail.com",
+            :password => "test123", 
+            :password_confiration => "test1234"
+          }
+        }
         response.should render_template('groups/request_membership')
       end
     
       it "should send the user a success email notice" do
-        put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+        put :create_membership_request, {
+          :permalink => @group.permalink, 
+          :user => {
+            :first_name => "Bobba", 
+            :last_name => "Fett", 
+            :email => "bobba.fett@gmail.com",
+            :password => "test123", 
+            :password_confiration => "test1234"
+          }
+        }
         emails = ActionMailer::Base.deliveries.select{|e| e.to == ["bobba.fett@gmail.com"]}[0]
         emails.should_not be_nil
       end
     
       it "should send group sponsor an membership notification" do
-        put :create_membership_request, {:permalink => @group.permalink, :user => {:first_name => "Bobba", :last_name => "Fett", :email => "bobba.fett@gmail.com"}}
+        put :create_membership_request, {
+          :permalink => @group.permalink, 
+          :user => {
+            :first_name => "Bobba", 
+            :last_name => "Fett", 
+            :email => "bobba.fett@gmail.com",
+            :password => "test123", 
+            :password_confiration => "test1234"
+          }
+        }
         ActionMailer::Base.deliveries.last.to.should == [@group.reload.users.adult_sponsor.first.email]
       end
     end

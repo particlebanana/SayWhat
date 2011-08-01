@@ -25,7 +25,6 @@ class User
   
   before_validation :downcase_attributes
   
-  before_validation :generate_temp_password
   before_create :reset_authentication_token
     
   scope :site_admins, :where => {:role => "admin"}
@@ -44,15 +43,7 @@ class User
   
     def downcase_attributes
       self.email ? self.email.downcase! : nil
-    end
-      
-    def generate_temp_password
-      if self.encrypted_password == ""
-        temp_pass = generate_random_key
-        self.password ||= temp_pass
-        self.password_confirmation ||= temp_pass
-      end
-    end    
+    end  
     
   public
   
@@ -116,13 +107,6 @@ class User
     
     def name
       first_name + ' ' + last_name
-    end
-
-  private
-  
-    def generate_random_key
-      chars = ("a".."z").to_a + ("1".."9").to_a 
-      key = Array.new(15, '').collect{chars[rand(chars.size)]}.join
     end
     
 end

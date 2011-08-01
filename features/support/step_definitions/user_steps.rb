@@ -92,7 +92,7 @@ end
 
 # Request Group Membership
 Given /^there is a pending member$/ do
-  user = Factory.build(:user_input, :email => "billy.bob.jo@gmail.com")
+  user = Factory.build(:user, :email => "billy.bob.jo@gmail.com")
   user.status = 'pending'
   user.role = 'pending'
   @group.users << user
