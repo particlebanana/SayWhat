@@ -18,6 +18,7 @@ gem 'haml'
 gem 'sass'
 gem 'nokogiri'
 gem 'sanitize'
+gem 'escape_utils'
 
 # Database
 gem 'mongoid', '~> 2.0.0'
@@ -41,7 +42,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'pickle'
-  gem 'capybara', '~> 0.4.0'
+  gem 'capybara', '~> 1.0.0'
   gem 'rack-test'
   gem 'cucumber-rails'
   gem 'cucumber'
