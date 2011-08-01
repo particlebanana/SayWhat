@@ -45,7 +45,7 @@ end
 
 Then /^the group should be approved$/ do
   @group = Group.find(@group.id)
-  @group.status.should == "setup"
+  @group.status.should == "active"
 end
 
 Then /^the group should be denied$/ do

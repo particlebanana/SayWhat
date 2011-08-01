@@ -56,13 +56,6 @@ describe GroupMailer do
       mail.body.encoded.should match(group.display_name)
     end
     
-    it "should display the group's unique setup url" do
-      user.role = "adult sponsor"
-      user.status = "setup"
-      user.save
-      mail.body.encoded.should include_text("http://localhost:3000/setup?auth_token=#{user.authentication_token}")
-    end
-    
     it "should have a descriptive subject line" do
       user.role = "pending"
       user.status = "pending"
@@ -103,24 +96,6 @@ describe GroupMailer do
       user.status = "pending"
       user.save
       mail.body.encoded.should match("This is a test reason")
-    end
-  end
-  
-  describe "setup completed notification" do
-    let(:user) { Factory.create(:user, :role => "adult sponsor", :status => "active") }
-    let(:group) { Factory.create(:group) }
-    let(:mail) { GroupMailer.send_completed_setup_notice(user, group, 'localhost:3000') }
-        
-    it "renders the reciever's email address" do
-      mail.to.should == [user.email]
-    end
-    
-    it "should display the group's name in the email" do
-      mail.body.encoded.should match(group.display_name)
-    end
-    
-    it "should display the group's permalink" do
-      mail.body.encoded.should include_text("http://localhost:3000/groups/#{group.permalink}")
     end
   end
   

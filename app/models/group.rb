@@ -20,9 +20,9 @@ class Group
   has_many :users, :dependent => :delete, autosave: true
   embeds_many :projects
   
-  attr_accessible :display_name, :city, :organization, :description, :esc_region, :dshs_region, :area, :profile_photo
+  attr_accessible :display_name, :city, :organization, :description, :permalink, :esc_region, :dshs_region, :area, :profile_photo
 
-  validates_presence_of [:name, :display_name, :city, :organization, :status, :esc_region, :dshs_region, :area]
+  validates_presence_of [:name, :display_name, :city, :organization, :permalink, :status, :esc_region, :dshs_region, :area]
   validates_uniqueness_of [:name]
   
   validates_uniqueness_of [:permalink]
@@ -48,7 +48,7 @@ class Group
     def make_slug
       self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
     end
-    
+      
     def update_report_tally(adults, youth)
       self.adults_reached_tally += adults.to_i
       self.youth_reached_tally += youth.to_i
@@ -62,7 +62,7 @@ class Group
       end
     end
     
-    # Reassign a a group sponsor to anothe group member
+    # Reassign a group sponsor to another group member
     def reassign_sponsor(user_id)
       current_sponsor = self.users.adult_sponsor.first
       proposed_sponsor = self.users.find(user_id)
@@ -73,4 +73,3 @@ class Group
     end
 
 end
-

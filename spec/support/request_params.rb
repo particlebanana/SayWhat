@@ -4,10 +4,13 @@ def build_group_request
       :display_name => "Han Shot First",
       :city => "Mos Eisley",
       :organization => "Free Greedo",
+      :permalink => "han-shot-first",
       :user => {
         :first_name => "Luke",
         :last_name => "Skywalker",
-        :email => "luke.skywalker@gmail.com"
+        :email => "luke.skywalker@gmail.com",
+        :password => "test1234",
+        :password_confirmation => "test1234"
       }
     }
   }

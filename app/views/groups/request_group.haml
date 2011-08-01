@@ -31,6 +31,14 @@
         %p.group
           %label{:for => "group_user_email", :class => "required"} Your Email
           = u.text_field :email
+        
+        %p.group
+          %label{:for => "group_user_password", :class => "required"} Password
+          = u.password_field :password
+
+        %p.group
+          %label{:for => "group_user_password_confirmation", :class => "required"} Password Confirmation
+          = u.password_field :password_confirmation
           
     %fieldset
       %legend
@@ -47,6 +55,14 @@
       %p.group
         %label{:for => "group_organization", :class => "required"} School / Agency Name
         = f.text_field :organization
+      
+      %p Choose a URL for your group's homepage. It must be unique and can't be changed.
+
+      %p.group
+        %label{:for => "group_permalink"} Permalink URL
+        %span
+          http://txsaywhat.com/groups/
+          = f.text_field :permalink, :value => ''
     
       %p.group
         %label{:for => "group_description", :class => "required"} Group Description (What You Do)

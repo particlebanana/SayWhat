@@ -23,7 +23,7 @@ class GroupMailer < ActionMailer::Base
   def send_approved_notice(user, group, url)
     @user = user
     @group = group
-    @url = "http://" + url + "/setup?auth_token=" + user.authentication_token
+    @url = "http://#{url}/groups/#{@group.permalink}"
     mail(:to => user.email,
          :subject => "Your group has been approved on SayWhat!")
   end
@@ -35,15 +35,6 @@ class GroupMailer < ActionMailer::Base
     @reason = reason
     mail(:to => user.email,
          :subject => "Your group has been denied on SayWhat!")
-  end
-  
-  # Sends a notice to the adult sponsor with their groups homepage
-  def send_completed_setup_notice(user, group, url)
-    @user = user
-    @group = group
-    @url = "http://" + url + "/groups/" + group.permalink
-    mail(:to => user.email,
-         :subject => "Your group has been successfully setup on SayWhat!")
   end
   
   # Sends an invite to join the group

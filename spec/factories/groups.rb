@@ -18,6 +18,7 @@ Factory.define :pending_group, :class => Group do |g|
   g.city "Mos Eisley"
   g.organization "Free Greedo"
   g.status "pending"
+  g.permalink "han-shot-first"
 end
 
 
@@ -31,4 +32,5 @@ Factory.define :setup_group, :class => Group do |g|
   g.esc_region "1"
   g.dshs_region "1"
   g.area "central texas"
+  g.permalink "jedi-knights"
 end

@@ -12,6 +12,14 @@ describe GroupsController do
           }.should change(Group, "count").by(1)
         }.should change(User, "count").by(1)
       end
+      
+      it "should ensure the permalink is escaped" do
+        request = build_group_request  
+        request[:group][:permalink] = "It's A Trap!?!?!"  
+        post :create, request
+        @group = Group.where(:display_name => "Han Shot First").first
+        @group.permalink.should == "its-a-trap"
+      end
     
       it "should add an adult sponsor with status of pending" do 
         request = build_group_request     
@@ -53,7 +61,7 @@ describe GroupsController do
       describe "#approve_group" do
         it "should change a group's status to active" do
           put :approve_group, {:group_id => @group.id.to_s}
-          @group.reload.status.should == "setup"
+          @group.reload.status.should == "active"
         end
     
         it "should set the first user's role to adult sponsor" do
@@ -61,9 +69,9 @@ describe GroupsController do
           @group.reload.users.first.role.should == "adult sponsor"
         end
     
-        it "should set the adult sponsor's status to setup" do
+        it "should set the adult sponsor's status to active" do
           put :approve_group, {:group_id => @group.id.to_s}
-          @group.reload.users.first.status.should == "setup"
+          @group.reload.users.first.status.should == "active"
         end
     
         it "should send the adult sponsor an email alert that their group has been approved" do
@@ -109,74 +117,7 @@ describe GroupsController do
       end
     end
   end
-  
-  describe "setup" do
     
-    describe "#setup" do
-      before do
-        @group = Factory.create(:setup_group)
-        @user = Factory.build(:user)
-        set_status_and_role("setup", "adult sponsor")
-        @group.users << @user
-        @user.save!
-      end
-    
-      it "should login a user with a token" do
-        get :setup, {:id => @group.id.to_s, :auth_token => @user.authentication_token}
-        response.should be_success
-      end
-    
-      it "should deny a user whos status is not setup" do
-        @user.status = "active"
-        @user.save
-        get :setup, {:id => @group.id.to_s, :auth_token => @user.authentication_token}
-        response.should be_redirect
-      end
-    end
-    
-    describe "#set_permalink" do
-      before do
-        @group = Factory.create(:setup_group)
-        @user = Factory.build(:user)
-        set_status_and_role("setup", "adult sponsor")
-        @group.users << @user
-        @user.save!
-        @group.save!
-        sign_in @user
-      end
-        
-      it "should set a group's permalink" do
-        put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "test"}}
-        @group.reload.permalink.should == "test"
-      end
-    
-      it "should escape a group's permalink" do
-        put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "this is a test"}}
-        @group.reload.permalink.should == "this-is-a-test"
-      end
-      
-      it "should remove special characters from a permalink" do
-        put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "It's A Trap!?!?!"}}
-        @group.reload.permalink.should == "its-a-trap"
-      end
-      
-      it "should set the groups status to active" do
-        put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "It's A Trap!?!?!"}}
-        @group.reload.status.should == "active"
-      end
-    
-      it "should set a user's status to active" do
-        put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "test"}}
-        @user.reload.status.should == "active"
-      end
-          
-      it "should send the adult sponsor an email notice with the group's permalink" do
-        put :set_permalink, {:group_id => @group.id.to_s, :group => {:permalink => "test"}}
-        ActionMailer::Base.deliveries.last.to.should == [@group.reload.users.first.email]
-      end
-    end
-  end
-  
   describe "edit group" do
     before(:each) do
       build_group_with_admin

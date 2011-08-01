@@ -73,8 +73,7 @@ class GroupsController < ApplicationController
     @user = User.new(params[:group][:user])
     
     set_pending_attributes
-    
-    @group.permalink = rand(36**5).to_s(36)
+    @group.make_slug
     
     if @group.valid? & @user.valid?
       @group.users << @user
@@ -150,45 +149,6 @@ class GroupsController < ApplicationController
     else
       flash[:error] = "Error removing group!"
       redirect_to "/admin/requests/#{@group.id.to_s}"
-    end
-  end
-  
-  ###############################################
-  # SETUP A GROUP
-  ###############################################
-  
-  #
-  # Allows a sponsor to setup basic settings for their group's page.
-  # This function is only called once for each group.
-  #  
-  
-  # GET - Setup Phase - Begin the setup process for a group
-  def setup
-    @group = Group.find(current_user.group_id)
-    respond_with(@group)
-  end
-    
-  # GET - Setup Phase - Group Permalink Form
-  def setup_permalink
-    @group = Group.find(current_user.group_id)
-    respond_with(@group)
-  end
-  
-  # PUT - Setup Phase - Create group permalink
-  def set_permalink
-    @group = Group.find(current_user.group_id)
-    @group.permalink = params[:group][:permalink]
-    @group.make_slug
-    @group.status = 'active'
-    @user = current_user
-    if @group.save
-      @user.status = "active"
-      if @user.save
-        GroupMailer.send_completed_setup_notice(@user, @group, request.env["HTTP_HOST"]).deliver
-        redirect_to "/groups/" + @group.permalink
-      end
-    else
-      render :action => 'setup_permalink'
     end
   end
   
@@ -271,9 +231,9 @@ class GroupsController < ApplicationController
     end
     
     def set_approved_attributes
-      @group.status = "setup"
+      @group.status = "active"
       @user.role = "adult sponsor"
-      @user.status = "setup"
+      @user.status = "active"
     end
   
 end
