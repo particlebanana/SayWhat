@@ -73,9 +73,9 @@ describe UsersController do
     end
     
     describe "#approve_pending_membership" do
-      it "should change the users status to setup" do
+      it "should change the users status to active" do
         put :approve_pending_membership, {:id => @user.id.to_s, :message => @message.id.to_s}
-        @user.reload.status.should == "setup"
+        @user.reload.status.should == "active"
       end
     
       it "should change the users role to member" do
@@ -83,37 +83,9 @@ describe UsersController do
         @user.reload.role.should == "member"
       end
     
-      it "should send the new member an email with their setup link" do
+      it "should send the new member an email" do
         put :approve_pending_membership, {:id => @user.id.to_s, :message => @message.id.to_s}
         ActionMailer::Base.deliveries.last.to.should == [@user.email]
-      end
-    end
-    
-  end
-  
-  describe "setup a member account" do
-    before(:each) do
-      build_group_with_admin
-      @user = Factory.build(:user, :email => "billy.bob@gmail.com")
-      set_status_and_role("setup", "member")
-      @group.users << @user
-      @user.save!
-      @group.save!
-      sign_in @user
-    end
-    
-    describe "#create_member" do
-      it "should change a members password" do
-        put :create_member, {:id => @user.id.to_s, :user => {:password => "test123", :password_confirmation => "test123"}}
-        response.should be_redirect
-        @user.reload.status.should == "active"
-      end
-    
-      it "should reset the members token" do      
-        token = @user.authentication_token
-        put :create_member, {:id => @user.id.to_s, :user => {:password => "test123", :password_confirmation => "test123"}}
-        response.should be_redirect
-        @user.reload.authentication_token.should_not == token
       end
     end
     

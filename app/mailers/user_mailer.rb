@@ -23,7 +23,7 @@ class UserMailer < ActionMailer::Base
   def send_approved_notice(user, group, url)
     @user = user
     @group = group
-    @url = "http://" + url + "/setup/member?auth_token=" + user.authentication_token
+    @url = "http://#{url}/groups/#{@group.permalink}"
     mail(:to => user.email,
          :subject => "You have been approved for membership on SayWhat!")
   end

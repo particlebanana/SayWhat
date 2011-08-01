@@ -112,7 +112,7 @@ end
 Then /^the member should be approved$/ do
   @group = Group.where(:display_name => "Han Shot First").first
   user = @group.users.select{|u| u.email == @pending_member.email}[0]
-  user.status.should == "setup"
+  user.status.should == "active"
 end
 
 Given /^I follow the member setup link that was emailed to me$/ do

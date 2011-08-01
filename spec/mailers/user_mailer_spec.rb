@@ -45,8 +45,8 @@ describe UserMailer do
       mail.body.encoded.should match(group.display_name)
     end
     
-    it "should display the member's unique setup url" do
-      mail.body.encoded.should include_text("http://localhost:3000/setup/member?auth_token=#{user.authentication_token}")
+    it "should display the member's group url" do
+      mail.body.encoded.should include_text("http://localhost:3000/groups/#{group.permalink}")
     end
 
   end

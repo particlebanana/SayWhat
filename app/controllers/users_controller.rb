@@ -129,7 +129,7 @@ class UsersController < ApplicationController
     
   # GET - Approve Pending Group Member
   def approve_pending_membership
-    @user.status = "setup"
+    @user.status = "active"
     @user.role = "member"
     if @user.save
       message = current_user.messages.find(params[:message])
@@ -148,31 +148,5 @@ class UsersController < ApplicationController
     @user.delete
     redirect_to "/messages", :notice => "Member has been removed"
   end
-  
-  # GET - Setup Phase - New User Password Form
-  def setup_member
-    @user = current_user
-    respond_with(@user)
-  end
-  
-  # PUT - Setup Phase - Update Member Password
-  def create_member
-    if params[:user][:password] != "" && params[:user][:password_confirmation] != ""
-      if params[:user][:password] == params[:user][:password_confirmation]
-        @user.reset_authentication_token
-        @user.update_with_password(params[:user])
-        @user.status = "active"
-        if @user.save
-          redirect_to "/groups/#{@user.group.permalink}"
-        else
-          render :action => 'setup_member'
-        end
-      else
-        render :action => 'setup_member'
-      end
-    else
-      render :action => 'setup_member'
-    end
-  end
-  
+    
 end
