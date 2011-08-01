@@ -40,6 +40,9 @@ SayWhat::Application.routes.draw do
     
   end
   
+  # Pages
+  match "/join" => "pages#join",   :via => "get"
+  
   # Admin Panel
   match "/admin"                =>  redirect('/admin/dashboard')
   match "/admin/dashboard"      =>  "admin#index",                  :via => "get"
@@ -143,5 +146,5 @@ SayWhat::Application.routes.draw do
   match "/groups/:permalink/projects/:name/report" => "reports#create", :via => "post"
   
   
-  root :to => "groups#home"
+  root :to => "pages#home"
 end
