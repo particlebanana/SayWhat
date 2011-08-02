@@ -15,7 +15,7 @@ Feature: Request to join a group
       | user_password               | test1234              |
       | user_password_confirmation  | test1234              |
     When I press "Submit Request"
-    Then I should see "Request Was Sent For Approval"
+    Then I should see "Your request has been sent for approval."
     And I should receive an email at "bobba.fett@gmail.com" with the subject "Your membership to Han Shot First on SayWhat! is awaiting approval"
     
     
@@ -29,7 +29,7 @@ Feature: Request to join a group
       | user_password               | test1234              |
       | user_password_confirmation  | test1234              |
     When I press "Submit Request"
-    Then I should not see "Request Was Sent For Approval"
+    Then I should not see "Your request has been sent for approval."
   
   
   Scenario: I request to join a group and don't include a password
@@ -39,4 +39,4 @@ Feature: Request to join a group
       | user_last_name              | Fett                  |
       | user_email                  | bobba.fett@gmail.com  |
     When I press "Submit Request"
-    Then I should not see "Request Was Sent For Approval"
+    Then I should not see "Your request has been sent for approval."

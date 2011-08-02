@@ -16,8 +16,8 @@ Feature: Request to be a start a new group
       | group_user_email                  | l.skywalker@gmail.com  |
       | group_user_password               | test1234               |
       | group_user_password_confirmation  | test1234               |
-    When I press "Submit Request"
-    Then I should see "Request Was Sent For Approval"
+    When I press "Create Group"
+    Then I should see "Your request has been sent for approval. You should hear back soon."
     And I should receive an email at "l.skywalker@gmail.com" with the subject "Your group on SayWhat! is awaiting approval"
     
     
@@ -34,5 +34,5 @@ Feature: Request to be a start a new group
       | group_user_email                  | l.skywalker@gmail.com  |
       | group_user_password               | test1234               |
       | group_user_password_confirmation  | test1234               |
-    When I press "Submit Request"
-    Then I should not see "Request Was Sent For Approval"
+    When I press "Create Group"
+    Then I should not see "Your request has been sent for approval. You should hear back soon."
