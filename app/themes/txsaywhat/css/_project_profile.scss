@@ -4,7 +4,10 @@
 	width:100%;
 	padding: 25px 0;
 	margin: 0 0 25px 0;
-	h1 { color: #bbb;	}
+	h1 { 
+	  color: #eee;
+	  text-shadow: -1px -1px 2px #333;	
+	}
 	.options {
 		a {
 			display: block;

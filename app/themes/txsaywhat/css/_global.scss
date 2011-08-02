@@ -143,17 +143,28 @@ p {
 --------------------------------------------------------------------------------- */
 
 @mixin green-gradient() {
-	background: #A0CF67; /* old browsers */
-	background: -moz-linear-gradient(top, #A0CF67 0%, #88C340 45%, #76AB36 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#A0CF67), color-stop(45%,#88C340), color-stop(100%,#76AB36)); /* webkit */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#A0CF67', endColorstr='#76AB36',GradientType=0 ); /* ie */
+  background: #7fb83a;
+  background: -moz-linear-gradient(top, #7fb83a 0%, #76ab36 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#7fb83a), color-stop(100%,#76ab36));
+  background: -webkit-linear-gradient(top, #7fb83a 0%,#76ab36 100%);
+  background: -o-linear-gradient(top, #7fb83a 0%,#76ab36 100%);
+  background: -ms-linear-gradient(top, #7fb83a 0%,#76ab36 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7fb83a', endColorstr='#76ab36',GradientType=0 );
+  background: linear-gradient(top, #7fb83a 0%,#76ab36 100%);
+  -webkit-box-shadow: inset 0 1px 0 0 #9acc72;
+  -moz-box-shadow: inset 0 1px 0 0 #9acc72;
+  box-shadow: inset 0 1px 0 0 #9acc72;
 }
 
 @mixin green-gradient-reverse() {
-	background: #A0CF67; /* old browsers */
-	background: -moz-linear-gradient(top, #76AB36 0%, #88C340 45%, #A0CF67 100%); /* firefox */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#76AB36), color-stop(45%,#88C340), color-stop(100%,#A0CF67)); /* webkit */	
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#76AB36', endColorstr='#A0CF67',GradientType=0 ); /* ie */
+  background: #76ab36;
+  background: -moz-linear-gradient(top, #76ab36 0%, #6d9e32 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#76ab36), color-stop(100%,#6d9e32));
+  background: -webkit-linear-gradient(top, #76ab36 0%,#6d9e32 100%);
+  background: -o-linear-gradient(top, #76ab36 0%,#6d9e32 100%);
+  background: -ms-linear-gradient(top, #76ab36 0%,#6d9e32 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#76ab36', endColorstr='#6d9e32',GradientType=0 );
+  background: linear-gradient(top, #76ab36 0%,#6d9e32 100%);
 }
 
 @mixin button-gradient() { 

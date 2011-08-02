@@ -18,12 +18,12 @@
 		font-size: 25px;
 	  text-align: center;
 	  padding: 16px 22px;
-	  border: 1px solid #5E9732;
-	  color: #222;
+	  border: 1px solid #527726;
+	  color: #fff;
 	  font-weight: bold;
 		@include rounded(4px);
 		@include green-gradient();
-		text-shadow: -1px 1px 2px #e5e5e5;
+		text-shadow: 0 -1px 0 #4e7a2c;
 		.ie6 & {color: #222;}
 	}
 	
