@@ -10,25 +10,24 @@
 %div#groupRequestForm.centeredWrap.group
     
   = form_for @group do |f|
-  
-    = errors_for(@group, "Oops, there were some problems with your group information").html_safe
-    = errors_for(@user, "Oops, there were some problems with your sponsor information").html_safe
-                
+             
     %fieldset
       %legend
         Sponsor Information
+      
+      = errors_for(@user, "Oops, there were some problems with your sponsor information").html_safe
        
       = f.fields_for :user do |u|
           
-        %p.group 
+        %p.w3 
           %label{:for => "group_user_first_name", :class => "required"} Your First Name
           = u.text_field :first_name
     
-        %p.group
+        %p.w2
           %label{:for => "group_user_last_name", :class => "required"} Your Last Name
           = u.text_field :last_name
           
-        %p.group
+        %p.w1
           %label{:for => "group_user_email", :class => "required"} Your Email
           = u.text_field :email
         
@@ -43,32 +42,31 @@
     %fieldset
       %legend
         Group Information
+      
+      = errors_for(@group, "Oops, there were some problems with your group information").html_safe     
         
-      %p.group
+      %p.w5
         %label{:for => "group_display_name", :class => "required"} Group Name
         = f.text_field :display_name
     
-      %p.group
+      %p.w5
         %label{:for => "group_city", :class => "required"} City Located
         = f.text_field :city
     
-      %p.group
+      %p.w1
         %label{:for => "group_organization", :class => "required"} School / Agency Name
         = f.text_field :organization
       
-      %p Choose a URL for your group's homepage. It must be unique and can't be changed.
-
-      %p.group
-        %label{:for => "group_permalink"} Permalink URL
-        %span
-          http://txsaywhat.com/groups/
-          = f.text_field :permalink, :value => ''
+      %p#groupUrl.group
+        %label{:for => "group_permalink"} Group URL
+        %span http://txsaywhat.com/groups/
+        = f.text_field :permalink, :value => ''
     
       %p.group
         %label{:for => "group_description", :class => "required"} Group Description (What You Do)
-        = f.text_area :description
+        = f.text_area :description, :rows => 5, :cols => 75
     
     %button.submit{:type => 'submit'}
-      Submit Request
+      Create Group
       
     

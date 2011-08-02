@@ -8,5 +8,6 @@
           Request To Join Group
 
 %div#membershipRequestForm.centeredWrap.group            
-  %p
-    Request Was Sent For Approval
+  %h3.approvalMessage Your request has been sent for approval.
+  %div.buttonWrap
+    %a.backButton{:href => "/groups/#{@group.permalink}"} back to group

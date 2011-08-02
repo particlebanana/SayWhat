@@ -1,0 +1,42 @@
+#groupRequestForm, #membershipRequestForm {
+  width: 700px;
+  margin: 0 auto 25px auto;
+  
+  fieldset p {
+    float: left;
+    margin-right: 30px;
+  }
+  
+  fieldset p input { width: 100%; }
+  
+  p.w1 { width: 97%; }
+  
+  p.w2 { width: 60%; }
+  
+  p.w3 { width: 30%; }
+  
+  p.w5 { width: 45%; }
+  
+  p#groupUrl {
+    width: 98%;
+    span { float: left; padding: 8px 0; margin-right: 5px; }
+    input { width: 40%; }
+  }
+  
+  textarea { font-size: 13px; }
+  
+  button { float: right; @include button-gradient(); }
+    button:hover { @include button-gradient-hover(); }
+  
+  
+  h3.approvalMessage {
+    text-align: center;
+    padding: 2em 0;
+  }
+  
+  .buttonWrap { text-align: center; }
+  
+  a.backButton {@include button-gradient();}
+    a.backButton:hover { @include button-gradient-hover(); }
+  
+}

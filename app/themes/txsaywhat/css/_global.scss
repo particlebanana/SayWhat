@@ -191,7 +191,6 @@ p {
   text-shadow: 0 -1px 0 #4e7a2c;
   color: #fff;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  display: block;
 }
 
 @mixin button-gradient-hover() {
@@ -240,11 +239,11 @@ a.groupActionButton {
   text-align: center;
   padding: 8px;
   border: 1px solid #5E9732;
-  color: #222;
+  color: #fff;
   font-weight: bold;
 	@include rounded(4px);
 	@include green-gradient();
-	text-shadow: -1px 1px 2px #e5e5e5;
+	text-shadow: 0 -1px 0 #4e7a2c;
 	.ie6 & {color: #222;}
 }
 
@@ -440,6 +439,16 @@ a.groupAssetButton {
 	}
 	
 } // closes #innerHeader
+
+/* ERROR MESSAGES
+--------------------------------------------------------------------------------- */
+
+.formErrors {
+  color: #f2232d;
+  margin-bottom: 2em;
+}
+
+span.field_with_errors input { background: #fef3f4; }
 
 /* PAGE TITLES
 --------------------------------------------------------------------------------- */
