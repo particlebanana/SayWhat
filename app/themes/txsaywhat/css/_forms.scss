@@ -62,3 +62,10 @@ form {
   }
 }
 
+/* SESSION FORM
+--------------------------------------------------------------------------------- */
+
+#user_submit { @include button-gradient(); font-size: 14px; padding: 8px 12px 10px 12px; }
+  #user_submit:hover { @include button-gradient-hover(); }
+
+.formActions a { padding: 8px 0;}
