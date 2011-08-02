@@ -1,8 +1,5 @@
 class PagesController < ApplicationController
-  layout "application"
-      
-  #load_and_authorize_resource
-  
+  layout "application"  
   respond_to :html
   
   # GET - Home Page

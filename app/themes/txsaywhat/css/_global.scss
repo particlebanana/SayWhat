@@ -156,6 +156,45 @@ p {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#76AB36', endColorstr='#A0CF67',GradientType=0 ); /* ie */
 }
 
+@mixin button-gradient() { 
+  border: none;
+  background: rgb(127,191,77);
+  background: -moz-linear-gradient(top, rgba(127,191,77,1) 0%, rgba(102,160,57,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(127,191,77,1)), color-stop(100%,rgba(102,160,57,1)));
+  background: -webkit-linear-gradient(top, rgba(127,191,77,1) 0%,rgba(102,160,57,1) 100%);
+  background: -o-linear-gradient(top, rgba(127,191,77,1) 0%,rgba(102,160,57,1) 100%);
+  background: -ms-linear-gradient(top, rgba(127,191,77,1) 0%,rgba(102,160,57,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7fbf4d', endColorstr='#66a039',GradientType=0 );
+  background: linear-gradient(top, rgba(127,191,77,1) 0%,rgba(102,160,57,1) 100%);
+  border: 1px solid #66a039;
+  border-bottom: 1px solid #7fbf4d;
+  border-radius: 3px;
+  -webkit-box-shadow: inset 0 1px 0 0 #9acc72;
+  -moz-box-shadow: inset 0 1px 0 0 #9acc72;
+  box-shadow: inset 0 1px 0 0 #9acc72;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+  padding: 12px 20px 13px 20px;
+  text-align: center;
+  text-shadow: 0 -1px 0 #4e7a2c;
+  color: #fff;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  display: block;
+}
+
+@mixin button-gradient-hover() {
+    background: rgb(119,187,67);
+    background: -moz-linear-gradient(top, rgba(119,187,67,1) 0%, rgba(97,153,55,1) 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(119,187,67,1)), color-stop(100%,rgba(97,153,55,1)));
+    background: -webkit-linear-gradient(top, rgba(119,187,67,1) 0%,rgba(97,153,55,1) 100%);
+    background: -o-linear-gradient(top, rgba(119,187,67,1) 0%,rgba(97,153,55,1) 100%);
+    background: -ms-linear-gradient(top, rgba(119,187,67,1) 0%,rgba(97,153,55,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#77bb43', endColorstr='#619937',GradientType=0 );
+    background: linear-gradient(top, rgba(119,187,67,1) 0%,rgba(97,153,55,1) 100%);
+    cursor: pointer;
+  }
+
 @mixin grey-gradient() {
 	background: #eeeeee; /* old browsers */
 	background: -moz-linear-gradient(top, #eeeeee 29%, #cccccc 100%); /* firefox */
