@@ -60,11 +60,17 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(:group_id => @group.id.to_s)
     authorize! :new, @project
-    format_calendar_dates
+    params[:project][:start_date] = format_calendar_date(params[:project][:start_date])
+    params[:project][:end_date] =  format_calendar_date(params[:project][:end_date])
     @project = Project.new(params[:project])
-    @group.projects << @project
-    if @project.save && @group.save
-      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}"
+    if @project.valid?
+      @group.projects << @project
+      if @project.save && @group.save
+        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}"
+      else
+        @options = @project.filters
+        render :action => 'new'
+      end
     else
       @options = @project.filters
       render :action => 'new'
@@ -79,7 +85,8 @@ class ProjectsController < ApplicationController
   
   # PUT - Update Project
   def update
-    format_calendar_dates
+    params[:project][:start_date] = format_calendar_date(params[:project][:start_date]) if params[:project][:start_date]
+    params[:project][:end_date] =  format_calendar_date(params[:project][:end_date]) if params[:project][:end_date]
     if @project.update_attributes(params[:project])
       redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}" 
     else
@@ -111,11 +118,14 @@ class ProjectsController < ApplicationController
       @project = @group.projects.where(:name => params[:name]).first
     end
     
-    def format_calendar_dates
-      start = Date.strptime(params[:project][:start_date], "%m/%d/%Y") if params[:project][:start_date]
-      stop = Date.strptime(params[:project][:end_date], "%m/%d/%Y") if params[:project][:end_date]
-      params[:project][:start_date] = start if start
-      params[:project][:end_date] = stop if stop
+    def format_calendar_date(date_str)
+      if date_str != '' || date_str != nil
+        Date.strptime(date_str, '%m/%d/%Y')
+      else
+        ''
+      end
+      #params[:project][:start_date] = make_date(params[:project][:start_date]) unless params[:project][:start_date] == '' 
+      #params[:project][:end_date] =  make_date(params[:project][:end_date]) unless params[:project][:end_date] == ''
     end
-  
+      
 end
