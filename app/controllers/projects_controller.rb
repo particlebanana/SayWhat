@@ -119,13 +119,12 @@ class ProjectsController < ApplicationController
     end
     
     def format_calendar_date(date_str)
-      if date_str != '' || date_str != nil
+      logger.info("date_str = #{date_str.inspect}")
+      if date_str != '' && date_str != nil
         Date.strptime(date_str, '%m/%d/%Y')
       else
-        ''
+        nil
       end
-      #params[:project][:start_date] = make_date(params[:project][:start_date]) unless params[:project][:start_date] == '' 
-      #params[:project][:end_date] =  make_date(params[:project][:end_date]) unless params[:project][:end_date] == ''
     end
       
 end
