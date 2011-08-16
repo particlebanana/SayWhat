@@ -9,8 +9,8 @@
     %meta{:name => "description", :content => "#{yield(:description)}"}
  
     = stylesheet_link_tag 'application', :media => :screen
-    = stylesheet_link_tag 'flick/jquery-ui-1.8.8.custom.css', :media => :screen
-    = javascript_include_tag "/js/modernizr-1.5.min.js", "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "/js/jquery-ui-1.8.8.custom.min.js", "/javascripts/rails.js","/js/functions.js"
+    = stylesheet_link_tag 'vendor/flick/jquery-ui-1.8.8.custom.css', :media => :screen
+    = javascript_include_tag "/javascripts/vendor/modernizr-1.5.min.js", "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "/javascripts/vendor/jquery-ui-1.8.8.custom.min.js", "/javascripts/vendor/rails.js","/javascripts/functions.js"
     
     = csrf_meta_tag
 
