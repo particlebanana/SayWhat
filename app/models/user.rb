@@ -1,4 +1,3 @@
-require 'carrierwave/orm/mongoid'
 class User
   include Mongoid::Document  
   include Mongoid::Timestamps  
@@ -15,7 +14,7 @@ class User
   has_many :comments
   embeds_many :messages
   
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :avatar, AvatarUploader, mount_on: :avatar_filename
   
   default_scope asc(:created_at)
 
