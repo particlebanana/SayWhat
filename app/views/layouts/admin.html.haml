@@ -25,7 +25,7 @@
                 %a{:href => '/admin/dashboard'} Dashboard
               %li{:class => controller.action_name == 'show_requests' || controller.action_name == "view_request" ? 'active' : '' }
                 %a{:href => '/admin/requests'} Requests
-              - if THEME['minigrant_app']
+              - if CONFIG['minigrant_app']
                 %li{:class => ['show_grants', 'show_pending_grants', 'view_grant'].include?(controller.action_name) ? 'active' : '' }
                   %a{:href => '/admin/grants'} Grants
               %li{:class => ['show_groups', 'view_group'].include?(controller.action_name) ? 'active' : '' }

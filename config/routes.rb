@@ -1,12 +1,12 @@
-require 'minigrant/MiniGrant.rb' if THEME['minigrant_app']
-require 'resources/Resources.rb' if THEME['static_resources']
+require 'minigrant/MiniGrant.rb' if CONFIG['minigrant_app']
+require 'resources/Resources.rb' if CONFIG['static_resources']
 
 SayWhat::Application.routes.draw do
   
   # Mount Mini-Grant application & Static Resources
   authenticate :user do
-    match "/grants" => MiniGrant::Main, :anchor => false if THEME['minigrant_app']
-    match "/resources" => StaticResources::Main, :anchor => false if THEME['static_resources']
+    match "/grants" => MiniGrant::Main, :anchor => false if CONFIG['minigrant_app']
+    match "/resources" => StaticResources::Main, :anchor => false if CONFIG['static_resources']
   end
   
   devise_for :users do

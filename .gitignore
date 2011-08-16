@@ -7,7 +7,7 @@ tmp/**/*
 *.log
 *.db
 .sass-cache/
-config/theme.yml
+config/config.yml
 public/uploads/tmp
 public/profile
 public/avatars

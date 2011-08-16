@@ -26,12 +26,12 @@
       %div#footer
         %p This is a project of the <a href="http://txssc.txstate.edu">Texas School Safety Center</a>
           
-    = javascript_include_tag "/js/iepngfix_tilebg.js"
+    = javascript_include_tag "/javascripts/vendor/iepngfix_tilebg.js"
     
 
     :javascript
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', "#{THEME['ga_code']}"]);
+      _gaq.push(['_setAccount', "#{CONFIG['ga_code']}"]);
       _gaq.push(['_trackPageview']);
       (function() {
         var ga = document.createElement('script');
