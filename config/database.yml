@@ -1,0 +1,19 @@
+defaults: &defaults
+  host: localhost
+  adapter: mysql
+
+development:
+  <<: *defaults
+  database: saywhat_dev
+  username: root
+  password: 
+
+test:
+  <<: *defaults
+  database: saywhat_test
+  username: root
+  password:
+
+production:
+  <<: *defaults
+  database: app_prod

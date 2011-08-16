@@ -1,11 +1,6 @@
 require File.expand_path('../boot', __FILE__)
 
-#require 'rails/all'
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "active_resource/railtie"
-require "rails/test_unit/railtie"
-require "sprockets/railtie"  
+require 'rails/all'
 
 # If you have a Gemfile, require the default gems, the ones in the
 # current environment and also include :assets gems if in development
@@ -17,7 +12,6 @@ module SayWhat
     
     generators = config.respond_to?(:app_generators) ? config.app_generators : config.generators
     generators.fixture_replacement :factory_girl, :dir => "spec/factories"
-    generators.orm :mongoid
         
     config.encoding = "utf-8"
     

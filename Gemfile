@@ -24,6 +24,7 @@ gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
 
 # Database
+gem 'mysql2', '~> 0.3.6'
 gem 'mongoid', '~> 2.1.0'
 gem 'bson_ext', '~> 1.3'
 
