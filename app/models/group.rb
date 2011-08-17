@@ -1,24 +1,9 @@
-class Group
-  include Mongoid::Document
-  include Mongoid::Timestamps
-  
-  field :name
-  field :display_name
-  field :city
-  field :organization
-  field :description
-  field :permalink
-  field :status
-  field :esc_region, :default => 'pending'
-  field :dshs_region, :default => 'pending'
-  field :area, :default => 'pending'
-  field :adults_reached_tally, :type => Integer, :default => 0
-  field :youth_reached_tally, :type => Integer, :default => 0
+class Group < ActiveRecord::Base
   
   mount_uploader :profile_photo, ProfileUploader
 
-  has_many :users, :dependent => :delete, autosave: true
-  embeds_many :projects
+  #has_many :users, :dependent => :delete, autosave: true
+  #embeds_many :projects
   
   attr_accessible :display_name, :city, :organization, :description, :permalink, :esc_region, :dshs_region, :area, :profile_photo
 
