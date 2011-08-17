@@ -174,7 +174,7 @@ GEM
       rspec (~> 2.6.0)
     rubyzip (0.9.4)
     sanitize (2.0.3)
-      nokogiri (>= 1.4.4, < 1.6)
+      nokogiri (< 1.6, >= 1.4.4)
     sass (3.1.7)
     sass-rails (3.1.0.rc.5)
       actionpack (~> 3.1.0.rc1)
@@ -186,6 +186,7 @@ GEM
       ffi (>= 1.0.7)
       json_pure
       rubyzip
+    shoulda (2.11.3)
     sinatra (1.2.6)
       rack (~> 1.1)
       tilt (>= 1.2.2, < 2.0)
@@ -245,6 +246,7 @@ DEPENDENCIES
   rspec-rails (~> 2.6.1)
   sanitize
   sass-rails (~> 3.1.0.rc)
+  shoulda
   sinatra
   uglifier
   unicorn

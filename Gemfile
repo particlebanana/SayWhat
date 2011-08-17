@@ -42,6 +42,7 @@ group :test do
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'pickle'
+  gem 'shoulda'
   gem 'capybara', '~> 1.0.0'
   gem 'rack-test'
   gem 'cucumber-rails'
