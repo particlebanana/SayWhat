@@ -1,37 +1,26 @@
-class User
-  include Mongoid::Document  
-  include Mongoid::Timestamps  
-    
-  devise :database_authenticatable, :token_authenticatable, :recoverable, :rememberable, :validatable, :trackable
-  field :first_name
-  field :last_name
-  field :role
-  field :status
-  field :bio
-  field :authentication_token
+class User < ActiveRecord::Base
 
-  belongs_to :group
-  has_many :comments
-  embeds_many :messages
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
+
+  #belongs_to :group
+  #has_many :comments
+  #embeds_many :messages
   
   mount_uploader :avatar, AvatarUploader, mount_on: :avatar_filename
   
-  default_scope asc(:created_at)
+  #default_scope asc(:created_at)
 
   attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remember_me
 
   validates_presence_of [:first_name, :last_name, :email, :role, :status]
   
   before_validation :downcase_attributes
-  
   before_create :reset_authentication_token
     
   scope :site_admins, :where => {:role => "admin"}
-  
   scope :setup, :where => {:status => "setup"}
   scope :active, :where => {:status => "active"}
   scope :pending, :where => {:status => "pending"}
-  
   scope :adult_sponsor, :where => {:role => "adult sponsor" }
   scope :youth_sponsor, :where => {:role => "youth sponsor" }
   scope :sponsors, :where => {:role.in => ["adult sponsor", "youth sponsor", "admin"]}
