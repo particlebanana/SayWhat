@@ -5,7 +5,7 @@
 
 namespace :data do
   
-  desc "import collection data"
+  desc "import user collection data"
   task :import_users do
     relationaldb = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "saywhat_dev")
     documentdb = Mongo::Connection.new("127.0.0.1").db("saywhat_development")
@@ -39,6 +39,36 @@ namespace :data do
       updated_at, bio, reset_password_token, remember_token, remember_created_at, sign_in_count, current_sign_in_at, current_sign_in_ip, last_sign_in_ip) VALUES (
       '#{record[:first_name]}', '#{record[:last_name]}', '#{record[:email]}', '#{record[:role]}', '#{record[:status]}', '#{record[:encrypted_password]}', '#{record[:authentication_token]}', '#{record[:created_at]}', 
       '#{record[:updated_at]}', '#{record[:bio]}', '#{record[:reset_password_token]}', '#{record[:remember_token]}', '#{record[:remember_created_at]}', '#{record[:sign_in_count]}', '#{record[:current_sign_in_at]}', '#{record[:current_sign_in_ip]}', '#{record[:last_sign_in_ip]}')")
+    }
+  end
+  
+  desc "import group collection data"
+  task :import_groups do
+    relationaldb = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "saywhat_dev")
+    documentdb = Mongo::Connection.new("127.0.0.1").db("saywhat_development")
+    documentdb["groups"].find().each {|group|
+      # Build a record object
+      record = {
+        name: group["name"],
+        display_name: group["display_name"],
+        city: group["city"],
+        organization: group["organization"],
+        permalink: group["permalink"],
+        status: group["status"],
+        esc_region: group["esc_region"],
+        dshs_region: group["dshs_region"],
+        area: group["area"],
+        created_at: group["created_at"],
+        updated_at: group["updated_at"]
+      }
+      
+      # Optional Attributes
+      record[:description] = group["description"] if group["description"]
+      
+      # Save Grouo to SQL DB
+      result = relationaldb.query("INSERT INTO groups (name, display_name, city, organization, permalink, status, esc_region, dshs_region, area, created_at, updated_at) 
+      VALUES ('#{record[:name]}', '#{record[:display_name]}', '#{record[:city]}', '#{record[:organization]}', '#{record[:permalink]}', '#{record[:status]}', '#{record[:esc_region]}', '#{record[:dshs_region]}',
+      '#{record[:area]}', '#{record[:created_at]}', '#{record[:updated_at]}')")
     }
   end
   
