@@ -68,7 +68,7 @@ describe Group do
       @group.permalink.should == "its-a-trap"
     end
   end
-=begin  
+  
   describe ".reassign_sponsor" do
     before(:each) do
       @user = build_decaying_group
@@ -85,5 +85,4 @@ describe Group do
       its(:role) { should == "member" }
     end
   end
-=end
 end

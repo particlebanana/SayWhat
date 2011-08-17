@@ -17,14 +17,14 @@ class User < ActiveRecord::Base
   before_validation :downcase_attributes
   before_create :reset_authentication_token
     
-  scope :site_admins, :where => {:role => "admin"}
-  scope :setup, :where => {:status => "setup"}
-  scope :active, :where => {:status => "active"}
-  scope :pending, :where => {:status => "pending"}
-  scope :adult_sponsor, :where => {:role => "adult sponsor" }
-  scope :youth_sponsor, :where => {:role => "youth sponsor" }
-  scope :sponsors, :where => {:role.in => ["adult sponsor", "youth sponsor", "admin"]}
-  scope :members, :where => {:role => "member"}
+  scope :site_admins, where(role: "admin")
+  scope :setup, where(status: "setup")
+  scope :active, where(status: "active")
+  scope :pending, where(status: "pending")
+  scope :adult_sponsor, where(role: "adult sponsor")
+  scope :youth_sponsor, where(role: "youth sponsor")
+  #scope :sponsors, where(role:.in: ["adult sponsor", "youth sponsor", "admin"])
+  scope :members, where(role: "member")
   
   
   protected

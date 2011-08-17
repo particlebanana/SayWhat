@@ -54,6 +54,6 @@ ActiveRecord::Schema.define(:version => 20110817183223) do
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
-  add_index "users", ["group_id"], :name => "index_users_on_group_id", :unique => true
+  add_index "users", ["group_id"], :name => "index_users_on_group_id"
 
 end
