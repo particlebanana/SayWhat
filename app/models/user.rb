@@ -2,11 +2,11 @@ class User < ActiveRecord::Base
 
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
-  #belongs_to :group
+  belongs_to :group
   #has_many :comments
   #embeds_many :messages
   
-  mount_uploader :avatar, AvatarUploader, mount_on: :avatar_filename
+  #mount_uploader :avatar, AvatarUploader, mount_on: :avatar_filename
   
   #default_scope asc(:created_at)
 

@@ -100,7 +100,7 @@ describe User do
       end
     end 
   end 
-=begin  
+  
   describe ".change_role_level" do
     before(:each) { @user = build_decaying_group }
     
@@ -117,7 +117,5 @@ describe User do
       subject{ @captain_zissou.reload }
       its(:role) { should == 'member' }
     end
-    
   end
-=end 
 end
