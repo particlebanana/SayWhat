@@ -10,7 +10,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110817132202) do
+ActiveRecord::Schema.define(:version => 20110817181528) do
+
+  create_table "groups", :force => true do |t|
+    t.string   "name"
+    t.string   "display_name"
+    t.string   "city"
+    t.string   "organization"
+    t.text     "description"
+    t.string   "permalink"
+    t.string   "status"
+    t.string   "esc_region",   :default => "pending"
+    t.string   "dshs_region",  :default => "pending"
+    t.string   "area",         :default => "pending"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "groups", ["name"], :name => "index_groups_on_name", :unique => true
+  add_index "groups", ["permalink"], :name => "index_groups_on_permalink", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
