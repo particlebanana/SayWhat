@@ -36,6 +36,9 @@ gem 'cancan'
 gem 'sinatra'
 gem 'pony'
 
+# Rake Tasks to transition data
+gem 'mongo', '~> 1.3.0'
+
 group :test do
   gem 'rspec', '~> 2.6'
   gem 'rspec-rails', '~> 2.6.1'
