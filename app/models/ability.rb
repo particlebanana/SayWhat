@@ -59,7 +59,7 @@ class Ability
       can :index, Project
       
       can :new, Project do |project|
-        user.group.id.to_s == project.group_id
+        user.group_id == project.group_id
       end
       
       can :create, Project do |project|

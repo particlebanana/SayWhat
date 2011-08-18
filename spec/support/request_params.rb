@@ -20,6 +20,7 @@ def build_project_params
   project = {
     :permalink => @group.permalink,
     :project => {
+      :group_id =>  @group.id,
       :display_name =>  "Build Death Star",
       :location => "Outer Space",
       :start_date => "11/11/2011",

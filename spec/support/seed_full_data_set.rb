@@ -1,18 +1,18 @@
 def seed_full_data_set
   3.times do |count|
     group = Factory.build(:group, :display_name => "group_" + count.to_s)
+    group.save
     admin = build_a_generic_admin(count)
     user = build_a_generic_user(count)
-    group.users << admin
-    group.users << user
+    admin.group = group
+    user.group = group
     admin.save
     user.save
     3.times do |i|
       project = build_a_generic_project(i)
-      group.projects << project
+      project.group = group
       project.save
     end
-    group.save
   end
 end
 

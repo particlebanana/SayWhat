@@ -13,8 +13,7 @@ class ProjectsController < ApplicationController
   # Only show upcoming projects to authenticated users for privacy reasons
   def all
     @options = (Project.new()).filters
-    @projects = ProjectCache.all.desc(:end_date) if current_user
-    @projects = ProjectCache.desc(:end_date).find_all{ |project| project.end_date < Date.today} unless current_user
+    @projects = current_user ? Project.order('end_date DESC') : Project.where(:end_date < Date.today).order('end_date DESC')#find_all{ |project| project.end_date < Date.today}.order('end_date DESC')
     respond_with(@projects)
   end
   
@@ -22,8 +21,13 @@ class ProjectsController < ApplicationController
   # Only show upcoming projects to authenticated users for privacy reasons
   def filter
     @options = (Project.new()).filters
-    @projects = ProjectCache.filter(params[:focus], params[:audience]).desc(:end_date) if current_user
-    @projects = ProjectCache.filter(params[:focus], params[:audience]).desc(:end_date).find_all{ |project| project.end_date < Date.today} unless current_user
+    
+    @projects = Project.scoped
+    @projects = @projects.where(:focus => params[:focus]) unless params[:focus] == 'Filter by Focus' || params[:focus] == ""
+    @projects = @projects.where(:audience => params[:audience]) unless params[:audience] == 'Filter by Audience' || params[:audience] == ""
+    @projects = @projects.where(:end_date < Date.today) unless current_user # restricts upcoming projects to only be viewed by logged in users
+    @projects = @projects.order('end_date DESC')
+
     render :action => "all"
   end
   
@@ -31,8 +35,8 @@ class ProjectsController < ApplicationController
   # Only show upcoming projects to authenticated users for privacy reasons
   def index
     @projects = {
-      :upcoming => @group.projects.asc(:end_date).find_all{ |project| project.end_date >= Date.today},
-      :completed => @group.projects.desc(:end_date).find_all{ |project| project.end_date < Date.today}
+      :upcoming => @group.projects.order('end_date ASC').find_all{ |project| project.end_date >= Date.today},
+      :completed => @group.projects.order('end_date DESC').find_all{ |project| project.end_date < Date.today}
     }
     respond_with(@projects)
   end
@@ -58,14 +62,13 @@ class ProjectsController < ApplicationController
   
   # POST - Create New Project
   def create
-    @project = Project.new(:group_id => @group.id.to_s)
+    @project = Project.new(:group_id => @group.id)
     authorize! :new, @project
     params[:project][:start_date] = format_calendar_date(params[:project][:start_date])
     params[:project][:end_date] =  format_calendar_date(params[:project][:end_date])
     @project = Project.new(params[:project])
     if @project.valid?
-      @group.projects << @project
-      if @project.save && @group.save
+      if @project.save
         redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}"
       else
         @options = @project.filters

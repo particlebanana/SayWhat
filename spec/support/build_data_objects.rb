@@ -1,17 +1,17 @@
 
 def build_group_with_admin
   @group = Factory.build(:group)
+  @group.save!
   @admin = Factory.build(:user, :email => "admin@gmail.com")
   @admin.status = "active"
   @admin.role = "adult sponsor"
-  @group.users << @admin  
+  @admin.group = @group
   @admin.save
   @user = Factory.build(:user, :email => "member@gmail.com")
   @user.status = "active"
   @user.role = "member"
-  @group.users << @user
+  @user.group = @group
   @user.save
-  @group.save
 end
 
 

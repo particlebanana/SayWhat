@@ -13,6 +13,7 @@ describe ProjectsController do
     it "should add a project to a group" do 
       sign_in @user
       project = build_project_params
+      project[:permalink] = @group.permalink
       post :create, project
       response.should be_redirect
       @group.reload.projects.count.should == 1
@@ -117,19 +118,19 @@ describe ProjectsController do
     it "should filter projects by focus" do
       get :filter, :focus => "Secondhand Smoke Exposure", :audience => ""
       response.should render_template('projects/all')
-      assigns[:projects].count.should == 3
+      assigns[:projects].count.should == 1
     end
     
     it "should filter projects by audience" do
       get :filter, :focus => "", :audience => "Middle School Students"
       response.should render_template('projects/all')
-      assigns[:projects].count.should == 3
+      assigns[:projects].count.should == 1
     end
     
     it "should filter projects by focus and audience" do
       get :filter, :focus => "Secondhand Smoke Exposure", :audience => "Elementary Students"
       response.should render_template('projects/all')
-      assigns[:projects].count.should == 3
+      assigns[:projects].count.should == 1
     end
 
   end
