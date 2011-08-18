@@ -3,7 +3,7 @@ class Group < ActiveRecord::Base
   mount_uploader :profile_photo, ProfileUploader
 
   has_many :users
-  #embeds_many :projects
+  has_many :projects
   
   attr_accessible :display_name, :city, :organization, :description, :permalink, :esc_region, :dshs_region, :area, :profile_photo
 

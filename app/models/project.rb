@@ -1,21 +1,8 @@
-class Project  
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class Project < ActiveRecord::Base
   
-  field :name
-  field :display_name
-  field :location
-  field :start_date, :type => Date
-  field :end_date, :type => Date
-  field :focus
-  field :goal
-  field :description
-  field :audience
-  field :involves
-
-  embedded_in :group
-  has_many :comments
-  embeds_one :report
+  belongs_to :group
+  #has_many :comments
+  #embeds_one :report
   
   mount_uploader :profile_photo, ProfileUploader
   
@@ -26,11 +13,6 @@ class Project
   
   before_validation :escape_name
   after_validation :sanitize
-  
-  after_save :cache_project
-  
-  before_destroy :set_cache
-  after_destroy :destroy_cache
 
   protected
   
@@ -44,32 +26,6 @@ class Project
       self.goal = Sanitize.clean(self.goal, Sanitize::Config::RESTRICTED) if self.goal
       self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
       self.involves = Sanitize.clean(self.involves, Sanitize::Config::RESTRICTED) if self.involves
-    end
-    
-  private
-  
-    def cache_project
-      cache = ProjectCache.find_or_create_by(:group_id => self.group.id.to_s, :project_id => self.id.to_s)
-      cache.update_attributes(
-        :group_name => self.group.display_name, 
-        :group_permalink => self.group.permalink, 
-        :project_name => self.display_name, 
-        :project_permalink => self.name, 
-        :focus => self.focus, 
-        :audience => self.audience,
-        :profile_photo => self.profile_photo_url(:small),
-        :start_date => self.start_date,
-        :end_date => self.end_date
-      )
-      cache.save
-    end
-    
-    def set_cache
-      @cache = ProjectCache.where(:group_id => self.group.id.to_s, :project_id => self.id.to_s).first
-    end
-    
-    def destroy_cache
-      @cache.destroy if @cache
     end
         
   public
