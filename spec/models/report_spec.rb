@@ -14,6 +14,7 @@ describe Report do
       it "should enforce required fields" do
         subject { Factory(:user) }
     
+        should_not allow_value("").for(:project_id) 
         should_not allow_value("").for(:number_of_youth_reached) 
         should_not allow_value("").for(:number_of_adults_reached) 
         should_not allow_value("").for(:percent_male) 
@@ -29,24 +30,5 @@ describe Report do
     end
         
   end
-  
-  describe "update project cache" do
-    before(:each) do
-      build_group_with_admin
-      build_project
-    end
-    
-    it "should have a flag of false for reported" do
-      ProjectCache.first.reported.should == false
-    end
-    
-    it "should flag reported on report save" do
-      @report = Factory.build(:report)
-      @project.report = @report
-      @report.save
-      ProjectCache.first.reported.should == true
-    end
-    
-  end
-  
+
 end

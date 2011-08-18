@@ -1,6 +1,7 @@
 
 # Creates a project report
 Factory.define :report do |r|
+  r.project_id "1"
   r.number_of_youth_reached "10"
   r.number_of_adults_reached "10"
   r.percent_male "5"

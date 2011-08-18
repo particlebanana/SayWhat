@@ -2,6 +2,7 @@ class Report
   include Mongoid::Document
   include Mongoid::Timestamps
   
+  field :project_id, :type => Integer
   field :number_of_youth_reached, :type => Integer
   field :number_of_adults_reached, :type => Integer
   field :percent_male, :type => Integer
@@ -17,21 +18,9 @@ class Report
   field :comment
   field :level_of_impact
   
-  embedded_in :project
-  
   attr_protected :level_of_impact
 
-  validates_presence_of [:number_of_youth_reached, :number_of_adults_reached, :percent_male, :percent_female, :percent_african_american, :percent_asian, :percent_caucasian, :percent_hispanic, :percent_other, :money_spent, :prep_time]
-  
-  after_save :update_cache
-  
-  private
-    
-    def update_cache
-      cache = ProjectCache.where(:group_id => self.project.group.id.to_s, :project_id => self.project.id.to_s).first
-      cache.update_attributes(:reported => true)
-      cache.save
-    end
+  validates_presence_of [:project_id, :number_of_youth_reached, :number_of_adults_reached, :percent_male, :percent_female, :percent_african_american, :percent_asian, :percent_caucasian, :percent_hispanic, :percent_other, :money_spent, :prep_time]
     
   public
   
