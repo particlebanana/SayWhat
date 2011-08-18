@@ -11,13 +11,13 @@ class GroupsController < ApplicationController
     
   # GET - Group Index
   def index
-    @groups = Group.desc(:created_at).find_all{ |group| group.status == 'active'}
+    @groups = Group.order('created_at DESC').find_all{ |group| group.status == 'active'}
     respond_with(@groups)
   end
   
   # GET - Group Homepage
   def show
-    @recent_projects = @group.projects.desc(:end_date).find_all{ |project| project.end_date < Date.today}
+    @recent_projects = @group.projects.order('end_date DESC').find_all{ |project| project.end_date < Date.today}
     @adult_sponsor = @group.users.adult_sponsor.first
     @youth_sponsor = @group.users.youth_sponsor.first
     @members = @group.users.active.sort_by {rand}[0..19]
@@ -140,6 +140,7 @@ class GroupsController < ApplicationController
       reason = reasons.select{|r| r['name'] == params[:reason]}[0]
       if @group.destroy
         GroupMailer.send_denied_notice(user, group, reason['email_text']).deliver
+        user.destroy
         flash[:notice] = "Group and Sponsor successfully removed" 
         redirect_to "/admin/requests"
       else

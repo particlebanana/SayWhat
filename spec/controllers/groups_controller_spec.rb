@@ -102,7 +102,7 @@ describe GroupsController do
         
         it "should remove a group from the database" do
           post :deny_group, {:group_id => @group.id.to_s, :reason => "organization"}
-          Group.where(:_id => @group.id).first.should == nil
+          Group.where(:id => @group.id).first.should == nil
         end
         
         it "should remove the user from the database" do
