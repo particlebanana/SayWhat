@@ -4,7 +4,7 @@ class Project < ActiveRecord::Base
   has_many :comments
   #embeds_one :report
   
-  mount_uploader :profile_photo, ProfileUploader
+  #mount_uploader :profile_photo, ProfileUploader
   
   attr_protected :name, :group, :comments
 
