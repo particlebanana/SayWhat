@@ -65,7 +65,7 @@ namespace :data do
       # Optional Attributes
       record[:description] = group["description"] if group["description"]
       
-      # Save Grouo to SQL DB
+      # Save Group to SQL DB
       result = relationaldb.query("INSERT INTO groups (name, display_name, city, organization, permalink, status, esc_region, dshs_region, area, created_at, updated_at) 
       VALUES ('#{record[:name]}', '#{record[:display_name]}', '#{record[:city]}', '#{record[:organization]}', '#{record[:permalink]}', '#{record[:status]}', '#{record[:esc_region]}', '#{record[:dshs_region]}',
       '#{record[:area]}', '#{record[:created_at]}', '#{record[:updated_at]}')")
@@ -83,6 +83,25 @@ namespace :data do
         group = groups.select {|g| g[:id] == user['group_id'].to_s}
         relationaldb.query("SELECT * FROM groups WHERE permalink='#{group[0][:permalink]}'").each {|group| @group_id = group['id']}
         relationaldb.query("UPDATE users SET group_id='#{@group_id}' WHERE email='#{user['email']}'")
+      end
+    }
+  end
+  
+  desc "import projects"
+  task :import_projects do
+    relationaldb = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "saywhat_dev")
+    documentdb = Mongo::Connection.new("127.0.0.1").db("saywhat_development")
+    documentdb["groups"].find().each {|group|
+      if group['projects']
+        # Look up group_id in relational table
+        relationaldb.query("SELECT * FROM groups WHERE permalink='#{group['permalink']}'").each {|group| @group_id = group['id']}
+        
+        # Save Projects to SQL DB
+        group['projects'].each do |project|
+          result = relationaldb.query("INSERT INTO projects (group_id, name, display_name, location, start_date, end_date, focus, goal, description, audience, involves, created_at, updated_at) 
+          VALUES ('#{@group_id}', '#{project["name"]}', '#{project["display_name"]}', '#{project["location"]}', '#{project["start_date"]}', '#{project["end_date"]}', '#{project["focus"]}', '#{project["goal"]}', 
+          '#{project["description"]}', '#{project["audience"]}', '#{project["involves"]}', '#{project["created_at"]}', '#{project["updated_at"]}')")
+        end
       end
     }
   end
