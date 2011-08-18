@@ -72,4 +72,19 @@ namespace :data do
     }
   end
   
+  desc "import user/group relationships"
+  task :import_user_group_relationships do
+    relationaldb = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "saywhat_dev")
+    documentdb = Mongo::Connection.new("127.0.0.1").db("saywhat_development")
+    groups = []
+    documentdb["groups"].find().each{|group| groups << {id: group['_id'].to_s, permalink: group['permalink']}}
+    documentdb["users"].find().each {|user|
+      if user['group_id']
+        group = groups.select {|g| g[:id] == user['group_id'].to_s}
+        relationaldb.query("SELECT * FROM groups WHERE permalink='#{group[0][:permalink]}'").each {|group| @group_id = group['id']}
+        relationaldb.query("UPDATE users SET group_id='#{@group_id}' WHERE email='#{user['email']}'")
+      end
+    }
+  end
+  
 end
