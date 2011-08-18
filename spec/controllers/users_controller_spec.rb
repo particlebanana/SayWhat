@@ -1,38 +1,7 @@
 require 'spec_helper'
 
 describe UsersController do
-    
-  describe "setup a new group" do
-    before(:each) do
-      @group = Factory.create(:group)
-      @user = Factory.build(:user)
-      set_status_and_role("setup", "adult sponsor")
-      @group.users << @user
-      @user.save!
-      sign_in @user
-    end
-    
-    describe "#create_sponsor" do
-      it "should change a sponsor's password" do
-        put :create_sponsor, {:id => @user.id.to_s, :user => {:password => "test123", :password_confirmation => "test123"}}
-        response.should redirect_to(:controller => :groups, :action => :setup_permalink)
-      end
       
-      it "should require password to be entered" do
-        put :create_sponsor, {:id => @user.id.to_s, :user => {:password => "", :password_confirmation => ""}}
-        response.should redirect_to("/setup/sponsor")
-      end
-    
-      it "should reset the sponsor's token" do
-        token = @user.authentication_token
-        put :create_sponsor, {:id => @user.id.to_s, :user => {:password => "test123", :password_confirmation => "test123"}}
-        response.should be_redirect
-        @user.reload.authentication_token.should_not == token
-      end
-    end
-      
-  end
-  
   describe "edit a user's profile" do
     before(:each) do
       @user = Factory.build(:user)

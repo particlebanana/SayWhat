@@ -5,35 +5,6 @@ class UsersController < ApplicationController
   load_and_authorize_resource
   
   respond_to :html
-    
-  ################################
-  # Setup A Sponsor Account
-  ################################
-  
-  # GET - Setup Phase - New User Password Form
-  def setup_sponsor
-    @user = current_user
-    respond_with(@user)
-  end
-  
-  # PUT - Setup Phase - Update Sponsor Password
-  def create_sponsor
-    if params[:user][:password] != "" && params[:user][:password_confirmation] != ""
-      if params[:user][:password] == params[:user][:password_confirmation]
-        @user.reset_authentication_token
-        @user.update_with_password(params[:user])
-        if @user.save!
-          redirect_to "/setup/permalink"
-        else
-          redirect_to "/setup/sponsor", :notice => "You Must Set A Password"
-        end
-      else
-        redirect_to "/setup/sponsor", :notice => "You Must Set A Password"
-      end
-    else
-      redirect_to "/setup/sponsor", :notice => "You Must Set A Password"
-    end
-  end
   
   ###############################################
   # Edit user settings (profile, password, etc)
