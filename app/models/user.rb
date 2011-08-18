@@ -45,9 +45,9 @@ class User < ActiveRecord::Base
     def create_message_object(message_object)
       message = Message.new
       message.message_type = message_object[:message_type]
-      message.message_author = message_object[:message_author]
-      message.message_subject = message_object[:message_subject]
-      message.message_content = message_object[:message_content]
+      message.author = message_object[:author]
+      message.subject = message_object[:subject]
+      message.content = message_object[:content]
       self.messages << message
       message.save!
       message
@@ -55,14 +55,14 @@ class User < ActiveRecord::Base
         
     # Create a message request object
     def create_message_request_object(request_name, request_email, request_id)
-      message = Message.new(:message_subject => "New Membership Request")
-      message.message_author = "Automated Message"
+      message = Message.new(:subject => "New Membership Request")
+      message.author = "Automated Message"
       message.message_type = "request"
-      message.message_content = "
+      message.content = "
       You have a pending membership request. Please review the information below and choose to either accept or deny the member.<br/>
       Name: #{request_name}
       Email: #{request_email}"
-      message.message_payload = request_id
+      message.payload = request_id
       self.messages << message
       message.save!
       message
