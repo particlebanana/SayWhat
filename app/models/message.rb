@@ -1,22 +1,12 @@
-class Message
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class Message < ActiveRecord::Base
   
-  embedded_in :user, autosave: true
+  belongs_to :user
   
-  field :message_type # Message Type can be: "request", "message"
-  field :message_author
-  field :message_subject
-  field :message_content
-  field :message_payload
-  field :read, :type => Boolean, :default => false
+  attr_accessible :subject, :content
   
-  default_scope desc(:created_at)
+  validates_presence_of [:message_type, :author, :subject, :content]
   
-  attr_accessible :message_subject, :message_content
-  
-  validates_presence_of [:message_type, :message_author, :message_subject, :message_content]
-  
+  #default_scope desc(:created_at)
   scope :unread, :where => {:read => false}
   
 end

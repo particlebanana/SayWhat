@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   belongs_to :group
   has_many :comments
-  #embeds_many :messages
+  has_many :messages
   
   #mount_uploader :avatar, AvatarUploader, mount_on: :avatar_filename
   

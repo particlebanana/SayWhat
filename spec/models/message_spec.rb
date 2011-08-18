@@ -22,7 +22,7 @@ describe Message do
       end
           
       it "should fail if message is not valid" do
-        @message = Factory.build(:member_request, :message_subject => "")
+        @message = Factory.build(:member_request, :subject => "")
         @message.should_not be_valid
       end
     end
@@ -38,7 +38,7 @@ describe Message do
       
       it "should allow a user id to be included as a payload" do
         @message = Factory.build(:member_request)
-        @message.message_payload = @user.id
+        @message.payload = @user.id
         @message.should be_valid
       end
     end
