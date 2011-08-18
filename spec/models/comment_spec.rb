@@ -15,6 +15,7 @@ describe Comment do
       it "should allow a comment to be created" do
         @comment = Factory.build(:comment)
         @comment.user = @user
+        @comment.project = @project
         @project.comments << @comment
         @comment.should be_valid
       end
@@ -22,6 +23,7 @@ describe Comment do
       it "should fail if comment field is blank" do
         @comment = Factory.build(:comment, :comment => "")
         @comment.user = @admin
+        @comment.project = @project
         @project.comments << @comment
         @comment.should_not be_valid
       end

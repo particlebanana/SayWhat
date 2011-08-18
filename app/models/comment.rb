@@ -1,16 +1,10 @@
-class Comment
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
+class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-
-  field :comment
   
   attr_accessible :comment
+  validates_presence_of [:comment, :user_id, :project_id]
 
-  validates_presence_of [:comment, :user_id]
-  
   after_validation :sanitize
   
   protected
