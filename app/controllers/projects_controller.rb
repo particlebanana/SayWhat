@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
   # Only show upcoming projects to authenticated users for privacy reasons
   def all
     @options = (Project.new()).filters
-    @projects = current_user ? Project.order('end_date DESC') : Project.where(:end_date < Date.today).order('end_date DESC')#find_all{ |project| project.end_date < Date.today}.order('end_date DESC')
+    @projects = current_user ? Project.order('end_date DESC') : Project.order('end_date ASC').find_all{ |project| project.end_date < Date.today}
     respond_with(@projects)
   end
   

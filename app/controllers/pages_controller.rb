@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   
   # GET - Home Page
   def home
-    @projects = ProjectCache.desc(:end_date).find_all{ |project| project.end_date < Date.today}
+    @projects = Project.order('end_date ASC').find_all{ |project| project.end_date < Date.today}
   end
   
   # GET - Join Page
