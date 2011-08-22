@@ -24,7 +24,7 @@ class MessagesController < ApplicationController
   def create
     message = params[:message]
     message[:message_type] = "message"
-    message[:message_author] = @user.name
+    message[:author] = @user.name
     if @user.admin?
       @sponsors = User.sponsors
       @sponsors.each do |sponsor|
@@ -39,15 +39,22 @@ class MessagesController < ApplicationController
   
   # GET - Display a message
   def show
-    @message.read = true
-    @message.save
-    respond_with(@message)
+    if @message
+      @message.read = true
+      @message.save!
+      respond_with(@message)
+    else
+      redirect_to "/messages", :notice => "Could not find that message."
+    end
   end
   
   # DELETE - Destroy a message
   def destroy
-    @message.destroy
-    redirect_to "/messages", :notice => "Message has been deleted"
+    if @message.destroy
+      redirect_to "/messages", :notice => "Message has been deleted"
+    else
+      redirect_to "/messages", :error => "Message could not deleted"
+    end
   end
   
   private
@@ -57,7 +64,7 @@ class MessagesController < ApplicationController
     end
     
     def set_message
-      @message = @user.messages.find(params[:id])
+      @message = Message.find(params[:id])
     end
    
 end

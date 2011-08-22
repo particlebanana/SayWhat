@@ -28,8 +28,8 @@ describe MessagesController do
     before(:each) do
       build_group_with_admin
       @user = build_a_generic_user(10)
-      @group.users << @user
-      @group.save!
+      @user.group = @group
+      @user.save
       sign_in @admin
     end
     
@@ -38,22 +38,24 @@ describe MessagesController do
       post :create, message
       response.should be_redirect
       @user.reload.messages.count.should == 1
-      @user.reload.messages.first.message_subject.should == "Test Subject"
+      @user.reload.messages.first.subject.should == "Test Subject"
     end
     
   end
   
   describe "#show" do
     before(:each) do
+      build_group_with_admin
       @user = build_a_generic_user(1)
-      sign_in @user
+      sign_in @admin
       seed_messages(5)
     end
     
     it "should display the message" do
-      get :show, {:id => @user.messages.last.id.to_s}
-      assigns[:message].message_subject.should == "Generic Message"
-      assigns[:message].message_content.should == "This is a generic message"
+      get :show, :id => @user.messages.last.id
+      response.status.should_not == 302
+      assigns[:message].subject.should == "Generic Message"
+      assigns[:message].content.should == "This is a generic message"
     end
     
     it "should mark the message as read" do
@@ -69,12 +71,13 @@ describe MessagesController do
   describe "#destroy" do
     before(:each) do
       @user = build_a_generic_user(1)
+      @user.save
       sign_in @user
       seed_messages(1)
     end
     
     it "should allow the user to delete a message" do
-      delete :destroy, :id => @user.messages.last.id.to_s
+      delete :destroy, :id => @user.messages.last.id
       @user.reload.messages.count.should == 0
     end
     

@@ -70,8 +70,8 @@ end
 def build_message_params
   message_params = {
     :message => {
-      :message_subject => "Test Subject",
-      :message_content => "This is a test message"
+      :subject => "Test Subject",
+      :content => "This is a test message"
     }
   }
 end

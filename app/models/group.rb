@@ -43,7 +43,7 @@ class Group < ActiveRecord::Base
     def send_group_message(message_object, author)
       self.users.each do |member|
         message = member.create_message_object(message_object)
-        UserMailer.send_message_notification(member, author, message.message_content).deliver
+        UserMailer.send_message_notification(member, author, message.content).deliver
       end
     end
     
