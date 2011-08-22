@@ -24,7 +24,7 @@
       
 %section#lowerContent.group
   
-  - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor")
+  - if current_user && (current_user.role == "adult sponsor" || current_user.role == "youth sponsor") && THEME['minigrant_app']
     .notification
       %h3 Want $500 for a group project?
       %p <a href="/grants"><strong>Apply for a Mini-Grant</strong></a> to assist in promoting the Say What! movement within your community or school.
