@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110818170650) do
+ActiveRecord::Schema.define(:version => 20110823142930) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20110818170650) do
     t.string   "area",         :default => "pending"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "profile"
   end
 
   add_index "groups", ["name"], :name => "index_groups_on_name", :unique => true
@@ -69,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20110818170650) do
     t.string   "involves"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "profile"
   end
 
   add_index "projects", ["group_id"], :name => "index_projects_on_group_id"
@@ -94,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20110818170650) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
+    t.string   "avatar"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

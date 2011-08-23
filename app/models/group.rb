@@ -1,6 +1,6 @@
 class Group < ActiveRecord::Base
   
-  #mount_uploader :profile_photo, ProfileUploader
+  mount_uploader :profile, ProfileUploader
 
   has_many :users
   has_many :projects

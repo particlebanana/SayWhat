@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :messages
   
-  #mount_uploader :avatar, AvatarUploader, mount_on: :avatar_filename
+  mount_uploader :avatar, AvatarUploader
   
   #default_scope asc(:created_at)
 
