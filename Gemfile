@@ -12,17 +12,6 @@ group :assets do
   gem 'uglifier'
 end
 
-gem 'jquery-rails'
-gem 'capistrano'
-gem 'json'
-gem 'haml'
-gem 'nokogiri'
-gem 'mini_magick'
-gem 'sanitize'
-gem 'escape_utils'
-gem 'carrierwave'
-gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
-
 # Database
 gem 'mysql2', '~> 0.3.6'
 gem 'mongoid', '~> 2.1.0'
@@ -31,6 +20,16 @@ gem 'bson_ext', '~> 1.3'
 # Authentication
 gem 'devise', '~> 1.4.2'
 gem 'cancan'
+
+gem 'jquery-rails'
+gem 'capistrano'
+gem 'json'
+gem 'haml'
+gem 'nokogiri'
+gem 'mini_magick'
+gem 'sanitize'
+gem 'escape_utils'
+gem 'carrierwave', "~> 0.5.7"
 
 # Sinatra Plugins
 gem 'sinatra'
