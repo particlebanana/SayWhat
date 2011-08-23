@@ -107,7 +107,7 @@ class AdminController < ApplicationController
   
   # GET - View All Groups
   def show_groups
-    @groups = Group.asc('name')
+    @groups = Group.order('name ASC')#asc('name')
   end
   
   # GET - View single group
