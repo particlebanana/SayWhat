@@ -10,7 +10,7 @@ class ReportsController < ApplicationController
   # GET - Reporting form for a project
   def new
     if @project.end_date < Date.today
-      authorize! :new, @project.report = Report.new
+      authorize! :new, @report = Report.new(project_id: @project.id)
       @report = Report.new()
       @options = @report.filters
       respond_with(@report)
@@ -22,12 +22,10 @@ class ReportsController < ApplicationController
   # POST - Create a report for a project
   def create
     if @project.end_date < Date.today
-      authorize! :new, @project.report = Report.new
+      authorize! :new, @report = Report.new(project_id: @project.id)
       @report = Report.new(params[:report])
-      @project.report = @report
+      @report.project_id = @project.id
       if @report.save
-        @group.update_report_tally(params[:report]['number_of_adults_reached'], params[:report]['number_of_youth_reached'])
-        @group.save
         redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Report Successfully Submitted"
       else
         @options = @report.filters

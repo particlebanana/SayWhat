@@ -121,11 +121,13 @@ class Ability
       end
       
       can :new, Report do |report|
-        user.group == report.project.group
+        project = Project.find(report.project_id)
+        user.group == project.group
       end
       
       can :create, Report do |report|
-        user.group == report.project.group
+        project = Project.find(report.project_id)
+        user.group == project.group
       end
     
     # Youth Sponsor
@@ -162,11 +164,13 @@ class Ability
       end
       
       can :new, Report do |report|
-        user.group == report.project.group
+        project = Project.find(report.project_id)
+        user.group == project.group
       end
       
       can :create, Report do |report|
-        user.group == report.project.group
+        project = Project.find(report.project_id)
+        user.group == project.group
       end
       
     end

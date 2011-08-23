@@ -36,7 +36,7 @@ describe ReportsController do
       report = build_report_params
       post :create, report
       response.should be_redirect
-      @group.reload.projects.first.report.should_not == nil
+      Report.where(project_id: @project.id).count.should == 1
     end
     
     it "should re-display form when an incomplete form is submitted" do
@@ -53,7 +53,7 @@ describe ReportsController do
       report = build_report_params
       post :create, report
       response.should be_redirect
-      @group.reload.projects.first.report.should_not == nil
+      Report.where(project_id: @project.id).count.should == 1
     end
     
     it "should only allow a group's sponsors to create a report" do
@@ -72,22 +72,7 @@ describe ReportsController do
       post :create, report
       response.should be_redirect
       response.should redirect_to("/groups/#{@group.permalink}/projects/#{@project.name}")
-    end
-    
-    it "should update the group tally for adults reached" do
-      @group.adults_reached_tally.should == 0
-      report = build_report_params
-      post :create, report
-      @group.reload.adults_reached_tally.should == 10
-    end
-    
-    it "should update the group tally for youth reached" do
-      @group.youth_reached_tally.should == 0
-      report = build_report_params
-      post :create, report
-      @group.reload.youth_reached_tally.should == 10
-    end
-    
+    end    
   end
   
 end
