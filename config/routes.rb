@@ -52,6 +52,16 @@ SayWhat::Application.routes.draw do
   match "/admin/group_requests/:id"           =>  "admin_group_requests#approve",    :via => "put"
   match "/admin/group_requests/:id/deny"      =>  "admin_group_requests#destroy",    :via => "get"
   
+  # Admin Groups Controller
+  match "/admin/groups"                   =>  "admin_groups#index",              :via => "get"
+  match "/admin/groups/:id"               =>  "admin_groups#show",               :via => "get"
+  match "/admin/groups/:id"               =>  "admin_groups#update",             :via => "put"
+  match "/admin/groups/:id"               =>  "admin_groups#destroy",            :via => "delete"
+  match "/admin/groups/:id/resend"        =>  "admin_groups#resend",             :via => "post"
+  
+  # Admin Sponsors Controller
+  match "/admin/groups/:id/sponsors"      =>  "admin_sponsors#index",            :via => "get"
+  match "/admin/groups/:id/sponsors"      =>  "admin_sponsors#update",           :via => "put"
   match "/admin/denied_grant_reasons" =>  "admin#denied_grant_reasons",   :via => "get"
   
   match "/admin/grants"         =>  "admin#show_grants",            :via => "get"
@@ -60,13 +70,7 @@ SayWhat::Application.routes.draw do
   match "/admin/grants/:id"     =>  "admin#approve_grant",          :via => "put"
   match "/admin/grants/:id"     =>  "admin#deny_grant",             :via => "post"
   
-  match "/admin/groups"                   =>  "admin#show_groups",            :via => "get"
-  match "/admin/groups/:id"               =>  "admin#view_group",             :via => "get"
-  match "/admin/groups/:id"               =>  "admin#update_group",           :via => "put"
-  match "/admin/groups/:id/setup_email"   =>  "admin#group_approval_email",   :via => "put"
   
-  match "/admin/groups/:id/choose_sponsor"    =>  "admin#choose_sponsor",       :via => "get"
-  match "/admin/groups/:id/reassign_sponsor"  =>  "admin#reassign_sponsor",     :via => "put"
   
   match "/admin/users"                        =>  "admin#show_users",           :via => "get"
   match "/admin/users/:id"                    =>  "admin#view_user",            :via => "get"
@@ -92,7 +96,6 @@ SayWhat::Application.routes.draw do
   
   # Groups - Create/Setup a group (no permalink created yet)
   match "/groups/:group_id/approve_group"     => "groups#approve_group",    :via => "put"
-  match "/groups/:group_id/deny_group"        => "groups#deny_group",       :via => "post"
   
   match "/groups/:group_id/setup"             => "groups#setup",            :via => "get"
   match "/groups/:group_id/setup_permalink"   => "groups#setup_permalink",  :via => "get"

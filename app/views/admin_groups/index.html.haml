@@ -1,0 +1,15 @@
+.block
+  .content
+    .group
+      %h2.title.left All Groups
+      %ul#sort.groupSort.right.group
+        %li <a href="#original-order" class="selected">original-order</a>
+        %li <a href="#name">name</a>
+        %li <a href="#status">status</a>
+        
+    .inner
+      - if @groups.empty?
+        %p No Groups
+      - else
+        %div#groupsTable.adminTableView
+          = render :partial => "groups_table"

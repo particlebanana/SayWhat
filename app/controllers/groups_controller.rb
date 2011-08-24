@@ -97,63 +97,6 @@ class GroupsController < ApplicationController
   end
   
   ###############################################
-  # APPROVE A GROUP'S CREATION
-  ###############################################  
-  
-  #  
-  # Admin function to approve a pending group.
-  # Once approved an email should be sent to the group sponsor
-  # This email should contain a link with a login token that will
-  # allow the sponsor to set a password and to set-up the group
-  #  
-  
-  # PUT - Set a groups status to approved
-  def approve_group
-    @user = @group.users.first 
-    set_approved_attributes
-      
-    if @group.update_attributes(params[:group]) & @user.save
-      GroupMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
-      redirect_to "/admin/requests"
-    else
-      flash[:error] = "Error approving group!"
-      redirect_to "/admin/requests/#{@group.id.to_s}"
-    end
-  end
-  
-  ###############################################
-  # DENY A GROUP
-  ###############################################  
-  
-  #  
-  # Admin function to deny a pending group.
-  # If denied then the group will be deleted and
-  # the adult sponsor user will be deleted.
-  #
-  
-  # POST - Delete the group and user
-  def deny_group
-    if params[:reason] && params[:reason] != "" # require a reason
-      group = @group
-      user = @group.users.first
-      reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
-      reason = reasons.select{|r| r['name'] == params[:reason]}[0]
-      if @group.destroy
-        GroupMailer.send_denied_notice(user, group, reason['email_text']).deliver
-        user.destroy
-        flash[:notice] = "Group and Sponsor successfully removed" 
-        redirect_to "/admin/requests"
-      else
-        flash[:error] = "Error removing group!"
-        redirect_to "/admin/requests/#{@group.id.to_s}"
-      end
-    else
-      flash[:error] = "Error removing group!"
-      redirect_to "/admin/requests/#{@group.id.to_s}"
-    end
-  end
-  
-  ###############################################
   # REQUEST GROUP MEMBERSHIP
   ###############################################
   
@@ -229,12 +172,6 @@ class GroupsController < ApplicationController
     def set_membership_request_attributes
       @user.role = "pending"
       @user.status = "pending"
-    end
-    
-    def set_approved_attributes
-      @group.status = "active"
-      @user.role = "adult sponsor"
-      @user.status = "active"
     end
   
 end

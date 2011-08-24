@@ -19,20 +19,20 @@ end
 # PUT - /admin/groups/:id
 def do_update_group(options={})
   attributes = {
-    :id => @group.id.to_s,
+    :id => @group.id,
     :group => {:display_name => "Rebel Alliance"}
   }
   attributes.merge!(options)
-  put :update_group, attributes
+  put :update, attributes
 end
 
-# PUT - /admin/groups/:id/setup_email
-def do_group_approval_email(options={})
+# PUT - /admin/groups/:id/resend
+def do_resend(options={})
   attributes = {
     :id => @group.id.to_s
   }
   attributes.merge!(options)
-  put :group_approval_email, attributes
+  put :resend, attributes
 end
 
 # PUT - /admin/groups/reassign_sponsor

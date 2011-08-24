@@ -77,64 +77,6 @@ describe AdminController do
     end
   end
   
-  describe "#show_groups" do
-    before do
-      @grant = Factory.create(:group)
-      login_admin
-    end
-    
-    it "should list all groups" do
-      get :show_groups
-      assigns[:groups].count.should == 1
-    end
-  end
-  
-  describe "#view_group" do
-    before do
-      build_group_with_admin
-      login_admin
-    end
-    
-    it "should find the group by id" do
-      get :view_group, :id => @group.id.to_s
-      assigns[:group].should_not be_nil
-    end
-  end
-  
-  describe "#update" do
-    before do
-      build_group_with_admin
-      login_admin
-    end
-    
-    context "successfully" do
-      before(:each) { do_update_group() }
-      
-      subject{ @group.reload }
-      its(:display_name) { should == "Rebel Alliance" }
-      its(:name) { should == "rebel alliance" }
-    end
-  end
-  
-  describe "#group_approval_email" do
-    before do
-      @group = Factory.create(:pending_group, :status => "setup")
-      @user = Factory.build(:user)
-      set_status_and_role("setup", "admin")
-      @group.users << @user
-      @user.save!
-      login_admin
-    end
-    
-    context "send approval email" do
-      before(:each) { do_group_approval_email }
-    
-      subject{ ActionMailer::Base.deliveries.last }
-      its(:subject) { should == "Your group has been approved on SayWhat!" }
-      its(:to) { should == ["han.solo@gmail.com"] }
-    end
-  end
-  
   describe "#choose_a_sponsor" do
     before do
       build_decaying_group
