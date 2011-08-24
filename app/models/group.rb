@@ -18,43 +18,55 @@ class Group < ActiveRecord::Base
   
   protected
   
-    def downcase_name
-      if self.display_name
-        self.name = self.display_name.downcase
-      end
+  def downcase_name
+    if self.display_name
+      self.name = self.display_name.downcase
     end
+  end
     
-    def sanitize
-      self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
-    end
+  def sanitize
+    self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
+  end
     
   public
   
-    def make_slug
-      self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
-    end
+  #
+  # Scopes
+  #
+  def self.pending
+    where(status: "pending")
+  end
+  
+  def self.active
+    where(status: "active")
+  end
+  
+  # Make a permalink slug
+  def make_slug
+    self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
+  end
       
-    def update_report_tally(adults, youth)
-      self.adults_reached_tally += adults.to_i
-      self.youth_reached_tally += youth.to_i
-    end
+  def update_report_tally(adults, youth)
+    self.adults_reached_tally += adults.to_i
+    self.youth_reached_tally += youth.to_i
+  end
     
-    # Sends a message to all the members inboxes
-    def send_group_message(message_object, author)
-      self.users.each do |member|
-        message = member.create_message_object(message_object)
-        UserMailer.send_message_notification(member, author, message.content).deliver
-      end
+  # Sends a message to all the members inboxes
+  def send_group_message(message_object, author)
+    self.users.each do |member|
+      message = member.create_message_object(message_object)
+      UserMailer.send_message_notification(member, author, message.content).deliver
     end
+  end
     
-    # Reassign a group sponsor to another group member
-    def reassign_sponsor(user_id)
-      current_sponsor = self.users.adult_sponsor.first
-      proposed_sponsor = self.users.find(user_id)
-      if current_sponsor && proposed_sponsor
-        current_sponsor.change_role_level("member")
-        proposed_sponsor.change_role_level("adult sponsor")
-      end
+  # Reassign a group sponsor to another group member
+  def reassign_sponsor(user_id)
+    current_sponsor = self.users.adult_sponsor.first
+    proposed_sponsor = self.users.find(user_id)
+    if current_sponsor && proposed_sponsor
+      current_sponsor.change_role_level("member")
+      proposed_sponsor.change_role_level("adult sponsor")
     end
+  end
 
 end

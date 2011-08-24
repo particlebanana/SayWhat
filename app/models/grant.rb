@@ -26,7 +26,16 @@ class Grant
   validates_format_of :adult_email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
   validates_format_of :youth_email, :with => /^[-a-z0-9_+\.]+\@([-a-z0-9]+\.)+[a-z0-9]{2,4}$/i
   
-  scope :pending, :where => {:status => false}
-  scope :approved, :where => {:status => true}
+  
+  #
+  # Scopes
+  #
+  def self.pending
+    where(status: false)
+  end
+  
+  def self.approved
+    where(status: true)
+  end
   
 end
