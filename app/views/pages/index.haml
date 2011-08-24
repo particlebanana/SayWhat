@@ -6,30 +6,29 @@
       %div.dashBox
         %h3 Pending
         
-        - if @group_requests == 0 && @grant_requests == 0
-          %p= "No pending requests"
-        - if @group_requests > 0
+        - if @counts[:group][:pending] == 0 && @counts[:grant][:pending] == 0
+          %p No pending requests
+          
+        - if @counts[:group][:pending] > 0
           %p
             %a{:href => "/admin/requests"}
-              %strong="#{@group_requests}"
+              %strong= @counts[:group][:pending]
               Group Requests
-        - if @grant_requests > 0
+              
+        - if @counts[:grant][:pending] > 0
           %p
             %a{:href => "/admin/grants/pending"}
-              %strong= "#{@grant_requests}"
+              %strong= @counts[:grant][:pending]
               Grant Applications
             
       %div.dashBox
         %h3 Group Stats
-        
         %p
-          %strong= @groups
+          %strong= @counts[:group][:active]
           Total Groups
           
       %div.dashBox
         %h3 Project Stats
-
         %p
-          %strong= @projects
+          %strong= @counts[:projects]
           Total Projects
-          
