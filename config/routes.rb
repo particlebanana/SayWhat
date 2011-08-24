@@ -42,11 +42,10 @@ SayWhat::Application.routes.draw do
   
   # Pages
   match "/join" => "pages#join",   :via => "get"
-  
-  # Admin Panel
   match "/admin"                =>  redirect('/admin/dashboard')
   match "/admin/dashboard"      =>  "pages#index",                  :via => "get"
   
+  # Admin Group Requests Controller
   match "/admin/group_requests"               =>  "admin_group_requests#index",      :via => "get"
   match "/admin/group_requests/:id"           =>  "admin_group_requests#show",       :via => "get"
   match "/admin/group_requests/:id"           =>  "admin_group_requests#approve",    :via => "put"
