@@ -8,7 +8,5 @@ tmp/**/*
 *.db
 .sass-cache/
 config/config.yml
-public/uploads/tmp
-public/profile
-public/avatars
+public/uploads
 
