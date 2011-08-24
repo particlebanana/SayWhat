@@ -45,11 +45,13 @@ SayWhat::Application.routes.draw do
   
   # Admin Panel
   match "/admin"                =>  redirect('/admin/dashboard')
-  match "/admin/requests"       =>  "admin#show_requests",          :via => "get"
   match "/admin/dashboard"      =>  "pages#index",                  :via => "get"
-  match "/admin/requests/:id"   =>  "admin#view_request",           :via => "get"
   
-  match "/admin/denied_group_reasons" =>  "admin#denied_group_reasons",   :via => "get"
+  match "/admin/group_requests"               =>  "admin_group_requests#index",      :via => "get"
+  match "/admin/group_requests/:id"           =>  "admin_group_requests#show",       :via => "get"
+  match "/admin/group_requests/:id"           =>  "admin_group_requests#approve",    :via => "put"
+  match "/admin/group_requests/:id/deny"      =>  "admin_group_requests#destroy",    :via => "get"
+  
   match "/admin/denied_grant_reasons" =>  "admin#denied_grant_reasons",   :via => "get"
   
   match "/admin/grants"         =>  "admin#show_grants",            :via => "get"

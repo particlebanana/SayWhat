@@ -1,0 +1,9 @@
+.block
+  .content
+    %h2.title All Group Requests
+    .inner
+      - if @groups.empty?
+        %p No pending group requests
+      - else
+        %div#requestsTable.adminTableView
+          = render :partial => "requests_table"

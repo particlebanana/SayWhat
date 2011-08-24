@@ -1,12 +1,5 @@
-- if @group.status == "setup"
-  %div.actionBox
-    %p
-      Group has been approved but not setup yet.
-      = link_to "Re-send approval email", "/admin/groups/#{@group.id.to_s}/setup_email", :method => :put
-  
 %h3
   Sponsor Information 
-  %span= link_to "assign new sponsor", "/admin/groups/#{@group.id.to_s}/choose_sponsor", :id => "choose_sponsor", :rel => "facebox"
     
 %p.group
   %b Sponsor Name:

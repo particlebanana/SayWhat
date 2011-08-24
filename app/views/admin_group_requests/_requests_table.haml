@@ -1,0 +1,11 @@
+.header.group
+  .th.request_group Group Name
+  .th.request_sponsor Sponsor Name
+  .th.request_email Sponsor Email
+  
+.table
+  - @groups.each do |group|
+    .tr{:class => cycle("odd", "even")}
+      .td.request_group= link_to group.display_name, "/admin/group_requests/#{group.id.to_s}"
+      .td.request_sponsor= group.users.first.name
+      .td.request_email= group.users.first.email
