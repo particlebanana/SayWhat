@@ -35,14 +35,14 @@ def do_resend(options={})
   put :resend, attributes
 end
 
-# PUT - /admin/groups/reassign_sponsor
-def do_reassign_sponsor(options={})
+# PUT - /admin/groups/:id/sponsors
+def do_update_sponsor(options={})
   attributes = {
     :user => @user.id.to_s,
     :id => @group.id.to_s
   }
   attributes.merge!(options)
-  put :reassign_sponsor, attributes
+  put :update, attributes
 end
 
 # DELETE - /admin/users/:id/remove_avatar
