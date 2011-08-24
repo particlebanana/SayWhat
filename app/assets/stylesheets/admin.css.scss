@@ -4,6 +4,9 @@
  * the top of the compiled file, but it's generally better to create a new file per style scope. 
 */
 //= require jquery-ui-1.8.8.custom
+//= require web-app-theme-base
+//= require drastic-dark-style
+//= require facebox.css
 
 @import "reset";
 @import "global";
@@ -17,3 +20,6 @@
 @import "messages";
 @import "home";
 @import "join";
+
+@import "drastic-dark-override";
+
