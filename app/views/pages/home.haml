@@ -34,9 +34,9 @@
       - @projects.each do |project|
         - if i < 3
           %li
-            = link_to image_tag(project.profile_photo, :width => 200, :height => 100), "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
-            = link_to truncate(project.project_name, :length => 35), "/groups/#{project.group_permalink}/projects/#{project.project_permalink}", :class => "projectName"
-            = link_to project.group_name, "/groups/#{project.group_permalink}", :class => "projectGroup"
+            = link_to image_tag(project.profile.url, :width => 200, :height => 100), "/groups/#{project.group.permalink}/projects/#{project.name}"
+            = link_to truncate(project.name, :length => 35), "/groups/#{project.group.permalink}/projects/#{project.name}", :class => "projectName"
+            = link_to project.group.name, "/groups/#{project.group.permalink}", :class => "projectGroup"
           - i += 1
         
     

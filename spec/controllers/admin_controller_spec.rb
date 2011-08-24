@@ -199,21 +199,21 @@ describe AdminController do
       its(:role) { should == "adult sponsor" }
     end
   end
-=begin  
+ 
   describe "#remove_avatar" do
     before(:each) do
       setup_user_avatar
       login_admin
     end
         
-    context "user" do
-      before(:each) { do_remove_avatar }
-      
-      subject { @user.reload }
-      its(:avatar_filename) { should == nil }
+    context "admin panel" do      
+      it "should completely remove an inappropriate avatar" do
+        do_remove_avatar
+        @user.reload.avatar.should == nil
+      end
     end
   end
-=end  
+
   describe "#destroy_user" do
     before(:each) do
       @user = build_a_generic_user(1)

@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   
   #default_scope asc(:created_at)
 
-  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remember_me
+  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remove_avatar, :remember_me
 
   validates_presence_of [:first_name, :last_name, :email, :role, :status]
   

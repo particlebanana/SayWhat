@@ -4,7 +4,7 @@
 
     %div#groupLogo
       %span
-        = image_tag(@group.profile_photo_url(:large))
+        = image_tag(@group.profile.url(:large))
 
     = render :partial => "group_action_button"
 

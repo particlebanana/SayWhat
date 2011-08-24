@@ -12,12 +12,8 @@ module ProjectsHelper
     end
   end
   
-  def project_photo(project, cache=false)
-    if cache 
-      link_to image_tag(project.profile_photo, :width => 200, :height => 100), "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
-    else
-      link_to image_tag(project.profile_photo_url(:small), :width => 200, :height => 100), "/groups/#{project.group.permalink}/projects/#{project.name}"
-    end
+  def project_photo(project)
+    link_to image_tag(project.profile.url(:small), :width => 200, :height => 100), "/groups/#{project.group.permalink}/projects/#{project.name}"
   end
     
   def project_link(project)

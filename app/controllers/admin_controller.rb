@@ -177,8 +177,8 @@ class AdminController < ApplicationController
   # GET - Remove an inappropriate avatar
   def remove_avatar
     @user = User.find(params[:id])
-    @user.remove_avatar!
-    @user.avatar_filename = nil
+    @user.remove_avatar = true
+    @user.avatar = nil
     @user.save
     redirect_to "/admin/users/#{@user.id}", :notice => "Avatar removed"
   end
