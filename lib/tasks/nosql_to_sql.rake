@@ -112,5 +112,7 @@ namespace :data do
   
   # TO-DO LINK GROUPS AND REPORTS(mongo)
   
+  # TO-DO PULL IMAGES OUT OF GRIDFS 
+  
   
 end
