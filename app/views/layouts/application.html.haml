@@ -8,9 +8,8 @@
     
     %meta{:name => "description", :content => "#{yield(:description)}"}
  
-    = stylesheet_link_tag 'application.css', :media => :screen
-    = stylesheet_link_tag '/stylesheets/vendor/flick/jquery-ui-1.8.8.custom.css', :media => :screen
-    = javascript_include_tag "/javascripts/vendor/modernizr-1.5.min.js", "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "/javascripts/vendor/jquery-ui-1.8.8.custom.min.js", "/javascripts/vendor/rails.js","/javascripts/functions.js"
+    = stylesheet_link_tag 'application.css'
+    = javascript_include_tag "application.js"
     
     = csrf_meta_tag
 
@@ -25,9 +24,6 @@
     - if current_page? root_path    
       %div#footer
         %p This is a project of the <a href="http://txssc.txstate.edu">Texas School Safety Center</a>
-          
-    = javascript_include_tag "/javascripts/vendor/iepngfix_tilebg.js"
-    
 
     :javascript
       var _gaq = _gaq || [];

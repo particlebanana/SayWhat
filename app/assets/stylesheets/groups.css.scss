@@ -1,5 +1,5 @@
 #foldDown {
-	background: #231f20 url('/img/desc-shadow.png') top repeat-x;
+	background: #231f20 image-url("desc-shadow.png") top repeat-x;
 	width:100%;
 	margin: 0 0 25px 0;
 	
@@ -43,7 +43,7 @@
 	position: absolute;
 	right: 0;
 	top: 0;
-	background: url('/img/sidebar-orn.png') bottom right no-repeat;
+	background: image-url("sidebar-orn.png") bottom right no-repeat;
 	width: 390px;
 	padding: 0 0 315px 0;
 	
@@ -57,7 +57,7 @@
   #groupLogo {
 		width: 329px;
 		height: 321px;
-		background: url('/img/img-splat.jpg') no-repeat;
+		background: image-url("img-splat.jpg") no-repeat;
 		margin:0 auto 10px auto;
 		padding: 16px 0;
 		span {

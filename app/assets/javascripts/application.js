@@ -4,6 +4,8 @@
 // It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
 // the compiled file.
 //
+//= require modernizr.2.0.6.custom
 //= require jquery
 //= require jquery_ujs
-//= require_tree .
+//= require jquery-ui-1.8.8.custom.min
+//= require functions

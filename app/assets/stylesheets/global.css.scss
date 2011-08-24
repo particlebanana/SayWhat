@@ -49,7 +49,7 @@ a img {border: none;}
 * html .group{height:1%}
 *:first-child+html .group{min-height:1px}
 
-#innerHeader h1 a, .iconOption a, #aboveFold { behavior: url('/default/ie/iepngfix.htc') }
+/*#innerHeader h1 a, .iconOption a, #aboveFold { behavior: url('/default/ie/iepngfix.htc') }*/
 
 .left {float: left;}
 .right {float: right;}
@@ -89,7 +89,7 @@ p {
 #pageHeader {
 	height: 157px;
 	width: 100%;
-	background: url('/img/top-bg.jpg') repeat-x;
+	background: image-url("top-bg.jpg") repeat-x;
 	z-index: 2000;
 }
 
@@ -272,7 +272,7 @@ a.groupAssetButton {
   width: 960px;
 	height: 157px;
 	margin: 0 auto;
-	background: url('/img/yeti-head.jpg') bottom right no-repeat;
+	background: image-url("yeti-head.jpg") bottom right no-repeat;
 
   h1 {
 		text-indent: -9999em;
@@ -282,7 +282,7 @@ a.groupAssetButton {
 			display: block;
 			width: 316px;
 			height: 144px;
-			background: url('/img/logo.png') no-repeat;
+			background: image-url("logo.png") no-repeat;
 		}
   }
   
@@ -318,10 +318,10 @@ a.groupAssetButton {
 				}
 			}
 			
-			#allGroups a { background: url('/img/header-sprite.png') 0 0 no-repeat; }
-			#allProjects a { background: url('/img/header-sprite.png') -75px 0 no-repeat; }
-			#myGroup a, #admin a { background: url('/img/header-sprite.png') -25px 0 no-repeat; }
-			#myMessages a { background: url('/img/header-sprite.png') -50px 0 no-repeat; }
+			#allGroups a { background: image-url("header-sprite.png") 0 0 no-repeat; }
+			#allProjects a { background: image-url("header-sprite.png") -75px 0 no-repeat; }
+			#myGroup a, #admin a { background: image-url("header-sprite.png") -25px 0 no-repeat; }
+			#myMessages a { background: image-url("header-sprite.png") -50px 0 no-repeat; }
 			#myMessages a span.counter {
 				position: absolute;
 				top: 3px;
@@ -362,7 +362,7 @@ a.groupAssetButton {
 			#screen-name { 
 				margin-right: 7px;
 				padding-right: 25px;
-				background: url('/img/sprite-icons.png') no-repeat right center;
+				background: image-url("sprite-icons.png") no-repeat right center;
 				cursor: pointer;
 			}
 			
