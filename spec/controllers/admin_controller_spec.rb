@@ -2,49 +2,6 @@ require 'spec_helper'
 include CarrierWave::Test::Matchers
 
 describe AdminController do
-    
-  describe "#show_grants" do
-    before do
-      @grant = Factory.create(:minigrant, :status => true)
-      login_admin
-    end
-    
-    it "should list all the active grants" do
-      get :show_grants
-      assigns[:grants].count.should == 1
-    end
-  end
-  
-  
-  describe "#deny_grant" do
-    before(:each) do
-      @grant = Factory.create(:minigrant, :status => false)
-      login_admin
-    end
-    
-    context "successfully" do
-      before(:each) { do_deny_grant(id: "#{@grant.id.to_s}", reason: "curriculum")}
-      
-      subject{ response }
-      it { should redirect_to('/admin/grants/pending') }
-      
-      it "should destroy the application" do
-        Grant.where(_id: "#{@grant.id}").first.should == nil
-      end
-      
-      subject{ ActionMailer::Base.deliveries.last }
-      its(:subject) { should == "SayWhat! Mini-Grant Has Been Denied" }
-      its(:to) { should == ["han.solo@gmail.com"] }  
-    end
-    
-    context "un-successfully" do
-      before(:each) { do_deny_grant(id: "#{@grant.id.to_s}", reason: "") }
-      
-      subject { response }
-      it { should redirect_to("/admin/grants/#{@grant.id}") }
-    end
-  end
-  
   describe "#choose_a_sponsor" do
     before do
       build_decaying_group

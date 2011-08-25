@@ -1,0 +1,16 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active <a href="/admin/grants">Awarded</a>
+      %li.last <a href="/admin/grants/pending">Pending</a>
+      
+  .content
+    .group
+      %h2.title.left Awarded Grants
+        
+    .inner
+      - if @grants.empty?
+        %p No Grants
+      - else
+        %div#groupsTable.adminTableView
+          = render :partial => "grants_table"

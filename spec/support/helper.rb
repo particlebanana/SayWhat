@@ -9,11 +9,9 @@ def do_update_grant(options={})
   put :update, :id => attributes[:id]
 end
 
-# POST - /admin/grants/:id
-def do_deny_grant(options={})
-  attributes = { id: "123" }
-  attributes.merge!(options)
-  post :deny_grant, attributes
+# DELETE - /admin/grants/:id
+def do_destroy_grant(options={})
+  delete :destroy, options
 end
 
 # PUT - /admin/groups/:id
