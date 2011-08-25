@@ -2,11 +2,6 @@
   .content
     .group
       %h2.title.left All Registered Users
-      %ul#sort.userSort.right.group
-        %li <a href="#original-order" class="selected">original-order</a>
-        %li <a href="#name">name</a>
-        %li <a href="#group">group</a>
-        %li <a href="#role">role</a>
         
     .inner
       - if @users.all.empty?

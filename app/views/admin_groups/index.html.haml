@@ -1,11 +1,12 @@
 .block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first.active <a href="/admin/groups">Active</a>
+      %li.last <a href="/admin/group_requests">Pending</a>
+      
   .content
     .group
       %h2.title.left All Groups
-      %ul#sort.groupSort.right.group
-        %li <a href="#original-order" class="selected">original-order</a>
-        %li <a href="#name">name</a>
-        %li <a href="#status">status</a>
         
     .inner
       - if @groups.empty?
