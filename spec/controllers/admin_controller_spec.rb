@@ -15,38 +15,6 @@ describe AdminController do
     end
   end
   
-  describe "#show_pending_grants" do
-    before do
-      @grant = Factory.create(:minigrant, :status => false)
-      login_admin
-    end
-    
-    it "should list all the pending grants" do
-      get :show_pending_grants
-      assigns[:grants].count.should == 1
-    end
-  end
-  
-  describe "#approve_grant" do
-    before(:each) do
-      @grant = Factory.create(:minigrant, :status => false)
-      login_admin
-    end
-    
-    context "successfully" do
-      before(:each) { do_approve_grant(id: "#{@grant.id}") }
-      
-      subject { response }
-      it { should redirect_to('/admin/grants') }
-            
-      it "should send the adult contact an email" do
-        ActionMailer::Base.deliveries.last.subject.should == "SayWhat! Mini-Grant Has Been Approved"
-      end
-            
-      subject{ @grant.reload }
-      its(:status) { should == true }
-    end
-  end
   
   describe "#deny_grant" do
     before(:each) do

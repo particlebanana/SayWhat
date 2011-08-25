@@ -61,14 +61,15 @@ SayWhat::Application.routes.draw do
   # Admin Sponsors Controller
   match "/admin/groups/:id/sponsors"      =>  "admin_sponsors#index",            :via => "get"
   match "/admin/groups/:id/sponsors"      =>  "admin_sponsors#update",           :via => "put"
-  match "/admin/denied_grant_reasons" =>  "admin#denied_grant_reasons",   :via => "get"
-  
   match "/admin/grants"         =>  "admin#show_grants",            :via => "get"
-  match "/admin/grants/pending" =>  "admin#show_pending_grants",    :via => "get"
   match "/admin/grants/:id"     =>  "admin#view_grant",             :via => "get"
-  match "/admin/grants/:id"     =>  "admin#approve_grant",          :via => "put"
   match "/admin/grants/:id"     =>  "admin#deny_grant",             :via => "post"
   
+  # Admin Grant Requests Controller
+  match "/admin/grants/pending"           =>  "admin_grant_requests#index",      :via => "get"
+  match "/admin/grants/:id/edit"          =>  "admin_grant_requests#edit",       :via => "get"
+  match "/admin/grants/:id"               =>  "admin_grant_requests#update",     :via => "put"
+  match "/admin/grants/:id/deny"          =>  "admin_grant_requests#destroy",    :via => "get"
   
   
   match "/admin/users"                        =>  "admin#show_users",           :via => "get"

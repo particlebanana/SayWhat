@@ -3,10 +3,10 @@
 #-------------------------
 
 # PUT - /admin/grants/:id
-def do_approve_grant(options={})
+def do_update_grant(options={})
   attributes = { id: "123" }
   attributes.merge!(options)
-  put :approve_grant, :id => attributes[:id]
+  put :update, :id => attributes[:id]
 end
 
 # POST - /admin/grants/:id

@@ -1,0 +1,83 @@
+%h3 Group:
+    
+%p.group
+  %b Group Name:
+  = @grant.group_name
+        
+%p.group
+  %b Make Check Payable:
+  = @grant.check_payable
+  
+%h3 Contacts:
+  
+%p.group
+  %b Adult Contact:
+  = @grant.adult_name
+   
+%p.group
+  %b Adult Contact Phone:
+  = @grant.adult_phone
+  
+%p.group
+  %b Adult Contact Email:
+  = @grant.adult_email
+  
+%p.group
+  %b Adult Contact Address:
+  = @grant.adult_address
+  
+%p.group
+  %b Youth Contact:
+  = @grant.youth_name
+  
+%p.group
+  %b Youth Email:
+  = @grant.youth_email
+
+%h3 Project Info:
+
+%p.group.block
+  %b Project Description:
+  = @grant.project_description
+   
+%p.group.block
+  %b Project When:
+  = @grant.project_when
+  
+%p.group.block
+  %b Project Where:
+  = @grant.project_where
+  
+%p.group.block
+  %b Project Who:
+  = @grant.project_who
+  
+%p.group.block
+  %b Project Serve:
+  = @grant.project_serve
+  
+%p.group.block
+  %b Project Goals:
+  = @grant.project_goals
+
+%h3 Funds
+
+%p.group.block
+  %b Funds Needed:
+  = @grant.funds_need
+  
+%h3 Partnerships
+
+%p.group.block
+  %b Community Partnerships:
+  = @grant.community_partnerships
+  
+%p.group.block
+  %b Community Resources:
+  = @grant.community_resources
+
+- unless @grant.status  
+  %p.group.formAction  
+    = link_to "Approve", "/admin/grants/#{@grant.id.to_s}", :method => :put
+    |
+    = link_to "Deny", "/admin/grants/#{@grant.id.to_s}/deny", :id => "deny", :rel => "facebox"
