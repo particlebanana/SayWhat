@@ -54,5 +54,5 @@ end
 def do_destroy_user(options={})
   attributes = {}
   attributes.merge!(options)
-  delete :destroy_user, attributes
+  delete :destroy, attributes
 end

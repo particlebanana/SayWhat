@@ -1,0 +1,25 @@
+%p.group
+  = f.label :picture
+  = @user.avatar? ? image_tag(@user.avatar_url(:small), :class => "left") : "N/A"
+  - if @user.avatar?
+    %span.avatarOptions
+      = link_to "Delete this image", "/admin/users/#{@user.id.to_s}/remove_avatar", :method => "delete", :class => "avatarOption" if @user.avatar_filename?
+
+  %span.avatarUpload  
+    = f.file_field :avatar
+
+%p.group
+  = f.label :first_name
+  = f.text_field :first_name
+
+%p.group
+  = f.label :last_name
+  = f.text_field :last_name
+
+%p.group
+  = f.label :email
+  = f.text_field :email
+
+%p.group
+  = f.label :bio
+  = f.text_area :bio

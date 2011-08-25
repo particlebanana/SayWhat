@@ -73,11 +73,12 @@ SayWhat::Application.routes.draw do
   match "/admin/grants/:id"               =>  "admin_grants#show",               :via => "get"
   match "/admin/grants/:id"               =>  "admin_grants#destroy",            :via => "delete"
   
-  match "/admin/users"                        =>  "admin#show_users",           :via => "get"
-  match "/admin/users/:id"                    =>  "admin#view_user",            :via => "get"
-  match "/admin/users/:id/remove_avatar"      =>  "admin#remove_avatar",        :via => "delete"
-  match "/admin/users/:id"                    =>  "admin#update_user",          :via => "put"
-  match "/admin/users/:id"                    =>  "admin#destroy_user",         :via => "delete"
+  # Admin Users Controller
+  match "/admin/users"                    =>  "admin_users#index",               :via => "get"
+  match "/admin/users/:id"                =>  "admin_users#edit",                :via => "get"
+  match "/admin/users/:id"                =>  "admin_users#update",              :via => "put"
+  match "/admin/users/:id"                =>  "admin_users#destroy",             :via => "delete"
+  match "/admin/users/:id/remove_avatar"  =>  "admin_users#remove_avatar",        :via => "delete"
   
   # Messaging
   match "/messages"             => "messages#index",       :via => "get"
