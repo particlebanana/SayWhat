@@ -19,16 +19,13 @@
         #adminHeader
           #main-nav
             %ul.wat-cf
-              %li{:class => controller.action_name == 'index' ? 'active' : '' }
+              %li{:class => controller.controller_name == 'pages' ? 'active' : '' }
                 %a{:href => '/admin/dashboard'} Dashboard
-              %li{:class => controller.action_name == 'show_requests' || controller.action_name == "view_request" ? 'active' : '' }
-                %a{:href => '/admin/requests'} Requests
-              - if CONFIG['minigrant_app']
-                %li{:class => ['show_grants', 'show_pending_grants', 'view_grant'].include?(controller.action_name) ? 'active' : '' }
-                  %a{:href => '/admin/grants'} Grants
-              %li{:class => ['show_groups', 'view_group'].include?(controller.action_name) ? 'active' : '' }
+              %li{:class => ['admin_grants', 'admin_grant_requests'].include?(controller.controller_name) ? 'active' : '' }
+                %a{:href => '/admin/grants'} Grants
+              %li{:class => ['admin_groups', 'admin_group_requests'].include?(controller.controller_name) ? 'active' : '' }
                 %a{:href => '/admin/groups'} Groups
-              %li{:class => ['show_users', 'view_user'].include?(controller.action_name) ? 'active' : '' }
+              %li{:class => controller.controller_name == 'admin_users' ? 'active' : '' }
                 %a{:href => '/admin/users'} Users
 
         #wrapper.wat-cf.centeredWrap
