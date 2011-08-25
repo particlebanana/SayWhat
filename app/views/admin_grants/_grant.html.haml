@@ -75,9 +75,3 @@
 %p.group.block
   %b Community Resources:
   = @grant.community_resources
-
-- unless @grant.status  
-  %p.group.formAction  
-    = link_to "Approve", "/admin/grants/#{@grant.id.to_s}", :method => :put
-    |
-    = link_to "Deny", "/admin/denied_grant_reasons?id=#{@grant.id.to_s}", :id => "deny", :rel => "facebox"

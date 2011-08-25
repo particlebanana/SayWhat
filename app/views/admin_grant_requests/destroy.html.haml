@@ -9,7 +9,7 @@
         %option{:value => reason['name']}= reason['short_text']
         
   %p.options.group
-    = link_to "Deny Grant", "/admin/grants/#{params[:id]}", :method => :post, :class => 'deny'
+    = link_to "Deny Grant", "/admin/grants/#{params[:id]}", :method => :delete, :class => 'deny'
     = link_to "Cancel", "#", :id => 'cancel'
     
 :javascript
