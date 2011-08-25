@@ -9,6 +9,5 @@
 //= require jquery_ujs
 //= require jquery-ui-1.8.8.custom.min
 //= require facebox
-//= require isotope.min
 //= require admin_functions
 //= require functions
