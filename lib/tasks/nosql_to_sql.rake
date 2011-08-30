@@ -3,6 +3,8 @@
 # MySQL/PostgreSQL relational db while keeping relationships intact.
 #
 
+require 'cgi'
+
 namespace :data do
   
   desc "import user collection data"
@@ -12,9 +14,9 @@ namespace :data do
     documentdb["users"].find().each {|user|
       # Build a record object
       record = {
-        first_name: user["first_name"], 
-        last_name: user["last_name"], 
-        email: user["email"],
+        first_name: CGI.escape(user["first_name"]), 
+        last_name: CGI.escape(user["last_name"]), 
+        email: CGI.escape(user["email"]),
         role: user["role"],
         status: user["status"],
         encrypted_password: user["encrypted_password"],
@@ -24,7 +26,7 @@ namespace :data do
       }
       
       # Optional Attributes
-      record[:bio] = user["bio"] if user["bio"]
+      record[:bio] = CGI.escape(user["bio"]) if user["bio"]
       record[:reset_password_token] = user["reset_password_token"] if user["reset_password_token"]
       record[:remember_token] = user["remember_token"] if user["remember_token"]
       record[:remember_created_at] = user["remember_created_at"] if user["remember_created_at"]
@@ -50,9 +52,9 @@ namespace :data do
       # Build a record object
       record = {
         name: group["name"],
-        display_name: group["display_name"],
-        city: group["city"],
-        organization: group["organization"],
+        display_name: CGI.escape(group["display_name"]),
+        city: CGI.escape(group["city"]),
+        organization: CGI.escape(group["organization"]),
         permalink: group["permalink"],
         status: group["status"],
         esc_region: group["esc_region"],
@@ -63,7 +65,7 @@ namespace :data do
       }
       
       # Optional Attributes
-      record[:description] = group["description"] if group["description"]
+      record[:description] = CGI.escape(group["description"]) if group["description"]
       
       # Save Group to SQL DB
       result = relationaldb.query("INSERT INTO groups (name, display_name, city, organization, permalink, status, esc_region, dshs_region, area, created_at, updated_at) 
@@ -81,8 +83,10 @@ namespace :data do
     documentdb["users"].find().each {|user|
       if user['group_id']
         group = groups.select {|g| g[:id] == user['group_id'].to_s}
-        relationaldb.query("SELECT * FROM groups WHERE permalink='#{group[0][:permalink]}'").each {|group| @group_id = group['id']}
-        relationaldb.query("UPDATE users SET group_id='#{@group_id}' WHERE email='#{user['email']}'")
+        if group.size > 0
+          relationaldb.query("SELECT * FROM groups WHERE permalink='#{group[0][:permalink]}'").each {|group| @group_id = group['id']}
+          relationaldb.query("UPDATE users SET group_id='#{@group_id}' WHERE email='#{CGI.escape(user['email'])}'")
+        end
       end
     }
   end
@@ -99,8 +103,8 @@ namespace :data do
         # Save Projects to SQL DB
         group['projects'].each do |project|
           result = relationaldb.query("INSERT INTO projects (group_id, name, display_name, location, start_date, end_date, focus, goal, description, audience, involves, created_at, updated_at) 
-          VALUES ('#{@group_id}', '#{project["name"]}', '#{project["display_name"]}', '#{project["location"]}', '#{project["start_date"]}', '#{project["end_date"]}', '#{project["focus"]}', '#{project["goal"]}', 
-          '#{project["description"]}', '#{project["audience"]}', '#{project["involves"]}', '#{project["created_at"]}', '#{project["updated_at"]}')")
+          VALUES ('#{@group_id}', '#{project["name"]}', '#{CGI.escape(project["display_name"])}', '#{CGI.escape(project["location"])}', '#{project["start_date"]}', '#{project["end_date"]}', '#{project["focus"]}', '#{CGI.escape(project["goal"])}', 
+          '#{CGI.escape(project["description"])}', '#{project["audience"]}', '#{CGI.escape(project["involves"])}', '#{project["created_at"]}', '#{project["updated_at"]}')")
         end
       end
     }
