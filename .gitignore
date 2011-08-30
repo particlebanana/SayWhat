@@ -9,4 +9,5 @@ tmp/**/*
 .sass-cache/
 config/config.yml
 public/uploads
+data-export.csv
 
