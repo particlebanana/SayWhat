@@ -3,6 +3,8 @@ source 'http://rubygems.org'
 # Base Files
 gem 'rails', '~> 3.1.0.rc5'
 gem 'unicorn'
+gem 'execjs'
+gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
