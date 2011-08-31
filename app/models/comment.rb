@@ -9,8 +9,8 @@ class Comment < ActiveRecord::Base
   
   protected
   
-    def sanitize
-      self.comment = Sanitize.clean(self.comment, Sanitize::Config::RESTRICTED) if self.comment
-    end
+  def sanitize
+    self.comment = Sanitize.clean(self.comment, Sanitize::Config::RESTRICTED) if self.comment
+  end
   
 end
