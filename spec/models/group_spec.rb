@@ -1,74 +1,42 @@
 require 'spec_helper'
 
 describe Group do
+  context "Factory" do
+    before { @group = Factory.create(:group) }
+    
+    subject { @group }
+    it { should have_many(:users) }
+    it { should have_many(:projects) }
+    
+    it { should validate_presence_of(:display_name) }
+    it { should validate_presence_of(:city) }
+    it { should validate_presence_of(:organization) }
+    it { should validate_presence_of(:permalink) }
+    it { should validate_presence_of(:status) }
+    it { should validate_presence_of(:esc_region) }
+    it { should validate_presence_of(:dshs_region) }
+    it { should validate_presence_of(:area) }
   
-  describe "validations" do
-    describe "of base setup fields" do
-      it "should create a name field based on display name" do
-        @group = Factory.build(:pending_group)
-        @group.valid?
-        @group.name.blank?.should_not be_true
-      end
-      
-      it "should fail if name is not unique" do
-        Factory.create(:pending_group)
-        
-        @group = Factory.build(:pending_group)
-        @group.should_not be_valid
-        @group.errors.full_messages.first.should =~ /has already been taken/i
-      end
-      
-      it "should fail if display name is blank" do
-        @group = Factory.build(:pending_group)
-        @group.display_name = nil
-        @group.should_not be_valid
-      end
-      
-      it "should fail if city is blank" do
-        @group = Factory.build(:pending_group)
-        @group.city = nil
-        @group.should_not be_valid
-      end
-      
-      it "should fail if organization is blank" do
-        @group = Factory.build(:pending_group)
-        @group.organization = nil
-        @group.should_not be_valid
-      end   
+    it { should validate_uniqueness_of(:name) }
+    it { should validate_uniqueness_of(:permalink) }
+  
+    it { should validate_length_of(:permalink).within(4..20) }
+    
+    it "should downcase name field" do
+      @group.name.should == @group.display_name.downcase
     end
   end
   
-  describe "permalink" do
-    it "should fail if less than 4 characters" do
-      @group = Factory.build(:pending_group)
-      @group.permalink = "bla"
-      @group.should_not be_valid
-    end
-    
-    it "should fail if more than 20 characters" do
-      @group = Factory.build(:pending_group)
-      @group.permalink = "blahblahblahblahblahblah"
-      @group.should_not be_valid
-    end
-    
-    it "should fail if not unique" do
-      group = Factory.build(:pending_group)
-      group.permalink = "blah"
-      group.save
-      
-      @group = Factory.build(:pending_group, :display_name => "Test")
-      @group.permalink = "blah"
-      @group.should_not be_valid
-    end
+  describe "#make_slug" do
+    before { @group = Factory.create(:group) }
     
     it "should escape special characters" do
-      @group = Factory.build(:pending_group)
       @group.permalink = "It's A Trap!?!?!"
       @group.make_slug
-      @group.permalink.should == "its-a-trap"
+      @group.permalink.should == "its-a-trap"    
     end
   end
-  
+=begin  
   describe ".reassign_sponsor" do
     before(:each) do
       @user = build_decaying_group
@@ -85,4 +53,5 @@ describe Group do
       its(:role) { should == "member" }
     end
   end
+=end
 end
