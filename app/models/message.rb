@@ -6,10 +6,7 @@ class Message < ActiveRecord::Base
   
   validates_presence_of [:message_type, :author, :subject, :content]
   
-  #default_scope desc(:created_at)
-  
-  def self.unread
-    where(read: false)
-  end
+  # Scopes
+  def self.unread; where(read: false) end
   
 end
