@@ -8,8 +8,6 @@ class User < ActiveRecord::Base
   
   mount_uploader :avatar, AvatarUploader
   
-  #default_scope asc(:created_at)
-
   attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remove_avatar, :remember_me
 
   validates_presence_of [:first_name, :last_name, :email, :role, :status]
@@ -18,15 +16,6 @@ class User < ActiveRecord::Base
   
   before_create :reset_authentication_token
     
-  #scope :site_admins, where(role: "admin")
-  #scope :setup, where(status: "setup")
-  #scope :active, where(status: "active")
-  #scope :pending, where(status: "pending")
-  #scope :adult_sponsor, where(role: "adult sponsor")
-  #scope :youth_sponsor, where(role: "youth sponsor")
-  #scope :sponsors, where(role:.in: ["adult sponsor", "youth sponsor", "admin"])
-  #scope :members, where(role: "member")
-  
   # Scopes  
   def self.site_admins; where(role: "admin") end
   def self.active; where(status: "active") end
