@@ -5,9 +5,9 @@ describe AdminUsersController do
 
   describe "#index" do
     before do
-      @user = build_a_generic_user(1)
-      @user.save
-      login_admin
+      Factory.create(:user)
+      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      sign_in admin
     end
 
     it "should list all users" do
@@ -18,13 +18,13 @@ describe AdminUsersController do
   
   describe "#edit" do
     before do
-      @user = build_a_generic_user(1)
-      @user.save
-      login_admin
+      @user = Factory.create(:user)
+      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      sign_in admin
     end
 
     it "should find a user by id" do
-      get :edit, id: @user.id
+      get :edit, { id: @user.id }
       assigns[:user].first_name.should == @user.first_name
       assigns[:user].last_name.should == @user.last_name
       assigns[:user].email.should == @user.email
@@ -33,25 +33,24 @@ describe AdminUsersController do
 
   describe "#update" do
     before do
-      @user = build_a_generic_user(1)
-      @user.save
-      login_admin
+      @user = Factory.create(:user)
+      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      sign_in admin
     end
 
     it "should update a user resource" do
-      put :update, id: @user.id, user: {first_name: 'update_test'}
+      put :update, { id: @user.id, user: {first_name: 'update_test'} }
       response.should redirect_to("/admin/users/#{@user.id}")
       @user.reload.first_name.should == 'update_test'
     end
   end
   
   describe "#destroy" do
-    before(:each) do
-      @user = build_a_generic_user(1)
-      @user.save
-      @sponsor = build_a_generic_admin(1)
-      @sponsor.save
-      login_admin
+    before(:each) do      
+      @user = Factory.create(:user)
+      @sponsor = Factory.create(:user, {email: "sponsor@test.com", role: "adult sponsor"})
+      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      sign_in admin
     end
     
     context "member" do
