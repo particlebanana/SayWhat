@@ -15,13 +15,13 @@ RSpec.configure do |config|
   config.mock_with :rspec
   
   config.before(:suite) do
-    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner[:active_record].strategy = :transaction
+    DatabaseCleaner[:mongoid].strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
   end
     
   config.before :each do
     DatabaseCleaner.start
-    Mongoid.master.collections.select {|c| c.name !~ /system/ }.each(&:drop)
   end
 
   config.after(:each) do
