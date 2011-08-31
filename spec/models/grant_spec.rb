@@ -1,45 +1,31 @@
 require 'spec_helper'
 
 describe Grant do
-  
-  describe "validations" do
+  context "Factory" do
+    before { @grant = Factory.create(:grant) }
     
-    describe "of required fields" do     
-
-      it "should allow the creation of a grant" do
-        grant = Factory.build(:minigrant)
-        grant.should be_valid
-      end
-      
-      it "should enforce required fields" do
-        subject { Factory(:minigrant) }
+    subject { @grant }    
+    it { should validate_presence_of(:group_name) }
+    it { should validate_presence_of(:check_payable) }
+    it { should validate_presence_of(:adult_name) }
+    it { should validate_presence_of(:adult_phone) }
+    it { should validate_presence_of(:adult_email) }
+    it { should validate_presence_of(:adult_address) }
+    it { should validate_presence_of(:youth_name) }
+    it { should validate_presence_of(:youth_email) }
+    it { should validate_presence_of(:project_description) }
+    it { should validate_presence_of(:project_when) }
+    it { should validate_presence_of(:project_where) }
+    it { should validate_presence_of(:project_who) }
+    it { should validate_presence_of(:project_serve) }
+    it { should validate_presence_of(:project_goals) }
+    it { should validate_presence_of(:funds_need) }
+    it { should validate_presence_of(:community_partnerships) }
+    it { should validate_presence_of(:community_resources) }
     
-        should_not allow_value("").for(:group_name) 
-        should_not allow_value("").for(:check_payable) 
-        should_not allow_value("").for(:adult_name) 
-        should_not allow_value("").for(:adult_phone) 
-        should_not allow_value("").for(:adult_email) 
-        should_not allow_value("").for(:adult_address)
-        should_not allow_value("").for(:youth_name)
-        should_not allow_value("").for(:youth_email)
-        should_not allow_value("").for(:project_description)
-        should_not allow_value("").for(:project_when)
-        should_not allow_value("").for(:project_where)
-        should_not allow_value("").for(:project_who)
-        should_not allow_value("").for(:project_serve)
-        should_not allow_value("").for(:project_goals)
-        should_not allow_value("").for(:funds_need)
-        should_not allow_value("").for(:community_partnerships)
-        should_not allow_value("").for(:community_resources)
-        
-        should_not allow_value("abc@abc").for(:adult_email)
-        should_not allow_value("abc@abc").for(:youth_email)
-        
-        should allow_value("abc@abc.com").for(:adult_email)
-        should allow_value("abc@abc.com").for(:youth_email)
-      end
-    end
-        
+    it { should_not allow_value("abc@abc").for(:adult_email) }
+    it { should_not allow_value("abc@abc").for(:youth_email) }
+    it { should allow_value("abc@abc.com").for(:adult_email) }
+    it { should allow_value("abc@abc.com").for(:youth_email) }
   end
-
 end
