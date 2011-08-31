@@ -5,7 +5,9 @@ Factory.define :user do |u|
   u.last_name 'Solo'
   u.email 'han.solo@gmail.com'
   u.password 'nerfherder' 
-  u.password_confirmation 'nerfherder' 
+  u.password_confirmation 'nerfherder'
+  u.status 'setup'
+  u.role 'member'
 end
 
 # Creates an adult sponsor
