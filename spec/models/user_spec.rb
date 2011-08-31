@@ -1,58 +1,48 @@
 require 'spec_helper'
 
 describe User do
-  before { @user = Factory.create(:user) }
+  context "Factory" do
+    before { @user = Factory.create(:user) }
   
-  subject { @user }  
-  it { should belong_to(:group) }
-  it { should have_many(:comments) }
-  it { should have_many(:messages) }
+    subject { @user }  
+    it { should belong_to(:group) }
+    it { should have_many(:comments) }
+    it { should have_many(:messages) }
   
-  it { should validate_presence_of(:first_name) }
-  it { should validate_presence_of(:last_name) }
-  it { should validate_presence_of(:email) }
-  it { should validate_presence_of(:role) }
-  it { should validate_presence_of(:status) }
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it { should validate_presence_of(:email) }
+    it { should validate_presence_of(:role) }
+    it { should validate_presence_of(:status) }
   
-  it { should validate_uniqueness_of(:email) }
-  #it { should validate_format_of(:email) }
+    it { should validate_uniqueness_of(:email) }
   
-  describe "factory" do
-    before { User.first.destroy }
-    
-    it "should generate a user" do
-      user = Factory.create(:user)
-      user.valid? should be_true
-    end
-    
-    it "should generate an authrntication token" do
-      user = Factory.create(:user)
-      user.authentication_token.should_not == nil
+    it { should_not allow_value("abc@abc").for(:email) }
+    it { should allow_value("abc@abc.com").for(:email) }
+          
+    it "should generate an authentication token" do
+      @user.authentication_token.should_not == nil
     end
   end 
   
   describe "#name" do
-    before { User.first.destroy }
+    before { @user = Factory.create(:user) }
     
     it "should combine first and last name" do
-      user = Factory.create(:user)
-      user.name.should == "#{user.first_name} #{user.last_name}"
+      @user.name.should == "#{@user.first_name} #{@user.last_name}"
     end
   end
   
   describe "#change_role_level" do
-    before { User.first.destroy }
+    before { @user = Factory.create(:user) }
     
     it "should change a users role" do
-      user = Factory.create(:user)
-      user.change_role_level('adult sponsor')
-      user.reload.role.should == "adult sponsor"
+      @user.change_role_level('adult sponsor')
+      @user.reload.role.should == "adult sponsor"
     end
   end
   
-  describe "role" do
-    before(:each) { User.all.each {|u| u.destroy} }
-    
+  describe "role" do    
     context "admin" do
       subject { Factory.create(:user, {role: "admin"}) }
       its(:admin?) { should be_true }
@@ -70,5 +60,4 @@ describe User do
       its(:sponsor?) { should be_true }
     end
   end
-
 end
