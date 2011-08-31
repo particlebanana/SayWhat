@@ -41,8 +41,9 @@ gem 'pony'
 gem 'mongo', '~> 1.3.0'
 
 group :test do
-  gem 'rspec', '~> 2.6'
-  gem 'rspec-rails', '~> 2.6.1'
+  gem 'rspec', '~> 2.6.0'
+  gem 'rspec-rails', '~> 2.6.0'
+  gem 'remarkable_activemodel', '~> 4.0.0.alpha2'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
   gem 'pickle'

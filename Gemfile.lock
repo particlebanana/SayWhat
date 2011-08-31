@@ -71,7 +71,7 @@ GEM
       cucumber (~> 1.0.0)
       nokogiri (>= 1.4.6)
     database_cleaner (0.6.7)
-    devise (1.4.3)
+    devise (1.4.4)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.0.3)
       warden (~> 1.0.3)
@@ -156,6 +156,11 @@ GEM
     raindrops (0.7.0)
     rake (0.9.2)
     rdoc (3.9.4)
+    remarkable (4.0.0.alpha4)
+      rspec (>= 2.0.0.alpha11)
+    remarkable_activemodel (4.0.0.alpha4)
+      remarkable (~> 4.0.0.alpha4)
+      rspec (>= 2.0.0.alpha11)
     rspec (2.6.0)
       rspec-core (~> 2.6.0)
       rspec-expectations (~> 2.6.0)
@@ -246,8 +251,9 @@ DEPENDENCIES
   pony
   rack-test
   rails (~> 3.1.0)
-  rspec (~> 2.6)
-  rspec-rails (~> 2.6.1)
+  remarkable_activemodel (~> 4.0.0.alpha2)
+  rspec (~> 2.6.0)
+  rspec-rails (~> 2.6.0)
   sanitize
   sass-rails (~> 3.1)
   shoulda (>= 3.0.0.beta)
