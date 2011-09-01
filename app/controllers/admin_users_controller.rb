@@ -3,7 +3,7 @@ class AdminUsersController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :set_user, except: :index
-  authorize_resource :class => false
+  authorize_resource class: false
   
   respond_to :html
   
@@ -21,7 +21,7 @@ class AdminUsersController < ApplicationController
   # PUT - Update A User Resource
   def update
     if @user.update_attributes(params[:user])
-      redirect_to "/admin/users/#{@user.id}", :notice => "User has been updated"
+      redirect_to "/admin/users/#{@user.id}", notice: "User has been updated"
     else
       flash[:error] = "Error updating user"
       redirect_to "/admin/users/#{@user.id}"
@@ -36,7 +36,7 @@ class AdminUsersController < ApplicationController
       redirect_to "/admin/users/#{@user.id}"
     else
       if @user.destroy
-        redirect_to "/admin/users", :notice => "User has been deleted"
+        redirect_to "/admin/users", notice: "User has been deleted"
       else
         flash[:error] = "Error removing user"
         redirect_to "/admin/users/#{@user.id}"
