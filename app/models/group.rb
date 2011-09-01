@@ -34,6 +34,17 @@ class Group < ActiveRecord::Base
   def make_slug
     self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
   end
+  
+  # Completely remove a group and sponsor account
+  def deny(reason)
+    group = self
+    user = self.adult_sponsor
+    if self.destroy
+      GroupMailer.send_denied_notice(user, group, reason['email_text']).deliver
+      user.destroy
+    end
+  end
+  
 =begin          
   # Sends a message to all the members inboxes
   def send_group_message(message_object, author)
