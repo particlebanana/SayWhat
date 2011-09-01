@@ -46,44 +46,64 @@ describe AdminGroupsController do
     end
   end
   
+    
+      it "should redirect to #index" do
+        response.should redirect_to('/admin/groups')
+      end
+      
+      it "should have a success message" do
+        flash[:notice].should =~ /updated successfully/i
+      end
+    end
+    
+    context "with invalid input" do
+      before { put :update, {id: @group.id, group: { display_name: " " }} }
+      
+      subject{ @group.reload }
+      its(:display_name) { should_not == ' ' }
+    
+      it "should redirect to #edit" do
+        response.should redirect_to("/admin/groups/#{@group.id}")
+      end
+      
+      it "should have an error message" do
+        flash[:alert].should =~ /problem updating/i
+      end
+    end
+  end
+  
   describe "#destroy" do
-    before(:each) do
-      @group = Factory.create(:pending_group)
-      @user = Factory.build(:user)
-      set_status_and_role("pending", "pending")
-      @user.group = @group
-      @user.save!
-      login_admin
+    before do
+      @group = Factory.create(:group)
+      Factory.create(:user, {group: @group, role: 'adult sponsor'})
     end
     
-    it "should fail if no reason is given" do
-      post :destroy, {:id => @group.id}
-      response.should redirect_to("/admin/group_requests/#{@group.id.to_s}")
+    context "given a reason" do
+      before { post :destroy, {id: @group.id, reason: "age"} }
+      
+      it "should remove the group from the database" do
+        Group.where(id: @group.id).first.should == nil
+      end
+      
+      it "should remove the sponsor account from the database" do
+        User.where(group_id: @group.id).count.should == 0
+      end
+      
+      it "should send the sponsor an email" do
+        ActionMailer::Base.deliveries.last.subject.should =~ /group has been denied/i
+      end
     end
     
-    it "should fail if reason is blank" do
-      post :destroy, {:id => @group.id, :reason => ""}
-      response.should redirect_to("/admin/group_requests/#{@group.id.to_s}")
-    end
-    
-    it "should succeed if a reason is given" do
-      post :destroy, {:id => @group.id, :reason => "age"}
-      response.should redirect_to("/admin/group_requests")
-    end
-    
-    it "should remove a group from the database" do
-      post :destroy, {:id => @group.id, :reason => "organization"}
-      Group.where(:id => @group.id).first.should == nil
-    end
-    
-    it "should remove the user from the database" do
-      post :destroy, {:id => @group.id, :reason => "missing"}
-      User.where(:group_id => @group.id).first.should == nil
-    end
-    
-    it "should send the adult sponsor an email alert that their group has been denied" do
-      post :destroy, {:id => @group.id, :reason => "age"}
-      ActionMailer::Base.deliveries.last.subject.should == "Your group has been denied on SayWhat!"
+    context "without reason" do
+      before { post :destroy, {id: @group.id} }
+      
+      it "should redirect to requests" do
+        response.should redirect_to("/admin/group_requests/#{@group.id}")
+      end
+      
+      it "should have an error message" do
+        flash[:alert].should =~ /error removing group/i
+      end
     end
   end
   

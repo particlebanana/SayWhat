@@ -50,19 +50,33 @@ describe Group do
     before do
       Factory.create(:user, {role: "adult sponsor", group: @group})
       reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
-      @group.deny(reasons.first)
+      @reason = reasons.first
     end
     
-    it "should destroy self" do
-      Group.where(id: @group.id).count.should == 0
+    context "success" do
+      before { @response = @group.deny(@reason) }
+      
+      subject { @response }
+      it { should be_true }
+      
+      it "should destroy self" do
+        Group.where(id: @group.id).count.should == 0
+      end
+    
+      it "should destroy sponsor account" do
+        User.where(group_id: @group.id).count.should == 0
+      end
+    
+      it "should send the sponsor an email" do
+        ActionMailer::Base.deliveries.last.subject.should =~ /group has been denied/i
+      end
     end
     
-    it "should destroy sponsor account" do
-      User.where(group_id: @group.id).count.should == 0
-    end
-    
-    it "should send the sponsor an email" do
-      ActionMailer::Base.deliveries.last.subject.should =~ /group has been denied/i
+    context "invalid" do
+      before { @response = @group.deny('') }
+      
+      subject { @response }
+      it { should be_false }
     end
   end
 =begin  

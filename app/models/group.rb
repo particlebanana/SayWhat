@@ -14,9 +14,7 @@ class Group < ActiveRecord::Base
   before_validation :downcase_name
   after_validation :sanitize
   
-  #
   # Scopes
-  #
   def self.pending
     where(status: "pending")
   end
@@ -37,14 +35,14 @@ class Group < ActiveRecord::Base
   
   # Completely remove a group and sponsor account
   def deny(reason)
-    group = self
     user = self.adult_sponsor
-    if self.destroy
-      GroupMailer.send_denied_notice(user, group, reason['email_text']).deliver
-      user.destroy
+    if self.destroy && user.destroy && reason.is_a?(Hash)
+      GroupMailer.send_denied_notice(user, self, reason['email_text']).deliver
+      true
+    else
+      false
     end
-  end
-  
+  end  
 =begin          
   # Sends a message to all the members inboxes
   def send_group_message(message_object, author)
@@ -67,9 +65,7 @@ class Group < ActiveRecord::Base
   protected
   
   def downcase_name
-    if self.display_name
-      self.name = self.display_name.downcase
-    end
+    self.name = self.display_name.downcase if self.display_name
   end
     
   def sanitize
