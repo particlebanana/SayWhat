@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Group do
+  before { @group = Factory.create(:group) }
+  
   context "Factory" do
-    before { @group = Factory.create(:group) }
-    
     subject { @group }
     it { should have_many(:users) }
     it { should have_many(:projects) }
@@ -27,9 +27,18 @@ describe Group do
     end
   end
   
-  describe "#make_slug" do
-    before { @group = Factory.create(:group) }
+  describe "#adult_sponsor" do
+    before do
+      Factory.create(:user, {role: "adult sponsor", group: @group})
+      @user = @group.adult_sponsor
+    end
     
+    it "should return a user object" do
+      @user.is_a?(User).should be_true
+    end
+  end
+  
+  describe "#make_slug" do
     it "should escape special characters" do
       @group.permalink = "It's A Trap!?!?!"
       @group.make_slug

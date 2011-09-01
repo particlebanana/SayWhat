@@ -25,6 +25,11 @@ class Group < ActiveRecord::Base
     where(status: "active")
   end
   
+  # Get the Group's Adult Sponsor
+  def adult_sponsor
+    self.users.where(role: "adult sponsor").first
+  end
+  
   # Make a permalink slug
   def make_slug
     self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
