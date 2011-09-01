@@ -2,9 +2,8 @@ class AdminGroupsController < ApplicationController
   layout "admin"
   
   before_filter :authenticate_user!
-  before_filter :set_group, :except => :index
-  
-  authorize_resource :class => false
+  before_filter :set_group, except: [:index]
+  authorize_resource class: false
   
   respond_to :html
   
@@ -16,16 +15,16 @@ class AdminGroupsController < ApplicationController
   
   # GET - View single group
   def show
-    @sponsor = @group.status == 'pending' ? @group.users.first : @group.users.adult_sponsor.first
+    @sponsor = (@group.status == 'pending' ? @group.users.first : @group.users.adult_sponsor.first)
+    respond_with(@group)
   end
   
   # PUT - Update a groups basic settings
   def update
     if @group.update_attributes(params[:group])
-      redirect_to "/admin/groups", :notice => "Record updated successfully"
+      redirect_to "/admin/groups", notice: "Record updated successfully"
     else
-      flash[:error] = "Problem updating record"
-      redirect_to "/admin/groups/#{@group.id.to_s}"
+      redirect_to "/admin/groups/#{@group.id.to_s}", alert: "Problem updating record"
     end
   end
   
