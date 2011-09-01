@@ -56,7 +56,6 @@ SayWhat::Application.routes.draw do
   match "/admin/groups/:id"               =>  "admin_groups#show",               :via => "get"
   match "/admin/groups/:id"               =>  "admin_groups#update",             :via => "put"
   match "/admin/groups/:id"               =>  "admin_groups#destroy",            :via => "delete"
-  match "/admin/groups/:id/resend"        =>  "admin_groups#resend",             :via => "post"
   
   # Admin Sponsors Controller
   match "/admin/groups/:id/sponsors"      =>  "admin_sponsors#index",            :via => "get"
