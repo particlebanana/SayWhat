@@ -2,9 +2,8 @@ class AdminGroupRequestsController < ApplicationController
   layout "admin"
   
   before_filter :authenticate_user!
-  before_filter :set_group, :except => :index
-  
-  authorize_resource :class => false
+  before_filter :set_group, except: [:index, :destroy]
+  authorize_resource class: false
   
   respond_to :html
   
@@ -16,21 +15,21 @@ class AdminGroupRequestsController < ApplicationController
   
   # GET - View a single group request
   def show
-    @sponsor = @group.users.first
+    @sponsor = @group.adult_sponsor
     respond_with(@group)
   end
-  
+ 
   # PUT - Approve a group membership
-  def approve
-    @user = @group.users.first 
-    set_approved_attributes
+  def update
+    @sponsor = @group.adult_sponsor
+    @sponsor.status = "active"
+    @group.status = "active"
       
-    if @group.update_attributes(params[:group]) & @user.save
-      GroupMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
-      redirect_to "/admin/group_requests"
+    if @group.save & @sponsor.save
+      GroupMailer.send_approved_notice(@sponsor, @group, request.env["HTTP_HOST"]).deliver
+      redirect_to "/admin/group_requests", notice: "Group was approved."
     else
-      flash[:error] = "Error approving group!"
-      redirect_to "/admin/group_requests/#{@group.id.to_s}"
+      redirect_to "/admin/group_requests/#{@group.id.to_s}", alert: "Error approving group. Try again"
     end
   end
   
@@ -44,11 +43,5 @@ class AdminGroupRequestsController < ApplicationController
   
   def set_group
     @group = Group.find(params[:id])
-  end
-  
-  def set_approved_attributes
-    @group.status = "active"
-    @user.role = "adult sponsor"
-    @user.status = "active"
   end
 end
