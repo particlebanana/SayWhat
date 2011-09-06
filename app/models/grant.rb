@@ -29,4 +29,15 @@ class Grant
   def self.pending; where(status: false) end
   def self.approved; where(status: true) end
   
+  # Completely remove a grant
+  def deny(reason)
+    group = self
+    if self.destroy && reason.is_a?(Hash)
+      UserMailer.send_grant_denied(group, reason['email_text']).deliver
+      true
+    else
+      false
+    end
+  end
+  
 end
