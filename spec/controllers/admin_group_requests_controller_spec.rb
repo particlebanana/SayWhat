@@ -72,7 +72,10 @@ describe AdminGroupRequestsController do
   end
   
   describe "#destroy" do
-    before { get :destroy }
+    before do
+      group = Factory.create(:group, {status: 'pending'}) 
+      get :destroy, id: group.id
+    end
     
     it "should assign @reasons" do
       assigns[:reasons].size.should > 0

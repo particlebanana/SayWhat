@@ -2,7 +2,7 @@ class AdminGroupRequestsController < ApplicationController
   layout "admin"
   
   before_filter :authenticate_user!
-  before_filter :set_group, except: [:index, :destroy]
+  before_filter :set_group, except: :index
   authorize_resource class: false
   
   respond_to :html
