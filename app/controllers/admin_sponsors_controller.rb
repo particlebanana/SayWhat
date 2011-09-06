@@ -3,8 +3,7 @@ class AdminSponsorsController < ApplicationController
   
   before_filter :authenticate_user!
   before_filter :set_group
-  
-  authorize_resource :class => false
+  authorize_resource class: false
   
   respond_to :html
 
@@ -16,13 +15,9 @@ class AdminSponsorsController < ApplicationController
   
   # PUT - Reassigns the adult sponsor
   def update
-    if params[:user] && !params[:user].empty?
-      @group.reassign_sponsor(params[:user])
-      redirect_to "/admin/groups/#{@group.id.to_s}", :notice => "Group sponsor updated!"
-    else
-      flash[:error] = "Must select a valid user to be group sponsor"
-      redirect_to "/admin/groups/#{group.id.to_s}"
-    end
+    return redirect_to "/admin/groups/#{@group.id}", alert: "Must select a valid user to be group sponsor" unless params[:user] && params[:user].length > 0
+    @group.reassign_sponsor(params[:user])
+    redirect_to "/admin/groups/#{@group.id}", notice: "Group sponsor updated!"
   end
   
   private
