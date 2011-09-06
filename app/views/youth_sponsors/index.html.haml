@@ -21,7 +21,7 @@
           = image_tag(member.avatar_url(:thumb))
           = member.name
           |
-          = link_to "promote", {:action => :assign_youth_sponsor, :permalink => @user.group.permalink, :user_id => member.id.to_s}, :method => :put
+          = link_to "promote", {:action => :update, :user_id => member.id}, :method => :put
   -else
     %p
       There are no members available to promote to youth sponsor. 

@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   # Change User Role
   def change_role_level(level)
     self.role = level
-    self.save!
+    self.save! ? true : false
   end
   
   # Role Checks  

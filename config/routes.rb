@@ -39,6 +39,10 @@ SayWhat::Application.routes.draw do
     end
     
   end
+  # Youth Sponsors
+  match "/groups/youth_sponsors"   => "youth_sponsors#index",       :via => "get"
+  match "/groups/youth_sponsors"   => "youth_sponsors#update",      :via => "put"
+  match "/groups/youth_sponsors"   => "youth_sponsors#destroy",     :via => "delete"
   
   # Pages
   match "/join"                 => "pages#join",                    :via => "get"

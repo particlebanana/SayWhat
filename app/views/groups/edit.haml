@@ -46,7 +46,7 @@
               = @youth_sponsor.name
               -if current_user.adult_sponsor?
                 %em
-                  = link_to "revoke", {:controller => :users, :action => :revoke_youth_sponsor, :permalink => @group.permalink, :user_id => @youth_sponsor.id.to_s}, :method => :put
+                  = link_to "revoke", {:controller => :youth_sponsors, :action => :destroy, :permalink => @group.permalink, :user_id => @youth_sponsor.id}, :method => :delete
               - elsif current_user.youth_sponsor?
                 %em
                   (you)
@@ -56,7 +56,7 @@
         - else
           %div.group
             %strong
-              = link_to "Assign a youth sponsor", "/groups/#{@group.permalink}/edit/choose_youth_sponsor"
+              = link_to "Assign a youth sponsor", "/groups/youth_sponsors"
             %em
               Youth Sponsor
        
