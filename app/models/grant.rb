@@ -40,4 +40,15 @@ class Grant
     end
   end
   
+  # Approve a Grant
+  def approve
+    self.status = true
+    if self.save
+      UserMailer.send_grant_approval(self).deliver
+      true
+    else
+      false
+    end
+  end
+  
 end

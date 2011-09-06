@@ -58,4 +58,23 @@ describe Grant do
       it { should be_false }
     end
   end
+  
+  describe "#approve" do
+    before do
+      @grant = Factory.create(:grant)
+      @response = @grant.approve
+    end
+    
+    subject { @response }
+    it { should be_true }
+      
+    it "should set grant status to true" do
+      @grant.reload.status.should == true
+    end
+    
+    it "should send an email" do
+      ActionMailer::Base.deliveries.last.subject.should =~ /grant has been approved/i
+    end
+    
+  end
 end
