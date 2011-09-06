@@ -1,3 +1,4 @@
+# TO-DO (Add Method and Tests for Re-Assign Sponsor)
 class Group < ActiveRecord::Base
   
   mount_uploader :profile, ProfileUploader
@@ -42,6 +43,16 @@ class Group < ActiveRecord::Base
     else
       false
     end
+  end
+  
+  # Reassign a group sponsor to another group member
+  def reassign_sponsor(user_id)
+    current_sponsor = adult_sponsor
+    proposed_sponsor = self.users.find(user_id)
+    if current_sponsor && proposed_sponsor
+      current_sponsor.change_role_level("member")
+      proposed_sponsor.change_role_level("adult sponsor")
+    end
   end  
 =begin          
   # Sends a message to all the members inboxes
@@ -49,16 +60,6 @@ class Group < ActiveRecord::Base
     self.users.each do |member|
       message = member.create_message_object(message_object)
       UserMailer.send_message_notification(member, author, message.content).deliver
-    end
-  end
-    
-  # Reassign a group sponsor to another group member
-  def reassign_sponsor(user_id)
-    current_sponsor = self.users.adult_sponsor.first
-    proposed_sponsor = self.users.find(user_id)
-    if current_sponsor && proposed_sponsor
-      current_sponsor.change_role_level("member")
-      proposed_sponsor.change_role_level("adult sponsor")
     end
   end
 =end  

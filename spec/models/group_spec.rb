@@ -79,22 +79,22 @@ describe Group do
       it { should be_false }
     end
   end
-=begin  
-  describe ".reassign_sponsor" do
-    before(:each) do
-      @user = build_decaying_group
-      @group.reassign_sponsor(@user.id)
-    end
-          
-    context "user" do
-      subject{ @user.reload }
-      its(:role) { should == "adult sponsor" }
+  
+  describe "#reassign_sponsor" do
+    before do
+      @sponsor = Factory.create(:user, {role: "adult sponsor", group: @group})
+      @member = Factory.create(:user, {email: "member@test.com", group: @group})
+      @group.reassign_sponsor(@member.id)
     end
     
-    context "admin" do  
-      subject{ @captain_zissou.reload }
+    context "@sponsor" do
+      subject{ @sponsor.reload }
       its(:role) { should == "member" }
     end
+    
+    context "@member" do  
+      subject{ @member.reload }
+      its(:role) { should == "adult sponsor" }
+    end
   end
-=end
 end
