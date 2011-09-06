@@ -2,8 +2,8 @@ class AdminGrantRequestsController < ApplicationController
   layout "admin"
   
   before_filter :authenticate_user!
-  
-  authorize_resource :class => false
+  before_filter :set_grant, except: :index
+  authorize_resource class: false
   
   respond_to :html
   
@@ -15,26 +15,27 @@ class AdminGrantRequestsController < ApplicationController
   
   # GET - Edit A Grant Application
   def edit
-    @grant = Grant.find(params[:id])
     respond_with(@grant)
   end
   
   # PUT - Approve a Grant Application
   def update
-    @grant = Grant.find(params[:id])
-    @grant.status = true
-    if @grant.save
-      UserMailer.send_grant_approval(@grant).deliver
-      redirect_to "/admin/grants"
+    if @grant.approve
+      redirect_to "/admin/grants", notice: "Grant was approved"
     else
-      redirect_to "/admin/grants/#{@grant.id.to_s}/edit", :notice => "Error saving record"
+      redirect_to "/admin/grants/#{@grant.id.to_s}/edit", alert: "Error saving record"
     end
   end
-  
+ 
   # Load grant denied reasons from YAML file and return as json
   def destroy
     @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants']
     render :layout => false
   end
+
+  private
   
+  def set_grant
+    @grant = Grant.find(params[:id])
+  end
 end
