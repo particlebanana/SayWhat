@@ -35,6 +35,13 @@ class User < ActiveRecord::Base
     self.save! ? true : false
   end
   
+  # Activate User
+  def activate
+    self.status = "active"
+    self.role = "member"
+    self.save! ? true : false
+  end
+  
   # Role Checks  
   def admin?
     self.role == "admin" ? true : false

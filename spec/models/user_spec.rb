@@ -42,6 +42,17 @@ describe User do
     end
   end
   
+  describe "#activate" do
+    before do 
+      @user = Factory.create(:user, {role: "pending", status: "pending"})
+      @user.activate
+    end
+    
+    subject { @user.reload }
+    its([:role]) { should == "member" }
+    its([:status]) { should == "active" }
+  end
+  
   describe "role" do    
     context "admin" do
       subject { Factory.create(:user, {role: "admin"}) }
