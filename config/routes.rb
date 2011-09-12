@@ -16,20 +16,9 @@ SayWhat::Application.routes.draw do
     
   match "/settings/profile" => "users#edit", :via => "get"
   match "/settings/password" => "users#edit_password", :via => "get"
-  resources :users do
     
-    member do
-      get :setup_sponsor
-      put :create_sponsor
-      get :delete_avatar
-      put :update_password
-      get :approve_pending_membership
-      get :deny_pending_membership
-      get :setup_member
-      put :create_member
-    end
+  resources :users
     
-  end
   # Youth Sponsors
   match "/groups/youth_sponsors"   => "youth_sponsors#index",       :via => "get"
   match "/groups/youth_sponsors"   => "youth_sponsors#update",      :via => "put"
