@@ -16,15 +16,6 @@ SayWhat::Application.routes.draw do
     
   match "/settings/profile" => "users#edit", :via => "get"
   match "/settings/password" => "users#edit_password", :via => "get"
-  
-  # Group Setup Steps
-  match "/setup" => "groups#setup"
-  match "/setup/sponsor" => "users#setup_sponsor", :via => "get"
-  match '/setup/permalink' => "groups#setup_permalink", :via => "get"
-  
-  # Member Setup
-  match "/setup/member" => "users#setup_member", :via => "get"
-  
   resources :users do
     
     member do
