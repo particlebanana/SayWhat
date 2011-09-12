@@ -9,4 +9,12 @@ class Message < ActiveRecord::Base
   # Scopes
   def self.unread; where(read: false) end
   
+  # Send Message to all admins
+  def self.alert_admins(options)
+    admins = User.site_admins
+    admins.each do |admin|
+      GroupMailer.admin_pending_group_request(admin, options[:group], options[:user]).deliver
+    end
+  end
+  
 end
