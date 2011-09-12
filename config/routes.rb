@@ -19,11 +19,6 @@ SayWhat::Application.routes.draw do
     
   resources :users
     
-  # Youth Sponsors
-  match "/groups/youth_sponsors"   => "youth_sponsors#index",       :via => "get"
-  match "/groups/youth_sponsors"   => "youth_sponsors#update",      :via => "put"
-  match "/groups/youth_sponsors"   => "youth_sponsors#destroy",     :via => "delete"
-  
   # Pages
   match "/join"                 => "pages#join",                    :via => "get"
   match "/admin"                =>  redirect('/admin/dashboard')
@@ -69,7 +64,7 @@ SayWhat::Application.routes.draw do
   match "/messages/new"         => "messages#new",         :via => "get"
   match "/messages/:id"         => "messages#show",        :via => "get"
   match "/messages/:id"         => "messages#destroy",     :via => "delete"
-  
+    
   # Groups
   match "/groups" => "groups#index", :via => "get"
   match "/groups" => "groups#create", :via => "post"
@@ -93,7 +88,6 @@ SayWhat::Application.routes.draw do
   match "/groups/:permalink" => "groups#update", :via => "put"
   match "/groups/:permalink" => "groups#destroy", :via => "delete"
   
-  
   # Groups - Member requests
   match "/groups/:permalink/join" => "groups#request_membership", :via => "get"
   match "/groups/:permalink/create_membership_request" => "groups#create_membership_request", :via => "post"
@@ -103,11 +97,10 @@ SayWhat::Application.routes.draw do
   match "/groups/:permalink/pending_memberships" => "groups#pending_membership_requests", :via => "get"       
   
   
-  # Users - Assign Sponsors to Group
-  match "/groups/:permalink/edit/choose_youth_sponsor" => "users#choose_youth_sponsor", :via => "get"
-  match "/groups/:permalink/edit/assign_youth_sponsor/:user_id" => "users#assign_youth_sponsor", :via => "put"
-  match "/groups/:permalink/edit/revoke_youth_sponsor/:user_id" => "users#revoke_youth_sponsor", :via => "put"
-  
+  # Youth Sponsors
+  match "/groups/youth_sponsors"   => "youth_sponsors#index",       :via => "get"
+  match "/groups/youth_sponsors"   => "youth_sponsors#update",      :via => "put"
+  match "/groups/youth_sponsors"   => "youth_sponsors#destroy",     :via => "delete"
   
   # Projects
   match "/projects" => "projects#all", :via => "get"
