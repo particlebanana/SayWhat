@@ -96,6 +96,9 @@ SayWhat::Application.routes.draw do
   match "/groups/:permalink/request_submitted" => "groups#membership_request_submitted", :via => "get"
   match "/groups/:permalink/pending_memberships" => "groups#pending_membership_requests", :via => "get"       
   
+  # Memberships
+  match "/groups/:permalink/membership/:user_id" => "memberships#update",     :via => "put"
+  match "/groups/:permalink/membership/:user_id" => "memberships#destroy",    :via => "delete"
   
   # Youth Sponsors
   match "/groups/youth_sponsors"   => "youth_sponsors#index",       :via => "get"
