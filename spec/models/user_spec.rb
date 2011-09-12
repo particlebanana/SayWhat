@@ -53,6 +53,17 @@ describe User do
     its([:status]) { should == "active" }
   end
   
+  describe "#join_group" do
+    before do
+      @user = Factory.create(:user)
+      @group = Factory.create(:group)
+      @user.join_group(@group.id)
+    end
+    
+    subject { @user.reload }
+    its([:group_id]) { should == @group.id }
+  end
+  
   describe "role" do    
     context "admin" do
       subject { Factory.create(:user, {role: "admin"}) }

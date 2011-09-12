@@ -42,6 +42,12 @@ class User < ActiveRecord::Base
     self.save! ? true : false
   end
   
+  # Join a group
+  def join_group(group_id)
+    self.group_id = group_id
+    self.save!
+  end
+  
   # Role Checks  
   def admin?
     self.role == "admin" ? true : false
