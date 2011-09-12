@@ -86,6 +86,11 @@ class Ability
       can :assign_youth_sponsor, User
       can :revoke_youth_sponsor, User
       
+      # Youth Sponsors Controller
+      can :view_potential_sponsors, User
+      can :update_youth_sponsor, User
+      can :destroy_youth_sponsor, User
+      
       can :create, Message
       
       can :edit, Group do |group|
