@@ -37,7 +37,7 @@ class Group < ActiveRecord::Base
   # Initialize a new pending group and send notifications
   def initialize_pending(requestor)
     return false unless setup_group
-    return false unless requestor.join_group(self) 
+    return false unless requestor.join_group(self.id) 
     send_notifications(requestor)
     true
   end
