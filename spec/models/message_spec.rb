@@ -34,4 +34,30 @@ describe Message do
       ActionMailer::Base.deliveries.last.to.should == [@admin.email]
     end
   end
+  
+  describe "#create_group_request" do
+    before do
+      @group = Factory.create(:group)
+      @user = Factory.create(:user)
+      @sponsor = Factory.create(:user, { email: 'admin@gmail.com', group: @group, role: 'adult sponsor' } )
+      @response = Message.create_group_request(@group, @user, @sponsor)
+    end      
+    
+    it "should return a message object" do
+      @response.is_a? Message
+    end
+    
+    it "should send the requesting user an email" do
+      ActionMailer::Base.deliveries.select { |e| e[:to].to_s == @user.email && e[:subject].to_s =~ /awaiting approval/i }.count.should > 0
+    end
+    
+    it "should send the site admins an email" do
+      ActionMailer::Base.deliveries.select { |e| e[:to].to_s == @sponsor.email && e[:subject].to_s =~ /pending membership request/i }.count.should > 0
+    end
+    
+    subject { @response }
+    it { is_a? Message }
+    it { should be_valid }
+    its([:message_type]) { should == 'request' }
+  end
 end
