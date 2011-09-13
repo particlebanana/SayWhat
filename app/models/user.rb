@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   # Join a group
   def join_group(group_id)
     self.group_id = group_id
-    self.save!
+    self.save! ? true : false
   end
   
   # Role Checks  

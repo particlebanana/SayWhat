@@ -57,11 +57,15 @@ describe User do
     before do
       @user = Factory.create(:user)
       @group = Factory.create(:group)
-      @user.join_group(@group.id)
+      @response = @user.join_group(@group.id)
     end
     
     subject { @user.reload }
     its([:group_id]) { should == @group.id }
+    
+    it "should return true" do
+      @response.should == true
+    end
   end
   
   describe "role" do    
