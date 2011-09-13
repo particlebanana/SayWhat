@@ -36,6 +36,8 @@ class Ability
       can :show, Message
       can :destroy, Message
       
+      can :create_pending_group_request, Message
+      
       can :index, Group
       can :new, Group
       can :create, Group

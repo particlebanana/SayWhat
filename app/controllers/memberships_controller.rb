@@ -7,10 +7,18 @@ class MembershipsController < ApplicationController
   
   respond_to :html
   
-  #
-  # Only a group sponsor (Adult) can approve a potential member for
-  # inclusion into a group, even if that member was invited.
-  #
+  # Handles group membership requests.
+  # Currently only an Adult Sponsor can manage group requests.
+  
+  # POST - Create a group membership request
+  def create
+    authorize! :create_pending_group_request, Message 
+    if @message = Message.create_group_request(@group, @user, @group.adult_sponsor)
+      redirect_to group_path(@group), notice: "Membership request has been submitted"
+    else
+      redirect_to group_path(@group), alert: "There was an error creating your request. Try again."
+    end
+  end
     
   # PUT - Approve Pending Group Member
   def update
