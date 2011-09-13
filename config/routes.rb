@@ -66,11 +66,9 @@ SayWhat::Application.routes.draw do
   match "/messages/:id"         => "messages#destroy",     :via => "delete"
     
   # Groups
-  resources :groups
- 
-  # Memberships
-  match "/groups/:permalink/membership/:user_id" => "memberships#update",     :via => "put"
-  match "/groups/:permalink/membership/:user_id" => "memberships#destroy",    :via => "delete"
+  resources :groups do
+    resource :memberships
+  end
   
   # Youth Sponsors
   match "/groups/youth_sponsors"   => "youth_sponsors#index",       :via => "get"
