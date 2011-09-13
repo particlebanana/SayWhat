@@ -44,6 +44,6 @@ class MembershipsController < ApplicationController
   end
   
   def set_group
-    @group = Group.where(permalink: params[:permalink]).first
+    @group = Group.where(permalink: params[:group_id]).first
   end
 end
