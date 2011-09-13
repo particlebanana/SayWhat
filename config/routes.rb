@@ -66,36 +66,8 @@ SayWhat::Application.routes.draw do
   match "/messages/:id"         => "messages#destroy",     :via => "delete"
     
   # Groups
-  match "/groups" => "groups#index", :via => "get"
-  match "/groups" => "groups#create", :via => "post"
-  match "/groups/new" => "groups#request_group", :via => "get"
-  
-  match "/groups/pending" => "groups#pending_request", :via => "get"
-  match "/groups/pending_groups" => "groups#pending_groups", :via => "get"
-  
-  
-  # Groups - Create/Setup a group (no permalink created yet)
-  match "/groups/:group_id/approve_group"     => "groups#approve_group",    :via => "put"
-  
-  match "/groups/:group_id/setup"             => "groups#setup",            :via => "get"
-  match "/groups/:group_id/setup_permalink"   => "groups#setup_permalink",  :via => "get"
-  match "/groups/:group_id/set_permalink"     => "groups#set_permalink",    :via => "put"
-  
-  
-  match "/groups/:permalink/edit" => "groups#edit", :via => "get"
-  match "/groups/:permalink/delete_photo" => "groups#delete_photo", :via => "get"
-  match "/groups/:permalink" => "groups#show", :via => "get"
-  match "/groups/:permalink" => "groups#update", :via => "put"
-  match "/groups/:permalink" => "groups#destroy", :via => "delete"
-  
-  # Groups - Member requests
-  match "/groups/:permalink/join" => "groups#request_membership", :via => "get"
-  match "/groups/:permalink/create_membership_request" => "groups#create_membership_request", :via => "post"
-  match "/groups/:permalink/invite" => "groups#create_invite", :via => "get"
-  match "/groups/:permalink/send_invite" => "groups#send_invite", :via => "post"
-  match "/groups/:permalink/request_submitted" => "groups#membership_request_submitted", :via => "get"
-  match "/groups/:permalink/pending_memberships" => "groups#pending_membership_requests", :via => "get"       
-  
+  resources :groups
+ 
   # Memberships
   match "/groups/:permalink/membership/:user_id" => "memberships#update",     :via => "put"
   match "/groups/:permalink/membership/:user_id" => "memberships#destroy",    :via => "delete"

@@ -14,6 +14,11 @@ class Group < ActiveRecord::Base
   
   before_validation :downcase_name
   after_validation :sanitize
+
+  # Override ID params to use :permalink
+  def to_param
+    permalink
+  end
   
   # Scopes
   def self.pending
