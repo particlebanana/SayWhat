@@ -29,9 +29,12 @@ class Group < ActiveRecord::Base
     self.users.where(role: "adult sponsor").first
   end
   
-  # Make a permalink slug
-  def make_slug
-    self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
+  # Initialize a new pending group and send notifications
+  def initialize_pending(requestor)
+    return false unless setup_group
+    return false unless requestor.join_group(self) 
+    send_notifications(requestor)
+    true
   end
   
   # Completely remove a group and sponsor account
@@ -72,5 +75,24 @@ class Group < ActiveRecord::Base
   def sanitize
     self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
   end
-
+  
+  private
+  
+  # Create a permalink slug and set status
+  def setup_group
+    self.status = 'pending'
+    make_slug
+    self.valid? && self.save! ? true : false
+  end
+  
+  # Send group notifications
+  def send_notifications(user)
+    GroupMailer.successful_group_request(user, self).deliver
+    Message.alert_admins( { group: self, user: user } )
+  end
+  
+  # Make a permalink slug
+  def make_slug
+    self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
+  end
 end

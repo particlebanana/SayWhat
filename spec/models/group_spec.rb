@@ -37,13 +37,37 @@ describe Group do
       @user.is_a?(User).should be_true
     end
   end
-  
-  describe "#make_slug" do
-    it "should escape special characters" do
+    
+  describe "#initialize_pending" do
+    before do
+      @requesting_user = Factory.create(:user)
+      @admin = Factory.create(:user, { email: 'admin@gmail.com', role: 'admin' } )
       @group.permalink = "It's A Trap!?!?!"
-      @group.make_slug
-      @group.permalink.should == "its-a-trap"    
+      @response = @group.initialize_pending(@requesting_user)
     end
+    
+    describe "#setup_group" do
+      subject { @group.reload }
+      its([:status]) { should == 'pending' }
+      its([:permalink]) { should == 'its-a-trap'}
+    end
+    
+    describe "#send_notifications" do
+      it "should send the requesting user an email" do
+        ActionMailer::Base.deliveries.select { |e| e[:to].to_s == @requesting_user.email && e[:subject].to_s =~ /awaiting approval/i }.count.should > 0
+      end
+      
+      it "should send the site admins an email" do
+        ActionMailer::Base.deliveries.select { |e| e[:to].to_s == @admin.email && e[:subject].to_s =~ /you have a pending group request/i }.count.should > 0
+      end
+    end
+    
+    it "should return true" do 
+      @response.should == true
+    end
+    
+    subject { @requesting_user.reload }
+    its([:group_id]) { should == @group.id }
   end
   
   describe "#deny" do
