@@ -28,9 +28,9 @@ class Ability
     else
       can :edit, User
       can :update, User
-      can :delete_avatar, User
-      can :edit_password, User
-      can :update_password, User
+      #can :delete_avatar, User
+      #can :edit_password, User
+      #can :update_password, User
       
       can :index, Message
       can :show, Message
