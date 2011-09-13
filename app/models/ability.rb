@@ -24,19 +24,6 @@ class Ability
     elsif user.admin?
       can :manage, :all
     
-    # Sponsor in Setup Mode  
-    elsif user.sponsor_setup?
-      can :setup, Group
-      can :setup_sponsor, User
-      can :create_sponsor, User
-      can :setup_permalink, Group
-      can :set_permalink, Group
-    
-    # Member in Setup Mode  
-    elsif user.member_setup?
-      can :setup_member, User
-      can :create_member, User
-    
     # Registered User
     else
       can :edit, User
@@ -50,6 +37,8 @@ class Ability
       can :destroy, Message
       
       can :index, Group
+      can :new, Group
+      can :create, Group
       can :show, Group
       can :create_invite, Group
       can :send_invite, Group
