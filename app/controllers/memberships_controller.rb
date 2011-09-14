@@ -4,6 +4,8 @@ class MembershipsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_user
   before_filter :set_group
+  before_filter :set_membership, except: :create
+  load_and_authorize_resource
   
   respond_to :html
   
@@ -12,8 +14,8 @@ class MembershipsController < ApplicationController
   
   # POST - Create a group membership request
   def create
-    authorize! :create_pending_group_request, Message 
-    if @message = Message.create_group_request(@group, @user, @group.adult_sponsor)
+    @membership = Membership.new( { group: @group, user: current_user } )
+    if @membership.save
       redirect_to group_path(@group), notice: "Membership request has been submitted"
     else
       redirect_to group_path(@group), alert: "There was an error creating your request. Try again."
@@ -22,26 +24,20 @@ class MembershipsController < ApplicationController
     
   # PUT - Approve Pending Group Member
   def update
-    authorize! :approve_pending_group_member, User
-    if @user.activate
-      message = current_user.messages.find(params[:message])
-      message.delete
+    if @user.activate && @membership.destroy
       UserMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
       redirect_to "/messages", :notice => "Member has been added to group."
     else
-      redirect_to "/messages", :alert => "There was an error approving user."
+      redirect_to "/messages", :alert => "There was an error approving member."
     end
   end
   
   # DELETE - Deny Pending Group Member
   def destroy
-    authorize! :deny_pending_group_member, User
-    if @user.destroy
-      message = current_user.messages.find(params[:message])
-      message.delete
-      redirect_to "/messages", :notice => "Member has been removed"
+    if @membership.destroy
+      redirect_to "/messages", :notice => "Membership request has been denied."
     else
-      redirect_to "/messages", :alert => "Error removing user. Try again."
+      redirect_to "/messages", :alert => "Error processing request. Try again."
     end
   end
   
@@ -52,6 +48,10 @@ class MembershipsController < ApplicationController
   end
   
   def set_group
-    @group = Group.where(permalink: params[:group_id]).first
+    @group = Group.find_by_permalink(params[:group_id])
+  end
+
+  def set_membership
+    @membership = Membership.find(params[:id])
   end
 end

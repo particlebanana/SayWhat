@@ -41,10 +41,8 @@ class Ability
       can :edit, User, id: user.id
       can :update, User, id: user.id
       
-      can :index, Message
-      can :show, Message
-      can :destroy, Message
-      
+      can :create, Membership
+
       can :index, Group
       can :new, Group
       can :create, Group
@@ -69,9 +67,8 @@ class Ability
     # Group Adult Sponsor
     if user && user.adult_sponsor?
       
-      # Memberships Controller
-      can :approve_pending_group_member, User
-      can :deny_pending_group_member, User
+      can :update, Membership, group_id: user.group_id
+      can :destroy, Membership, group_id: user.group_id
       
       # Youth Sponsors Controller
       can :view_potential_sponsors, User
@@ -83,8 +80,6 @@ class Ability
       can :destroy, Comment do |comment|
         user.group == comment.project.group
       end
-      
-      can :create, Message
       
       can :edit, Group do |group|
         user.group == group
@@ -120,8 +115,6 @@ class Ability
       can :destroy, Comment do |comment|
         user.group == comment.project.group
       end
-      
-      can :create, Message
       
       can :edit, Group do |group|
         user.group == group

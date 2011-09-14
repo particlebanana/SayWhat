@@ -25,12 +25,12 @@ describe MembershipsController do
   context "adult sponsor" do
     before do
       user = Factory.create(:user, { group: @group, role: "adult sponsor" } )
-      @message = Factory.create(:message, { user: user } )
+      @membership = Membership.create( { user: user, group: @group } )
       sign_in user
     end
   
     describe "#update" do
-      before { put :update, { group_id: @group.permalink, user_id: @pending_member.id, message: @message.id } }
+      before { put :update, { group_id: @group.permalink, user_id: @pending_member.id, id: @membership.id } }
     
       subject { @pending_member.reload }
       its([:status]) { should == "active" }
@@ -50,14 +50,14 @@ describe MembershipsController do
     end
   
     describe "#destroy" do
-      before { delete :destroy, { group_id: @group.permalink, user_id: @pending_member.id, message: @message.id } }
+      before { delete :destroy, { group_id: @group.permalink, user_id: @pending_member.id, id: @membership.id } }
         
-      it "should remove the pending member" do
-        User.where(id: @pending_member.id).count.should == 0
+      it "should remove the membership request" do
+        Membership.where(id: @membership.id).count.should == 0
       end
     
       it "should set a notice message" do
-        flash[:notice].should =~ /has been removed/i
+        flash[:notice].should =~ /has been denied/i
       end
     
       it "should redirect to /messages" do
@@ -70,18 +70,18 @@ describe MembershipsController do
   context "group member" do
     before do
       user = Factory.create(:user, { group: @group, role: "member" } )
-      @message = Factory.create(:message, { user: user } )
+      @membership = Membership.create( { user: user, group: @group } )
       sign_in user
     end
     
     describe "#update" do
-      before { put :update, { group_id: @group.permalink, user_id: @pending_member.id, message: @message.id } }
+      before { put :update, { group_id: @group.permalink, user_id: @pending_member.id, id: @membership.id } }
       subject { flash[:alert] }
       it { should  =~ /not authorized to access this page/i }
     end
     
     describe "#destroy" do
-      before { delete :destroy, { group_id: @group.permalink, user_id: @pending_member.id, message: @message.id } }
+      before { delete :destroy, { group_id: @group.permalink, user_id: @pending_member.id, id: @membership.id } }
       subject { flash[:alert] }
       it { should  =~ /not authorized to access this page/i }
     end
