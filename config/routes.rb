@@ -57,13 +57,6 @@ SayWhat::Application.routes.draw do
   match "/admin/users/:id"                =>  "admin_users#update",              :via => "put"
   match "/admin/users/:id"                =>  "admin_users#destroy",             :via => "delete"
   match "/admin/users/:id/remove_avatar"  =>  "admin_users#remove_avatar",        :via => "delete"
-  
-  # Messaging
-  match "/messages"             => "messages#index",       :via => "get"
-  match "/messages"             => "messages#create",      :via => "post"
-  match "/messages/new"         => "messages#new",         :via => "get"
-  match "/messages/:id"         => "messages#show",        :via => "get"
-  match "/messages/:id"         => "messages#destroy",     :via => "delete"
     
   # Groups
   resources :groups do
