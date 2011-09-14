@@ -71,32 +71,5 @@ SayWhat::Application.routes.draw do
   match "/groups/youth_sponsors"   => "youth_sponsors#update",      :via => "put"
   match "/groups/youth_sponsors"   => "youth_sponsors#destroy",     :via => "delete"
   
-  # Projects
-  match "/projects" => "projects#all", :via => "get"
-  match "/projects/filter" => "projects#filter", :via => "get"
-  
-  
-  # Projects - CRUD
-  match "/groups/:permalink/projects" => "projects#index", :via => "get"
-  match "/groups/:permalink/projects" => "projects#create", :via => "post"
-  match "/groups/:permalink/projects/new" => "projects#new", :via => "get"
-  match "/groups/:permalink/projects/:name/edit" => "projects#edit", :via => "get"
-  match "/groups/:permalink/projects/:name/delete_photo" => "projects#delete_photo", :via => "get"
-  match "/groups/:permalink/projects/:name" => "projects#show", :via => "get"
-  match "/groups/:permalink/projects/:name" => "projects#update", :via => "put"
-  match "/groups/:permalink/projects/:name" => "projects#destroy", :via => "delete"
-  
-  
-  # Project Comments - CRUD
-  match "/groups/:permalink/projects/:name/comments" => "comments#create", :via => "post"
-  match "/groups/:permalink/projects/:name/comments/:comment_id/edit" => "comments#edit", :via => "get"
-  match "/groups/:permalink/projects/:name/comments/:comment_id" => "comments#update", :via => "put"
-  match "/groups/:permalink/projects/:name/comments/:comment_id" => "comments#destroy", :via => "delete"
-  
-  # Project Reporting
-  match "/groups/:permalink/projects/:name/report/new" => "reports#new", :via => "get"
-  match "/groups/:permalink/projects/:name/report" => "reports#create", :via => "post"
-  
-  
   root :to => "pages#home"
 end
