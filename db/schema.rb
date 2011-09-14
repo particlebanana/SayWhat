@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110823142930) do
+ActiveRecord::Schema.define(:version => 20110914205044) do
 
   create_table "comments", :force => true do |t|
     t.integer  "user_id"
@@ -43,19 +43,14 @@ ActiveRecord::Schema.define(:version => 20110823142930) do
   add_index "groups", ["name"], :name => "index_groups_on_name", :unique => true
   add_index "groups", ["permalink"], :name => "index_groups_on_permalink", :unique => true
 
-  create_table "messages", :force => true do |t|
+  create_table "memberships", :force => true do |t|
     t.integer  "user_id"
-    t.string   "message_type"
-    t.string   "author"
-    t.string   "subject"
-    t.text     "content"
-    t.string   "payload"
-    t.boolean  "read",         :default => false
+    t.integer  "group_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "messages", ["user_id"], :name => "index_messages_on_user_id"
+  add_index "memberships", ["user_id", "group_id"], :name => "index_memberships_on_user_id_and_group_id"
 
   create_table "projects", :force => true do |t|
     t.integer  "group_id"
