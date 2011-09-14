@@ -25,20 +25,22 @@ class Ability
       can :create, Project, group_id: user.group_id
       can :edit, Project, group_id: user.group_id
       can :update, Project, group_id: user.group_id
+      
+      can :index, Comment
+      can :new, Comment
+      can :create, Comment
+      can :edit, Comment, user_id: user.id
+      can :update, Comment, user_id: user.id
+      can :destroy, Comment, user_id: user.id
     
     # Registered User
     else
       can :edit, User
       can :update, User
-      #can :delete_avatar, User
-      #can :edit_password, User
-      #can :update_password, User
       
       can :index, Message
       can :show, Message
       can :destroy, Message
-      
-      can :create_pending_group_request, Message
       
       can :index, Group
       can :new, Group
@@ -49,24 +51,13 @@ class Ability
       
       can :index, Project
       can :show, Project
-      #can :all, Project
-      #can :filter, Project
-      #can :index, Project
       
-      #can :new, Project do |project|
-        
-      #end
-       
-      #can :create, Project do |project|
-      #  user.group.id.to_s == project.group_id
-      #end
-      
-      #can :show, Project
-      
+      can :index, Comment
       can :new, Comment
       can :create, Comment
-      can :edit, Comment
-      can :update, Comment
+      can :edit, Comment, user_id: user.id
+      can :update, Comment, user_id: user.id
+      can :destroy, Comment, user_id: user.id
       
       # TEMP FOR HOMEPAGE
       can :home, Group
@@ -86,6 +77,10 @@ class Ability
       
       can :destroy, Project, group_id: user.group_id
       
+      can :destroy, Comment do |comment|
+        user.group == comment.project.group
+      end
+      
       can :create, Message
       
       can :edit, Group do |group|
@@ -104,10 +99,6 @@ class Ability
         user.group == group
       end
       
-      can :destroy, Comment do |comment|
-        user.group == comment.project.group
-      end
-      
       can :new, Report do |report|
         project = Project.find(report.project_id)
         user.group == project.group
@@ -123,6 +114,10 @@ class Ability
       
       can :destroy, Project, group_id: user.group_id
       
+      can :destroy, Comment do |comment|
+        user.group == comment.project.group
+      end
+      
       can :create, Message
       
       can :edit, Group do |group|
@@ -135,10 +130,6 @@ class Ability
       
       can :update, Group do |group|
         user.group == group
-      end
-      
-      can :destroy, Comment do |comment|
-        user.group == comment.project.group
       end
       
       can :new, Report do |report|
