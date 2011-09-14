@@ -21,6 +21,9 @@ class Ability
     
     # Group Member
     elsif user.group_id
+      can :edit, User, id: user.id
+      can :update, User, id: user.id
+      
       can :new, Project, group_id: user.group_id
       can :create, Project, group_id: user.group_id
       can :edit, Project, group_id: user.group_id
@@ -35,8 +38,8 @@ class Ability
     
     # Registered User
     else
-      can :edit, User
-      can :update, User
+      can :edit, User, id: user.id
+      can :update, User, id: user.id
       
       can :index, Message
       can :show, Message

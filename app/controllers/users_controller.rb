@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   load_and_authorize_resource
   
   respond_to :html
-    
+   
   # GET - Edit User
   def edit
     respond_with(@user)
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       redirect_to "/settings/profile", notice: "Profile has been updated"
     else
-      render action: "edit", alert: "Error updating profile. Try again."
+      render action: "edit"
     end
   end
 

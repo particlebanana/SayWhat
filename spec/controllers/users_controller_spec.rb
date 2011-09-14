@@ -22,7 +22,7 @@ describe UsersController do
     before do
       @user = Factory.create(:user)
       sign_in @user
-      put :update, {:id => @user.id, :user => {first_name: "Jabba", last_name: "The Hut"}}
+      put :update, { id: @user.id, user: { first_name: "Jabba", last_name: "The Hut" } }
     end
     
     it "should update the User object" do
