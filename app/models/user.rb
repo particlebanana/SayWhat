@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 
   belongs_to :group
   has_many :comments
-  has_many :messages
+  has_many :memberships
   
   mount_uploader :avatar, AvatarUploader
   
@@ -64,32 +64,4 @@ class User < ActiveRecord::Base
   def sponsor?
     self.role == "adult sponsor" || self.role == "youth sponsor" ? true : false
   end
-=begin  
-  # Create a message object
-  def create_message_object(message_object)
-    message = Message.new
-    message.message_type = message_object[:message_type]
-    message.author = message_object[:author]
-    message.subject = message_object[:subject]
-    message.content = message_object[:content]
-    self.messages << message
-    message.save!
-    message
-  end
-        
-  # Create a message request object
-  def create_message_request_object(request_name, request_email, request_id)
-    message = Message.new(:subject => "New Membership Request")
-    message.author = "Automated Message"
-    message.message_type = "request"
-    message.content = "
-    You have a pending membership request. Please review the information below and choose to either accept or deny the member.<br/>
-    Name: #{request_name}
-    Email: #{request_email}"
-    message.payload = request_id
-    self.messages << message
-    message.save!
-    message
-  end
-=end
 end

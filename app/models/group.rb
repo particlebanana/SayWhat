@@ -5,6 +5,7 @@ class Group < ActiveRecord::Base
 
   has_many :users
   has_many :projects
+  has_many :memberships
   
   attr_accessible :display_name, :city, :organization, :description, :permalink, :esc_region, :dshs_region, :area, :profile_photo
 
@@ -62,15 +63,7 @@ class Group < ActiveRecord::Base
       proposed_sponsor.change_role_level("adult sponsor")
     end
   end  
-=begin          
-  # Sends a message to all the members inboxes
-  def send_group_message(message_object, author)
-    self.users.each do |member|
-      message = member.create_message_object(message_object)
-      UserMailer.send_message_notification(member, author, message.content).deliver
-    end
-  end
-=end  
+ 
   protected
   
   def downcase_name
@@ -93,7 +86,8 @@ class Group < ActiveRecord::Base
   # Send group notifications
   def send_notifications(user)
     GroupMailer.successful_group_request(user, self).deliver
-    Message.alert_admins( { group: self, user: user } )
+    admins = User.site_admins
+    admins.each {|e| GroupMailer.admin_pending_group_request(e, self, user).deliver }
   end
   
   # Make a permalink slug
