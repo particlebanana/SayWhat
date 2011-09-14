@@ -68,6 +68,7 @@ SayWhat::Application.routes.draw do
   # Groups
   resources :groups do
     resource :memberships
+    resources :projects
   end
   
   # Youth Sponsors

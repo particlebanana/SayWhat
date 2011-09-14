@@ -7,22 +7,24 @@ class Ability
     if !user
       can :home, Group
       
-      can :request_group, Group
-      can :create, Group
-      can :pending_request, Group
       can :index, Group
       can :show, Group
-      can :request_membership, Group
-      can :create_membership_request, Group
-      can :membership_request_submitted, Group
-      can :all, Project
+      can :create, Group
+      can :new, Group
+
       can :index, Project
-      can :filter, Project
       can :show, Project
     
     # Site Admin
     elsif user.admin?
       can :manage, :all
+    
+    # Group Member
+    elsif user.group_id
+      can :new, Project, group_id: user.group_id
+      can :create, Project, group_id: user.group_id
+      can :edit, Project, group_id: user.group_id
+      can :update, Project, group_id: user.group_id
     
     # Registered User
     else
@@ -45,19 +47,21 @@ class Ability
       can :create_invite, Group
       can :send_invite, Group
       
-      can :all, Project
-      can :filter, Project
       can :index, Project
-      
-      can :new, Project do |project|
-        user.group_id == project.group_id
-      end
-      
-      can :create, Project do |project|
-        user.group.id.to_s == project.group_id
-      end
-      
       can :show, Project
+      #can :all, Project
+      #can :filter, Project
+      #can :index, Project
+      
+      #can :new, Project do |project|
+        
+      #end
+       
+      #can :create, Project do |project|
+      #  user.group.id.to_s == project.group_id
+      #end
+      
+      #can :show, Project
       
       can :new, Comment
       can :create, Comment
@@ -68,7 +72,7 @@ class Ability
       can :home, Group
     end
     
-    # Adult Sponsor
+    # Group Adult Sponsor
     if user && user.adult_sponsor?
       
       # Memberships Controller
@@ -79,6 +83,8 @@ class Ability
       can :view_potential_sponsors, User
       can :update_youth_sponsor, User
       can :destroy_youth_sponsor, User
+      
+      can :destroy, Project, group_id: user.group_id
       
       can :create, Message
       
@@ -97,18 +103,6 @@ class Ability
       can :pending_membership_requests, Group do |group|
         user.group == group
       end
-            
-      can :edit, Project do |project|
-        user.group == project.group
-      end
-      
-      can :delete_photo, Project do |project|
-        user.group == project.group
-      end
-      
-      can :update, Project do |project|
-        user.group == project.group
-      end
       
       can :destroy, Comment do |comment|
         user.group == comment.project.group
@@ -124,8 +118,10 @@ class Ability
         user.group == project.group
       end
     
-    # Youth Sponsor
+    # Group Youth Sponsor
     elsif user && user.youth_sponsor?
+      
+      can :destroy, Project, group_id: user.group_id
       
       can :create, Message
       
@@ -139,18 +135,6 @@ class Ability
       
       can :update, Group do |group|
         user.group == group
-      end
-      
-      can :edit, Project do |project|
-        user.group == project.group
-      end
-      
-      can :delete_photo, Project do |project|
-        user.group == project.group
-      end
-      
-      can :update, Project do |project|
-        user.group == project.group
       end
       
       can :destroy, Comment do |comment|
