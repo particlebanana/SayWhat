@@ -3,7 +3,7 @@ require "spec_helper"
 describe UserMailer do
   describe "successful membership request email" do
     let(:user) { Factory.build(:user) }
-    let(:group) { Factory.build(:pending_group) }
+    let(:group) { Factory.build(:group) }
     let(:mail) { UserMailer.successful_membership_request(user, group) }
     
     it "renders the reciever's email address" do
@@ -17,7 +17,7 @@ describe UserMailer do
   end
   
   describe "sponsor pending membership request email" do
-    let(:user) { Factory.build(:adult_sponsor) }
+    let(:user) { Factory.build(:user, { role: 'adult sponsor' } ) }
     let(:group) { Factory.build(:group) }
     let(:member) { Factory.build(:user) }
     let(:mail) { UserMailer.sponsor_pending_membership_request(user, group, member) }
@@ -33,7 +33,7 @@ describe UserMailer do
   end
 
   describe "send approved notice email" do
-    let(:user) { Factory.create(:pending_member) }
+    let(:user) { Factory.create(:user) }
     let(:group) { Factory.create(:group) }
     let(:mail) { UserMailer.send_approved_notice(user, group, 'localhost:3000') }
         
@@ -52,7 +52,7 @@ describe UserMailer do
   end
   
   describe "send sponsor promotion notification" do
-    let(:user) { Factory.create(:youth_sponsor) }
+    let(:user) { Factory.create(:user, { role: 'youth sponsor' } ) }
     let(:group) { Factory.create(:group) }
     let(:mail) { UserMailer.send_sponsor_promotion(user, group) }
     
@@ -66,7 +66,7 @@ describe UserMailer do
   end
   
   describe "send sponsor revocation notification" do
-    let(:user) { Factory.create(:user, :role => "member", :status => "active") }
+    let(:user) { Factory.create(:user, { role: "member", status: "active" } ) }
     let(:group) { Factory.create(:group) }
     let(:mail) { UserMailer.send_sponsor_revocation(user, group) }
     
@@ -76,7 +76,7 @@ describe UserMailer do
   end
   
   describe "send mini-grant approval email" do
-    let(:grant) { Factory.create(:minigrant, :status => true) }
+    let(:grant) { Factory.create(:grant, { status: true } ) }
     let(:mail) { UserMailer.send_grant_approval(grant) }
     
     it "renders the reciever's email address" do
@@ -89,7 +89,7 @@ describe UserMailer do
   end
   
   describe "send mini-grant denied email" do
-    let(:grant) { Factory.create(:minigrant, :status => false) }
+    let(:grant) { Factory.create(:grant, { status: false } ) }
     let(:mail) { UserMailer.send_grant_denied(grant, "reason") }
     
     it "renders the reciever's email address" do
