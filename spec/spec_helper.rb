@@ -7,7 +7,9 @@ require 'remarkable/active_model'
 require 'factory_girl_rails'
 require 'carrierwave/test/matchers'
 require 'database_cleaner'
-    
+
+require_relative 'factory.rb'
+  
 # Requires supporting files with custom matchers and macros, etc,
 # in ./support/ and its subdirectories.
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}

@@ -11,7 +11,6 @@ module SayWhat
   class Application < Rails::Application
     
     generators = config.respond_to?(:app_generators) ? config.app_generators : config.generators
-    generators.fixture_replacement :factory_girl, :dir => "spec/factories"
     generators.orm :active_record
         
     config.encoding = "utf-8"
