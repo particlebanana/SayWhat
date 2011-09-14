@@ -18,6 +18,7 @@ class ProjectsController < ApplicationController
   
   # GET - New Group Project Form
   def new
+    @project = Project.new
     respond_with(@project)
   end
   
@@ -25,7 +26,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(params[:project])
     if @project.save
-      redirect_to group_project_path(@group.permalink, @project.id), notice: "Pproject was added successfully."
+      redirect_to group_project_path(@group.permalink, @project.id), notice: "Project was added successfully."
     else
       render action: 'new'
     end
