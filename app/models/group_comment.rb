@@ -1,9 +1,9 @@
-class Comment < ActiveRecord::Base
+class GroupComment < ActiveRecord::Base
   belongs_to :user
-  belongs_to :project
+  belongs_to :group
   
   attr_accessible :comment
-  validates_presence_of [:comment, :user_id, :project_id]
+  validates_presence_of [:comment, :user_id, :group_id]
 
   after_validation :sanitize
   
