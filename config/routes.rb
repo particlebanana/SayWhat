@@ -56,7 +56,11 @@ SayWhat::Application.routes.draw do
   match "/admin/users/:id"                =>  "admin_users#edit",                :via => "get"
   match "/admin/users/:id"                =>  "admin_users#update",              :via => "put"
   match "/admin/users/:id"                =>  "admin_users#destroy",             :via => "delete"
-  match "/admin/users/:id/remove_avatar"  =>  "admin_users#remove_avatar",        :via => "delete"
+  match "/admin/users/:id/remove_avatar"  =>  "admin_users#remove_avatar",       :via => "delete"
+  
+  # Admin Announcements Controller
+  match "/admin/announcements"            =>  "admin_announcements#index",       :via => "get"
+  match "/admin/announcements"            =>  "admin_announcements#create",      :via => "post"
     
   # Groups
   resources :groups do
