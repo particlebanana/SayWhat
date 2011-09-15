@@ -8,6 +8,7 @@ tmp/**/*
 *.db
 .sass-cache/
 config/config.yml
+config/database.yml
 public/uploads
 data-export.csv
 
