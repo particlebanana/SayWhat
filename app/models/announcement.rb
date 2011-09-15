@@ -1,7 +1,5 @@
 class Announcement
 
-  # Creates a capped collection that is set at 15 elements
-  # to store status like announcements.
   def self.insert(announcement)
     collection.insert(
       title: announcement[:title],
@@ -11,12 +9,16 @@ class Announcement
   end
 
   def self.last
-    collection.find().to_a
+    collection.find().sort([['_id', -1]]).limit(15).to_a
+  end
+
+  def self.find(id)
+    collection.find('_id' => id).first
   end
 
   private
 
   def self.collection
-    @collection ||= $mongo.create_collection("announcements", :capped => true, :size => 2048, :max => 15)
+    @collection ||= $mongo.create_collection("announcements")
   end
 end

@@ -24,7 +24,20 @@ describe Announcement do
     it "should cap the collection at 15 elements" do
       a = Announcement.last
       a.count.should == 15
-      a[0]["title"].should == 'object 6'
+      a[14]["title"].should == 'object 6'
+    end
+  end
+  
+  describe "#find" do
+    before do
+      obj = { title: "A Test Title", text: "Some awesome text" }
+      item = Announcement.insert(obj)
+      @announcement = Announcement.find(item)
+    end
+    
+    it "should return announcement" do
+      @announcement['title'].should ==  'A Test Title'
+      @announcement['text'].should ==  'Some awesome text'
     end
   end
 end
