@@ -62,7 +62,7 @@ SayWhat::Application.routes.draw do
   resources :groups do
     resource :memberships
     resources :projects do
-      resources :comments
+      resources :project_comments
     end
   end
   

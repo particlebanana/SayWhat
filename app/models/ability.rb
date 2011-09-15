@@ -29,12 +29,12 @@ class Ability
       can :edit, Project, group_id: user.group_id
       can :update, Project, group_id: user.group_id
       
-      can :index, Comment
-      can :new, Comment
-      can :create, Comment
-      can :edit, Comment, user_id: user.id
-      can :update, Comment, user_id: user.id
-      can :destroy, Comment, user_id: user.id
+      can :index, ProjectComment
+      can :new, ProjectComment
+      can :create, ProjectComment
+      can :edit, ProjectComment, user_id: user.id
+      can :update, ProjectComment, user_id: user.id
+      can :destroy, ProjectComment, user_id: user.id
     
     # Registered User
     else
@@ -53,12 +53,12 @@ class Ability
       can :index, Project
       can :show, Project
       
-      can :index, Comment
-      can :new, Comment
-      can :create, Comment
-      can :edit, Comment, user_id: user.id
-      can :update, Comment, user_id: user.id
-      can :destroy, Comment, user_id: user.id
+      can :index, ProjectComment
+      can :new, ProjectComment
+      can :create, ProjectComment
+      can :edit, ProjectComment, user_id: user.id
+      can :update, ProjectComment, user_id: user.id
+      can :destroy, ProjectComment, user_id: user.id
       
       # TEMP FOR HOMEPAGE
       can :home, Group
@@ -77,7 +77,7 @@ class Ability
       
       can :destroy, Project, group_id: user.group_id
       
-      can :destroy, Comment do |comment|
+      can :destroy, ProjectComment do |comment|
         user.group == comment.project.group
       end
       
@@ -112,7 +112,7 @@ class Ability
       
       can :destroy, Project, group_id: user.group_id
       
-      can :destroy, Comment do |comment|
+      can :destroy, ProjectComment do |comment|
         user.group == comment.project.group
       end
       

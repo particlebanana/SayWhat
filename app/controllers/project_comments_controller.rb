@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class ProjectCommentsController < ApplicationController
   layout "application"
 
   before_filter :authenticate_user!
@@ -13,19 +13,19 @@ class CommentsController < ApplicationController
 
   # GET - All Project Comments
   def index
-    @comments = @project.comments
+    @comments = @project.project_comments
     respond_with(@comments)
   end
 
   # GET - New Project Comment Form
   def new
-    @comment = Comment.new
+    @comment = ProjectComment.new
     respond_with(@comment)
   end
   
   # POST - Create Project Comment
   def create
-    @comment = Comment.new(params[:comment])
+    @comment = ProjectComment.new(params[:comment])
     @comment.user = current_user
     authorize! :create, @comment
     @comment.project = @project
@@ -72,6 +72,6 @@ class CommentsController < ApplicationController
   end
 
   def set_comment
-    @comment = Comment.find(params[:id])
+    @comment = ProjectComment.find(params[:id])
   end
 end

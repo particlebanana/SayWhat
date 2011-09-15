@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe CommentsController do
+describe ProjectCommentsController do
   before do
     @group = Factory.create(:group)
     @project = Factory.create(:project, { group: @group } )
@@ -22,7 +22,7 @@ describe CommentsController do
       end
 
       it "should render the index template" do
-        response.should render_template('comments/index')      
+        response.should render_template('project_comments/index')      
       end
     end
     
@@ -56,12 +56,12 @@ describe CommentsController do
         get :new, { group_id: @group.permalink, project_id: @project.id }
       end
       
-      it "should return a Comment object" do
-        assigns[:comment].is_a? Comment
+      it "should return a ProjectComment object" do
+        assigns[:comment].is_a? ProjectComment
       end
     
       it "should render the new template" do
-        response.should render_template('comments/new')
+        response.should render_template('project_comments/new')
       end
     end
     
@@ -72,8 +72,8 @@ describe CommentsController do
         get :new, { group_id: @group.permalink, project_id: @project.id }
       end
       
-      it "should return a Comment object" do
-        assigns[:comment].is_a? Comment
+      it "should return a ProjectComment object" do
+        assigns[:comment].is_a? ProjectComment
       end
     end
   end
@@ -90,7 +90,7 @@ describe CommentsController do
       end
       
       it "should create project comment" do
-        @project.comments.count.should == 1
+        @project.project_comments.count.should == 1
       end
       
       it "should redirect to the project show action" do
@@ -109,7 +109,7 @@ describe CommentsController do
       end
       
       it "should create project comment" do
-        @project.comments.count.should == 1
+        @project.project_comments.count.should == 1
       end
     end
   end
@@ -122,16 +122,16 @@ describe CommentsController do
       before do
         user = Factory.create(:user, { group: @group } )
         sign_in user
-        @comment = Factory.create(:comment, { user_id: user.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user.id, project_id: @project.id } )
         get :edit, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
     
-      it "should return a Comment object" do
-        assigns[:comment].is_a? Comment
+      it "should return a ProjectComment object" do
+        assigns[:comment].is_a? ProjectComment
       end
         
       it "should render the edit template" do
-        response.should render_template('comments/edit')
+        response.should render_template('project_comments/edit')
       end
     end
     
@@ -139,12 +139,12 @@ describe CommentsController do
       before do
         user = Factory.create(:user)
         sign_in user
-        @comment = Factory.create(:comment, { user_id: user.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user.id, project_id: @project.id } )
         get :edit, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
       
-      it "should return a Comment object" do
-        assigns[:comment].is_a? Comment
+      it "should return a ProjectComment object" do
+        assigns[:comment].is_a? ProjectComment
       end
     end
   end
@@ -157,7 +157,7 @@ describe CommentsController do
       before do
         user = Factory.create(:user, { group: @group } )
         sign_in user
-        @comment = Factory.create(:comment, { user_id: user.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user.id, project_id: @project.id } )
         put :update, { group_id: @group.permalink, project_id: @project.id, id: @comment.id, comment: "test update" }
       end
       
@@ -177,7 +177,7 @@ describe CommentsController do
       before do
         user = Factory.create(:user)
         sign_in user
-        @comment = Factory.create(:comment, { user_id: user.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user.id, project_id: @project.id } )
         put :update, { group_id: @group.permalink, project_id: @project.id, id: @comment.id, comment: "test update" }
       end
       
@@ -191,7 +191,7 @@ describe CommentsController do
         user = Factory.create(:user, { group: @group } )
         sign_in user
         user2 = Factory.create(:user, { group: @group, email: 'user2@gmail.com' } )
-        @comment = Factory.create(:comment, { user_id: user2.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user2.id, project_id: @project.id } )
         put :update, { group_id: @group.permalink, project_id: @project.id, id: @comment.id, comment: "test update" }
       end
       
@@ -209,12 +209,12 @@ describe CommentsController do
       before do
         user = Factory.create(:user, { group: @group } )
         sign_in user
-        @comment = Factory.create(:comment, { user_id: user.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user.id, project_id: @project.id } )
         delete :destroy, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
       
       it "should remove comment from project" do
-        @project.comments.count.should == 0
+        @project.project_comments.count.should == 0
       end
       
       it "should redirect to project show page" do
@@ -229,12 +229,12 @@ describe CommentsController do
       before do
         user = Factory.create(:user)
         sign_in user
-        @comment = Factory.create(:comment, { user_id: user.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user.id, project_id: @project.id } )
         delete :destroy, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
       
       it "should remove comment from project" do
-        @project.comments.count.should == 0
+        @project.project_comments.count.should == 0
       end
     end
     
@@ -243,7 +243,7 @@ describe CommentsController do
         user = Factory.create(:user, { group: @group } )
         sign_in user
         user2 = Factory.create(:user, { group: @group, email: 'user2@gmail.com' } )
-        @comment = Factory.create(:comment, { user_id: user2.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user2.id, project_id: @project.id } )
         delete :destroy, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
       
@@ -256,12 +256,12 @@ describe CommentsController do
         user = Factory.create(:user, { group: @group, role: 'adult sponsor' } )
         sign_in user
         user2 = Factory.create(:user, { group: @group, email: 'user2@gmail.com' } )
-        @comment = Factory.create(:comment, { user_id: user2.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user2.id, project_id: @project.id } )
         delete :destroy, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
       
       it "should remove comment from project" do
-        @project.comments.count.should == 0
+        @project.project_comments.count.should == 0
       end
     end
     
@@ -271,7 +271,7 @@ describe CommentsController do
         user = Factory.create(:user, { group: group, role: 'adult sponsor' } )
         sign_in user
         user2 = Factory.create(:user, { group: @group, email: 'user2@gmail.com' } )
-        @comment = Factory.create(:comment, { user_id: user2.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user2.id, project_id: @project.id } )
         delete :destroy, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
       
@@ -284,12 +284,12 @@ describe CommentsController do
         user = Factory.create(:user, { group: @group, role: 'youth sponsor' } )
         sign_in user
         user2 = Factory.create(:user, { group: @group, email: 'user2@gmail.com' } )
-        @comment = Factory.create(:comment, { user_id: user2.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user2.id, project_id: @project.id } )
         delete :destroy, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
       
       it "should remove comment from project" do
-        @project.comments.count.should == 0
+        @project.project_comments.count.should == 0
       end
     end
     
@@ -299,7 +299,7 @@ describe CommentsController do
         user = Factory.create(:user, { group: group, role: 'youth sponsor' } )
         sign_in user
         user2 = Factory.create(:user, { group: @group, email: 'user2@gmail.com' } )
-        @comment = Factory.create(:comment, { user_id: user2.id, project_id: @project.id } )
+        @comment = Factory.create(:project_comment, { user_id: user2.id, project_id: @project.id } )
         delete :destroy, { group_id: @group.permalink, project_id: @project.id, id: @comment.id }
       end
       
