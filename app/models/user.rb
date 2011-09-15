@@ -3,7 +3,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   belongs_to :group
-  has_many :comments
+  has_many :group_comments
+  has_many :project_comments
   has_many :memberships
   
   mount_uploader :avatar, AvatarUploader
