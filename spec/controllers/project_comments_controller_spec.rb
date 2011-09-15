@@ -17,7 +17,7 @@ describe ProjectCommentsController do
         get :index, { group_id: @group.permalink, project_id: @project.id }
       end
       
-      it "should return an array of Comment objects" do
+      it "should return an array of ProjectComment objects" do
         assigns[:comments].is_a? Array
       end
 
@@ -33,7 +33,7 @@ describe ProjectCommentsController do
         get :index, { group_id: @group.permalink, project_id: @project.id }
       end
       
-      it "should return an array of Comment objects" do
+      it "should return an array of ProjectComment objects" do
         assigns[:comments].is_a? Array
       end
     end

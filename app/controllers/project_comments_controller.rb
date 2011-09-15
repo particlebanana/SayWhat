@@ -63,7 +63,6 @@ class ProjectCommentsController < ApplicationController
   private
   
   def set_group
-    #@group = Group.where(permalink: params[:group_id]).first
     @group = Group.find_by_permalink(params[:group_id])
   end
 
