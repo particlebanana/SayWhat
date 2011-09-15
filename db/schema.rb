@@ -11,18 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110914205044) do
+ActiveRecord::Schema.define(:version => 20110915163209) do
 
-  create_table "comments", :force => true do |t|
+  create_table "group_comments", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "project_id"
+    t.integer  "group_id"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "comments", ["project_id"], :name => "index_comments_on_project_id"
-  add_index "comments", ["user_id"], :name => "index_comments_on_user_id"
+  add_index "group_comments", ["group_id"], :name => "index_group_comments_on_group_id"
+  add_index "group_comments", ["user_id"], :name => "index_group_comments_on_user_id"
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -51,6 +51,17 @@ ActiveRecord::Schema.define(:version => 20110914205044) do
   end
 
   add_index "memberships", ["user_id", "group_id"], :name => "index_memberships_on_user_id_and_group_id"
+
+  create_table "project_comments", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "project_id"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "project_comments", ["project_id"], :name => "index_project_comments_on_project_id"
+  add_index "project_comments", ["user_id"], :name => "index_project_comments_on_user_id"
 
   create_table "projects", :force => true do |t|
     t.integer  "group_id"
