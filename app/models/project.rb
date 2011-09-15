@@ -1,7 +1,7 @@
 class Project < ActiveRecord::Base
   
   belongs_to :group
-  has_many :comments
+  has_many :project_comments
   
   mount_uploader :profile, ProfileUploader
   

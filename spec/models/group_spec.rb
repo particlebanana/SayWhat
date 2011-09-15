@@ -7,6 +7,7 @@ describe Group do
     subject { @group }
     it { should have_many(:users) }
     it { should have_many(:projects) }
+    it { should have_many(:group_comments) }
     it { should have_many(:memberships) }
     
     it { should validate_presence_of(:display_name) }

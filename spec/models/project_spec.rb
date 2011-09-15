@@ -6,7 +6,7 @@ describe Project do
     
     subject { @project }
     it { should belong_to(:group) }
-    it { should have_many(:comments) }
+    it { should have_many(:project_comments) }
     
     it { should validate_presence_of(:display_name) }
     it { should validate_presence_of(:location) }
