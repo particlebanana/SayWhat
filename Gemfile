@@ -17,6 +17,8 @@ end
 # Database
 gem 'mysql2', '~> 0.3.0'
 gem 'mongoid', '~> 2.2.0'
+gem 'mongo', '~> 1.3.0'
+gem 'bson', '~> 1.3.0'
 gem 'bson_ext', '~> 1.3.0'
 
 # Authentication
@@ -36,9 +38,6 @@ gem 'carrierwave', "~> 0.5.0"
 # Sinatra Plugins
 gem 'sinatra'
 gem 'pony'
-
-# Rake Tasks to transition data
-gem 'mongo', '~> 1.3.0'
 
 group :test do
   gem 'rspec', '~> 2.6.0'
