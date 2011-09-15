@@ -1,4 +1,3 @@
-# TO-DO (Add Method and Tests for Re-Assign Sponsor)
 class Group < ActiveRecord::Base
   
   mount_uploader :profile, ProfileUploader
