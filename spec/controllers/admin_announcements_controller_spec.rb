@@ -40,4 +40,27 @@ describe AdminAnnouncementsController do
       it { should  =~ /could not create announcement/i }
     end
   end
+
+  describe "#destroy" do
+    describe "with id" do
+      before do
+        announcement = Announcement.create( { title: "A Test Title", text: "Some awesome text" } )
+        delete :destroy, id: announcement.id.to_s
+      end
+
+      it "should redirect to index" do
+        response.should redirect_to "/admin/announcements"
+      end
+
+      subject { flash[:notice] }
+      it { should  =~ /announcement has been removed/i }
+    end
+
+    describe "without id" do
+      before { delete :destroy, id: '123' }
+
+      subject { flash[:alert] }
+      it { should  =~ /problem removing the announcement/i }
+    end
+  end
 end

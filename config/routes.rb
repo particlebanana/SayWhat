@@ -61,6 +61,7 @@ SayWhat::Application.routes.draw do
   # Admin Announcements Controller
   match "/admin/announcements"            =>  "admin_announcements#index",       :via => "get"
   match "/admin/announcements"            =>  "admin_announcements#create",      :via => "post"
+  match "/admin/announcements/:id"        =>  "admin_announcements#destroy",     :via => "delete"
     
   # Groups
   resources :groups do
