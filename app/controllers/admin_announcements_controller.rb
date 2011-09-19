@@ -8,15 +8,14 @@ class AdminAnnouncementsController < ApplicationController
   
   # GET - All Announcements
   def index
-    @announcements = Announcement.last
+    @announcements = Announcement.order_by([:created_at, :desc]).limit(15)
     respond_with(@announcments)
   end
   
   # POST - Create an Announcement
   def create
-    if params[:announcement]
-      obj = { title: params[:announcement][:title], text: params[:announcement][:text] }
-      Announcement.insert(obj)
+    @announcement = Announcement.new(params[:announcement])
+    if @announcement.save
       redirect_to "/admin/announcements", notice: "Announcement created successfully."
     else
       redirect_to "/admin/announcements", alert: "Missing fields, could not create announcement."

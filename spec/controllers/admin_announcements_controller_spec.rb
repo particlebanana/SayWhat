@@ -8,7 +8,7 @@ describe AdminAnnouncementsController do
     
   describe "#index" do
     before do
-      Announcement.insert({ title: "A Test Title", text: "Some awesome text" })
+      Announcement.create( { title: "A Test Title", text: "Some awesome text" } )
       get :index
     end
     
