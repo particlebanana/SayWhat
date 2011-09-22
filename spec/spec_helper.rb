@@ -21,6 +21,11 @@ RSpec.configure do |config|
     DatabaseCleaner[:active_record].strategy = :transaction
     DatabaseCleaner[:mongoid].strategy = :truncation
     DatabaseCleaner.clean_with(:truncation)
+    conn = Mongo::Connection.new("localhost", 27017).db("ChronologicTest")
+    conn.collection_names.each do |cf|
+      coll = conn.collection(cf)
+      coll.drop() unless cf == 'system.indexes'
+    end
   end
     
   config.before :each do
