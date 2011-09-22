@@ -17,9 +17,9 @@ end
 # Database
 gem 'mysql2', '~> 0.3.0'
 gem 'mongoid', '~> 2.2.0'
-gem 'mongo', '~> 1.3.0'
-gem 'bson', '~> 1.3.0'
-gem 'bson_ext', '~> 1.3.0'
+gem 'mongo', '~> 1.4.0'
+gem 'bson', '~> 1.4.0'
+gem 'bson_ext', '~> 1.4.0'
 
 # Authentication
 gem 'devise', '~> 1.4.0'
