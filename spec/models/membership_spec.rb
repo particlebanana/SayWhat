@@ -11,4 +11,13 @@ describe Membership do
     it { should validate_presence_of(:user_id) }
     it { should validate_presence_of(:group_id) }
   end
+
+  describe "#publish" do
+    before { @membership.publish }
+
+    it "should publish to the group timeline" do
+      timeline = $feed.timeline("group:#{@membership.group_id}")
+      timeline["feed"].first["key"].should include("membership:#{@membership.user_id}:create")
+    end
+  end
 end

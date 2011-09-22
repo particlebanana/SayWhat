@@ -25,6 +25,7 @@ class MembershipsController < ApplicationController
   # PUT - Approve Pending Group Member
   def update
     if @user.activate && @membership.destroy
+      @membership.publish
       UserMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
       redirect_to "/messages", :notice => "Member has been added to group."
     else

@@ -9,4 +9,14 @@ class Membership < ActiveRecord::Base
   belongs_to :group
   
   validates_presence_of [:user_id, :group_id]
+
+  def publish
+    event = Chronologic::Event.new(
+      key: "membership:#{self.user_id}:create",
+      data: { type: "message", message: "joined the group"},
+      timelines: ["group:#{self.group_id}"],
+      objects: { group: "group:#{self.group_id}", user: "user:#{self.user_id}" }
+    )
+    $feed.publish(event, true, Time.now.utc.tv_sec)
+  end
 end

@@ -35,7 +35,12 @@ describe MembershipsController do
       subject { @pending_member.reload }
       its([:status]) { should == "active" }
       its([:role]) { should == "member" }
-    
+
+      it "should publish to the group timeline" do
+        timeline = $feed.timeline("group:#{@membership.group_id}")
+        timeline["feed"].first["key"].should include("membership:#{@membership.user_id}:create")
+      end
+
       it "should send pending member an email" do
         ActionMailer::Base.deliveries.last.to.should == [@pending_member.email]
       end

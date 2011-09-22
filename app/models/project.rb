@@ -15,6 +15,7 @@ class Project < ActiveRecord::Base
   
   # Manage Activity Timeline
   after_create :create_object_key
+  after_create :write_initial_event
 
   def filters
     focus = ['Filter by Focus', 'Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
@@ -25,6 +26,17 @@ class Project < ActiveRecord::Base
     }
   end
   
+  # Publish to Project and Group feed
+  def publish_to_feed(msg)
+    event = Chronologic::Event.new(
+      key: "project:#{self.id}:create",
+      data: { type: "message", message: "#{msg}"},
+      timelines: ["group:#{self.group.id}", "project:#{self.id}"],
+      objects: { group: "group:#{self.group.id}", project: "project:#{self.id}" }
+    )
+    $feed.publish(event, true, Time.now.utc.tv_sec)
+  end
+
   protected
 
   def escape_name
@@ -40,5 +52,9 @@ class Project < ActiveRecord::Base
   # Create an object in the Activity Feed
   def create_object_key
     $feed.record("project:#{id}", { id: self.id, name: self.display_name } )
+  end
+
+  def write_initial_event
+    publish_to_feed("#{self.group.display_name} created a new project: #{self.display_name}")
   end
 end
