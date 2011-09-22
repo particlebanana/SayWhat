@@ -16,6 +16,8 @@ class Group < ActiveRecord::Base
   before_validation :downcase_name
   after_validation :sanitize
 
+  after_create :create_object_key
+
   # Override ID params to use :permalink
   def to_param
     permalink
@@ -93,5 +95,10 @@ class Group < ActiveRecord::Base
   # Make a permalink slug
   def make_slug
     self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
+  end
+
+  # Create an object in the Activity Feed
+  def create_object_key
+    $feed.record("group:#{id}", { id: self.id, name: self.display_name } )
   end
 end

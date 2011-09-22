@@ -24,8 +24,12 @@ describe User do
     it "should generate an authentication token" do
       @user.authentication_token.should_not == nil
     end
+    
+    it "should generate an object key" do
+      $feed.retrieve("user_#{@user.id}").code.should == 200
+    end
   end 
-  
+
   describe "#name" do
     before { @user = Factory.create(:user) }
     

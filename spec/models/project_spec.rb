@@ -1,8 +1,12 @@
 require 'spec_helper'
 
 describe Project do
+  before do
+    @group = Factory.create(:group)
+    @project = Factory.create(:project, { group: @group } )
+  end
+
   context "Factory" do
-    before { @project = Factory.create(:project) }
     
     subject { @project }
     it { should belong_to(:group) }
@@ -19,11 +23,18 @@ describe Project do
     it { should validate_presence_of(:involves) }
   
     it { should validate_uniqueness_of(:name) }
+
+    it "should generate an object key" do
+      $feed.retrieve("project_#{@project.id}").code.should == 200
+    end
+
+    it "should publish to the group timeline" do
+      timeline = $feed.timeline("group:#{@project.group_id}")
+      timeline["feed"].first["key"].should include("project:#{@project.id}:create")
+    end
   end
   
   describe "#escape_name" do
-    before { @project = Factory.create(:project) }
-    
     it "should generate a name field" do
       @project.name.should_not be_nil
     end

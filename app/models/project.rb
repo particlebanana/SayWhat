@@ -13,6 +13,9 @@ class Project < ActiveRecord::Base
   before_validation :escape_name
   after_validation :sanitize
   
+  # Manage Activity Timeline
+  after_create :create_object_key
+
   def filters
     focus = ['Filter by Focus', 'Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
     audience = ['Filter by Audience', 'Elementary Students', 'Middle School Students', 'High School Students', 'Community Members', 'Government Officials']
@@ -32,5 +35,10 @@ class Project < ActiveRecord::Base
     self.goal = Sanitize.clean(self.goal, Sanitize::Config::RESTRICTED) if self.goal
     self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
     self.involves = Sanitize.clean(self.involves, Sanitize::Config::RESTRICTED) if self.involves
-  end      
+  end
+
+  # Create an object in the Activity Feed
+  def create_object_key
+    $feed.record("project:#{id}", { id: self.id, name: self.display_name } )
+  end
 end

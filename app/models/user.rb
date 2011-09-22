@@ -16,7 +16,8 @@ class User < ActiveRecord::Base
   validates_format_of :email, with: Devise::email_regexp
   
   before_create :reset_authentication_token
-    
+  after_create :create_object_key
+
   # Scopes  
   def self.site_admins; where(role: "admin") end
   def self.active; where(status: "active") end
@@ -24,7 +25,7 @@ class User < ActiveRecord::Base
   def self.adult_sponsor; where(role: "adult sponsor") end
   def self.youth_sponsor; where(role: "youth sponsor") end
   def self.members; where(role: "member") end
-  
+
   # Combine First Name and Last Name
   def name
     first_name + ' ' + last_name 
@@ -64,5 +65,12 @@ class User < ActiveRecord::Base
   
   def sponsor?
     self.role == "adult sponsor" || self.role == "youth sponsor" ? true : false
+  end
+
+  private
+
+  # Create an object in the Activity Feed
+  def create_object_key
+    $feed.record("user:#{id}", { id: self.id,  name: self.name } )
   end
 end

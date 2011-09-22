@@ -27,6 +27,10 @@ describe Group do
     it "should downcase name field" do
       @group.name.should == @group.display_name.downcase
     end
+
+    it "should generate an object key" do
+      $feed.retrieve("group_#{@group.id}").code.should == 200
+    end
   end
   
   describe "#adult_sponsor" do
