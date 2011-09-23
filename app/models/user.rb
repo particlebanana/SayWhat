@@ -11,6 +11,8 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remove_avatar, :remember_me
 
+  before_validation :set_defaults
+
   validates_presence_of [:first_name, :last_name, :email, :role, :status]
   validates_uniqueness_of :email
   validates_format_of :email, with: Devise::email_regexp
@@ -68,6 +70,12 @@ class User < ActiveRecord::Base
   end
 
   private
+
+  # Set default role and status
+  def set_defaults
+    self.status ||= "active"
+    self.role ||= "member"
+  end
 
   # Create an object in the Activity Feed
   def create_object_key

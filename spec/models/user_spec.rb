@@ -13,8 +13,6 @@ describe User do
     it { should validate_presence_of(:first_name) }
     it { should validate_presence_of(:last_name) }
     it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:role) }
-    it { should validate_presence_of(:status) }
   
     it { should validate_uniqueness_of(:email) }
   
@@ -29,6 +27,18 @@ describe User do
       $feed.retrieve("user_#{@user.id}").code.should == 200
     end
   end 
+
+  describe "#set_defaults" do
+    before do
+      @user = Factory.build(:user, { email: "default@test.com" } )
+      @user.valid?
+    end
+
+    subject { @user }
+
+    its([:status]) { should == 'active' }
+    its([:role]) { should == 'member' }
+  end
 
   describe "#name" do
     before { @user = Factory.create(:user) }

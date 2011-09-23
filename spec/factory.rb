@@ -4,8 +4,6 @@ Factory.define :user do |u|
   u.email 'han.solo@gmail.com'
   u.password 'nerfherder' 
   u.password_confirmation 'nerfherder'
-  u.status 'active'
-  u.role 'member'
 end
 
 Factory.define :group do |g|
