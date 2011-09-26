@@ -1,3 +1,6 @@
+/* Don't make list have bullets */
+li { list-style: none; }
+
 /* 
  * Clearfix using the micro-clearfix technique.
  * http://nicolasgallagher.com/micro-clearfix-hack/
