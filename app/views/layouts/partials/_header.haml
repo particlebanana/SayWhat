@@ -1,8 +1,25 @@
-%header#pageHeader
-  #innerHeader.group
-    %h1.left
+%header
+  #top-bar-bg
+  #main-nav-bg
+
+  #inner
+    %h1
       %a{:href => "/"} SayWhat!
-    
-    #mainNav.right.group
-      = render :partial => "layouts/partials/static_links"
-      = render :partial => "layouts/partials/dropdown"
+
+    %nav.cf
+      %ul#static.cf
+        %li= link_to "Home", "/", title: "Home"
+        %li= link_to "Groups", groups_path, title: "Groups"
+        %li= link_to "Projects", "/projects", title: "Projects"
+        %li= link_to "History", "/history", title: "History"
+        %li= link_to "Leon", "/leon", title: "Who is Leon?"
+
+      %ul#active.cf
+        - if current_user
+          - if current_user.group
+            %li= link_to "My Group", group_path(current_user.group.permalink), title: "My Group"
+          - if current_user.admin?
+            %li= link_to "Admin", "/admin", title: "Admin"
+          %li{ :class => 'last' }= link_to "Sign out", destroy_user_session_path, title: "Sign Out"
+        - else
+          %li{ :class => 'last' }= link_to "Login", new_user_session_path, title: "Login"

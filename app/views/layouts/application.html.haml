@@ -3,27 +3,21 @@
   %head
     %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
     %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1"}
-    
+
     %title= "SayWhat / #{yield(:title)}"
-    
+
     %meta{:name => "description", :content => "#{yield(:description)}"}
- 
+
     = stylesheet_link_tag 'application.css'
     = javascript_include_tag "application.js"
-    
+
     = csrf_meta_tag
 
   %body
-    %div#wrap    
-    
-      = render :partial => "layouts/partials/header"
-              
-      %div#content.group
-        = yield
-    
-    - if current_page? root_path    
-      %div#footer
-        %p This is a project of the <a href="http://txssc.txstate.edu">Texas School Safety Center</a>
+    = render :partial => "layouts/partials/header"
+
+    %div#content.group
+      = yield
 
     :javascript
       var _gaq = _gaq || [];
