@@ -1,5 +1,7 @@
 header {
   position: relative;
+  margin: 0 0 24px 0;
+
   #top-bar-bg { height: 84px; background: #000 image-url("banner.jpg") no-repeat top center; }
   #main-nav-bg { 
     height: 33px; 
@@ -45,38 +47,24 @@ header {
       width: 100%;
       
       ul { margin: 0; padding: 0; }
-      
-      ul#static {
+      li {
         float: left;
-        margin: 0 0 0 85px;
-        li {
-          float: left;
-          font-size: 0.8em;
-          a {
-            display: block;
-            color: #fff; 
-            padding: 10px;
-            text-decoration: none;
-          }
+        font-size: 1em;
+        a {
+          display: block;
+          color: #fff;
+          padding: 10px;
+          text-decoration: none;
+          font-family: facitweb, sans-serif;
+          font-style: normal;
+          font-weight: 600;
         }
       }
       
-      ul#active {
-        float: right;
-        li {
-          float: left;
-          font-size: 0.8em;
-          a {
-            display: block;
-            color: #fff; 
-            padding: 10px;
-            text-decoration: none;
-          }
-        }
-      }
+      ul#static { float: left; margin-left: 85px; }
+      ul#active { float: right; }
       
     }
 
   }
-  
 }

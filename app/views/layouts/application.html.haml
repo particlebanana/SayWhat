@@ -11,12 +11,18 @@
     = stylesheet_link_tag 'application.css'
     = javascript_include_tag "application.js"
 
+    // Typekit
+    %script{ type: "text/javascript", src: "http://use.typekit.com/#{CONFIG['typekit_code']}.js" }
+
+    :javascript
+      try{Typekit.load();}catch(e){}
+
     = csrf_meta_tag
 
   %body
     = render :partial => "layouts/partials/header"
 
-    %div#content.group
+    %div.container.cf
       = yield
 
     :javascript

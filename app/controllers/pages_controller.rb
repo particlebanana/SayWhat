@@ -1,10 +1,10 @@
 class PagesController < ApplicationController
   layout "application"  
-  
+
   before_filter :authenticate_user!, :only => :index
-  
+
   respond_to :html
-  
+
   # GET - Admin Dashboard
   def index 
     @counts = {
@@ -14,14 +14,26 @@ class PagesController < ApplicationController
     }
     render :layout => "admin"
   end
-  
+
   # GET - Home Page
   def home
-    @projects = Project.order('end_date ASC').find_all{ |project| project.end_date < Date.today}
+    if current_user
+      @timeline = $feed.timeline("user:#{current_user.id}")
+      render "timeline"
+    else
+      render "home"
+    end
   end
-  
+
+  # GET - History
+  def history
+  end
+
+  # GET - Leon
+  def leon
+  end
+
   # GET - Join Page
   def join
   end
-
 end
