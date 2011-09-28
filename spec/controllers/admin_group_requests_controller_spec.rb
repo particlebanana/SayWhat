@@ -26,7 +26,7 @@ describe AdminGroupRequestsController do
   describe "#show" do
     before do
       group = Factory.create(:group, {status: "pending"})
-      Factory.create(:user, {role: "adult sponsor", status: "pending"})
+      Factory.create(:user, { email: "show@test.com", group: group })
       get :show, id: group.id
     end
     
@@ -45,8 +45,9 @@ describe AdminGroupRequestsController do
   
   describe "#update" do
     before do
-      @group = Factory.create(:group, {status: "pending"})
-      @sponsor = Factory.create(:user, {role: "adult sponsor", status: "pending", group: @group})
+      @group = Factory.build(:group)
+      @sponsor = Factory.create(:user)
+      @group.initialize_pending(@sponsor)
       put :update, id: @group.id
     end
     
@@ -54,8 +55,8 @@ describe AdminGroupRequestsController do
       @group.reload.status.should == 'active'
     end
     
-    it "should set sponsor's status to active" do
-      @sponsor.reload.status.should == 'active'
+    it "should set sponsor's role to adult sponsor" do
+      @sponsor.reload.role.should == 'adult sponsor'
     end
     
     it "should redirect to index action" do

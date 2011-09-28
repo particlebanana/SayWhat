@@ -21,12 +21,7 @@ class AdminGroupRequestsController < ApplicationController
  
   # PUT - Approve a group membership
   def update
-    @sponsor = @group.adult_sponsor
-    @sponsor.status = "active"
-    @group.status = "active"
-      
-    if @group.save & @sponsor.save
-      GroupMailer.send_approved_notice(@sponsor, @group, request.env["HTTP_HOST"]).deliver
+    if @group.approve(request.env["HTTP_HOST"])
       redirect_to "/admin/group_requests", notice: "Group was approved."
     else
       redirect_to "/admin/group_requests/#{@group.id.to_s}", alert: "Error approving group. Try again"

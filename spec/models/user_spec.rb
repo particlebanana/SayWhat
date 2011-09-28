@@ -24,7 +24,11 @@ describe User do
     end
     
     it "should generate an object key" do
-      $feed.retrieve("user_#{@user.id}").code.should == 200
+      $feed.retrieve("user:#{@user.id}").code.should == 200
+    end
+
+    it "should subscribe user to the global timeline" do
+      $feed.connected?("global_feed", "user:#{@user.id}").should == 'b'
     end
   end 
 

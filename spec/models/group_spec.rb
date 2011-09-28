@@ -76,6 +76,28 @@ describe Group do
     its([:group_id]) { should == @group.id }
   end
   
+  describe "#approve" do
+    before do
+      @user = Factory.create(:user, {role: "adult sponsor", group: @group})
+      @response = @group.approve("http://test.com")
+    end
+
+    subject { @response }
+    it { should be_true }
+
+    it "should set the group status to active" do
+      @group.reload.status.should == 'active'
+    end
+
+    it "should send the sponsor an email" do
+      ActionMailer::Base.deliveries.last.subject.should =~ /group has been approved/i
+    end
+
+    it "should write an event to the user's timeline" do
+      $feed.timeline("user:#{@user.id}:home")[:feed].first[:data][:message].should == "#{@group.display_name} is now on Say What!"
+    end
+  end
+
   describe "#deny" do
     before do
       Factory.create(:user, {role: "adult sponsor", group: @group})

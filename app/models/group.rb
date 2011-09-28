@@ -9,7 +9,7 @@ class Group < ActiveRecord::Base
   
   attr_accessible :display_name, :city, :organization, :description, :permalink, :esc_region, :dshs_region, :area, :profile_photo
 
-  validates_presence_of [:name, :display_name, :city, :organization, :permalink, :status, :esc_region, :dshs_region, :area]
+  validates_presence_of [:display_name, :city, :organization, :permalink, :status, :esc_region, :dshs_region, :area]
   validates_uniqueness_of [:name, :permalink]
   validates_length_of :permalink, within: 4..20
   
@@ -32,6 +32,10 @@ class Group < ActiveRecord::Base
     where(status: "active")
   end
   
+  def active?
+    self.status == 'active' ? true : false
+  end
+
   # Get the Group's Adult Sponsor
   def adult_sponsor
     self.users.where(role: "adult sponsor").first
@@ -40,11 +44,23 @@ class Group < ActiveRecord::Base
   # Initialize a new pending group and send notifications
   def initialize_pending(requestor)
     return false unless setup_group
-    return false unless requestor.join_group(self.id) 
+    return false unless requestor.join_group(self.id)
+    requestor.change_role_level("adult sponsor")
     send_notifications(requestor)
     true
   end
   
+  def approve(url)
+    self.status = "active"
+    if self.save
+      create_approved_group_timeline_event
+      GroupMailer.send_approved_notice(self.adult_sponsor, self, url).deliver
+      true
+    else
+      false
+    end
+  end
+
   # Completely remove a group and sponsor account
   def deny(reason)
     user = self.adult_sponsor
@@ -55,7 +71,7 @@ class Group < ActiveRecord::Base
       false
     end
   end
-  
+
   # Reassign a group sponsor to another group member
   def reassign_sponsor(user_id)
     current_sponsor = adult_sponsor
@@ -65,7 +81,7 @@ class Group < ActiveRecord::Base
       proposed_sponsor.change_role_level("adult sponsor")
     end
   end  
- 
+
   protected
   
   def downcase_name
@@ -100,5 +116,16 @@ class Group < ActiveRecord::Base
   # Create an object in the Activity Feed
   def create_object_key
     $feed.record("group:#{id}", { id: self.id, name: self.display_name } )
+  end
+
+  # Add an event to global timeline when a group is approved
+  def create_approved_group_timeline_event
+    event = Chronologic::Event.new(
+      key: "group:#{self.id}:create",
+      data: { type: "message", message: "#{self.display_name} is now on Say What!"},
+      timelines: ["global_feed"],
+      objects: { group: "group:#{self.id}" }
+    )
+    $feed.publish(event, true, Time.now.utc.tv_sec)
   end
 end

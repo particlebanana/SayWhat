@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   
   before_create :reset_authentication_token
   after_create :create_object_key
+  after_create :subscribe_to_global
 
   # Scopes  
   def self.site_admins; where(role: "admin") end
@@ -80,5 +81,10 @@ class User < ActiveRecord::Base
   # Create an object in the Activity Feed
   def create_object_key
     $feed.record("user:#{id}", { id: self.id,  name: self.name } )
+  end
+
+  # Subscribe to the Global Activity Feed
+  def subscribe_to_global
+    $feed.subscribe("user:#{id}:home", "global_feed")
   end
 end
