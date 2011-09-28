@@ -24,6 +24,9 @@ class Ability
       can :edit, User, id: user.id
       can :update, User, id: user.id
       
+      can :index, Group
+      can :show, Group
+
       can :new, Project, group_id: user.group_id
       can :create, Project, group_id: user.group_id
       can :edit, Project, group_id: user.group_id
