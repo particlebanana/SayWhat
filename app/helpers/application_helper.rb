@@ -8,18 +8,18 @@ module ApplicationHelper
     content_for(:description) { desc }
   end
     
-  def errors_for(object, message=nil)
+  def errors_for(object, type='error', message=nil)
     html = ""
     unless object.errors.blank?
-      html << "<div class='formErrors #{object.class.name.humanize.downcase}Errors'>\n"
+      html << "<div class='alert-message block-message #{type}'>\n"
       if message.blank?
         if object.new_record?
-          html << "\t\t<h5>There was a problem creating the #{object.class.name.humanize.downcase}</h5>\n"
+          html << "\t\t<p>There was a problem creating the #{object.class.name.humanize.downcase}</p>\n"
         else
-          html << "\t\t<h5>There was a problem updating the #{object.class.name.humanize.downcase}</h5>\n"
+          html << "\t\t<p>There was a problem updating the #{object.class.name.humanize.downcase}</p>\n"
         end    
       else
-        html << "<h5>#{message}</h5>"
+        html << "<p>#{message}</p>"
       end  
       html << "\t\t<ul>\n"
       object.errors.full_messages.each do |error|
@@ -29,10 +29,49 @@ module ApplicationHelper
       html << "\t</div>\n"
     end
     html
-  end  
+  end
+
+  def build_field(type, enum, field_name, object, help_block=nil, inline_block=nil)
+    html = ""
+    if enum
+      if object.errors.include? field_name.to_sym
+        html << "<div class='clearfix error'>\n"
+      else
+        html << "<div class='clearfix'>\n"
+      end
+      html << "#{enum.label field_name.to_sym}\n"
+      html << "<div class='input'>\n"
+      case type
+      when 'text_field'
+        html << "#{enum.text_field field_name.to_sym, :class => 'xlarge'}\n"
+      when 'text_area'
+        html << "#{enum.text_area field_name.to_sym, :rows => 3, :class => 'xxlarge'}\n"
+      end
+      html << "<span class='help-inline'>#{inline_block}</span>\n" unless inline_block.nil?
+      html << "<span class='help-block'>#{help_block}</span>\n" unless help_block.nil?
+      html << "</div>\n"
+      html << "</div>\n"
+    end
+    html
+  end
+
+  def flash_messages(flash)
+    html = ""
+    flash.each do |type, value|
+      case type.to_s
+      when 'alert'
+        html << "<div class='alert-message error'>\n"
+      when 'notice'
+        html << "<div class='alert-message success'>\n"
+      end
+      html << "<a class='close' href='#'>x</a>\n"
+      html << "<p><strong>#{value}</strong></p>\n"
+      html << "</div>\n"
+    end
+    html
+  end
   
   def snippit(str, limit=100)
-    #str.gsub(/^(.{10}[\w.]*)(.*)/) {$2.empty? ? $1 : $1 + '…'}
     str.split[0..(limit-1)].join(" ") +(str.split.size > limit ? "..." : "") 
   end
   
@@ -49,6 +88,4 @@ module ApplicationHelper
       "</html>"
     ].join("\n")
   end
-
-
 end

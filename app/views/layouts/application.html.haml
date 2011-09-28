@@ -23,6 +23,8 @@
     = render :partial => "layouts/partials/header"
 
     %div.container.cf
+      = flash_messages(flash).html_safe
+
       = yield
 
     :javascript

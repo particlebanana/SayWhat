@@ -7,16 +7,16 @@
       %a{:href => "/"} SayWhat!
 
     %nav.cf
-      %ul#static.cf
+      %ul#static.cf.unstyled
         %li= link_to "Home", "/", title: "Home"
         %li= link_to "Groups", groups_path, title: "Groups"
         %li= link_to "Projects", "/projects", title: "Projects"
         %li= link_to "History", "/history", title: "History"
         %li= link_to "Leon", "/leon", title: "Who is Leon?"
 
-      %ul#active.cf
+      %ul#active.cf.unstyled
         - if current_user
-          - if current_user.group
+          - if current_user.group && current_user.group.active?
             %li= link_to "My Group", group_path(current_user.group.permalink), title: "My Group"
           - if current_user.admin?
             %li= link_to "Admin", "/admin", title: "Admin"
