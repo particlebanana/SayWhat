@@ -1,0 +1,14 @@
+= title "Dashboard"
+
+.row
+  %section#home_feed.span10.timeline
+    %h2.heading Activity Feed
+
+    - if @timeline.size > 0
+      - @timeline.feed.each do |event|
+        .event{ id: event.token }
+          = build_event(event).html_safe
+
+    - else
+      %div.alert-message.block-message.info
+        %p <strong>No action to report!</strong> Your timeline is currently empty. Don't worry it will fill up soon! 

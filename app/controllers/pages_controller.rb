@@ -18,7 +18,7 @@ class PagesController < ApplicationController
   # GET - Home Page
   def home
     if current_user
-      @timeline = $feed.timeline("user:#{current_user.id}")
+      @timeline = Hashie::Mash.new($feed.timeline("user:#{current_user.id}:home"))
       render "timeline"
     else
       render "home"
