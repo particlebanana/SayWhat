@@ -120,11 +120,12 @@ class Group < ActiveRecord::Base
 
   # Add an event to global timeline when a group is approved
   def create_approved_group_timeline_event
+    sponsor = self.adult_sponsor
     event = Chronologic::Event.new(
       key: "group:#{self.id}:create",
-      data: { type: "message", message: "#{self.display_name} is now on Say What!"},
-      timelines: ["global_feed"],
-      objects: { group: "group:#{self.id}" }
+      data: { type: "message", message: "#{sponsor.name} created the group #{self.display_name}"},
+      timelines: ["global_feed", "group:#{self.id}", "user:#{sponsor.id}"],
+      objects: { user: "user:#{sponsor.id}", group: "group:#{self.id}" }
     )
     $feed.publish(event, true, Time.now.utc.tv_sec)
   end
