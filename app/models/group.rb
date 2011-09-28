@@ -115,7 +115,7 @@ class Group < ActiveRecord::Base
 
   # Create an object in the Activity Feed
   def create_object_key
-    $feed.record("group:#{id}", { id: self.id, name: self.display_name } )
+    $feed.record("group:#{id}", { id: self.permalink, name: self.display_name } )
   end
 
   # Add an event to global timeline when a group is approved

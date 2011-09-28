@@ -24,12 +24,7 @@ module TimelineHelper
       html = ""
       @objects.each do |obj| 
         klass = obj[0]
-        if ['group'].include?(klass) # Use a value different than ID for the resource link
-          resource = find_resource(klass, obj[1].id)
-          msg.gsub!(obj[1].name, "<a href='/#{klass.pluralize}/#{resource.permalink}'>#{obj[1].name}</a>")
-        else
-          msg.gsub!(obj[1].name, "<a href='/#{klass.pluralize}/#{obj[1].id}'>#{obj[1].name}</a>")
-        end
+        msg.gsub!(obj[1].name, "<a href='/#{klass.pluralize}/#{obj[1].id}'>#{obj[1].name}</a>")
       end
       html << "<p>" + msg + "</p>"
     end
