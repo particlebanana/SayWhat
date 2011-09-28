@@ -37,7 +37,6 @@ class GroupsController < ApplicationController
   # GET - Request a new group
   def new
     @group = Group.new
-    @user = User.new
     respond_with(@group)
   end
   
