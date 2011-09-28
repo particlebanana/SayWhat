@@ -15,6 +15,7 @@ class GroupsController < ApplicationController
   
   # GET - Show indivudal group info
   def show
+    @timeline = Hashie::Mash.new($feed.timeline("group:#{@group.id}"))
     respond_with(@group)
   end
   

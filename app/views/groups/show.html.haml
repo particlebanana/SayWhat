@@ -1,0 +1,34 @@
+= title @group.display_name
+= description @group.description
+
+.row#group_profile
+  %section.span10
+    %hgroup
+      %h1.heading= @group.display_name
+      %h6= "#{@group.organization} / #{@group.city}, TX"
+
+    #project_feed.media.cf
+      .project
+        %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/170x118" alt="">
+      .project
+        %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/170x118" alt="">
+      .project
+        %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/170x118" alt="">
+
+    #activity_feed.timeline
+      %h2.heading Activity Feed
+
+      - if @timeline.size > 0
+        - @timeline.feed.each do |event|
+          .event{ id: event.token }
+            = build_event(event).html_safe
+
+      - else
+        %div.alert-message.block-message.info
+          %p <strong>No action to report!</strong> Your timeline is currently empty. Don't worry it will fill up soon!
+
+  %aside.span5.offset1
+    .profile_photo.media.cf
+      %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/270x188" alt="">
+
+    %p= @group.description 

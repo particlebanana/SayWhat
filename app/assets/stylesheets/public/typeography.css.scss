@@ -29,7 +29,7 @@ article p + p {
 
 article p.list { text-indent: 0; margin-bottom: 12px; } /* Clears the p + p indent */
 
-h2 {
+h1, h2 {
   font-family: proxima-nova,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Arial,sans-serif;
   font-style: normal;
   font-weight: 600;
@@ -37,7 +37,7 @@ h2 {
   margin: 33px 0 11px 0;
 }
 
- h2.heading { margin-top: 0; } /* Zero out top margin */
+ h1.heading, h2.heading { margin-top: 0; } /* Zero out top margin */
 
 strong {
   font-style: normal;

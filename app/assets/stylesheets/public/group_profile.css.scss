@@ -1,0 +1,28 @@
+#group_profile {
+  hgroup {
+    margin-bottom: 20px;
+    h1 { margin-bottom: 4px; }
+    h6 { line-height: 22px; }
+  }
+
+  section {
+    #project_feed {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+      margin-bottom: 20px;
+
+      .project {
+        float: left;
+        margin-left: 20px;
+      }
+      .project:first-child { margin-left: 0; }
+    }
+  }
+
+  aside {
+    .profile_photo {
+      margin-bottom: 25px;
+    }
+  }
+}
