@@ -88,11 +88,11 @@ class User < ActiveRecord::Base
 
   # Subscribe to the Global Activity Feed
   def subscribe_to_global
-    $feed.subscribe("user:#{id}:home", "global_feed")
+    $feed.subscribe("user:#{id}", "global_feed")
   end
 
   # Subscribe to a group's feed
   def subscribe_to_group(group_id)
-    $feed.subscribe("user:#{id}:home", "group:#{group_id}")
+    $feed.subscribe("user:#{id}", "group:#{group_id}")
   end
 end
