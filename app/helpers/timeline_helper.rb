@@ -14,7 +14,7 @@ module TimelineHelper
 
     def initialize(event)
       @data = event.data
-      @objects = event.objects
+      @objects = event.objects.to_a
     end
 
     # Build a message event type in the timeline.
@@ -22,7 +22,7 @@ module TimelineHelper
     def create_message
       msg = @data.message
       html = ""
-      @objects.each do |obj| 
+      @objects.each do |obj|
         klass = obj[0]
         msg.gsub!(obj[1].name, "<a href='/#{klass.pluralize}/#{obj[1].id}'>#{obj[1].name}</a>")
       end
