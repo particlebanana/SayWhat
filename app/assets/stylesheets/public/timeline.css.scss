@@ -1,8 +1,161 @@
+// Attachments Composer
+
+#composer {
+  padding: 20px 0;
+  margin: 12px 0;
+  border-bottom: 1px solid #e4eaf1;
+  ul {
+    list-style: none;
+    margin: 0;
+    li { float: left; position: relative; }
+  }
+
+  .attachments_select {
+    a {
+      position: relative;
+      padding-left: 23px;
+      display: block;
+      cursor: pointer;
+      line-height: 14px;
+      font-weight: 600;
+      img {
+        position: absolute;
+        left: 0;
+        top: -1px;
+        vertical-align: middle;
+        display: inline-block;
+      }
+    }
+  }
+
+  .attachments_form {
+    margin: 12px 0;
+    .comment_box {
+      width: 100%;
+      padding: 0;
+      .wrap { border-bottom: none; }
+      textarea { height: 48px; width: 572px; }
+      .meta_options {
+        background: #eee;
+        border-left: 1px solid #C2D0E0;
+        border-right: 1px solid #C2D0E0;
+        border-bottom: 1px solid #C2D0E0;
+        border-top: 1px solid #ddd;
+        padding: 8px;
+        .loader {
+          float:right;
+          margin: 0 25px 0 0;
+          padding: 6px 0 0 0;
+        }
+        input.submit_comment {
+          float: right;
+          display: inline-block;
+          font-size: 11px;
+          text-transform: uppercase;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+  .attachments_form.hidden, .attachments_form .loader.hidden { display: none; }
+}
+
 // Basic Timeline Styles
 
 .timeline {
   .event {
-    padding: 12px 0 3px 0;
-    border-bottom: 1px solid #BFBFBF;
+    padding: 12px 0;
+    margin: 12px 0;
+    border-bottom: 1px solid #e4eaf1;
   }
+
+  .comment {
+    padding-bottom: 9px;
+
+    a.profile_photo {
+      float: left;
+      display: block;
+      width: 50px;
+    }
+
+    .message {
+      margin-left: 65px;
+      h6 {
+        font-size: 13px;
+        text-transform: none;
+        line-height: 0.7;
+      }
+      p { font-size: 12px; }
+
+      .option_footer {
+        display: block;
+        font-size: 11px;
+        abbr { color: #777; }
+
+        a { color: #57a8ff; }
+      }
+    }
+  }
+
+  form { margin-bottom: 0; }
+
+  // Nested Comments
+  ul.subevents {
+    width: 100%;
+    background: #eff3f7;
+    list-style: none;
+    margin: 8px 0 0 0;
+
+    li {
+      color: #222;
+      border-bottom: 1px solid #fafbfd;
+
+      .comment {
+        border-bottom: 1px solid #cdd9e6;
+        padding: 8px;
+        a.profile_photo { width: 40px; }
+        .message {
+          margin-left: 50px;
+          a { font-weight: 600; }
+        }
+      }
+
+      .loader { width: 16px; margin: 0 auto; padding: 5px 0 0 0; }
+    }
+  }
+
+  // Genercic Comment Form
+  .comment_box {
+    padding: 8px;
+    display: block;
+    .wrap {
+      border: 1px solid #c2d0e0;
+      background: #fff;
+      padding: 3px;
+      .inner_wrap {
+        background: #fff;
+        textarea {
+          display: block;
+          width: 100%;
+          padding: 0;
+          border: none;
+          box-shadow: none;
+          -webkit-border-radius: 0;
+          -moz-border-radius: 0;
+          border-radius: 0;
+        }
+        textarea.textInput {
+          display: block;
+          height: 14px;
+          width: 491px;
+          line-height: 14px;
+          resize: none;
+          overflow-x: hidden;
+          overflow-y: hidden;
+        }
+      }
+    }
+    input.submit_comment { display: none; }
+  }
+  .comment_box.hidden, .comment_box .meta_options .loader.hidden { display: none; }
 }
