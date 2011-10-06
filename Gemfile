@@ -2,9 +2,6 @@ source 'http://rubygems.org'
 
 # Base Files
 gem 'rails', '~> 3.1.0'
-gem 'jquery-rails'
-gem 'execjs'
-gem 'therubyracer'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -25,9 +22,19 @@ gem 'bson_ext', '~> 1.4.0'
 gem 'devise', '~> 1.4.0'
 gem 'cancan'
 
+# Javascript
+gem 'handlebars_assets', '~> 0.1.0'
+gem 'jquery-rails'
+gem 'execjs', :git => 'git://github.com/sstephenson/execjs.git'
+gem 'therubyracer'
+
+# Deploy
 gem 'capistrano'
 gem 'unicorn'
+
+# Helpers
 gem 'json'
+gem 'hashie', '~> 1.1.0'
 gem 'haml'
 gem 'nokogiri'
 gem 'mini_magick'
