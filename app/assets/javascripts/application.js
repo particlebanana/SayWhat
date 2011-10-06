@@ -7,5 +7,8 @@
 //= require modernizr.2.0.6.custom
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.8.8.custom.min
-//= require functions
+//= require handlebars
+//= require_tree ../templates
+//= require_tree ./sections
+//= require jquery.autoresize.js
+//= require bootstrap
