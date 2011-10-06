@@ -1,0 +1,28 @@
+<div class="event" id="{{key}}">
+  <div class="comment cf">
+    <a class="profile_photo" href="/user/{{objects.user.id}}"><img src="http://placehold.it/50x50" alt=""></a>
+    <div class="message">
+      <h6><a href="/user/{{objects.user.id}}">{{objects.user.name}}</a></h6>
+      <p>{{data.comment}}</p>
+      <form action="{{url}}">
+        <div class="option_footer">
+          <span><a class="comment_link" href="#">Comment</a> - </span>
+          <abbr class="timestamp livetimestamp">just now</abbr>
+        </div>
+        <ul class="subevents span8">
+          <li class="comment_box hidden">
+            <div class="wrap">
+              <div class="inner_wrap">
+                <textarea class="textInput" id="{{key}}" name="comment" placeholder="Write a comment…"></textarea>
+              </div>
+            </div>
+            <div class="meta_options cf">
+              <input class="submit_comment btn primary" name="commit" type="submit" value="Post">
+              <div class="loader hidden"><img alt="Loader" src="/assets/loader.gif"></div>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+  </div>
+</div>
