@@ -1,0 +1,7 @@
+%li.comment_box{ :class => status }
+  .wrap
+    .inner_wrap
+      = text_area_tag :comment, nil, :id => "comment_#{Time.now.utc.tv_sec}", :placeholder => 'Write a comment…', :class => "textInput"
+  .meta_options.cf
+    = submit_tag "Post", :class => "submit_comment btn primary"
+    .loader.hidden= image_tag "loader.gif"

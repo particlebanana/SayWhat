@@ -5,24 +5,31 @@ module TimelineHelper
     type, obj = event.data.type, EventTimeline.new(event)
     case type
     when "message"
-      event = obj.create_message
+      event = obj.build_message
+    when "comment"
+      render 'timeline/comment', {
+        key: event['key'],
+        user: event.objects.user,
+        comment: event.data.comment,
+        timestamp: Time.at(event.token.split(':')[1].to_i),
+        subevents: event.subevents
+      }
     end
-    event
   end
 
   class EventTimeline
 
     def initialize(event)
       @data = event.data
-      @objects = event.objects.to_a
+      @objects = event.objects
     end
 
     # Build a message event type in the timeline.
     # EX: <p><a href="#">Object Name</a> some message text.</p>
-    def create_message
+    def build_message
       msg = @data.message
       html = ""
-      @objects.each do |obj|
+      @objects.to_a.each do |obj|
         klass = obj[0]
         msg.gsub!(obj[1].name, "<a href='/#{klass.pluralize}/#{obj[1].id}'>#{obj[1].name}</a>")
       end

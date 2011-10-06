@@ -1,0 +1,16 @@
+%ul.subevents.span8
+  - if subevents
+    - subevents.each do |event|
+      %li
+        .comment.cf
+          %a.profile_photo{ href: "/user/#{event.objects.user.id}"} <img src="http://placehold.it/40x40" alt="">
+          .message
+            %p
+              <a href="/user/#{event.objects.user.id}">#{event.objects.user.name}</a>
+              = event.data.comment
+            .option_footer
+              - timestamp = Time.at(event.token.split(':')[1].to_i)
+              %abbr{ :title => "#{timestamp.strftime('%A, %B %e, %Y at %l:%M%P')}", :'data-date' => "#{timestamp.strftime('%a, %d %b %Y %H:%M:%S %z')}", :class => "timestamp livetimestamp"}= "#{time_ago_in_words(timestamp)} ago"
+
+    - status = subevents.empty? ? 'hidden' : ''
+    = render :partial => 'timeline/comment_form', :locals => { status: status }

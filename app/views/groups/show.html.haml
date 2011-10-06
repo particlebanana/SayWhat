@@ -18,10 +18,13 @@
     #activity_feed.timeline
       %h2.heading Activity Feed
 
+      = render :partial => "timeline/composer"
+
       - if @timeline.size > 0
-        - @timeline.feed.each do |event|
-          .event{ id: event.token }
-            = build_event(event).html_safe
+        #event_wrapper
+          - @timeline.feed.each do |event|
+            .event{ id: event.token }
+              = build_event(event).html_safe
 
       - else
         %div.alert-message.block-message.info
@@ -31,4 +34,4 @@
     .profile_photo.media.cf
       %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/270x188" alt="">
 
-    %p= @group.description 
+    %p= @group.description

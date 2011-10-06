@@ -1,0 +1,12 @@
+.comment.cf
+  %a.profile_photo{ href: "/user/#{user.id}"} <img src="http://placehold.it/50x50" alt="">
+  .message
+    %h6 <a href="/user/#{user.id}">#{user.name}</a>
+    %p= comment
+    = form_tag(group_comment_comments_path(@group.permalink, key)) do
+
+      .option_footer
+        %span <a class='comment_link' href="#">Comment</a> -
+        %abbr{ :title => "#{timestamp.strftime('%A, %B %e, %Y at %l:%M%P')}", :'data-date' => "#{timestamp.strftime('%a, %d %b %Y %H:%M:%S %z')}", :class => "timestamp livetimestamp"}= "#{time_ago_in_words(timestamp)} ago"
+
+      = render :partial => 'timeline/nested_comments', :locals => { subevents: subevents }
