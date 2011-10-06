@@ -123,7 +123,7 @@ class Group < ActiveRecord::Base
     sponsor = self.adult_sponsor
     event = Chronologic::Event.new(
       key: "group:#{self.id}:create",
-      data: { type: "message", message: "#{sponsor.name} created the group #{self.display_name}"},
+      data: { type: "message", message: "#{sponsor.name} created the group #{self.display_name}" },
       timelines: ["global_feed", "group:#{self.id}", "user:#{sponsor.id}"],
       objects: { user: "user:#{sponsor.id}", group: "group:#{self.id}" }
     )

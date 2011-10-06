@@ -13,7 +13,7 @@ class Membership < ActiveRecord::Base
   def publish
     event = Chronologic::Event.new(
       key: "membership:#{self.user_id}:create",
-      data: { type: "message", message: "joined the group"},
+      data: { type: "message", message: "joined the group" },
       timelines: ["group:#{self.group_id}"],
       objects: { group: "group:#{self.group_id}", user: "user:#{self.user_id}" }
     )
