@@ -7,9 +7,20 @@ module TimelineHelper
     when "message"
       event = obj.build_message
     when "comment"
+      objects = event.objects
+      if objects.project
+        puts "objects.project = #{objects.project.inspect}"
+        form_url = group_project_comment_comments_path(objects.group.id, objects.project.id, event['key'])
+      elsif objects.group
+        puts "objects.group = #{objects.group.inspect}"
+        form_url = group_comment_comments_path(objects.group.id, event['key'])
+      end
+
       render 'timeline/comment', {
         key: event['key'],
+        form: form_url,
         user: event.objects.user,
+        objects: event.objects,
         comment: event.data.comment,
         timestamp: Time.at(event.token.split(':')[1].to_i),
         subevents: event.subevents

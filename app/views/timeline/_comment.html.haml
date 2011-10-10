@@ -3,7 +3,7 @@
   .message
     %h6 <a href="/user/#{user.id}">#{user.name}</a>
     %p= comment
-    = form_tag(group_comment_comments_path(@group.permalink, key)) do
+    = form_tag("#{form}") do
 
       .option_footer
         %span <a class='comment_link' href="#">Comment</a> -
