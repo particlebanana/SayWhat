@@ -6,8 +6,6 @@ describe User do
   
     subject { @user }  
     it { should belong_to(:group) }
-    it { should have_many(:project_comments) }
-    it { should have_many(:group_comments) }
     it { should have_many(:memberships) }
   
     it { should validate_presence_of(:first_name) }
