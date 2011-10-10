@@ -26,7 +26,7 @@ describe User do
     end
 
     it "should subscribe user to the global timeline" do
-      $feed.connected?("global_feed", "user:#{@user.id}").should == 'b'
+      $feed.connected?("global_feed", "user:#{@user.id}").should == true
     end
   end 
 
