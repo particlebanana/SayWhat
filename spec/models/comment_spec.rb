@@ -4,6 +4,7 @@ describe Comment do
   before do
     @user = Factory.create(:user)
     @group = Factory.create(:group)
+    @user.join_group(@group.id)
     @project = Factory.create(:project, { group: @group } )
   end
 
