@@ -9,10 +9,8 @@ module TimelineHelper
     when "comment"
       objects = event.objects
       if objects.project
-        puts "objects.project = #{objects.project.inspect}"
         form_url = group_project_comment_comments_path(objects.group.id, objects.project.id, event['key'])
       elsif objects.group
-        puts "objects.group = #{objects.group.inspect}"
         form_url = group_comment_comments_path(objects.group.id, event['key'])
       end
 

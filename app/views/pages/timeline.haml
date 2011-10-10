@@ -5,9 +5,10 @@
     %h2.heading Activity Feed
 
     - if @timeline.size > 0
-      - @timeline.feed.each do |event|
-        .event{ id: event.token }
-          = build_event(event).html_safe
+      #event_wrapper
+        - @timeline.feed.each do |event|
+          .event{ id: event.token }
+            = build_event(event).html_safe
 
     - else
       %div.alert-message.block-message.info
