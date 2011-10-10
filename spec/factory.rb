@@ -30,18 +30,6 @@ Factory.define :project do |p|
   p.description "A Top Secret project"
 end
 
-Factory.define :project_comment do |c|
-  c.user_id 1
-  c.project_id 1
-  c.comment "What planet will be destroyed first?"
-end
-
-Factory.define :group_comment do |c|
-  c.user_id 1
-  c.group_id 1
-  c.comment "What planet will be destroyed first?"
-end
-
 Factory.define :message do |m|
   m.message_type "message"
   m.author "Han Solo"
