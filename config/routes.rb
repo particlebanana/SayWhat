@@ -10,10 +10,11 @@ SayWhat::Application.routes.draw do
   end
   
   devise_for :users do
+    get "/sign_up" => "devise/registrations#new"
     get "/login" => "devise/sessions#new"
     get "/logout" => "devise/sessions#destroy"
   end
-    
+
   match "/settings/profile" => "users#edit", :via => "get"
   match "/settings/password" => "users#edit_password", :via => "get"
     
