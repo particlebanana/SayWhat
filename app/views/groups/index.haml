@@ -1,19 +1,21 @@
 = title "Groups"
 = description "The Say What! Movement was created and designed by more than 250 young people from across Texas to link to all high school groups in Texas who are actively working to eliminate tobacco from their schools and communities. By linking our efforts we have a unified voice to create change across the state."
 
-%div#projectHeader
-  %div.centeredWrap.group
-    %header.group
-      %hgroup.left
-        %h1
-          All Groups
+.row
+  %section.span9.columns
+    %h2.heading Groups
 
+    -  if @groups.size > 0
+      %ul
+        - @groups.each do |group|
+          %li= link_to truncate(group.display_name, :length => 50), group_path(group.permalink)
+    - else
+      %div.alert-message.block-message.info
+        %p <strong>Whoa there!</strong> It looks like no one has created any groups yet! You can create a group in no time!
+        %div.alert-actions
+          = link_to "Start A New Group", new_group_path, :class => "btn small"
 
-%div#groupIndex.centeredWrap.group
+  %aside.span6.offset1.columns
+    %p If you don't see a group in your area or already have a group and would like to join Say What! you can start a new group.
 
-  %ul.projectsList.group    
-    - @groups.each do |group|
-      %li
-        = link_to image_tag(group.profile.url(:small)), "/groups/#{group.permalink}"
-        %strong
-          = link_to truncate(group.display_name, :length => 50), "/groups/#{group.permalink}"
+    = link_to "Start A New Group", new_group_path, :class => "btn large primary"
