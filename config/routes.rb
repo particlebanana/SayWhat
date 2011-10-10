@@ -72,7 +72,9 @@ SayWhat::Application.routes.draw do
     end
     resource :memberships
     resources :projects do
-      resources :comments
+      resources :comments do
+        resources :comments
+      end
     end
   end
   
