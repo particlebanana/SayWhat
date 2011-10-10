@@ -40,6 +40,7 @@ class Comment < Hashie::Dash
     if project
       comment.objects.merge!({ group: "group:#{group.id}", project: "project:#{project.id}" })
       comment.timelines = ["project:#{project.id}"]
+      comment.timelines << "user:#{user.id}" unless is_connected?("group:#{group.id}", "project:#{project.id}")
     # Nested Comment
     elsif parent
       comment.parent = parent
@@ -48,6 +49,7 @@ class Comment < Hashie::Dash
     else
       comment.objects.merge!({ group: "group:#{group.id}" })
       comment.timelines = ["group:#{group.id}"]
+      comment.timelines << "user:#{user.id}" unless is_connected?("group:#{group.id}", "user:#{user.id}")
     end
 
     comment
@@ -71,5 +73,11 @@ class Comment < Hashie::Dash
 
     url = $feed.publish(event, true, Time.now.utc.tv_sec)
     HTTParty.get(url).body
+  end
+
+  private
+
+  def self.is_connected?(subscriber_key, timeline_key)
+    $feed.connected?(subscriber_key, timeline_key)
   end
 end
