@@ -42,6 +42,9 @@ gem 'sanitize'
 gem 'escape_utils'
 gem 'carrierwave', "~> 0.5.0"
 
+# Chronologic Activity Feed
+gem 'chronologic', :path => '/vagrant/chronologic'
+
 # Sinatra Plugins
 gem 'sinatra'
 gem 'pony'
