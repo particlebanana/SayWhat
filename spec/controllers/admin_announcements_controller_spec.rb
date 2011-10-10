@@ -13,7 +13,7 @@ describe AdminAnnouncementsController do
     end
     
     it "should return an array of Announcment objects" do
-      assigns[:announcements].is_a? Array
+      (assigns[:announcements].map {|e| e}.is_a? Array).should be_true
     end
     
     it "should render the index template" do

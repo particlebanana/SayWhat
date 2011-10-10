@@ -11,7 +11,7 @@ describe ProjectsController do
     
     it "should return an array of Group objects" do
       assigns[:projects].count.should == 1
-      assigns[:projects].is_a? Array
+      (assigns[:projects].is_a? Array).should be_true
     end
   
     it "should render the index template" do
@@ -23,7 +23,7 @@ describe ProjectsController do
     before { get :show, { group_id: @group.permalink, id: @project.id } }
     
     it "should return a Project object" do
-      assigns[:project].is_a? Project
+      (assigns[:project].is_a? Project).should be_true
     end
         
     it "should render the show template" do
@@ -40,7 +40,7 @@ describe ProjectsController do
       end
       
       it "should return a Project object" do
-        assigns[:project].is_a? Project
+        (assigns[:project].is_a? Project).should be_true
       end
     
       it "should render the new template" do
@@ -117,7 +117,7 @@ describe ProjectsController do
       end
     
       it "should return a Project object" do
-        assigns[:project].is_a? Project
+        (assigns[:project].is_a? Project).should be_true
       end
         
       it "should render the edit template" do

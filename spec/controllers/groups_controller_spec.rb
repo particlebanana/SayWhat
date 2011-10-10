@@ -8,8 +8,8 @@ describe GroupsController do
       before { get :index }
     
       it "should return an array of Group objects" do
-        assigns[:groups].count.should == 1
-        assigns[:groups].is_a? Array
+        assigns[:groups].all.count.should == 1
+        (assigns[:groups].all.is_a? Array).should be_true
       end
     
       it "should render the index template" do
@@ -21,7 +21,11 @@ describe GroupsController do
       before { get :show, id: @group.permalink }
     
       it "should return a Group object" do
-        assigns[:group].is_a? Group
+        (assigns[:group].is_a? Group).should be_true
+      end
+
+      it "should return a Timeline object" do
+        assigns[:timeline]['feed'].count.should == 0
       end
         
       it "should render the show template" do
@@ -72,7 +76,7 @@ describe GroupsController do
           before { get :edit, id: @group.permalink }
 
           it "should return a Group object" do
-            assigns[:group].is_a? Group
+            (assigns[:group].is_a? Group).should be_true
           end
 
           it "should render the show template" do
@@ -104,11 +108,7 @@ describe GroupsController do
         before { get :new }
           
         it "should return a Group object" do
-          assigns[:group].is_a? Group
-        end
-    
-        it "should return a User object" do
-          assigns[:user].is_a? User
+          (assigns[:group].is_a? Group).should be_true
         end
       
         it "should render the new template" do

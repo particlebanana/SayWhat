@@ -18,8 +18,8 @@ describe YouthSponsorsController do
       end
     
       it "should return all active group users with role of member" do
-        assigns[:members].is_a? Array
-        assigns[:members].count.should == 1 # only return member and not adult sponsor
+        (assigns[:members].all.is_a? Array).should be_true
+        assigns[:members].all.count.should == 1 # only return member and not adult sponsor
       end
     
       it "should render index template" do

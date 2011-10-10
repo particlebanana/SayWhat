@@ -14,8 +14,8 @@ describe AdminGroupRequestsController do
     end
     
     it "should return an array of Group objects" do
-      assigns[:groups].count.should == 1
-      assigns[:groups].is_a? Array
+      assigns[:groups].all.count.should == 1
+      (assigns[:groups].all.is_a? Array).should be_true
     end
     
     it "should render the index template" do
@@ -26,16 +26,16 @@ describe AdminGroupRequestsController do
   describe "#show" do
     before do
       group = Factory.create(:group, {status: "pending"})
-      Factory.create(:user, { email: "show@test.com", group: group })
+      Factory.create(:user, { email: "show@test.com", group: group, role: 'adult sponsor' })
       get :show, id: group.id
     end
     
     it "should return a Group object as @group" do
-      assigns[:group].is_a? Group
+      (assigns[:group].is_a? Group).should be_true
     end
     
     it "should return a User object as @sponsor" do
-      assigns[:sponsor].is_a? User
+      (assigns[:sponsor].is_a? User).should be_true
     end
     
     it "should render the show template" do

@@ -10,7 +10,7 @@ describe UsersController do
     end
     
     it "should assign @user" do
-      assigns[:user].is_a? User
+      (assigns[:user].is_a? User).should be_true
     end
     
     it "should render edit template" do

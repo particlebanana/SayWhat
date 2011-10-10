@@ -14,8 +14,8 @@ describe AdminGrantRequestsController do
     end
     
     it "should return an array of Grant objects" do
-      assigns[:grants].count.should == 1
-      assigns[:grants].is_a? Array
+      assigns[:grants].map {|e| e}.count.should == 1
+      (assigns[:grants].map {|e| e}.is_a? Array).should be_true
     end
     
     it "should render the index template" do
@@ -30,7 +30,7 @@ describe AdminGrantRequestsController do
     end
     
     it "should return a Grant object" do
-      assigns[:grant].is_a? Grant
+      (assigns[:grant].is_a? Grant).should be_true
     end
     
     it "should render the edit template" do
