@@ -7,8 +7,16 @@ class Project < ActiveRecord::Base
   
   attr_protected :name, :group, :comments
 
-  validates_presence_of [:name, :display_name, :location, :start_date, :end_date, :focus, :goal, :description, :audience, :involves]
+  validates_presence_of [:name, :display_name, :location, :start_date, :end_date, :focus, :audience, :description]
   validates_uniqueness_of :name
+
+  validates :focus, :inclusion => { :in => [
+    'Secondhand Smoke Exposure', 'General Education', 'Health Effects',
+    'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']}
+
+  validates :audience, :inclusion => { :in => [
+    'Elementary Students', 'Middle School Students', 'High School Students',
+    'Community Members', 'Government Officials']}
   
   before_validation :escape_name
   after_validation :sanitize
@@ -17,9 +25,9 @@ class Project < ActiveRecord::Base
   after_create :create_object_key
   after_create :write_initial_event
 
-  def filters
-    focus = ['Filter by Focus', 'Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
-    audience = ['Filter by Audience', 'Elementary Students', 'Middle School Students', 'High School Students', 'Community Members', 'Government Officials']
+  def self.filters
+    focus = ['Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
+    audience = ['Elementary Students', 'Middle School Students', 'High School Students', 'Community Members', 'Government Officials']
     filters = {
       focus: focus.map { |focus| [focus, focus] },
       audience: audience.map { |audience| [audience, audience] }
@@ -54,6 +62,7 @@ class Project < ActiveRecord::Base
     $feed.record("project:#{id}", { id: self.id, name: self.display_name } )
   end
 
+  # Add an event to project timeline when a new project is created
   def write_initial_event
     publish_to_feed("#{self.group.display_name} created a new project: #{self.display_name}")
   end

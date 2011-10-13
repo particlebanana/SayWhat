@@ -27,6 +27,9 @@ class Ability
       can :index, Group
       can :show, Group
 
+      can :index, Project
+      can :show, Project
+
       can :new, Project, group_id: user.group_id
       can :create, Project, group_id: user.group_id
       can :edit, Project, group_id: user.group_id

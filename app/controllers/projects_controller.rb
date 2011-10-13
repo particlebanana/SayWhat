@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
   
   # POST - Create New Group Project
   def create
-    @project = Project.new(params[:project])
+    @project = @group.projects.new(params[:project])
     if @project.save
       redirect_to group_project_path(@group.permalink, @project.id), notice: "Project was added successfully."
     else
@@ -34,6 +34,7 @@ class ProjectsController < ApplicationController
   
   # GET - Show Single Group Project
   def show
+    @timeline = Hashie::Mash.new($feed.timeline("project:#{@project.id}"))
     respond_with(@project)
   end
   

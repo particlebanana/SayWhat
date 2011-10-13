@@ -16,10 +16,8 @@ describe Project do
     it { should validate_presence_of(:start_date) }
     it { should validate_presence_of(:end_date) }
     it { should validate_presence_of(:focus) }
-    it { should validate_presence_of(:goal) }
-    it { should validate_presence_of(:description) }
     it { should validate_presence_of(:audience) }
-    it { should validate_presence_of(:involves) }
+    it { should validate_presence_of(:description) }
   
     it { should validate_uniqueness_of(:name) }
 
