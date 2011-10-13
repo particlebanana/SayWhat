@@ -31,7 +31,7 @@ module ApplicationHelper
     html
   end
 
-  def build_field(type, enum, field_name, object, help_block=nil, inline_block=nil)
+  def build_field(type, enum, field_name, object, options)
     html = ""
     if enum
       if object.errors.include? field_name.to_sym
@@ -46,9 +46,11 @@ module ApplicationHelper
         html << "#{enum.text_field field_name.to_sym, :class => 'xlarge'}\n"
       when 'text_area'
         html << "#{enum.text_area field_name.to_sym, :rows => 3, :class => 'xxlarge'}\n"
+      when 'select'
+        html << "#{enum.select field_name.to_sym, options[:block]}"
       end
-      html << "<span class='help-inline'>#{inline_block}</span>\n" unless inline_block.nil?
-      html << "<span class='help-block'>#{help_block}</span>\n" unless help_block.nil?
+      html << "<span class='help-inline'>#{options[:inline_block]}</span>\n" if options[:inline_block]
+      html << "<span class='help-block'>#{options[:help_block]}</span>\n" if options[:help_block]
       html << "</div>\n"
       html << "</div>\n"
     end
