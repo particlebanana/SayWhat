@@ -1,0 +1,19 @@
+= title @project.display_name
+= description @project.description
+
+.row#group_profile
+  %section.span10
+    %hgroup
+      %h1.heading= @project.display_name
+      %h6= "#{@group.organization} / #{@group.city}, TX"
+
+    #activity_feed.timeline
+      %h2.heading Activity Feed
+
+      = render :partial => "timeline/timeline", :locals => { timeline: @timeline, section: 'project', composer: true, composer_path: group_project_comments_path(@group, @project) }
+
+  %aside.span5.offset1
+    .profile_photo.media.cf
+      %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/270x188" alt="">
+
+    %p= @project.description
