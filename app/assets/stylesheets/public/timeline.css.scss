@@ -70,6 +70,7 @@
   }
 
   .comment {
+    position: relative;
     padding-bottom: 9px;
 
     a.profile_photo {
@@ -79,11 +80,26 @@
     }
 
     .message {
-      margin-left: 65px;
+      float: left;
+      margin-left: 15px;
+      position: relative;
       h6 {
         font-size: 13px;
         text-transform: none;
-        line-height: 0.7;
+        line-height: 17px;
+        margin-bottom: 6px;
+        a {
+          display: block;
+          float: left;
+        }
+        span.arrow {
+          float: left;
+          display: block;
+          width: 16px;
+          height: 16px;
+          background-image: url('/assets/454545_256x240_icons_icons.png');
+          background-position: -32px -16px;
+        }
       }
       p { font-size: 12px; }
 
@@ -115,7 +131,7 @@
         padding: 8px;
         a.profile_photo { width: 40px; }
         .message {
-          margin-left: 50px;
+          margin-left: 15px;
           a { font-weight: 600; }
         }
       }
@@ -126,6 +142,7 @@
 
   // Genercic Comment Form
   .comment_box {
+    width: 499px;
     padding: 8px;
     display: block;
     .wrap {

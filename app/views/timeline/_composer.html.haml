@@ -6,5 +6,5 @@
         %span New Comment
 
   %ul.attachments_form.cf.hidden
-    = form_tag(group_comments_path(@group)) do
+    = form_tag(composer_path) do
       = render :partial => "timeline/comment_form", :locals => { status: '' }

@@ -1,7 +1,7 @@
 .comment.cf
   %a.profile_photo{ href: "/user/#{user.id}"} <img src="http://placehold.it/50x50" alt="">
   .message
-    %h6 <a href="/user/#{user.id}">#{user.name}</a>
+    = title.html_safe
     %p= comment
     = form_tag("#{form}") do
 
