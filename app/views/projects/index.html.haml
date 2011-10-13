@@ -1,0 +1,21 @@
+= title "Projects"
+= description "Projects for the group #{@group.display_name}"
+
+.row
+  %section.span9.columns
+    %h2.heading Projects
+
+    -  if @projects.size > 0
+      %ul
+        - @projects.each do |project|
+          %li= link_to truncate(project.display_name, :length => 50), group_project_path(@group.permalink, project)
+    - else
+      %div.alert-message.block-message.info
+        %p <strong>Whoa there!</strong> It looks like no one in your group has created any projects yet! You can create a project in no time!
+        %div.alert-actions
+          = link_to "Create A Project", new_group_project_path(@group.permalink), :class => "btn small"
+
+  %aside.span6.offset1.columns
+    %p Start a project and apply for a mini-grant to get $500 for use helping to complete you goals and make an impact.
+
+    = link_to "Create A Project", new_group_project_path(@group.permalink), :class => "btn large primary"
