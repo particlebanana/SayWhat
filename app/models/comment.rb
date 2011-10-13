@@ -36,20 +36,18 @@ class Comment < Hashie::Dash
       objects: { user: "user:#{user.id}" },
     })
 
-    # Project Comment
-    if project
-      comment.objects.merge!({ group: "group:#{group.id}", project: "project:#{project.id}" })
-      comment.timelines = ["project:#{project.id}"]
-      comment.timelines << "user:#{user.id}" unless is_connected?("group:#{group.id}", "project:#{project.id}")
     # Nested Comment
-    elsif parent
+    if parent
       comment.parent = parent
       comment.timelines = ["#{parent}"]
+    # Project Comment
+    elsif project
+      comment.objects.merge!({ group: "group:#{group.id}", project: "project:#{project.id}" })
+      comment.timelines = ["project:#{project.id}", "group:#{group.id}"]
     # Group Comment
     else
       comment.objects.merge!({ group: "group:#{group.id}" })
       comment.timelines = ["group:#{group.id}"]
-      comment.timelines << "user:#{user.id}" unless is_connected?("group:#{group.id}", "user:#{user.id}")
     end
 
     comment

@@ -42,8 +42,8 @@ describe Comment do
 
       it "should create an array of timelines with a length of 1" do
         (@comment['timelines'].is_a? Array).should be_true
-        @comment['timelines'].count.should == 1
-        @comment['timelines'].should == ["project:#{@project.id}"]
+        @comment['timelines'].count.should == 2
+        @comment['timelines'].should == ["project:#{@project.id}", "group:#{@group.id}"]
       end
     end
 

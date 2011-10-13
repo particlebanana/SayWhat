@@ -17,6 +17,7 @@ class CommentsController < ApplicationController
     respond_with(event) do |format|
       if @project
         format.html { redirect_to group_project_path(@group.permalink, @project), notice: "Comment was added successfully." }
+        format.json { render json: event.to_json }
       else
         format.html { redirect_to group_path(@group.permalink), notice: "Comment was added successfully." }
         format.json { render json: event.to_json }
