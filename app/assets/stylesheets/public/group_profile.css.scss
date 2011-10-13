@@ -24,5 +24,36 @@
     .profile_photo {
       margin-bottom: 25px;
     }
+
+    ul#group_pages {
+      list-style: none;
+      margin: 35px 0;
+      li {
+        position: relative;
+        line-height: 18px;
+        border-bottom: 1px solid #ddd;
+        a {
+          cursor: pointer;
+          padding: 6px 0;
+          display: block;
+          padding-left: 28px;
+          font-size: 14px;
+          font-family: facitweb,sans-serif;
+          font-weight: 300;
+          img {
+            position: absolute;
+            left: 8px;
+            top: 5px;
+            vertical-align: middle;
+            display: inline-block;
+          }
+        }
+        a:hover {
+         background: #e4eaf1;
+         text-decoration: none;
+        }
+      }
+
+    }
   }
 }

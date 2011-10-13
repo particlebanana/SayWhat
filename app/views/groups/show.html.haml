@@ -18,20 +18,16 @@
     #activity_feed.timeline
       %h2.heading Activity Feed
 
-      = render :partial => "timeline/composer"
-
-      - if @timeline.size > 0
-        #event_wrapper
-          - @timeline.feed.each do |event|
-            .event{ id: event.token }
-              = build_event(event).html_safe
-
-      - else
-        %div.alert-message.block-message.info
-          %p <strong>No action to report!</strong> Your timeline is currently empty. Don't worry it will fill up soon!
+      = render :partial => "timeline/timeline", :locals => { timeline: @timeline, section: 'group', composer: true, composer_path: group_comments_path(@group) }
 
   %aside.span5.offset1
     .profile_photo.media.cf
       %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/270x188" alt="">
+
+    %ul#group_pages
+      %li
+        %a{ href: group_projects_path(@group) }
+          = image_tag '181-hammer.png', width: 10
+          %span Projects
 
     %p= @group.description
