@@ -44,10 +44,12 @@ class Comment < Hashie::Dash
     elsif project
       comment.objects.merge!({ group: "group:#{group.id}", project: "project:#{project.id}" })
       comment.timelines = ["project:#{project.id}", "group:#{group.id}"]
+      comment.timelines << "user:#{user.id}" unless is_connected?("group:#{group.id}", "user:#{user.id}")
     # Group Comment
     else
       comment.objects.merge!({ group: "group:#{group.id}" })
       comment.timelines = ["group:#{group.id}"]
+      comment.timelines << "user:#{user.id}" unless is_connected?("group:#{group.id}", "user:#{user.id}")
     end
 
     comment
