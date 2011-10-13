@@ -12,7 +12,7 @@ class ProjectsController < ApplicationController
   
   # GET - All Group Projects
   def index
-    @projects = @group.projects
+    @projects = @group.projects.order('created_at DESC')
     respond_with(@projects)
   end
   
