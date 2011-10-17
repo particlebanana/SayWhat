@@ -5,13 +5,26 @@ describe ProjectsController do
     @group = Factory.create(:group)
     @project = Factory.create(:project, { group: @group } )
   end
+
+  describe "#overview" do
+    before { get :overview }
+
+    it "should return an array of Project objects" do
+      assigns[:projects].count.should == 1
+      (assigns[:projects].all.is_a? Array).should be_true
+    end
+
+    it "should render the overview template" do
+      response.should render_template('projects/overview')
+    end
+  end
  
   describe "#index" do
     before { get :index, { group_id: @group.permalink } }
     
-    it "should return an array of Group objects" do
+    it "should return an array of Project objects" do
       assigns[:projects].count.should == 1
-      (assigns[:projects].is_a? Array).should be_true
+      (assigns[:projects].all.is_a? Array).should be_true
     end
   
     it "should render the index template" do
@@ -107,7 +120,7 @@ describe ProjectsController do
       it { should  =~ /not authorized to access this page/i }
     end
   end
-
+=begin
   describe "#edit" do
     context "group member" do
       before do
@@ -148,7 +161,7 @@ describe ProjectsController do
       it { should  =~ /not authorized to access this page/i }
     end
   end
-
+=end
   describe "#update" do
     context "group member" do
       before do

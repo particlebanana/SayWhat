@@ -12,6 +12,7 @@ class Ability
       can :create, Group
       can :new, Group
 
+      can :overview, Project
       can :index, Project
       can :show, Project
 
@@ -27,6 +28,7 @@ class Ability
       can :index, Group
       can :show, Group
 
+      can :overview, Project
       can :index, Project
       can :show, Project
 
@@ -51,6 +53,7 @@ class Ability
       can :create_invite, Group
       can :send_invite, Group
 
+      can :overview, Project
       can :index, Project
       can :show, Project
 

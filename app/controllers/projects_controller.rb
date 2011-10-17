@@ -1,12 +1,18 @@
 class ProjectsController < ApplicationController
   layout "application"
   
-  before_filter :authenticate_user!, except: [:index, :show]
-  before_filter :set_group
-  before_filter :set_project, except: [:index, :new, :create]
+  before_filter :authenticate_user!, except: [:overview, :index, :show]
+  before_filter :set_group, excpet: [:overview]
+  before_filter :set_project, except: [:overview, :index, :new, :create]
   load_and_authorize_resource
   
   respond_to :html
+
+  # All Projects Overview
+  def overview
+    @projects = Project.order('updated_at DESC')
+    respond_with(@projects)
+  end
 
   # Group Projects
   

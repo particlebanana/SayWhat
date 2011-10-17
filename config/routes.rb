@@ -78,6 +78,9 @@ SayWhat::Application.routes.draw do
       end
     end
   end
+
+  # Projects Overview
+  match "/projects"   =>    "projects#overview",      :via => "get"
   
   # Youth Sponsors
   match "/groups/youth_sponsors"   => "youth_sponsors#index",       :via => "get"
