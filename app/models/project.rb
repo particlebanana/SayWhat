@@ -3,7 +3,7 @@ class Project < ActiveRecord::Base
   belongs_to :group
   has_many :project_comments
   
-  mount_uploader :profile, ProfileUploader
+  mount_uploader :profile_photo, ProfileUploader
   
   attr_protected :name, :group, :comments
 
