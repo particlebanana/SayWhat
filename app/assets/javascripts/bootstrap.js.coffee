@@ -2,6 +2,8 @@ $ ->
 
   @timeline = window.timeline
 
+  $('header').dropdown()
+
   bindings =
     # Timeline Bindings
     $('#event_wrapper').delegate('a.comment_link', "click", @timeline.toggle_comment)

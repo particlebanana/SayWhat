@@ -11,4 +11,5 @@
 //= require_tree ../templates
 //= require_tree ./sections
 //= require jquery.autoresize.js
+//= require bootstrap-dropdown
 //= require bootstrap

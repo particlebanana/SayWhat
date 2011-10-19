@@ -20,6 +20,14 @@
             %li= link_to "My Group", group_path(current_user.group.permalink), title: "My Group"
           - if current_user.admin?
             %li= link_to "Admin", "/admin", title: "Admin"
-          %li{ :class => 'last' }= link_to "Sign out", destroy_user_session_path, title: "Sign Out"
+
+          %li.dropdown{ data_dropdown: "dropdown" }
+            %a{ :href => "#", :class => "dropdown-toggle"}= current_user.name
+            %ul.dropdown-menu
+              %li
+                %a{ href: "/settings" } Settings
+              %li.divider
+              %li= link_to "Sign out", destroy_user_session_path, title: "Sign Out"
+
         - else
           %li{ :class => 'last' }= link_to "Login", new_user_session_path, title: "Login"
