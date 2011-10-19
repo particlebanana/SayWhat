@@ -24,6 +24,7 @@ class Project < ActiveRecord::Base
   # Manage Activity Timeline
   after_create :create_object_key
   after_create :write_initial_event
+  after_update :recreate_object_key
 
   def self.filters
     focus = ['Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
@@ -60,6 +61,14 @@ class Project < ActiveRecord::Base
   # Create an object in the Activity Feed
   def create_object_key
     $feed.record("project:#{id}", { id: self.id, name: self.display_name } )
+  end
+
+  # On model update, destroy the current object and recreate it
+  def recreate_object_key
+    $feed.unrecord("project:#{id}")
+    data = { id: self.id, name: self.display_name }
+    data[:photo] = self.profile_photo_url(:thumb) if self.profile_photo
+    $feed.record("project:#{id}", data)
   end
 
   # Add an event to project timeline when a new project is created

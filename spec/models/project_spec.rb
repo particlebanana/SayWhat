@@ -29,6 +29,13 @@ describe Project do
       timeline = $feed.timeline("group:#{@project.group_id}")
       timeline["feed"].first["key"].should include("project:#{@project.id}:create")
     end
+
+    it "should regenerate an object key on update" do
+      @project.name = 'update test'
+      @project.save
+      res = JSON.parse($feed.retrieve("project:#{@project.id}").body)
+      res['photo'].should == @project.profile_photo_url(:thumb)
+    end
   end
   
   describe "#escape_name" do

@@ -1,0 +1,29 @@
+= title "Edit Project"
+
+.row
+  %section.span4.form-description
+    %h2.heading Edit Project
+
+    %p Update your project's profile to keep it current.
+
+  %section.span11.offset1
+    %fieldset
+      %legend Edit Project
+
+      = form_for([@group, @project], :url => group_project_path(@group.permalink, @project), :html => { :multipart => true}) do |f|
+
+        = errors_for(@project, "error", "<strong>Uh-Oh! There was an error!</strong> try fixing the fields below and try again.").html_safe
+
+        .clearfix
+          %label{ :for => 'project_profile_photo'} Picture
+          .input.cf
+            - if @project.profile_photo_url
+              %span.media
+                = image_tag(@project.profile_photo_url(:medium_square), width: 70, height: 70)
+            = f.file_field :profile_photo, :class => 'input_file'
+
+        = render :partial => "form", :locals => { f: f }
+
+        .actions
+          %input{:type => "submit", :class => "btn primary", :value => "Update"}
+          = link_to('Cancel', group_project_path(@group.permalink, @project), :class => "btn")

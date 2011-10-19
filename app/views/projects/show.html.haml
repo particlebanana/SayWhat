@@ -3,9 +3,7 @@
 
 .row#group_profile
   %section.span10
-    %hgroup
-      %h1.heading= @project.display_name
-      %h6= "#{@group.organization} / #{@group.city}, TX"
+    = project_page_header(@project).html_safe
 
     #activity_feed.timeline
       %h2.heading Activity Feed
@@ -14,6 +12,6 @@
 
   %aside.span5.offset1
     .profile_photo.media.cf
-      %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/270x188" alt="">
+      %a{ href: "#" }= image_tag(@project.profile_photo_url(:profile))
 
     %p= @project.description
