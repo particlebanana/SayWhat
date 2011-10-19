@@ -7,16 +7,5 @@
 // :organization (required)
 = build_field('text_field', f, 'organization', @group, { help_block: "What organization do you belong to? <strong>ex: church name, school name</strong>" }).html_safe
 
-// :permalink (required)
-= build_field('text_field', f, 'permalink', @group, { help_block: "http://txsaywhat.com/groups/<strong>Group-URL</strong>", inline_block: "Your group's homepage url <strong>ex: sugar-land-tatu</strong>" }).html_safe
-
 // :description
 = build_field('text_area', f, 'description', @group, { help_block: "What does your group do?" }).html_safe
-
-.clearfix
-  .input
-    %ul.inputs-list
-      %li
-        %label
-          %input{:type => "checkbox", :name => "group_sponsor", :value => "accept"}
-          %span I agree that I must be an adult sponsor in order to create a new group

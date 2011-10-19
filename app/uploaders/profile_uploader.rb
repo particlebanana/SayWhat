@@ -21,10 +21,14 @@ class ProfileUploader < CarrierWave::Uploader::Base
   version :thumb do
     process resize_to_fill: [50, 50]
   end
+
+  version :medium_square do
+    process resize_to_fill: [70, 70]
+  end
   
   version :profile do
     process resize_to_limit: [270, 270]
-end
+  end
 
   # Add a white list of extensions which are allowed to be uploaded.
    def extension_white_list
