@@ -43,7 +43,7 @@ module ApplicationHelper
       html << "<div class='input'>\n"
       case type
       when 'text_field'
-        html << "#{enum.text_field field_name.to_sym, :class => 'xlarge'}\n"
+        html << "#{enum.text_field field_name.to_sym, :class => 'xxlarge'}\n"
       when 'text_area'
         html << "#{enum.text_area field_name.to_sym, :rows => 3, :class => 'xxlarge'}\n"
       when 'select'

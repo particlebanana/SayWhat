@@ -11,9 +11,16 @@
 }
 
 form .input {
+  float: left;
+  margin-left: 25px;
+  width: 485px;
   span.media {
     display: block;
     float: left;
     margin-right: 10px;
   }
+}
+
+.input-xxlarge, input.xxlarge, textarea.xxlarge, select.xxlarge {
+  width: 475px;
 }
