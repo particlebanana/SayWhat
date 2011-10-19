@@ -17,6 +17,7 @@ class Group < ActiveRecord::Base
   after_validation :sanitize
 
   after_create :create_object_key
+  after_update :recreate_object_key
 
   # Override ID params to use :permalink
   def to_param
@@ -116,6 +117,14 @@ class Group < ActiveRecord::Base
   # Create an object in the Activity Feed
   def create_object_key
     $feed.record("group:#{id}", { id: self.permalink, name: self.display_name } )
+  end
+
+  # On model update, destroy the current object and recreate it
+  def recreate_object_key
+    $feed.unrecord("group:#{id}")
+    data = { id: self.permalink, name: self.display_name }
+    data[:photo] = self.profile_photo_url(:thumb) if self.profile_photo
+    $feed.record("group:#{id}", data)
   end
 
   # Add an event to global timeline when a group is approved

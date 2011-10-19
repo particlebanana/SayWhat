@@ -28,7 +28,15 @@ describe Group do
     end
 
     it "should generate an object key" do
-      $feed.retrieve("group_#{@group.id}").code.should == 200
+      res = JSON.parse($feed.retrieve("group:#{@group.id}").body)
+      res['name'].should == @group.display_name
+    end
+
+    it "should regenerate an object key on update" do
+      @group.name = 'update test'
+      @group.save
+      res = JSON.parse($feed.retrieve("group:#{@group.id}").body)
+      res['photo'].should == @group.profile_photo_url(:thumb)
     end
   end
   
@@ -93,7 +101,8 @@ describe Group do
     end
 
     it "should write an event to the user's timeline" do
-      $feed.timeline("user:#{@user.id}:home")[:feed].first[:data][:message].should == "#{@group.display_name} is now on Say What!"
+      res = $feed.timeline("user:#{@user.id}")
+      res[:feed].first[:data][:message].should == "#{@user.name} created the group #{@group.display_name}"
     end
   end
 
