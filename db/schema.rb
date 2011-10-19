@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111018191226) do
+ActiveRecord::Schema.define(:version => 20111019191732) do
 
   create_table "groups", :force => true do |t|
     t.string   "name"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(:version => 20111018191226) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "group_id"
-    t.string   "avatar"
+    t.string   "profile_photo"
   end
 
   add_index "users", ["authentication_token"], :name => "index_users_on_authentication_token", :unique => true

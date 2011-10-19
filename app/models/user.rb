@@ -7,9 +7,9 @@ class User < ActiveRecord::Base
   has_many :project_comments
   has_many :memberships
   
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :profile_photo, ProfileUploader
   
-  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remove_avatar, :remember_me
+  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :remember_me, :profile_photo
 
   before_validation :set_defaults
 
