@@ -30,7 +30,7 @@ describe UsersController do
     end
     
     it "should redirect to edit action" do
-      response.should redirect_to('/settings/profile')
+      response.should redirect_to('/settings')
     end
     
     it "should set a notice message" do

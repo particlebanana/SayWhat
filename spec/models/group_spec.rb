@@ -33,7 +33,6 @@ describe Group do
     end
 
     it "should regenerate an object key on update" do
-      @group.name = 'update test'
       @group.save
       res = JSON.parse($feed.retrieve("group:#{@group.id}").body)
       res['photo'].should == @group.profile_photo_url(:thumb)

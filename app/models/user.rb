@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   before_create :reset_authentication_token
   after_create :create_object_key
   after_create :subscribe_to_global
+  after_update :recreate_object_key
 
   # Scopes  
   def self.site_admins; where(role: "admin") end
@@ -84,6 +85,14 @@ class User < ActiveRecord::Base
   # Create an object in the Activity Feed
   def create_object_key
     $feed.record("user:#{id}", { id: self.id,  name: self.name } )
+  end
+
+  # On model update, destroy the current object and recreate it
+  def recreate_object_key
+    $feed.unrecord("user:#{id}")
+    data = { id: self.id, name: self.name }
+    data[:photo] = self.profile_photo_url(:thumb) if self.profile_photo
+    $feed.record("user:#{id}", data)
   end
 
   # Subscribe to the Global Activity Feed

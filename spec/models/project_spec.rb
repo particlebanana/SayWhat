@@ -31,7 +31,6 @@ describe Project do
     end
 
     it "should regenerate an object key on update" do
-      @project.name = 'update test'
       @project.save
       res = JSON.parse($feed.retrieve("project:#{@project.id}").body)
       res['photo'].should == @project.profile_photo_url(:thumb)
