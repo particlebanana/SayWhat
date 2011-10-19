@@ -3,7 +3,7 @@
     - subevents.each do |event|
       %li
         .comment.cf
-          %a.profile_photo{ href: "/user/#{event.objects.user.id}"} <img src="http://placehold.it/40x40" alt="">
+          %a.profile_photo{ href: "/user/#{event.objects.user.id}"}= image_tag("#{event.objects.user.photo}", width: 40, height: 40)
           .message
             %p
               <a href="/user/#{event.objects.user.id}">#{event.objects.user.name}</a>

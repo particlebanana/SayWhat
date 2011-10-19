@@ -36,5 +36,10 @@ describe UsersController do
     it "should set a notice message" do
       flash[:notice].should =~ /has been updated/i
     end
+
+    it "should regenerate an object key on update" do
+      res = JSON.parse($feed.retrieve("user:#{@user.id}").body)
+      res['photo'].should == @user.profile_photo_url(:thumb)
+    end
   end
 end

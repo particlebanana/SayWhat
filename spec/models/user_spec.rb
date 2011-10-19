@@ -28,12 +28,6 @@ describe User do
     it "should subscribe user to the global timeline" do
       $feed.connected?("global_feed", "user:#{@user.id}").should == true
     end
-
-    it "should regenerate an object key on update" do
-      @user.save
-      res = JSON.parse($feed.retrieve("user:#{@user.id}").body)
-      res['photo'].should == @user.profile_photo_url(:thumb)
-    end
   end 
 
   describe "#set_defaults" do
