@@ -1,7 +1,7 @@
 class Projects < ActiveRecord::Migration
   def up
     create_table(:projects) do |t|
-      t.integer :group_id
+      t.references :group
       t.string :name
       t.string :display_name
       t.string :location
