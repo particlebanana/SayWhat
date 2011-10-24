@@ -4,6 +4,7 @@ $ ->
   @uploader = window.uploader
 
   $('header').dropdown()
+  $(".alert-message").alert('close')
 
   bindings =
     # Timeline Bindings

@@ -10,6 +10,7 @@
 //= require handlebars
 //= require jquery.autoresize.js
 //= require bootstrap-dropdown
+//= require bootstrap-alerts
 //= require plupload
 //= require plupload.settings
 //= require jquery.plupload.queue

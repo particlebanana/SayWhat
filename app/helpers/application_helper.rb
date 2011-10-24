@@ -62,9 +62,9 @@ module ApplicationHelper
     flash.each do |type, value|
       case type.to_s
       when 'alert'
-        html << "<div class='alert-message error'>\n"
+        html << "<div class='alert-message error fade in' data-alert='alert'>\n"
       when 'notice'
-        html << "<div class='alert-message success'>\n"
+        html << "<div class='alert-message success fade in' data-alert='alert'>\n"
       end
       html << "<a class='close' href='#'>x</a>\n"
       html << "<p><strong>#{value}</strong></p>\n"
