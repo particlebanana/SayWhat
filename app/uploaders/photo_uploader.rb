@@ -1,5 +1,5 @@
 require 'carrierwave/processing/mini_magick'
-class ProfileUploader < CarrierWave::Uploader::Base
+class PhotoUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
   storage :file
@@ -10,26 +10,21 @@ class ProfileUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
-  def default_url
-    "/default/fallback/" + [version_name, "profile.jpg"].compact.join('_')
-  end
-  
   process resize_to_limit: [800, 800]
-  
-  version :thumb do
-    process resize_to_fill: [50, 50]
+
+  version :small do
+    process resize_to_limit: [70, 70]
   end
 
-  version :medium_square do
-    process resize_to_fill: [70, 70]
+  version :index do
+    process resize_to_fill: [170, 118]
   end
 
-  version :carousel do
+  version :medium do
     process resize_to_limit: [170, 118]
   end
-  
-  version :profile do
+
+  version :large do
     process resize_to_limit: [270, 270]
   end
 
@@ -37,5 +32,4 @@ class ProfileUploader < CarrierWave::Uploader::Base
    def extension_white_list
      %w(jpg jpeg gif png)
    end
-
 end
