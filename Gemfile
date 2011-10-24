@@ -24,6 +24,7 @@ gem 'cancan'
 
 # Javascript
 gem 'handlebars_assets', '~> 0.1.0'
+gem 'plupload-rails', '~> 1.0.0'
 gem 'jquery-rails'
 gem 'execjs', :git => 'git://github.com/sstephenson/execjs.git'
 gem 'therubyracer'

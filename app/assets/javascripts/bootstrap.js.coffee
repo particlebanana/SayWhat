@@ -1,6 +1,7 @@
 $ ->
 
   @timeline = window.timeline
+  @uploader = window.uploader
 
   $('header').dropdown()
 
@@ -12,3 +13,6 @@ $ ->
     $('#event_wrapper').delegate('textarea.textInput', 'keypress', @timeline.prevent_new_line)
     $('#event_wrapper').delegate('textarea.textInput', 'keyup', @timeline.submit_on_enter)
     $('#composer form').submit @timeline.create_attachment
+
+    # Uploader Bindings
+    $('.upload_select').delegate('a', 'click', @uploader.show_uploader)

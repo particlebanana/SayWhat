@@ -8,8 +8,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require handlebars
-//= require_tree ../templates
-//= require_tree ./sections
 //= require jquery.autoresize.js
 //= require bootstrap-dropdown
+//= require plupload
+//= require plupload.settings
+//= require jquery.plupload.queue
+//= require plupload.html5
+//= require_tree ../templates
+//= require_tree ./sections
 //= require bootstrap
