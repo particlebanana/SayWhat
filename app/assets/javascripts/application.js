@@ -15,6 +15,8 @@
 //= require plupload.settings
 //= require jquery.plupload.queue
 //= require plupload.html5
+//= require jquery.fancybox-1.3.4.pack.js
+//= require jquery.easing-1.3.pack.js
 //= require_tree ../templates
 //= require_tree ./sections
 //= require bootstrap

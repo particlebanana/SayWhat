@@ -43,4 +43,4 @@
       %ul.photos.media.cf
         - @photos.each do |item|
           %li
-            %a{ href: "#" }= image_tag(item.photo_url(:index))
+            %a{ :href => "#{item.photo.url}", :class => "fancybox", :rel => "gallery" }= image_tag(item.photo_url(:index))
