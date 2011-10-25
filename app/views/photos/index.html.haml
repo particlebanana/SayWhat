@@ -35,7 +35,8 @@
             });
 
             uploader.bind('UploadComplete', function(up, files){
-              up.refresh();
+              up.destroy();
+              $("#uploader").addClass('hidden');
             });
           });
 
