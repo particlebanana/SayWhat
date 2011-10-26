@@ -15,7 +15,6 @@ SayWhat::Application.routes.draw do
     get "/logout" => "devise/sessions#destroy"
   end
 
-  match "/settings/password" => "users#edit_password", :via => "get"
   match "/settings" => "users#edit", :via => "get"
     
   resources :users
