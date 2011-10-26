@@ -15,7 +15,8 @@
         %div.alert-actions
           = link_to "Create A Project", new_group_project_path(@group.permalink), :class => "btn small"
 
-  %aside.span6.offset1.columns
-    %p Start a project and apply for a mini-grant to get $500 for use helping to complete you goals and make an impact.
+  - if can? :create, @group.projects.new
+    %aside.span6.offset1.columns
+      %p Start a project and apply for a mini-grant to get $500 for use helping to complete you goals and make an impact.
 
-    = link_to "Create A Project", new_group_project_path(@group.permalink), :class => "btn large primary"
+      = link_to "Create A Project", new_group_project_path(@group.permalink), :class => "btn large primary"
