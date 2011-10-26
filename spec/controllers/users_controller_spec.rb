@@ -55,6 +55,10 @@ describe UsersController do
       it "should add a group_id param to the user" do
         @user.reload.group.should == @group
       end
+
+      it "should redirect to the group page" do
+        response.should redirect_to("/groups/#{@group.permalink}")
+      end
     end
 
     context "try and change groups" do
@@ -69,6 +73,10 @@ describe UsersController do
 
       it "should add a group_id param to the user" do
         @user.reload.group.id.should == @group.id
+      end
+
+      it "should redirect to the settings page" do
+        response.should redirect_to("/settings")
       end
     end
   end

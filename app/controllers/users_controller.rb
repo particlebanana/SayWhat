@@ -15,9 +15,13 @@ class UsersController < ApplicationController
   # PUT - Update User
   def update
     if @user.update_attributes(params[:user])
-      @user.join_group(params[:group_id]) if params[:group_id] && @user.group == nil
-      @user.recreate_object_key
-      redirect_to "/settings", notice: "Profile has been updated"
+      if params[:group_id] && @user.group == nil
+        @user.join_group(params[:group_id])
+        redirect_to group_path(@user.group.permalink)
+      else
+        @user.recreate_object_key
+        redirect_to "/settings", notice: "Profile has been updated"
+      end
     else
       render action: "edit"
     end
