@@ -16,18 +16,7 @@ class PhotosController < ApplicationController
   def create
     @photo = @project.photos.new(photo: params[:file])
     @photo.save!
-
-    respond_with(@photo) do |format|
-      format.html do
-        if request.xhr?
-          logger.info("xhr")
-          render :partial => "show"
-        else
-          logger.info("html")
-          render :partial => "show"
-        end
-      end
-    end
+    render :partial => "show"
   end
 
   private

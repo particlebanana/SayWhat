@@ -1,2 +1,2 @@
 %li
-  %a{ href: "#" }= image_tag(@photo.photo_url(:index))
+  %a{ :href => "#{@photo.photo_url}", :class => "fancybox", :rel => "gallery" }= image_tag(@photo.photo_url(:index))

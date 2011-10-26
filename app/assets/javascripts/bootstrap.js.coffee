@@ -17,3 +17,8 @@ $ ->
 
     # Uploader Bindings
     $('.upload_select').delegate('a', 'click', @uploader.show_uploader)
+    $('ul.photos').delegate('a.fancybox', 'hover', ->
+      $(this).fancybox()
+      return false
+    )
+    $('a.fancybox').fancybox()
