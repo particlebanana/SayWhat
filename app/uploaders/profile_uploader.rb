@@ -25,8 +25,8 @@ class ProfileUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [70, 70]
   end
 
-  version :carousel do
-    process resize_to_limit: [170, 118]
+  version :index do
+    process resize_to_fill: [170, 118]
   end
   
   version :profile do

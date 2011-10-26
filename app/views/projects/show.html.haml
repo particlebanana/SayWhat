@@ -14,4 +14,6 @@
     .profile_photo.media.cf
       %a{ href: "#" }= image_tag(@project.profile_photo_url(:profile))
 
+    = render :partial => "menu"
+
     %p= @project.description

@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
   layout "application"
   
   before_filter :authenticate_user!, except: [:overview, :index, :show]
-  before_filter :set_group, excpet: [:overview]
+  before_filter :set_group, except: [:overview]
   before_filter :set_project, except: [:overview, :index, :new, :create]
   load_and_authorize_resource
   

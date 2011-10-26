@@ -6,12 +6,9 @@
     = group_page_header(@group).html_safe
 
     #project_feed.media.cf
-      .project
-        %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/170x118" alt="">
-      .project
-        %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/170x118" alt="">
-      .project
-        %a{ href: "#" } <img class="thumbnail" src="http://placehold.it/170x118" alt="">
+      - @projects.each do |project|
+        .project
+          %a{ href: group_project_path(@group, project) }= image_tag(project.profile_photo_url(:index))
 
     #activity_feed.timeline
       %h2.heading Activity Feed
@@ -22,10 +19,6 @@
     .profile_photo.media.cf
       %a{ href: "#" }= image_tag(@group.profile_photo_url(:profile))
 
-    %ul#group_pages
-      %li
-        %a{ href: group_projects_path(@group) }
-          = image_tag '181-hammer.png', width: 10
-          %span Projects
+    = render :partial => "menu"
 
     %p= @group.description
