@@ -36,23 +36,16 @@ Factory.define :message do |m|
 end
 
 Factory.define :grant do |g|
-  g.group_name "Rebel Alliance"
-  g.check_payable "Han Solo"
-  g.adult_name "Han Solo"
-  g.adult_phone "123-456-7890"
-  g.adult_email "han.solo@gmail.com"
-  g.adult_address "123 Falcon Dr"
-  g.youth_name "Luke Skywalker"
-  g.youth_email "luke.skywalker@gmail.com"
-  g.project_description "Blow Up The Deathstar"
-  g.project_when "ASAP"
-  g.project_where "Space"
-  g.project_who "Rebel Alliance"
-  g.project_serve "Humanity"
-  g.project_goals "Destroy the empire"
-  g.funds_need "$500"
-  g.community_partnerships "galaxy"
-  g.community_resources "what is available"
+  g.project @project
+  g.check_payable "Group 1"
+  g.mailing_address "123 Fake St"
+  g.phone "123-456-7890"
+  g.planning_team "Billy Bob, Suzy Jo"
+  g.serviced "Some peeps"
+  g.goals "Be successful"
+  g.funds_use "Buy drugs"
+  g.partnerships "Some peeps"
+  g.resources "Shovels"
 end
 
 Factory.define :report do |r|
