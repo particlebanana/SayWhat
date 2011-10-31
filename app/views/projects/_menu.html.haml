@@ -1,3 +1,6 @@
+- if can? :create, Grant.new({ project: @project })
+  %p= link_to "Apply for a grant", new_group_project_grant_url(@group, @project), :class => "btn info" unless @project.grant
+
 %ul#profile_menu
   %li
     %a{ href: group_project_path(@group, @project) }

@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   
   belongs_to :group
   has_many :photos, :foreign_key => 'project_id', :class_name => "ProjectPhoto"
+  has_one :grant
   
   mount_uploader :profile_photo, ProfileUploader
   

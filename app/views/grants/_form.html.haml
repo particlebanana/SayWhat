@@ -1,0 +1,17 @@
+// :planning_team (required)
+= build_field('text_area', f, 'planning_team', @grant, { help_block: "Who will be involved in planning and implementing this project?" }).html_safe
+
+// :serviced (required)
+= build_field('text_area', f, 'serviced', @grant, { help_block: "Who will be serviced by this project?" }).html_safe
+
+// :goals (required)
+= build_field('text_area', f, 'goals', @grant, { help_block: "What are the project goals?" }).html_safe
+
+// :funds_use (required)
+= build_field('text_area', f, 'funds_use', @grant, { help_block: "What will the funds be used for?" }).html_safe
+
+// :partnerships (required)
+= build_field('text_area', f, 'partnerships', @grant, { help_block: "Will other school or community groups be assisting you in your project – please list"}).html_safe
+
+// :resources (required)
+= build_field('text_area', f, 'resources', @grant, { help_block: "What resources (volunteers, donations, funding) will be provided by other organizations"}).html_safe

@@ -37,6 +37,9 @@ class Ability
       can :edit, Project, group_id: user.group_id
       can :update, Project, group_id: user.group_id
 
+      can :new, Grant, :project => { :group_id => user.group_id }
+      can :create, Grant, :project => { :group_id => user.group_id }
+
       can :create, Comment
 
     # Registered User
