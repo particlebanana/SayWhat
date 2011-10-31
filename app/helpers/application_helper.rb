@@ -48,6 +48,8 @@ module ApplicationHelper
         html << "#{enum.text_area field_name.to_sym, :rows => 3, :class => 'xxlarge'}\n"
       when 'select'
         html << "#{enum.select field_name.to_sym, options[:block]}"
+      when 'phone'
+        html << "#{enum.text_field field_name.to_sym, :class => 'xxlarge', :type => 'tel'}\n"
       end
       html << "<span class='help-inline'>#{options[:inline_block]}</span>\n" if options[:inline_block]
       html << "<span class='help-block'>#{options[:help_block]}</span>\n" if options[:help_block]

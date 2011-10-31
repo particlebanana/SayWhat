@@ -95,6 +95,9 @@ class Ability
         user.group == group
       end
 
+      can :edit, Grant, :project => { :group_id => user.group_id }
+      can :update, Grant, :project => { :group_id => user.group_id }
+
       can :new, Report do |report|
         project = Project.find(report.project_id)
         user.group == project.group

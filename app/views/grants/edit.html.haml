@@ -1,0 +1,27 @@
+= title "Finalize Your Grant"
+
+.row
+  %section.span4.form-description
+    %h2.heading Finalize Your Grant Application
+
+    %p High life portland lo-fi, minim dreamcatcher brunch williamsburg butcher trust fund american apparel. Do banksy skateboard, vegan eu commodo ut brunch salvia portland synth ad keytar. Whatever delectus gentrify ad art party. Ullamco +1 ex veniam, voluptate leggings aesthetic jean shorts portland you probably haven't heard of them
+
+  %section.span11.offset1
+    %fieldset
+      %legend Say What! Grant Application
+
+      = form_for @grant, :url => group_project_grant_path(@group, @project) do |f|
+
+        = errors_for(@grant, "error", "<strong>Uh-Oh! There was an error!</strong> try fixing the fields below and try again.").html_safe
+
+        // :check_payable (required)
+        = build_field('text_field', f, 'check_payable', @grant, { help_block: "Who should the grant check be payable to?" }).html_safe
+
+        // :phone (required)
+        = build_field('phone', f, 'phone', @grant, { help_block: "Where is a phone number where we can reach you?" }).html_safe
+
+        // :mailing_address (required)
+        = build_field('text_area', f, 'mailing_address', @grant, { help_block: "Where should the check be mailed to?" }).html_safe
+
+        .actions
+          %input{:type => "submit", :class => "btn primary", :value => "Send for Approval"}

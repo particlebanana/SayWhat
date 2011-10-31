@@ -13,10 +13,8 @@ describe Grant do
 
     subject { @grant }
     it { should belong_to(:project) }
+    it { should validate_presence_of(:status) }
     it { should validate_presence_of(:member) }
-    it { should validate_presence_of(:check_payable) }
-    it { should validate_presence_of(:mailing_address) }
-    it { should validate_presence_of(:phone) }
     it { should validate_presence_of(:planning_team) }
     it { should validate_presence_of(:serviced) }
     it { should validate_presence_of(:goals) }
