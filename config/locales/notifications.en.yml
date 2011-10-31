@@ -1,0 +1,4 @@
+en:
+  notifications:
+    grant:
+      new_application: "You have a grant application awaiting finalization"

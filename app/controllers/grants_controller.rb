@@ -29,10 +29,11 @@ class GrantsController < ApplicationController
     @grant = Grant.new(params[:grant])
     authorize! :create, @grant
     @grant.member = current_user
-    if @grant.create_grant_application
+    if @grant.save
       if current_user.adult_sponsor?
         redirect_to edit_group_project_grant_path(@group, @project, @grant)
       else
+        @grant.send_notification
         redirect_to group_project_path(@group, @project), notice: 'Grant has been submitted for further processing.'
       end
     else
