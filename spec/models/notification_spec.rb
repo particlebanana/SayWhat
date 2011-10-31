@@ -14,7 +14,7 @@ describe Notification do
   describe "insert" do
     before do
       @notification = Notification.new(@user.id)
-      @notification.insert('this is a test notification')
+      @notification.insert('this is a test notification', '/test_link')
     end
 
     it "should append a notification obj to the documents notification array" do
@@ -25,7 +25,7 @@ describe Notification do
   describe "self.find" do
     before do
       notification = Notification.new(@user.id)
-      notification.insert('this is a test notification')
+      notification.insert('this is a test notification', '/test_link')
       @notifications = Notification.find(@user.id)
     end
 

@@ -8,8 +8,8 @@ class Notification
     @document = Hashie::Mash.new(set_document)
   end
 
-  def insert(text)
-    notification = { text: text, created_at: Time.now }
+  def insert(text, link)
+    notification = { text: text, link: link, created_at: Time.now }
     append(notification)
     @document = Hashie::Mash.new(set_document)
   end
@@ -28,10 +28,8 @@ class Notification
     @collection ||= db.create_collection('notifications')
   end
 
-  #
   # Find the document for the user id
   # If no document exists then create a new one
-  #
   def set_document
     if document = @collection.find_one('user' => @user)
       document
