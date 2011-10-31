@@ -16,6 +16,7 @@ SayWhat::Application.routes.draw do
   end
 
   match "/settings" => "users#edit", :via => "get"
+  match "/notifications" => "notifications#index", :via => "get"
     
   resources :users
     

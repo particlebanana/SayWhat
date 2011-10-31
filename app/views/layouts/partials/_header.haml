@@ -16,6 +16,11 @@
 
       %ul#active.cf.unstyled
         - if current_user
+          - notifications = Notification.find(current_user.id)
+          %li.notifications
+            %a{ href: "/notifications" }
+              %span.notificationsCountWrapper
+                %span#notificationsCountValue= notifications.count
           - if current_user.group && current_user.group.active?
             %li= link_to "My Group", group_path(current_user.group.permalink), title: "My Group"
           - if current_user.admin?

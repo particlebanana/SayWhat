@@ -66,6 +66,45 @@ header {
       ul#static { float: left; margin-left: 85px; }
       ul#active { float: right; }
 
+      ul#active .notifications {
+        a {
+          position: relative;
+          display: block;
+          width: 24px;
+          height: 16px;
+          padding: 0;
+          margin: 11px 15px;
+          font-weight: 300;
+          background: image-url("18-envelope.png") no-repeat;
+
+          span.notificationsCountWrapper {
+            padding: 3px;
+            color: #fff;
+            font-size: 9px;
+            font-weight: bold;
+            text-shadow: none;
+            padding-bottom: 1px;
+            position: absolute;
+            right: -8px;
+            top: -8px;
+            z-index: 101;
+
+            span#notificationsCountValue {
+              display: block;
+              background-color: #F03D25;
+              border: solid 1px #D83722;
+              border-bottom: solid 1px #C0311E;
+              border-top: solid 1px #E23923;
+              -webkit-border-radius: 2px;
+              -moz-border-radius: 2px;
+              -o-border-radius: 2px;
+              border-radius: 2px;
+              padding: 0 3px;
+            }
+          }
+        }
+      }
+
       ul#active .dropdown {
         .dropdown-menu {
           top: 35px;
