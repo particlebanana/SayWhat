@@ -33,7 +33,7 @@ class GrantsController < ApplicationController
       if current_user.adult_sponsor?
         redirect_to edit_group_project_grant_path(@group, @project, @grant)
       else
-        @grant.send_notification
+        @grant.notify_sponsor(request.env["HTTP_HOST"], current_user)
         redirect_to group_project_path(@group, @project), notice: 'Grant has been submitted for further processing.'
       end
     else
