@@ -1,8 +1,10 @@
 $ ->
 
+  @layout = window.layout
   @timeline = window.timeline
   @uploader = window.uploader
 
+  @layout.set_notification_count()
   $('header').dropdown()
   $(".alert-message").alert('close')
 

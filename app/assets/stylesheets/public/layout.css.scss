@@ -78,6 +78,7 @@ header {
           background: image-url("18-envelope.png") no-repeat;
 
           span.notificationsCountWrapper {
+            display: none;
             padding: 3px;
             color: #fff;
             font-size: 9px;
