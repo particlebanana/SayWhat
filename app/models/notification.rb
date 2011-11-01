@@ -1,11 +1,17 @@
 class Notification
 
-  attr_accessor :document
+  attr_accessor :notifications
 
   # Return all a user's notifications
   def self.find(user)
     obj = self.new(user)
-    obj.document.notifications
+    obj.notifications
+  end
+
+  # Return all unread notifications
+  def self.unread(user)
+    obj = self.new(user)
+    obj.retrieve
   end
 
   # Mark a user's notifications as read
@@ -22,14 +28,14 @@ class Notification
     @config = Mongo_Config['notifications']["#{Rails.env.downcase}"]
     @user = user
     set_collection
-    @document = Hashie::Mash.new(set_document)
+    @notifications = set_document
   end
 
   # Insert a notification
   def insert(text, link)
-    notification = { id: BSON::ObjectId.new, text: text, link: link, created_at: Time.now }
-    append(notification)
-    @document = Hashie::Mash.new(set_document)
+    object = { id: BSON::ObjectId.new, text: text, link: link, created_at: Time.now }
+    append(object)
+    @notifications = set_document
   end
 
   # Retrieve notifications
@@ -59,27 +65,27 @@ class Notification
   # If no document exists then create a new one
   def set_document
     if document = @collection.find_one('user' => @user)
-      document
+      Hashie::Mash.new(document).notifications.sort {|x,y| y.id.to_s <=> x.id.to_s }
     else
       @collection.insert({ 'user' => @user, 'notifications' => [] })
-      @collection.find_one('user' => @user)
+      Hashie::Mash.new(@collection.find_one('user' => @user)).notifications.sort {|x,y| y.id.to_s <=> x.id.to_s }
     end
   end
 
   # Append a notification to the document's notification array
-  def append(notification)
-    notification["read_status"] = false
-    @collection.update({"user" => @user}, { "$addToSet" => {"notifications" => notification } })
+  def append(object)
+    object['read_status'] = false
+    @collection.update({"user" => @user}, { "$addToSet" => {"notifications" => object } })
   end
 
   # Get all unread notifications
   def get_all_unread
-    @document.notifications.find_all {|e| e.read_status == false }
+    @notifications.find_all {|e| e.read_status == false }
   end
 
   # Get single notification
   def get_single(id)
     key = BSON::ObjectId.from_string(id)
-    @document.notifications.select {|e| e.id == key}
+    @notifications.select {|e| e.id == key}
   end
 end

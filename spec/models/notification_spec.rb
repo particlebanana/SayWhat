@@ -3,25 +3,6 @@ require 'spec_helper'
 describe Notification do
   before(:each) { @user = Factory.create(:user) }
 
-  describe "set document" do
-    before { @notification = Notification.new(@user.id) }
-
-    it "should create a new document for the user" do
-      @notification.document.notifications.count.should == 0
-    end
-  end
-
-  describe "insert" do
-    before do
-      @notification = Notification.new(@user.id)
-      @notification.insert('this is a test notification', '/test_link')
-    end
-
-    it "should append a notification obj to the documents notification array" do
-      @notification.document.notifications.count.should == 1
-    end
-  end
-
   describe "self.find" do
     before do
       notification = Notification.new(@user.id)
@@ -30,11 +11,29 @@ describe Notification do
     end
 
     it "should return an array" do
-      @notifications.is_a? Array 
+      @notifications.is_a? Array
     end
 
     it "should return 1 notification" do
       @notifications.count.should == 1
+    end
+  end
+
+  describe "self.unread" do
+    before do
+      2.times do |i|
+        notification = Notification.new(@user.id)
+        notification.insert("this is a test notification - #{i}", '/test_link')
+        @notifications = Notification.unread(@user.id)
+      end
+    end
+
+    it "should return an array" do
+      @notifications.is_a? Array
+    end
+
+    it "should return 2 notifications" do
+      @notifications.count.should == 2
     end
   end
 
@@ -79,6 +78,25 @@ describe Notification do
         read.count.should == 1
         unread.count.should == 1
       end
+    end
+  end
+
+  describe "set document" do
+    before { @notification = Notification.new(@user.id) }
+
+    it "should create a new document for the user" do
+      @notification.notifications.count.should == 0
+    end
+  end
+
+  describe "insert" do
+    before do
+      @notification = Notification.new(@user.id)
+      @notification.insert('this is a test notification', '/test_link')
+    end
+
+    it "should append a notification obj to the documents notification array" do
+      @notification.notifications.count.should == 1
     end
   end
 end
