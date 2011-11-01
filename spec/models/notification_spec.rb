@@ -37,4 +37,48 @@ describe Notification do
       @notifications.count.should == 1
     end
   end
+
+  describe "self.mark_as_read" do
+    before :each do
+      2.times do |i|
+        notification = Notification.new(@user.id)
+        notification.insert("this is a test notification - #{i}", '/test_link')
+      end
+    end
+
+    context "mark all" do
+      before do
+        Notification.mark_as_read(@user.id)
+        @notifications = Notification.find(@user.id)
+      end
+
+      it "should set read status to all notifications to true" do
+        @notifications.each do |e|
+          e.read_status.should be_true
+        end
+      end
+    end
+
+    context "mark single" do
+      before do
+        @notification = Notification.find(@user.id).first
+        Notification.mark_as_read(@user.id, @notification.id.to_s)
+        @notifications = Notification.find(@user.id)
+      end
+
+      it "should set status to single notification to true" do
+        notification = @notifications.find_all {|e| e.id == @notification.id }.first()
+        notification.read_status.should == true
+      end
+
+      it "should not change any other notifications" do
+        read, unread = [], []
+        @notifications.each do |e|
+          e.read_status == false ? unread.push(e) : read.push(e)
+        end
+        read.count.should == 1
+        unread.count.should == 1
+      end
+    end
+  end
 end
