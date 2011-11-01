@@ -4,8 +4,7 @@ section ul.notifications {
   border-top: 1px solid #E4EAF1;
 
   li {
-    padding: 6px;
-    margin: 6px 0;
+    padding: 12px;
     border-bottom: 1px solid #E4EAF1;
 
     p.body { margin-bottom: 6px; }
@@ -20,5 +19,4 @@ section ul.notifications {
   }
 
   li.unread { background: #fefee3; }
-  li:first-child { margin-top: 0; }
 }

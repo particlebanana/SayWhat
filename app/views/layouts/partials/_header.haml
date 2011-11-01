@@ -16,7 +16,7 @@
 
       %ul#active.cf.unstyled
         - if current_user
-          - notifications = Notification.find(current_user.id)
+          - notifications = Notification.unread(current_user.id)
           %li.notifications
             %a{ href: "/notifications" }
               %span.notificationsCountWrapper
