@@ -15,6 +15,8 @@ class Grant < ActiveRecord::Base
     where(status: "approved")
   end
 
+  # Sends group sponsor an email and creates a notification
+  # Informs that someone in the group has applied for a grant
   def notify_sponsor_of_application(host, requestor)
     GrantMailer.finalization_notification(host, requestor, self.project.group, self.project, self).deliver 
     message = {
@@ -24,6 +26,8 @@ class Grant < ActiveRecord::Base
     create_notification(message)
   end
 
+  # Approves a grant, sends the sponsor an email and a notification
+  # Returns True or False
   def approve
     self.status = 'approved'
     if self.save
@@ -31,6 +35,21 @@ class Grant < ActiveRecord::Base
       messages = build_approved_messages
       create_notification(messages[:notification])
       self.project.publish_to_feed(messages[:event][:key], messages[:event][:text])
+      true
+    else
+      false
+    end
+  end
+
+  # Denies a grant, sends the sponsor an email and a notification
+  # Requires a reason object
+  # Returns True or False
+  def deny(reason)
+    this = self
+    messages = build_denied_messages
+    if reason.is_a?(Hash) && self.destroy
+      GrantMailer.grant_denied(this, reason['email_text']).deliver
+      create_notification(messages[:notification])
       true
     else
       false
@@ -55,6 +74,15 @@ class Grant < ActiveRecord::Base
       event: {
         key: "project:#{self.project.id}:grant:#{self.id}:approved",
         text: "#{self.project.display_name} has been awarded a mini-grant!"
+      }
+    }
+  end
+
+  def build_denied_messages
+    messages = {
+      notification: {
+        text: I18n.t('notifications.grant.denied'),
+        link: "/groups/#{self.project.group.permalink}/projects/#{self.project.id}"
       }
     }
   end

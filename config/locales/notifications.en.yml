@@ -2,3 +2,5 @@ en:
   notifications:
     grant:
       new_application: "You have a grant application awaiting finalization"
+      approved: "Your grant application has been approved"
+      denied: "Your grant application has been denied"

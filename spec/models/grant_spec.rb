@@ -69,4 +69,37 @@ describe Grant do
       timeline["feed"].first["key"].should include("project:#{@project.id}:grant:#{@grant.id}:approved")
     end
   end
+
+  describe "deny" do
+    context "with reason" do
+      before do
+        reason = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants'].first
+        @status = @grant.deny(reason)
+        @notifications = Notification.find(@sponsor.id)
+      end
+
+      it "should return true" do
+        @status.should == true
+      end
+
+      it "should destroy self" do
+        Grant.where(id: @grant.id).count.should == 0
+      end
+
+      it "should send group sponsor an email" do
+        ActionMailer::Base.deliveries.last.to.should == [@sponsor.email]
+      end
+
+      it "should create a new notification" do
+        @notifications.count.should == 1
+      end
+    end
+
+    context "without reason" do
+      before { @status = @grant.deny('') }
+
+      subject { @response }
+      it { should be_false }
+    end
+  end
 end
