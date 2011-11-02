@@ -9,7 +9,7 @@ class PagesController < ApplicationController
   def index 
     @counts = {
       group: {pending: Group.pending.count, active: Group.active.count},
-      grant: {pending: Grant.pending.count, approved: Grant.approved.count},
+      grant: {pending: Grant.completed.count, approved: Grant.approved.count},
       projects: Project.count
     }
     render :layout => "admin"
