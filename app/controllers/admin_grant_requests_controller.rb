@@ -9,12 +9,13 @@ class AdminGrantRequestsController < ApplicationController
   
   # GET - All Pending Grants
   def index
-    @grants = Grant.pending.order('created_at DESC')
+    @grants = Grant.completed.order('created_at DESC')
     respond_with(@grants)
   end
   
   # GET - Edit A Grant Application
   def edit
+    @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants']
     respond_with(@grant)
   end
   
@@ -25,12 +26,6 @@ class AdminGrantRequestsController < ApplicationController
     else
       redirect_to "/admin/grants/#{@grant.id.to_s}/edit", alert: "Error saving record"
     end
-  end
- 
-  # Load grant denied reasons from YAML file and return as json
-  def destroy
-    @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants']
-    render :layout => false
   end
 
   private

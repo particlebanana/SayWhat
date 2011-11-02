@@ -1,77 +1,88 @@
-%h3 Group:
-    
-%p.group
-  %b Group Name:
-  = @grant.group_name
-        
-%p.group
-  %b Make Check Payable:
-  = @grant.check_payable
-  
-%h3 Contacts:
-  
-%p.group
-  %b Adult Contact:
-  = @grant.adult_name
-   
-%p.group
-  %b Adult Contact Phone:
-  = @grant.adult_phone
-  
-%p.group
-  %b Adult Contact Email:
-  = @grant.adult_email
-  
-%p.group
-  %b Adult Contact Address:
-  = @grant.adult_address
-  
-%p.group
-  %b Youth Contact:
-  = @grant.youth_name
-  
-%p.group
-  %b Youth Email:
-  = @grant.youth_email
+.section.span8.col1
+  %h3 Group Info
 
-%h3 Project Info:
+  .media.cf
+    = link_to image_tag(@grant.project.group.profile_photo_url(:thumb)), group_path(@grant.project.group.permalink)
 
-%p.group.block
-  %b Project Description:
-  = @grant.project_description
-   
-%p.group.block
-  %b Project When:
-  = @grant.project_when
-  
-%p.group.block
-  %b Project Where:
-  = @grant.project_where
-  
-%p.group.block
-  %b Project Who:
-  = @grant.project_who
-  
-%p.group.block
-  %b Project Serve:
-  = @grant.project_serve
-  
-%p.group.block
-  %b Project Goals:
-  = @grant.project_goals
+  .info.cf
+    %p.cf
+      %span.key Name:
+      %span.value= link_to @grant.project.group.display_name, group_path(@grant.project.group.permalink)
 
-%h3 Funds
+    %p.cf
+      %span.key Check Payable:
+      %span.value= @grant.check_payable
 
-%p.group.block
-  %b Funds Needed:
-  = @grant.funds_need
-  
-%h3 Partnerships
+    %p.cf
+      %span.key Address:
+      %span.value= @grant.mailing_address
 
-%p.group.block
-  %b Community Partnerships:
-  = @grant.community_partnerships
+.section.span8.col1
+  %h3 Sponsor
+
+  .media.cf
+    = link_to image_tag(@grant.project.group.adult_sponsor.profile_photo_url(:thumb)), '#'
+
+  .info.cf
+    %p.cf
+      %span.key Name:
+      %span.value= @grant.project.group.adult_sponsor.name
+
+    %p.cf
+      %span.key Email:
+      %span.value= @grant.project.group.adult_sponsor.email
   
-%p.group.block
-  %b Community Resources:
-  = @grant.community_resources
+    %p.cf
+      %span.key Phone #:
+      %span.value= @grant.phone
+
+.section.span8.col1
+  %h3 Project Info
+
+  .media.cf
+    = link_to image_tag(@grant.project.profile_photo_url(:thumb)), group_project_path(@grant.project.group.permalink, @grant.project)
+
+  .info.cf
+    %p.cf
+      %span.key Name:
+      %span.value= @grant.project.display_name
+
+    %p.cf
+      %span.key Description:
+      %span.value= @grant.project.description
+
+    %p.cf
+      %span.key When:
+      %span.value= @grant.project.start_date
+
+    %p.cf
+      %span.key Location:
+      %span.value= @grant.project.location
+
+    %p.cf
+      %span.key Focus:
+      %span.value= @grant.project.focus
+
+    %p.cf
+      %span.key Audience:
+      %span.value= @grant.project.audience
+
+.section.span8.col1
+  %h3 Grant Proposal
+
+  .info.cf
+    %p.cf
+      %span.key Funds:
+      %span.value= @grant.funds_use
+
+    %p.cf
+      %span.key Goals:
+      %span.value= @grant.goals
+
+    %p.cf
+      %span.key Partnerships:
+      %span.value= @grant.partnerships
+
+    %p.cf
+      %span.key Resources:
+      %span.value= @grant.resources

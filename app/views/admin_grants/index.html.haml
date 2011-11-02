@@ -1,16 +1,11 @@
-.block
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first.active <a href="/admin/grants">Awarded</a>
-      %li.last <a href="/admin/grants/pending">Pending</a>
-      
-  .content
-    .group
-      %h2.title.left Awarded Grants
-        
-    .inner
-      - if @grants.empty?
-        %p No Grants
-      - else
-        %div#groupsTable.adminTableView
-          = render :partial => "grants_table"
+.row
+  %section
+    %h2.heading Awarded Grants
+
+    - if @grants.empty?
+      .alert-message.block-message.warning
+        %p <strong>Holy guacamole Batman!</strong> There are currently no grants awarded it's time to go to work!
+
+    - else
+      %div#groupsTable.adminTableView
+        = render :partial => "grants_table"

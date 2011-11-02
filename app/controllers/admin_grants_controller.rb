@@ -21,7 +21,7 @@ class AdminGrantsController < ApplicationController
   # DELETE - Deny a Mini-Grant
   def destroy
     # require a reason
-    return redirect_to "/admin/grants/#{@grant.id.to_s}", alert: "Error denying grant" unless params[:reason] && params[:reason].length > 0
+    return redirect_to "/admin/grants/#{@grant.id.to_s}/edit", alert: "Error denying grant" unless params[:reason] && params[:reason].length > 0
     reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants']
     reason = reasons.select{|r| r['name'] == params[:reason]}[0]
     if @grant.deny(reason)

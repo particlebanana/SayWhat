@@ -1,21 +1,20 @@
 require 'spec_helper'
-include CarrierWave::Test::Matchers
 
 describe AdminGrantRequestsController do
   before(:each) do
     admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
     sign_in admin
+    group = Factory.create(:group)
+    user = Factory.create(:user, { group: group, role: 'adult sponsor' })
+    project = Factory.create(:project, { group: group })
+    @grant = Factory.create(:grant, { member: user, project: project, status: 'completed' })
   end
   
   describe "#index" do
-    before do
-      Factory.create(:grant)
-      get :index
-    end
+    before { get :index }
     
     it "should return an array of Grant objects" do
-      assigns[:grants].map {|e| e}.count.should == 1
-      (assigns[:grants].map {|e| e}.is_a? Array).should be_true
+      assigns[:grants].count.should == 1
     end
     
     it "should render the index template" do
@@ -24,10 +23,7 @@ describe AdminGrantRequestsController do
   end
   
   describe "#edit" do
-    before do
-      grant = Factory.create(:grant)
-      get :edit, id: grant.id.to_s
-    end
+    before { get :edit, id: @grant.id }
     
     it "should return a Grant object" do
       (assigns[:grant].is_a? Grant).should be_true
@@ -39,13 +35,10 @@ describe AdminGrantRequestsController do
   end
   
   describe "#update" do
-    before do
-      @grant = Factory.create(:grant)
-      put :update, id: @grant.id.to_s
-    end
+    before { put :update, id: @grant.id }
     
-    it "should set the grant status to true" do
-      @grant.reload.status.should == true
+    it "should set the grant status to approved" do
+      @grant.reload.status.should == 'approved'
     end
     
     it "should redirect to grants index" do
@@ -54,21 +47,7 @@ describe AdminGrantRequestsController do
     
     it "should send an email" do
       ActionMailer::Base.deliveries.last.subject.should =~ /grant has been approved/i
-    end
-  end
-
-  describe "#destroy" do
-    before do
-      grant = Factory.create(:grant)
-      get :destroy, id: grant.id.to_s
-    end
-    
-    it "should assign @reasons" do
-      assigns[:reasons].size.should > 0
-    end
-    
-    it "should not render a layout" do
-      response.should_not render_template('layouts/admin')
+      ActionMailer::Base.deliveries.last.to.first.should == @grant.project.group.adult_sponsor.email
     end
   end
 end

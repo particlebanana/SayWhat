@@ -47,7 +47,6 @@ SayWhat::Application.routes.draw do
   match "/admin/grants/pending"           =>  "admin_grant_requests#index",      :via => "get"
   match "/admin/grants/:id/edit"          =>  "admin_grant_requests#edit",       :via => "get"
   match "/admin/grants/:id"               =>  "admin_grant_requests#update",     :via => "put"
-  match "/admin/grants/:id/deny"          =>  "admin_grant_requests#destroy",    :via => "get"
   
   # Admin Grants Controller
   match "/admin/grants"                   =>  "admin_grants#index",              :via => "get"

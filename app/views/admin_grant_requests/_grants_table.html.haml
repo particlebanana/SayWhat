@@ -1,11 +1,20 @@
-.header.group
-  .th.grant_group Group Name
-  .th.grant_sponsor Sponsor Name
-  .th.grant_email Sponsor Email
+:javascript
+  $(function() {
+    $("table.sortable").tablesorter({ sortList: [[1,0]] });
+  });
+
+%table.sortable.zebra-striped
+  %thead
+    %tr
+      %th #
+      %th Project
+      %th Group
+      %th Sponsor
   
-.table
-  - @grants.each do |grant|
-    .tr.group{:class => cycle("odd", "even")}
-      .td.grant_group= link_to grant.group_name, "/admin/grants/#{grant.id}/edit"
-      .td.grant_sponsor= grant.adult_name
-      .td.grant_email= grant.adult_email
+  %tbody
+    - @grants.each do |grant|
+      %tr
+        %td= link_to grant.id, "/admin/grants/#{grant.id}/edit"
+        %td= link_to grant.project.display_name, "/admin/grants/#{grant.id}/edit"
+        %td= link_to grant.project.group.display_name, "/admin/grants/#{grant.id}/edit"
+        %td= link_to grant.project.group.adult_sponsor.name, "/admin/grants/#{grant.id}/edit"

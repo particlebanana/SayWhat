@@ -1,16 +1,10 @@
-.block
-  .secondary-navigation
-    %ul.wat-cf
-      %li.first <a href="/admin/grants">Awarded</a>
-      %li.last.active <a href="/admin/grants/pending">Pending</a>
-      
-  .content
-    .group
-      %h2.title.left Pending Grants
-        
-    .inner
-      - if @grants.empty?
-        %p No Grants
-      - else
-        %div#groupsTable.adminTableView
-          = render :partial => "grants_table"
+.row
+  %section
+    %h2.heading Pending Grant Applications
+
+    - if @grants.empty?
+      .alert-message.block-message.success
+        %p <strong>Good Job</strong> There are currently no pending grant requests. Time for a vacation!
+
+    - else
+      = render :partial => "grants_table"
