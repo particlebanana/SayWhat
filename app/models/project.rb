@@ -37,9 +37,9 @@ class Project < ActiveRecord::Base
   end
   
   # Publish to Project and Group feed
-  def publish_to_feed(msg)
+  def publish_to_feed(key, msg)
     event = Chronologic::Event.new(
-      key: "project:#{self.id}:create",
+      key: key,
       data: { type: "message", message: "#{msg}"},
       timelines: ["group:#{self.group.id}", "project:#{self.id}"],
       objects: { group: "group:#{self.group.id}", project: "project:#{self.id}" }
@@ -74,6 +74,6 @@ class Project < ActiveRecord::Base
 
   # Add an event to project timeline when a new project is created
   def write_initial_event
-    publish_to_feed("#{self.group.display_name} created a new project: #{self.display_name}")
+    publish_to_feed("project:#{self.id}:create", "#{self.group.display_name} created a new project: #{self.display_name}")
   end
 end
