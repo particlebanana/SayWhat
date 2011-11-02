@@ -2,38 +2,29 @@
 != cc_html(:lang => 'en') do
   %head
     %meta{"http-equiv"=>"Content-Type", :content=>"text/html; charset=utf-8"}
+    %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1"}
     
     %title
       = "Say What! Manager"
  
     = stylesheet_link_tag "admin.css"
     = javascript_include_tag "admin.js"
+
+    // Typekit
+    %script{ type: "text/javascript", src: "http://use.typekit.com/#{CONFIG['typekit_code']}.js" }
+
+    :javascript
+      try{Typekit.load();}catch(e){}
     
     = csrf_meta_tag
 
   %body
     %div#wrap    
       = render :partial => "layouts/partials/header"
-      
-      #content.group
-        #adminHeader
-          #main-nav
-            %ul.wat-cf
-              %li{:class => controller.controller_name == 'pages' ? 'active' : '' }
-                %a{:href => '/admin/dashboard'} Dashboard
-              %li{:class => ['admin_grants', 'admin_grant_requests'].include?(controller.controller_name) ? 'active' : '' }
-                %a{:href => '/admin/grants'} Grants
-              %li{:class => ['admin_groups', 'admin_group_requests'].include?(controller.controller_name) ? 'active' : '' }
-                %a{:href => '/admin/groups'} Groups
-              %li{:class => controller.controller_name == 'admin_users' ? 'active' : '' }
-                %a{:href => '/admin/users'} Users
-              %li{:class => controller.controller_name == 'admin_announcements' ? 'active' : '' }
-                %a{:href => '/admin/announcements'} Announcements
 
-        #wrapper.wat-cf.centeredWrap
-          .flash
-            - flash.each do |type, message|
-              %div{:class => "message #{type}"}
-                %p= message
-          #main
-            = yield
+      %div.container.cf
+        = flash_messages(flash).html_safe
+      
+        = render :partial => "layouts/partials/admin_nav"
+
+        = yield

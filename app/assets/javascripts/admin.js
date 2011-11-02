@@ -7,7 +7,10 @@
 //= require modernizr.2.0.6.custom
 //= require jquery
 //= require jquery_ujs
-//= require jquery-ui-1.8.8.custom.min
-//= require facebox
-//= require admin_functions
-//= require functions
+//= require bootstrap-dropdown
+//= require bootstrap-alerts
+//= require jquery.tablesorter.min
+//= require jquery.masonry.min
+//= require jquery.reveal
+//= require_tree ./sections
+//= require admin_bootstrap
