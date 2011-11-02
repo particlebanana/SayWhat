@@ -9,7 +9,7 @@ class AdminGroupsController < ApplicationController
   
   # GET - View All Groups
   def index
-    @groups = Group.order('name ASC')
+    @groups = Group.active.order('name ASC')
     respond_with(@groups)
   end
   
@@ -35,7 +35,7 @@ class AdminGroupsController < ApplicationController
     reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
     reason = reasons.select{|r| r['name'] == params[:reason]}[0]
     if @group.deny(reason)
-      redirect_to "/admin/group_requests", notice: "Group and Sponsor successfully removed"
+      redirect_to "/admin/group_requests", notice: "Group successfully removed"
     else
       redirect_to "/admin/group_requests/#{@group.id}", alert: "Error removing group!"
     end

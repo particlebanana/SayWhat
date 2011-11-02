@@ -31,7 +31,6 @@ SayWhat::Application.routes.draw do
   match "/admin/group_requests"               =>  "admin_group_requests#index",      :via => "get"
   match "/admin/group_requests/:id"           =>  "admin_group_requests#show",       :via => "get"
   match "/admin/group_requests/:id"           =>  "admin_group_requests#update",     :via => "put"
-  match "/admin/group_requests/:id/deny"      =>  "admin_group_requests#destroy",    :via => "get"
   
   # Admin Groups Controller
   match "/admin/groups"                   =>  "admin_groups#index",              :via => "get"

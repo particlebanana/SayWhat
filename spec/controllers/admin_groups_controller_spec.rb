@@ -9,7 +9,7 @@ describe AdminGroupsController do
   
   describe "#index" do
     before do
-      Factory.create(:group)
+      Factory.create(:group, { status: "active" })
       get :index
     end
     

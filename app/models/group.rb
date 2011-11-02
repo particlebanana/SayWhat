@@ -65,7 +65,9 @@ class Group < ActiveRecord::Base
   # Completely remove a group and sponsor account
   def deny(reason)
     user = self.adult_sponsor
-    if self.destroy && user.destroy && reason.is_a?(Hash)
+    if self.destroy && reason.is_a?(Hash)
+      user.group = nil
+      user.save
       GroupMailer.send_denied_notice(user, self, reason['email_text']).deliver
       true
     else

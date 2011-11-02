@@ -1,11 +1,20 @@
-.header.group
-  .th.group_name Group Name
-  .th.group_organization Organization Name
-  .th.group_status Status
+:javascript
+  $(function() {
+    $("table.sortable").tablesorter({ sortList: [[1,0]] });
+  });
 
-.table
-  - @groups.each do |group|
-    .tr.group{:class => cycle("odd", "even")}
-      .td.group_name= link_to group.display_name, "/admin/groups/#{group.id}"
-      .td.group_organization= group.organization
-      .td.group_status= group.status
+%table.sortable.zebra-striped
+  %thead
+    %tr
+      %th #
+      %th Name
+      %th City
+      %th Sponsor
+
+  %tbody
+    - @groups.each do |group|
+      %tr
+        %td= link_to group.id, "/admin/groups/#{group.id}"
+        %td= link_to group.display_name, "/admin/groups/#{group.id}"
+        %td= link_to group.city, "/admin/groups/#{group.id}"
+        %td= link_to group.adult_sponsor.name, "/admin/groups/#{group.id}"

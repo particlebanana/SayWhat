@@ -15,7 +15,7 @@ class AdminGroupRequestsController < ApplicationController
   
   # GET - View a single group request
   def show
-    @sponsor = @group.adult_sponsor
+    @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
     respond_with(@group)
   end
  
@@ -26,12 +26,6 @@ class AdminGroupRequestsController < ApplicationController
     else
       redirect_to "/admin/group_requests/#{@group.id.to_s}", alert: "Error approving group. Try again"
     end
-  end
-  
-  # Load group denied reasons from YAML file and return as json
-  def destroy
-    @reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
-    render :layout => false
   end
   
   private

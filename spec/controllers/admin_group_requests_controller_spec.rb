@@ -34,10 +34,6 @@ describe AdminGroupRequestsController do
       (assigns[:group].is_a? Group).should be_true
     end
     
-    it "should return a User object as @sponsor" do
-      (assigns[:sponsor].is_a? User).should be_true
-    end
-    
     it "should render the show template" do
       response.should render_template('admin_group_requests/show')
     end
@@ -69,21 +65,6 @@ describe AdminGroupRequestsController do
     
     it "should send the sponsor an email" do
       ActionMailer::Base.deliveries.last.subject.should =~ /group has been approved/i
-    end
-  end
-  
-  describe "#destroy" do
-    before do
-      group = Factory.create(:group, {status: 'pending'}) 
-      get :destroy, id: group.id
-    end
-    
-    it "should assign @reasons" do
-      assigns[:reasons].size.should > 0
-    end
-    
-    it "should not render a layout" do
-      response.should_not render_template('layouts/admin')
     end
   end
 end

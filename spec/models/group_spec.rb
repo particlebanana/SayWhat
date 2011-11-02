@@ -122,7 +122,7 @@ describe Group do
         Group.where(id: @group.id).count.should == 0
       end
     
-      it "should destroy sponsor account" do
+      it "should remove group_id from sponsor account" do
         User.where(group_id: @group.id).count.should == 0
       end
     

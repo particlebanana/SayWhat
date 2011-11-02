@@ -1,44 +1,38 @@
-%h3
-  Sponsor Information 
-    
-%p.group
-  %b Sponsor Name:
-  = @sponsor.name
-        
-%p.group
-  %b Sponsor Email:
-  = @sponsor.email   
+.section.span8.col1
+  %h3 Sponsor
 
-%h3 Group Information
-              
-%p.group
-  %b= f.label :name
-  = f.text_field :display_name
-  
-%p.group
-  %b= f.label :city
-  = f.text_field :city
-  
-%p.group
-  %b= f.label :organization
-  = f.text_field :organization
-      
-%p.group
-  %b= f.label :esc_region
-  = f.text_field :esc_region
-      
-%p.group
-  %b= f.label :dshs_region
-  = f.text_field :dshs_region
-      
-%p.group
-  %b= f.label :area_of_state
-  = f.text_field :area
+  .media.cf
+    = link_to image_tag(@group.adult_sponsor.profile_photo_url(:thumb)), '#'
 
-%p.group
-  %b= f.label :permalink
-  = f.text_field :permalink
-      
-%p.group
-  %b= f.label :description
-  = f.text_area :description
+  .info.cf
+    %p.cf
+      %span.key Name:
+      %span.value= @group.adult_sponsor.name
+
+    %p.cf
+      %span.key Email:
+      %span.value= @group.adult_sponsor.email
+
+.section.span8.col1
+  %h3 Group Info
+
+  .info.cf
+    %p.cf
+      %span.key Name:
+      %span.value= @group.display_name
+
+    %p.cf
+      %span.key City:
+      %span.value= @group.city
+
+    %p.cf
+      %span.key Org:
+      %span.value= @group.organization
+
+    %p.cf
+      %span.key Permalink:
+      %span.value= "/#{@group.permalink}"
+
+    %p.cf
+      %span.key Description:
+      %span.value= @group.description
