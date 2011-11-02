@@ -1,12 +1,18 @@
 require 'spec_helper'
 
 describe Notification do
-  before(:each) { @user = Factory.create(:user) }
+  before do
+    @user = Factory.create(:user)
+    @message = {
+      text: 'this is a test notification',
+      link: '/test_link'
+    }
+  end
 
   describe "self.find" do
     before do
       notification = Notification.new(@user.id)
-      notification.insert('this is a test notification', '/test_link')
+      notification.insert(@message)
       @notifications = Notification.find(@user.id)
     end
 
@@ -23,7 +29,7 @@ describe Notification do
     before do
       2.times do |i|
         notification = Notification.new(@user.id)
-        notification.insert("this is a test notification - #{i}", '/test_link')
+        notification.insert(@message)
         @notifications = Notification.unread(@user.id)
       end
     end
@@ -41,7 +47,7 @@ describe Notification do
     before :each do
       2.times do |i|
         notification = Notification.new(@user.id)
-        notification.insert("this is a test notification - #{i}", '/test_link')
+        notification.insert(@message)
       end
     end
 
@@ -92,7 +98,7 @@ describe Notification do
   describe "insert" do
     before do
       @notification = Notification.new(@user.id)
-      @notification.insert('this is a test notification', '/test_link')
+      @notification.insert(@message)
     end
 
     it "should append a notification obj to the documents notification array" do

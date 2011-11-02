@@ -32,8 +32,9 @@ class Notification
   end
 
   # Insert a notification
-  def insert(text, link)
-    object = { id: BSON::ObjectId.new, text: text, link: link, created_at: Time.now }
+  def insert(message)
+    object = { id: BSON::ObjectId.new, text: message[:text], created_at: Time.now }
+    object[:link] = message[:link] if message[:link]
     append(object)
     @notifications = set_document
   end
