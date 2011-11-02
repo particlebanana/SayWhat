@@ -55,20 +55,4 @@ class UserMailer < ActionMailer::Base
       format.text {render 'send_message_notification'}
     end
   end
-  
-  # Sends Grant Approval Notification
-  def send_grant_approval(grant)
-    @grant = grant
-    mail(:to => grant.adult_email,
-         :subject => "SayWhat! Mini-Grant Has Been Approved")
-  end
-  
-  # Sends Grant Approval Notification
-  def send_grant_denied(grant, reason)
-    @grant = grant
-    @reason = reason
-    mail(:to => grant.adult_email,
-         :subject => "SayWhat! Mini-Grant Has Been Denied")
-  end
-  
 end

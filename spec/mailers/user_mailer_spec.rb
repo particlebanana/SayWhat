@@ -1,8 +1,10 @@
 require "spec_helper"
 
 describe UserMailer do
+  before { @user = Factory.build(:user) }
+
   describe "successful membership request email" do
-    let(:user) { Factory.build(:user) }
+    let(:user) { @user }
     let(:group) { Factory.build(:group) }
     let(:mail) { UserMailer.successful_membership_request(user, group) }
     
@@ -33,7 +35,7 @@ describe UserMailer do
   end
 
   describe "send approved notice email" do
-    let(:user) { Factory.create(:user) }
+    let(:user) { @user }
     let(:group) { Factory.create(:group) }
     let(:mail) { UserMailer.send_approved_notice(user, group, 'localhost:3000') }
         
@@ -74,31 +76,4 @@ describe UserMailer do
       mail.to.should == [user.email]
     end
   end
-  
-  describe "send mini-grant approval email" do
-    let(:grant) { Factory.create(:grant, { status: true } ) }
-    let(:mail) { UserMailer.send_grant_approval(grant) }
-    
-    it "renders the reciever's email address" do
-      mail.to.should == [grant.adult_email]
-    end
-    
-    it "renders the correct subject" do
-      mail.subject.should == "SayWhat! Mini-Grant Has Been Approved"
-    end
-  end
-  
-  describe "send mini-grant denied email" do
-    let(:grant) { Factory.create(:grant, { status: false } ) }
-    let(:mail) { UserMailer.send_grant_denied(grant, "reason") }
-    
-    it "renders the reciever's email address" do
-      mail.to.should == [grant.adult_email]
-    end
-    
-    it "renders the correct subject" do
-      mail.subject.should == "SayWhat! Mini-Grant Has Been Denied"
-    end
-  end
-
 end
