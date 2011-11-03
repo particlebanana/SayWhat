@@ -5,10 +5,11 @@
   %section.span10#profile
     = group_page_header(@group).html_safe
 
-    #project_feed.media.cf
-      - @projects.each do |project|
-        .project
-          %a{ href: group_project_path(@group, project) }= image_tag(project.profile_photo_url(:index))
+    - if !@projects.empty?
+      #project_feed.media.cf
+        - @projects.each do |project|
+          .project
+            %a{ href: group_project_path(@group, project) }= image_tag(project.profile_photo_url(:index))
 
     #page-sections.cf
       #activity_feed.section.wall.timeline
