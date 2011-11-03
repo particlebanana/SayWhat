@@ -2,6 +2,22 @@ require 'spec_helper'
 
 describe UsersController do
   
+  describe "#show" do
+    before do
+      @user = Factory.create(:user)
+      sign_in @user
+      get :show, { id: @user.id }
+    end
+
+    it "should assign @user" do
+      assigns[:user].should == @user
+    end
+
+    it "should render show template" do
+      response.should render_template('users/show')
+    end
+  end
+
   describe "#edit" do
     before do
       user = Factory.create(:user)

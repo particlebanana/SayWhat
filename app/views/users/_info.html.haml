@@ -1,0 +1,17 @@
+%section
+  %h4 Basic Information
+
+  %table
+    %tbody
+      %tr
+        %td.label Name
+        %td.data= @user.name
+      %tr
+        %td.label Group
+        %td.data= @user.group.display_name if @user.group
+      %tr
+        %td.label Join Date
+        %td.data= @user.created_at.strftime('%B, %Y')
+      %tr
+        %td.label About
+        %td.data= @user.bio

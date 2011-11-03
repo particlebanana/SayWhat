@@ -24,6 +24,7 @@ class Ability
     elsif user.group_id
       can :edit, User, id: user.id
       can :update, User, id: user.id
+      can :show, User
 
       can :index, Group
       can :show, Group
@@ -46,6 +47,7 @@ class Ability
     else
       can :edit, User, id: user.id
       can :update, User, id: user.id
+      can :show, User
 
       can :create, Membership
 
