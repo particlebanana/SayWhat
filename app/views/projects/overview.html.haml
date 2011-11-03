@@ -6,9 +6,22 @@
     %h2.heading Projects
 
     -  if @projects.size > 0
-      %ul
-        - @projects.each do |project|
-          %li= link_to truncate(project.display_name, :length => 50), group_project_path(project.group.permalink, project)
+      :javascript
+        $(function() {
+          $("table.sortable").tablesorter({ sortList: [[1,0]] });
+        });
+
+      %table.sortable.zebra-striped
+        %thead
+          %tr
+            %th Name
+            %th Location
+        %tbody
+          - @projects.each do |project|
+            %tr
+              %td= link_to truncate(project.display_name, :length => 50), group_project_path(project.group.permalink, project)
+              %td= project.location
+
     - else
       %div.alert-message.block-message.info
         %p <strong>Whoa there!</strong> It looks like no one has created any projects yet!

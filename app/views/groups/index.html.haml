@@ -6,9 +6,22 @@
     %h2.heading Groups
 
     -  if @groups.size > 0
-      %ul
-        - @groups.each do |group|
-          %li= link_to truncate(group.display_name, :length => 50), group_path(group.permalink)
+      :javascript
+        $(function() {
+          $("table.sortable").tablesorter({ sortList: [[1,0]] });
+        });
+
+      %table.sortable.zebra-striped
+        %thead
+          %tr
+            %th Name
+            %th City
+        %tbody
+          - @groups.each do |group|
+            %tr
+              %td= link_to truncate(group.display_name, :length => 50), group_path(group.permalink)
+              %td= group.city
+
     - else
       %div.alert-message.block-message.info
         %p <strong>Whoa there!</strong> It looks like no one has created any groups yet! You can create a group in no time!

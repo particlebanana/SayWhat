@@ -12,6 +12,7 @@
 //= require jquery.autoresize.js
 //= require bootstrap-dropdown
 //= require bootstrap-alerts
+//= require jquery.tablesorter.min
 //= require plupload
 //= require plupload.settings
 //= require jquery.plupload.queue
