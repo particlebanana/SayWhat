@@ -8,7 +8,7 @@
         %td.data= @project.location
       %tr
         %td.label Dates
-        %td.data= @project.start_date
+        %td.data= "#{@project.start_date.strftime('%b %d')} - #{@project.end_date.strftime('%b %d, %Y')}"
       %tr
         %td.label Focus
         %td.data= @project.focus
