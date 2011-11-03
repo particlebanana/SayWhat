@@ -10,11 +10,11 @@ layout =
     e.preventDefault()
     el = e.target.id
     showing = $('.' + el, '#profile').is(":visible")
+    section_count = $('.section').size()
     if showing == false
-      $('.section').each( ->
-        $(this).fadeOut('fast')
-      )
-      $('.' + el, '#profile').fadeIn('fast')
-
+      $('.section').each (idx) ->
+        $(this).fadeOut 'fast', ->
+          if ((idx + 1) == section_count)
+            $('.' + el, '#profile').fadeIn('fast')
 
 window.layout = exports ? layout

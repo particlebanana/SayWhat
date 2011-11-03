@@ -1,3 +1,12 @@
+#page-sections {
+  position: relative;
+  .section {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
 #group_profile {
   hgroup {
     margin-bottom: 20px;

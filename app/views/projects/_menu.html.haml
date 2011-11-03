@@ -1,12 +1,16 @@
 - if can? :create, Grant.new({ project: @project })
   %p= link_to "Apply for a grant", new_group_project_grant_url(@group, @project), :class => "btn info" unless @project.grant
 
-%ul#profile_menu
+%ul#profile_menu.menu
   %li
-    %a{ href: group_project_path(@group, @project) }
+    %a#wall{ href: '#' }
+      = image_tag '181-hammer.png', width: 10
+      %span Wall
+  %li
+    %a#info{ href: '#' }
       = image_tag '181-hammer.png', width: 10
       %span Info
   %li
-    %a{ href: group_project_photos_path(@group, @project) }
+    %a#photos{ href: group_project_photos_path(@group, @project) }
       = image_tag '181-hammer.png', width: 10
       %span Photos
