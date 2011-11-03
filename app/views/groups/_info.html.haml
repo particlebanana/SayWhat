@@ -1,0 +1,20 @@
+%section
+  %h4 Basic Information
+
+  %table
+    %tbody
+      %tr
+        %td.label City
+        %td.data= "#{@group.city}, TX"
+      %tr
+        %td.label Organization
+        %td.data= @group.organization
+      %tr
+        %td.label Members
+        %td.data= @group.users.count
+      %tr
+        %td.label Sponsor
+        %td.data= @group.adult_sponsor.name
+      %tr
+        %td.label About
+        %td.data= @group.description

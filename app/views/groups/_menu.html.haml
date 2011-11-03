@@ -1,9 +1,13 @@
-%ul#profile_menu
+%ul#profile_menu.menu
   %li
-    %a{ href: group_projects_path(@group) }
+    %a#wall{ href: group_projects_path(@group) }
+      = image_tag '181-hammer.png', width: 10
+      %span Wall
+  %li
+    %a#info{ href: group_projects_path(@group) }
       = image_tag '181-hammer.png', width: 10
       %span Info
   %li
-    %a{ href: group_projects_path(@group) }
+    %a#projects{ href: group_projects_path(@group) }
       = image_tag '181-hammer.png', width: 10
       %span Projects

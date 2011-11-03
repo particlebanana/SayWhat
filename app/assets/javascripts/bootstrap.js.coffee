@@ -24,3 +24,7 @@ $ ->
       return false
     )
     $('a.fancybox').fancybox()
+
+    # Menu Bindings
+    $('.menu').delegate('a#wall', 'click', @layout.toggle_wall_and_info)
+    $('.menu').delegate('a#info', 'click', @layout.toggle_wall_and_info)
