@@ -7,6 +7,7 @@
 //= require modernizr.2.0.6.custom
 //= require jquery
 //= require jquery_ujs
+//= require jquery-ui-1.8.16.custom.min
 //= require handlebars
 //= require jquery.autoresize.js
 //= require bootstrap-dropdown

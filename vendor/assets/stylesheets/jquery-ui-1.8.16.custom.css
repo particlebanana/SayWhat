@@ -1,7 +1,7 @@
 /*
- * jQuery UI CSS Framework 1.8.8
+ * jQuery UI CSS Framework 1.8.16
  *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
@@ -42,9 +42,9 @@
 
 
 /*
- * jQuery UI CSS Framework 1.8.8
+ * jQuery UI CSS Framework 1.8.16
  *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
@@ -59,26 +59,26 @@
 .ui-widget { font-family: Helvetica, Arial, sans-serif; font-size: 1.1em; }
 .ui-widget .ui-widget { font-size: 1em; }
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Helvetica, Arial, sans-serif; font-size: 1em; }
-.ui-widget-content { border: 1px solid #dddddd; background: #ffffff url(<%= asset_path "ui-bg_flat_75_ffffff_40x100.png" %>) 50% 50% repeat-x; color: #444444; }
+.ui-widget-content { border: 1px solid #dddddd; background: #ffffff url(/assets/flick/ui-bg_flat_75_ffffff_40x100.png) 50% 50% repeat-x; color: #444444; }
 .ui-widget-content a { color: #444444; }
-.ui-widget-header { border: 1px solid #dddddd; background: #dddddd url(<%= asset_path "ui-bg_highlight-soft_50_dddddd_1x100.png" %>) 50% 50% repeat-x; color: #444444; font-weight: bold; }
+.ui-widget-header { border: 1px solid #dddddd; background: #dddddd url(/assets/flick/ui-bg_highlight-soft_50_dddddd_1x100.png) 50% 50% repeat-x; color: #444444; font-weight: bold; }
 .ui-widget-header a { color: #444444; }
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #dddddd; background: #f6f6f6 url(<%= asset_path "ui-bg_highlight-soft_100_f6f6f6_1x100.png" %>) 50% 50% repeat-x; font-weight: bold; color: #0073ea; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default { border: 1px solid #dddddd; background: #f6f6f6 url(/assets/flick/ui-bg_highlight-soft_100_f6f6f6_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #0073ea; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #0073ea; text-decoration: none; }
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #0073ea; background: #0073ea url(<%= asset_path "ui-bg_highlight-soft_25_0073ea_1x100.png" %>) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus { border: 1px solid #0073ea; background: #0073ea url(/assets/flick/ui-bg_highlight-soft_25_0073ea_1x100.png) 50% 50% repeat-x; font-weight: bold; color: #ffffff; }
 .ui-state-hover a, .ui-state-hover a:hover { color: #ffffff; text-decoration: none; }
-.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #dddddd; background: #ffffff url(<%= asset_path "ui-bg_glass_65_ffffff_1x400.png" %>) 50% 50% repeat-x; font-weight: bold; color: #ff0084; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active { border: 1px solid #dddddd; background: #ffffff url(/assets/flick/ui-bg_glass_65_ffffff_1x400.png) 50% 50% repeat-x; font-weight: bold; color: #ff0084; }
 .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #ff0084; text-decoration: none; }
 .ui-widget :active { outline: none; }
 
 /* Interaction Cues
 ----------------------------------*/
-.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #cccccc; background: #ffffff url(<%= asset_path "ui-bg_flat_55_ffffff_40x100.png" %>) 50% 50% repeat-x; color: #444444; }
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight  {border: 1px solid #cccccc; background: #ffffff url(/assets/flick/ui-bg_flat_55_ffffff_40x100.png) 50% 50% repeat-x; color: #444444; }
 .ui-state-highlight a, .ui-widget-content .ui-state-highlight a,.ui-widget-header .ui-state-highlight a { color: #444444; }
-.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #ff0084; background: #ffffff url(<%= asset_path "ui-bg_flat_55_ffffff_40x100.png" %>) 50% 50% repeat-x; color: #222222; }
+.ui-state-error, .ui-widget-content .ui-state-error, .ui-widget-header .ui-state-error {border: 1px solid #ff0084; background: #ffffff url(/assets/flick/ui-bg_flat_55_ffffff_40x100.png) 50% 50% repeat-x; color: #222222; }
 .ui-state-error a, .ui-widget-content .ui-state-error a, .ui-widget-header .ui-state-error a { color: #222222; }
 .ui-state-error-text, .ui-widget-content .ui-state-error-text, .ui-widget-header .ui-state-error-text { color: #222222; }
 .ui-priority-primary, .ui-widget-content .ui-priority-primary, .ui-widget-header .ui-priority-primary { font-weight: bold; }
@@ -89,14 +89,14 @@
 ----------------------------------*/
 
 /* states and images */
-.ui-icon { width: 16px; height: 16px; background-image: url(<%= asset_path "ui-icons_ff0084_256x240.png" %>); }
-.ui-widget-content .ui-icon {background-image: url(<%= asset_path "ui-icons_ff0084_256x240.png" %>); }
-.ui-widget-header .ui-icon {background-image: url(<%= asset_path "ui-icons_0073ea_256x240.png" %>); }
-.ui-state-default .ui-icon { background-image: url(<%= asset_path "ui-icons_666666_256x240.png" %>); }
-.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(<%= asset_path "ui-icons_ffffff_256x240.png" %>); }
-.ui-state-active .ui-icon {background-image: url(<%= asset_path "ui-icons_454545_256x240.png" %>); }
-.ui-state-highlight .ui-icon {background-image: url(<%= asset_path "ui-icons_0073ea_256x240.png" %>); }
-.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(<%= asset_path "ui-icons_ff0084_256x240.png" %>); }
+.ui-icon { width: 16px; height: 16px; background-image: url(/assets/flick/ui-icons_ff0084_256x240.png); }
+.ui-widget-content .ui-icon {background-image: url(/assets/flick/ui-icons_ff0084_256x240.png); }
+.ui-widget-header .ui-icon {background-image: url(/assets/flick/ui-icons_0073ea_256x240.png); }
+.ui-state-default .ui-icon { background-image: url(/assets/flick/ui-icons_666666_256x240.png); }
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon {background-image: url(/assets/flick/ui-icons_ffffff_256x240.png); }
+.ui-state-active .ui-icon {background-image: url(/assets/flick/ui-icons_454545_256x240.png); }
+.ui-state-highlight .ui-icon {background-image: url(/assets/flick/ui-icons_0073ea_256x240.png); }
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {background-image: url(/assets/flick/ui-icons_ff0084_256x240.png); }
 
 /* positioning */
 .ui-icon-carat-1-n { background-position: 0 0; }
@@ -280,115 +280,17 @@
 ----------------------------------*/
 
 /* Corner radius */
-.ui-corner-tl { -moz-border-radius-topleft: 2px; -webkit-border-top-left-radius: 2px; border-top-left-radius: 2px; }
-.ui-corner-tr { -moz-border-radius-topright: 2px; -webkit-border-top-right-radius: 2px; border-top-right-radius: 2px; }
-.ui-corner-bl { -moz-border-radius-bottomleft: 2px; -webkit-border-bottom-left-radius: 2px; border-bottom-left-radius: 2px; }
-.ui-corner-br { -moz-border-radius-bottomright: 2px; -webkit-border-bottom-right-radius: 2px; border-bottom-right-radius: 2px; }
-.ui-corner-top { -moz-border-radius-topleft: 2px; -webkit-border-top-left-radius: 2px; border-top-left-radius: 2px; -moz-border-radius-topright: 2px; -webkit-border-top-right-radius: 2px; border-top-right-radius: 2px; }
-.ui-corner-bottom { -moz-border-radius-bottomleft: 2px; -webkit-border-bottom-left-radius: 2px; border-bottom-left-radius: 2px; -moz-border-radius-bottomright: 2px; -webkit-border-bottom-right-radius: 2px; border-bottom-right-radius: 2px; }
-.ui-corner-right {  -moz-border-radius-topright: 2px; -webkit-border-top-right-radius: 2px; border-top-right-radius: 2px; -moz-border-radius-bottomright: 2px; -webkit-border-bottom-right-radius: 2px; border-bottom-right-radius: 2px; }
-.ui-corner-left { -moz-border-radius-topleft: 2px; -webkit-border-top-left-radius: 2px; border-top-left-radius: 2px; -moz-border-radius-bottomleft: 2px; -webkit-border-bottom-left-radius: 2px; border-bottom-left-radius: 2px; }
-.ui-corner-all { -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { -moz-border-radius-topleft: 2px; -webkit-border-top-left-radius: 2px; -khtml-border-top-left-radius: 2px; border-top-left-radius: 2px; }
+.ui-corner-all, .ui-corner-top, .ui-corner-right, .ui-corner-tr { -moz-border-radius-topright: 2px; -webkit-border-top-right-radius: 2px; -khtml-border-top-right-radius: 2px; border-top-right-radius: 2px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-left, .ui-corner-bl { -moz-border-radius-bottomleft: 2px; -webkit-border-bottom-left-radius: 2px; -khtml-border-bottom-left-radius: 2px; border-bottom-left-radius: 2px; }
+.ui-corner-all, .ui-corner-bottom, .ui-corner-right, .ui-corner-br { -moz-border-radius-bottomright: 2px; -webkit-border-bottom-right-radius: 2px; -khtml-border-bottom-right-radius: 2px; border-bottom-right-radius: 2px; }
 
 /* Overlays */
-.ui-widget-overlay { background: #eeeeee url(<%= asset_path "ui-bg_flat_0_eeeeee_40x100.png" %>) 50% 50% repeat-x; opacity: .80;filter:Alpha(Opacity=80); }
-.ui-widget-shadow { margin: -4px 0 0 -4px; padding: 4px; background: #aaaaaa url(<%= asset_path "ui-bg_flat_0_aaaaaa_40x100.png" %>) 50% 50% repeat-x; opacity: .60;filter:Alpha(Opacity=60); -moz-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }/*
- * jQuery UI Resizable 1.8.8
+.ui-widget-overlay { background: #eeeeee url(/assets/flick/ui-bg_flat_0_eeeeee_40x100.png) 50% 50% repeat-x; opacity: .80;filter:Alpha(Opacity=80); }
+.ui-widget-shadow { margin: -4px 0 0 -4px; padding: 4px; background: #aaaaaa url(/assets/flick/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat-x; opacity: .60;filter:Alpha(Opacity=60); -moz-border-radius: 0px; -khtml-border-radius: 0px; -webkit-border-radius: 0px; border-radius: 0px; }/*
+ * jQuery UI Datepicker 1.8.16
  *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Resizable#theming
- */
-.ui-resizable { position: relative;}
-.ui-resizable-handle { position: absolute;font-size: 0.1px;z-index: 99999; display: block;}
-.ui-resizable-disabled .ui-resizable-handle, .ui-resizable-autohide .ui-resizable-handle { display: none; }
-.ui-resizable-n { cursor: n-resize; height: 7px; width: 100%; top: -5px; left: 0; }
-.ui-resizable-s { cursor: s-resize; height: 7px; width: 100%; bottom: -5px; left: 0; }
-.ui-resizable-e { cursor: e-resize; width: 7px; right: -5px; top: 0; height: 100%; }
-.ui-resizable-w { cursor: w-resize; width: 7px; left: -5px; top: 0; height: 100%; }
-.ui-resizable-se { cursor: se-resize; width: 12px; height: 12px; right: 1px; bottom: 1px; }
-.ui-resizable-sw { cursor: sw-resize; width: 9px; height: 9px; left: -5px; bottom: -5px; }
-.ui-resizable-nw { cursor: nw-resize; width: 9px; height: 9px; left: -5px; top: -5px; }
-.ui-resizable-ne { cursor: ne-resize; width: 9px; height: 9px; right: -5px; top: -5px;}/*
- * jQuery UI Autocomplete 1.8.8
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Autocomplete#theming
- */
-.ui-autocomplete { position: absolute; cursor: default; }	
-
-/* workarounds */
-* html .ui-autocomplete { width:1px; } /* without this, the menu expands to 100% in IE6 */
-
-/*
- * jQuery UI Menu 1.8.8
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Menu#theming
- */
-.ui-menu {
-	list-style:none;
-	padding: 2px;
-	margin: 0;
-	display:block;
-	float: left;
-}
-.ui-menu .ui-menu {
-	margin-top: -3px;
-}
-.ui-menu .ui-menu-item {
-	margin:0;
-	padding: 0;
-	zoom: 1;
-	float: left;
-	clear: left;
-	width: 100%;
-}
-.ui-menu .ui-menu-item a {
-	text-decoration:none;
-	display:block;
-	padding:.2em .4em;
-	line-height:1.5;
-	zoom:1;
-}
-.ui-menu .ui-menu-item a.ui-state-hover,
-.ui-menu .ui-menu-item a.ui-state-active {
-	font-weight: normal;
-	margin: -1px;
-}
-/*
- * jQuery UI Dialog 1.8.8
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
- * Dual licensed under the MIT or GPL Version 2 licenses.
- * http://jquery.org/license
- *
- * http://docs.jquery.com/UI/Dialog#theming
- */
-.ui-dialog { position: absolute; padding: .2em; width: 300px; overflow: hidden; }
-.ui-dialog .ui-dialog-titlebar { padding: .4em 1em; position: relative;  }
-.ui-dialog .ui-dialog-title { float: left; margin: .1em 16px .1em 0; } 
-.ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
-.ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
-.ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
-.ui-dialog .ui-dialog-content { position: relative; border: 0; padding: .5em 1em; background: none; overflow: auto; zoom: 1; }
-.ui-dialog .ui-dialog-buttonpane { text-align: left; border-width: 1px 0 0 0; background-image: none; margin: .5em 0 0 0; padding: .3em 1em .5em .4em; }
-.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset { float: right; }
-.ui-dialog .ui-dialog-buttonpane button { margin: .5em .4em .5em 0; cursor: pointer; }
-.ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; }
-.ui-draggable .ui-dialog-titlebar { cursor: move; }
-/*
- * jQuery UI Datepicker 1.8.8
- *
- * Copyright 2010, AUTHORS.txt (http://jqueryui.com/about)
+ * Copyright 2011, AUTHORS.txt (http://jqueryui.com/about)
  * Dual licensed under the MIT or GPL Version 2 licenses.
  * http://jquery.org/license
  *
@@ -426,7 +328,7 @@
 .ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header { border-left-width:0; }
 .ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header { border-left-width:0; }
 .ui-datepicker-multi .ui-datepicker-buttonpane { clear:left; }
-.ui-datepicker-row-break { clear:both; width:100%; }
+.ui-datepicker-row-break { clear:both; width:100%; font-size:0em; }
 
 /* RTL support */
 .ui-datepicker-rtl { direction: rtl; }
