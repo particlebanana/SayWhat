@@ -5,10 +5,10 @@
 = build_field('text_field', f, 'location', @project, { help_block: "Where will this project take place?" }).html_safe
 
 // :start_date (required)
-=build_field('text_field', f, 'start_date', @project, { help_block: "When will you begin on this project?" }).html_safe
+=build_field('date', f, 'start_date', @project, { help_block: "When will you begin on this project?" }).html_safe
 
 // :end_date
-=build_field('text_field', f, 'end_date', @project, { help_block: "When will this project be over? (optional)" }).html_safe
+=build_field('date', f, 'end_date', @project, { help_block: "When will this project be over? (optional)" }).html_safe
 
 // :description
 = build_field('text_area', f, 'description', @project, { help_block: "What will you do for this project?" }).html_safe

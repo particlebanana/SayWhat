@@ -19,6 +19,11 @@ form .input {
     float: left;
     margin-right: 10px;
   }
+  .datepicker {
+    margin-right: 8px;
+    vertical-align: top;
+  }
+  img.ui-datepicker-trigger { cursor: pointer; }
 }
 
 .input-xxlarge, input.xxlarge, textarea.xxlarge, select.xxlarge {

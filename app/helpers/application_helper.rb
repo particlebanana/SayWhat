@@ -47,7 +47,9 @@ module ApplicationHelper
       when 'text_area'
         html << "#{enum.text_area field_name.to_sym, :rows => 3, :class => 'xxlarge'}\n"
       when 'select'
-        html << "#{enum.select field_name.to_sym, options[:block]}"
+        html << "#{enum.select field_name.to_sym, options[:block]}\n"
+      when 'date'
+        html << "#{enum.text_field field_name.to_sym, :class => 'datepicker cf'}\n"
       when 'phone'
         html << "#{enum.text_field field_name.to_sym, :class => 'xxlarge', :type => 'tel'}\n"
       end

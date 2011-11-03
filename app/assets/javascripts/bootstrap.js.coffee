@@ -7,6 +7,10 @@ $ ->
   @layout.set_notification_count()
   $('header').dropdown()
   $(".alert-message").alert('close')
+  $(".datepicker").datepicker
+    showOn: "both",
+    buttonImage: "/assets/83-calendar.png",
+    buttonImageOnly: true
 
   bindings =
     # Timeline Bindings
