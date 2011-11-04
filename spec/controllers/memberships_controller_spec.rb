@@ -55,8 +55,8 @@ describe MembershipsController do
         flash[:notice].should =~ /has been denied/i
       end
     
-      it "should redirect to /messages" do
-        response.should redirect_to('/messages')
+      it "should redirect to group page" do
+        response.should redirect_to("/groups/#{@group.permalink}")
       end
     end
   end

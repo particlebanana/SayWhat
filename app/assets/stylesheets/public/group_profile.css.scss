@@ -75,7 +75,15 @@
          text-decoration: none;
         }
       }
+    }
 
+    #membership-options {
+      a {
+        text-align: center;
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+      }
     }
   }
 }

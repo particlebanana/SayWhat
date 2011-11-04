@@ -32,7 +32,7 @@ class Membership < ActiveRecord::Base
     user = User.find(self.user_id)
     user.group_id = self.group_id
     if user.save
-      publish
+      publish(user)
       self.destroy
       UserMailer.send_approved_notice(user, user.group).deliver
       true
@@ -49,12 +49,12 @@ class Membership < ActiveRecord::Base
     notification.insert(message)
   end
 
-  def publish
+  def publish(user)
     event = Chronologic::Event.new(
       key: "membership:#{self.user_id}:create",
-      data: { type: "message", message: "joined the group" },
+      data: { type: "message", message: "#{user.name} joined the group" },
       timelines: ["group:#{self.group_id}"],
-      objects: { group: "group:#{self.group_id}", user: "user:#{self.user_id}" }
+      objects: { user: "user:#{self.user_id}" }
     )
     $feed.publish(event, true, Time.now.utc.tv_sec)
   end
