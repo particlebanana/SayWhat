@@ -2,10 +2,10 @@ require 'spec_helper'
 
 describe Comment do
   before do
-    @user = Factory.create(:user)
-    @group = Factory.create(:group)
+    @user = FactoryGirl.create(:user)
+    @group = FactoryGirl.create(:group)
     @user.join_group(@group.id)
-    @project = Factory.create(:project, { group: @group } )
+    @project = FactoryGirl.create(:project, { group: @group } )
   end
 
   describe ".build" do

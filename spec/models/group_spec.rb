@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Group do
-  before { @group = Factory.create(:group) }
+  before { @group = FactoryGirl.create(:group) }
   
   context "Factory" do
     subject { @group }
@@ -41,7 +41,7 @@ describe Group do
   
   describe "#adult_sponsor" do
     before do
-      Factory.create(:user, {role: "adult sponsor", group: @group})
+      FactoryGirl.create(:user, {role: "adult sponsor", group: @group})
       @user = @group.adult_sponsor
     end
     
@@ -52,8 +52,8 @@ describe Group do
     
   describe "#initialize_pending" do
     before do
-      @requesting_user = Factory.create(:user)
-      @admin = Factory.create(:user, { email: 'admin@gmail.com', role: 'admin' } )
+      @requesting_user = FactoryGirl.create(:user)
+      @admin = FactoryGirl.create(:user, { email: 'admin@gmail.com', role: 'admin' } )
       @group.permalink = "It's A Trap!?!?!"
       @response = @group.initialize_pending(@requesting_user)
     end
@@ -84,7 +84,7 @@ describe Group do
   
   describe "#approve" do
     before do
-      @user = Factory.create(:user, {role: "adult sponsor", group: @group})
+      @user = FactoryGirl.create(:user, {role: "adult sponsor", group: @group})
       @response = @group.approve("http://test.com")
     end
 
@@ -107,7 +107,7 @@ describe Group do
 
   describe "#deny" do
     before do
-      Factory.create(:user, {role: "adult sponsor", group: @group})
+      FactoryGirl.create(:user, {role: "adult sponsor", group: @group})
       reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
       @reason = reasons.first
     end
@@ -141,8 +141,8 @@ describe Group do
   
   describe "#reassign_sponsor" do
     before do
-      @sponsor = Factory.create(:user, {role: "adult sponsor", group: @group})
-      @member = Factory.create(:user, {email: "member@test.com", group: @group})
+      @sponsor = FactoryGirl.create(:user, {role: "adult sponsor", group: @group})
+      @member = FactoryGirl.create(:user, {email: "member@test.com", group: @group})
       @group.reassign_sponsor(@member.id)
     end
     

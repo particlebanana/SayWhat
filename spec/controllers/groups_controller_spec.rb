@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe GroupsController do
-  before { @group = Factory.create(:group) } 
+  before { @group = FactoryGirl.create(:group) }
 
   context "unauthenticated" do
     describe "#index" do
@@ -27,6 +27,10 @@ describe GroupsController do
       it "should return a Timeline object" do
         assigns[:timeline]['feed'].count.should == 0
       end
+
+      it "should assign pending membership" do
+        assigns[:pending_membership].should == false
+      end
         
       it "should render the show template" do
         response.should render_template('groups/show')
@@ -38,7 +42,7 @@ describe GroupsController do
    
     context "adult sponsor" do
       before do
-        @user = Factory.create(:user, {group: @group, role: 'adult sponsor'})
+        @user = FactoryGirl.create(:user, {group: @group, role: 'adult sponsor'})
         sign_in @user
       end
       
@@ -88,7 +92,7 @@ describe GroupsController do
         context "member" do
           before do
             sign_out @user
-            sign_in Factory.create(:user, { email: 'member@gmail.com' } )
+            sign_in FactoryGirl.create(:user, { email: 'member@gmail.com' } )
             get :edit, id: @group.permalink
           end
 
@@ -100,7 +104,7 @@ describe GroupsController do
   
     context "member" do
       before do
-        @user = Factory.create(:user, { email: 'member@gmail.com' } )
+        @user = FactoryGirl.create(:user, { email: 'member@gmail.com' } )
         sign_in @user
       end
       

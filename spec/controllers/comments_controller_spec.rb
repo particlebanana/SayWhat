@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe CommentsController do
   before do
-    @user = Factory.create(:user)
-    @group = Factory.create(:group)
+    @user = FactoryGirl.create(:user)
+    @group = FactoryGirl.create(:group)
     sign_in @user
   end
 

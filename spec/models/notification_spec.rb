@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Notification do
   before do
-    @user = Factory.create(:user)
+    @user = FactoryGirl.create(:user)
     @message = {
       text: 'this is a test notification',
       link: '/test_link'

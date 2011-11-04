@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe Grant do
   before do
-    @group = Factory.create(:group)
-    @user = Factory.create(:user)
-    @sponsor = Factory.create(:user, { email: 'sponsor@test.com', group: @group, role: 'adult sponsor' })
-    @project = Factory.create(:project, { group: @group })
-    @grant = Factory.create(:grant, { member: @user, project: @project })
+    @group = FactoryGirl.create(:group)
+    @user = FactoryGirl.create(:user)
+    @sponsor = FactoryGirl.create(:user, { email: 'sponsor@test.com', group: @group, role: 'adult sponsor' })
+    @project = FactoryGirl.create(:project, { group: @group })
+    @grant = FactoryGirl.create(:grant, { member: @user, project: @project })
   end
 
   context "Factory" do

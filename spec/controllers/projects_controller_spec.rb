@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe ProjectsController do
   before do
-    @group = Factory.create(:group)
-    @project = Factory.create(:project, { group: @group } )
+    @group = FactoryGirl.create(:group)
+    @project = FactoryGirl.create(:project, { group: @group } )
   end
 
   describe "#overview" do
@@ -47,7 +47,7 @@ describe ProjectsController do
   describe "#new" do
     context "group member" do
       before do
-        user = Factory.create(:user, { group: @group } )
+        user = FactoryGirl.create(:user, { group: @group } )
         sign_in user
         get :new, { group_id: @group.permalink }
       end
@@ -63,7 +63,7 @@ describe ProjectsController do
     
     context "non group member" do
       before do
-        user = Factory.create(:user)
+        user = FactoryGirl.create(:user)
         sign_in user
         get :new, { group_id: @group.permalink }
       end
@@ -76,9 +76,9 @@ describe ProjectsController do
   describe "#create" do
     context "group member" do
       before do
-        user = Factory.create(:user, { group: @group } )
+        user = FactoryGirl.create(:user, { group: @group } )
         sign_in user
-        project = Factory.build(:project, { display_name: "test", group: @group } )
+        project = FactoryGirl.build(:project, { display_name: "test", group: @group } )
         post :create, { group_id: @group.permalink, project: project.attributes }
         @demo = Project.where(display_name: "test").first
       end
@@ -97,9 +97,9 @@ describe ProjectsController do
     
     context "non-group member" do
       before do
-        user = Factory.create(:user)
+        user = FactoryGirl.create(:user)
         sign_in user
-        project = Factory.build(:project, { display_name: "test", group: @group } )
+        project = FactoryGirl.build(:project, { display_name: "test", group: @group } )
         post :create, { group_id: @group.permalink, project: project.attributes }
       end
       
@@ -109,10 +109,10 @@ describe ProjectsController do
     
     context "another group's member" do
       before do
-        group = Factory.create(:group, { display_name: "test other group", permalink: "blah blah" } )
-        user = Factory.create(:user, { group: group, role: 'member' } )
+        group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
+        user = FactoryGirl.create(:user, { group: group, role: 'member' } )
         sign_in user
-        project = Factory.build(:project, { display_name: "test", group: @group } )
+        project = FactoryGirl.build(:project, { display_name: "test", group: @group } )
         post :create, { group_id: @group.permalink, project: project.attributes }
       end
       
@@ -124,7 +124,7 @@ describe ProjectsController do
   describe "#edit" do
     context "group member" do
       before do
-        user = Factory.create(:user, { group: @group } )
+        user = FactoryGirl.create(:user, { group: @group } )
         sign_in user
         get :edit, { group_id: @group.permalink, id: @project.id }
       end
@@ -140,7 +140,7 @@ describe ProjectsController do
     
     context "non-group member" do
       before do
-        user = Factory.create(:user)
+        user = FactoryGirl.create(:user)
         sign_in user
         get :edit, { group_id: @group.permalink, id: @project.id }
       end
@@ -151,8 +151,8 @@ describe ProjectsController do
     
     context "another group's member" do
       before do
-        group = Factory.create(:group, { display_name: "test other group", permalink: "blah blah" } )
-        user = Factory.create(:user, { group: group, role: 'member' } )
+        group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
+        user = FactoryGirl.create(:user, { group: group, role: 'member' } )
         sign_in user
         get :edit, { group_id: @group.permalink, id: @project.id }
       end
@@ -165,7 +165,7 @@ describe ProjectsController do
   describe "#update" do
     context "group member" do
       before do
-        user = Factory.create(:user, { group: @group } )
+        user = FactoryGirl.create(:user, { group: @group } )
         sign_in user
         put :update, { group_id: @group.permalink, id: @project.id, project: { display_name: "test update" } }
       end
@@ -184,7 +184,7 @@ describe ProjectsController do
     
     context "non-group member" do
       before do
-        user = Factory.create(:user)
+        user = FactoryGirl.create(:user)
         sign_in user
         put :update, { group_id: @group.permalink, id: @project.id, project: { display_name: "test update" } }
       end
@@ -195,8 +195,8 @@ describe ProjectsController do
     
     context "another group's member" do
       before do
-        group = Factory.create(:group, { display_name: "test other group", permalink: "blah blah" } )
-        user = Factory.create(:user, { group: group, role: 'member' } )
+        group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
+        user = FactoryGirl.create(:user, { group: group, role: 'member' } )
         sign_in user
         put :update, { group_id: @group.permalink, id: @project.id, project: { display_name: "test update" } }
       end
@@ -209,7 +209,7 @@ describe ProjectsController do
   describe "#destroy" do
     context "group adult sponsor" do
       before do
-        user = Factory.create(:user, { group: @group, role: 'adult sponsor' } )
+        user = FactoryGirl.create(:user, { group: @group, role: 'adult sponsor' } )
         sign_in user
         delete :destroy, { group_id: @group.permalink, id: @project.id }
       end
@@ -228,7 +228,7 @@ describe ProjectsController do
     
     context "group youth sponsor" do
       before do
-        user = Factory.create(:user, { group: @group, role: 'youth sponsor' } )
+        user = FactoryGirl.create(:user, { group: @group, role: 'youth sponsor' } )
         sign_in user
         delete :destroy, { group_id: @group.permalink, id: @project.id }
       end
@@ -247,7 +247,7 @@ describe ProjectsController do
     
     context "group member" do
       before do
-        user = Factory.create(:user, { group: @group, role: 'member' } )
+        user = FactoryGirl.create(:user, { group: @group, role: 'member' } )
         sign_in user
         delete :destroy, { group_id: @group.permalink, id: @project.id }
       end
@@ -258,8 +258,8 @@ describe ProjectsController do
     
     context "another group's sponsor" do
       before do
-        group = Factory.create(:group, { display_name: "test other group", permalink: "blah blah" } )
-        user = Factory.create(:user, { group: group, role: 'adult sponsor' } )
+        group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
+        user = FactoryGirl.create(:user, { group: group, role: 'adult sponsor' } )
         sign_in user
         delete :destroy, { group_id: @group.permalink, id: @project.id }
       end

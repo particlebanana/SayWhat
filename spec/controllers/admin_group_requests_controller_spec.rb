@@ -3,13 +3,13 @@ include CarrierWave::Test::Matchers
 
 describe AdminGroupRequestsController do
   before(:each) do
-    admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+    admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
     sign_in admin
   end
 
   describe "#index" do
     before do
-      Factory.create(:group, {status: "pending"})
+      FactoryGirl.create(:group, {status: "pending"})
       get :index
     end
     
@@ -25,8 +25,8 @@ describe AdminGroupRequestsController do
   
   describe "#show" do
     before do
-      group = Factory.create(:group, {status: "pending"})
-      Factory.create(:user, { email: "show@test.com", group: group, role: 'adult sponsor' })
+      group = FactoryGirl.create(:group, {status: "pending"})
+      FactoryGirl.create(:user, { email: "show@test.com", group: group, role: 'adult sponsor' })
       get :show, id: group.id
     end
     
@@ -41,8 +41,8 @@ describe AdminGroupRequestsController do
   
   describe "#update" do
     before do
-      @group = Factory.build(:group)
-      @sponsor = Factory.create(:user)
+      @group = FactoryGirl.build(:group)
+      @sponsor = FactoryGirl.create(:user)
       @group.initialize_pending(@sponsor)
       put :update, id: @group.id
     end

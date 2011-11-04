@@ -4,7 +4,7 @@ describe UsersController do
   
   describe "#show" do
     before do
-      @user = Factory.create(:user)
+      @user = FactoryGirl.create(:user)
       sign_in @user
       get :show, { id: @user.id }
     end
@@ -20,7 +20,7 @@ describe UsersController do
 
   describe "#edit" do
     before do
-      user = Factory.create(:user)
+      user = FactoryGirl.create(:user)
       sign_in user
       get :edit
     end
@@ -37,7 +37,7 @@ describe UsersController do
   describe "#update" do
     context "user settings" do
       before do
-        @user = Factory.create(:user)
+        @user = FactoryGirl.create(:user)
         sign_in @user
         put :update, { id: @user.id, user: { first_name: "Jabba", last_name: "The Hut" } }
       end
@@ -62,8 +62,8 @@ describe UsersController do
 
     context "join group" do
       before do
-        @user = Factory.create(:user)
-        @group = Factory.create(:group)
+        @user = FactoryGirl.create(:user)
+        @group = FactoryGirl.create(:group)
         sign_in @user
         put :update, { id: @user.id, group_id: @group.id, user: {} }
       end
@@ -79,8 +79,8 @@ describe UsersController do
 
     context "try and change groups" do
       before do
-        @user = Factory.create(:user)
-        @group = Factory.create(:group)
+        @user = FactoryGirl.create(:user)
+        @group = FactoryGirl.create(:group)
         @user.group = @group
         @user.save
         sign_in @user

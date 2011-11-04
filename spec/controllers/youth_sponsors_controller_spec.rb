@@ -2,18 +2,18 @@ require 'spec_helper'
 
 describe YouthSponsorsController do
   before do
-    @group = Factory.create(:group)
+    @group = FactoryGirl.create(:group)
   end
   
   context "adult sponsor" do
     before do
-      user = Factory.create(:user, {role: "adult sponsor", group: @group})
+      user = FactoryGirl.create(:user, {role: "adult sponsor", group: @group})
       sign_in user
     end
   
     describe "#index" do
       before do 
-        Factory.create(:user, {email: 'member@test.com', group: @group})
+        FactoryGirl.create(:user, {email: 'member@test.com', group: @group})
         get :index
       end
     
@@ -29,7 +29,7 @@ describe YouthSponsorsController do
   
     describe "#update" do
       before do 
-        @user = Factory.create(:user, {email: 'member@test.com', role: 'member', group: @group})
+        @user = FactoryGirl.create(:user, {email: 'member@test.com', role: 'member', group: @group})
       end
     
       context "sucessfully" do
@@ -71,7 +71,7 @@ describe YouthSponsorsController do
 
     describe "#destroy" do
       before do 
-        @user = Factory.create(:user, {email: 'member@test.com', role: 'youth sponsor', group: @group})
+        @user = FactoryGirl.create(:user, {email: 'member@test.com', role: 'youth sponsor', group: @group})
       end
     
       context "sucessfully" do
@@ -115,7 +115,7 @@ describe YouthSponsorsController do
   # Check permissions on actions - Should not allow group member to edit sponsor.
   context "member" do
     before do
-      user = Factory.create(:user, {role: "member", group: @group})
+      user = FactoryGirl.create(:user, {role: "member", group: @group})
       sign_in user
     end
     

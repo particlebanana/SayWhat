@@ -4,7 +4,7 @@ def set_status_and_role(status, role)
 end
 
 def login_admin
-  @admin = Factory.create(:admin)
+  @admin = FactoryGirl.create(:admin)
   sign_in @admin
 end
 
@@ -26,7 +26,7 @@ def build_decaying_group
 end
 
 def setup_user_avatar
-  @user = Factory.build(:user)
+  @user = FactoryGirl.build(:user)
   @user.status = "active"
   @user.role = "member"
   @user.avatar = File.open(File.join(File.dirname(__FILE__), 'fixtures', 'profile.png'))

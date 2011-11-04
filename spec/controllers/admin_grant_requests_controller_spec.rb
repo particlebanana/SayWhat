@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe AdminGrantRequestsController do
   before(:each) do
-    admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+    admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
     sign_in admin
-    group = Factory.create(:group)
-    user = Factory.create(:user, { group: group, role: 'adult sponsor' })
-    project = Factory.create(:project, { group: group })
-    @grant = Factory.create(:grant, { member: user, project: project, status: 'completed' })
+    group = FactoryGirl.create(:group)
+    user = FactoryGirl.create(:user, { group: group, role: 'adult sponsor' })
+    project = FactoryGirl.create(:project, { group: group })
+    @grant = FactoryGirl.create(:grant, { member: user, project: project, status: 'completed' })
   end
   
   describe "#index" do

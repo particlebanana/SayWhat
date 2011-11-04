@@ -5,8 +5,8 @@ describe AdminUsersController do
 
   describe "#index" do
     before do
-      Factory.create(:user)
-      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      FactoryGirl.create(:user)
+      admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
       sign_in admin
     end
 
@@ -18,8 +18,8 @@ describe AdminUsersController do
   
   describe "#edit" do
     before do
-      @user = Factory.create(:user)
-      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      @user = FactoryGirl.create(:user)
+      admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
       sign_in admin
     end
 
@@ -33,8 +33,8 @@ describe AdminUsersController do
 
   describe "#update" do
     before do
-      @user = Factory.create(:user)
-      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      @user = FactoryGirl.create(:user)
+      admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
       sign_in admin
     end
 
@@ -47,9 +47,9 @@ describe AdminUsersController do
   
   describe "#destroy" do
     before(:each) do      
-      @user = Factory.create(:user)
-      @sponsor = Factory.create(:user, {email: "sponsor@test.com", role: "adult sponsor"})
-      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      @user = FactoryGirl.create(:user)
+      @sponsor = FactoryGirl.create(:user, {email: "sponsor@test.com", role: "adult sponsor"})
+      admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
       sign_in admin
     end
     

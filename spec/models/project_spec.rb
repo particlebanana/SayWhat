@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Project do
   before do
-    @group = Factory.create(:group)
-    @project = Factory.create(:project, { group: @group } )
+    @group = FactoryGirl.create(:group)
+    @project = FactoryGirl.create(:project, { group: @group } )
   end
 
   context "Factory" do

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe AdminAnnouncementsController do
   before do
-    admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+    admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
     sign_in admin
   end
     

@@ -1,8 +1,8 @@
 require 'spec_helper'
 
 describe User do
-  context "Factory" do
-    before { @user = Factory.create(:user) }
+  context "FactoryGirl" do
+    before { @user = FactoryGirl.create(:user) }
   
     subject { @user }  
     it { should belong_to(:group) }
@@ -32,7 +32,7 @@ describe User do
 
   describe "#set_defaults" do
     before do
-      @user = Factory.build(:user, { email: "default@test.com" } )
+      @user = FactoryGirl.build(:user, { email: "default@test.com" } )
       @user.valid?
     end
 
@@ -43,7 +43,7 @@ describe User do
   end
 
   describe "#name" do
-    before { @user = Factory.create(:user) }
+    before { @user = FactoryGirl.create(:user) }
     
     it "should combine first and last name" do
       @user.name.should == "#{@user.first_name} #{@user.last_name}"
@@ -51,7 +51,7 @@ describe User do
   end
   
   describe "#change_role_level" do
-    before { @user = Factory.create(:user) }
+    before { @user = FactoryGirl.create(:user) }
     
     it "should change a users role" do
       @user.change_role_level('adult sponsor')
@@ -61,7 +61,7 @@ describe User do
   
   describe "#activate" do
     before do 
-      @user = Factory.create(:user, {role: "pending", status: "pending"})
+      @user = FactoryGirl.create(:user, {role: "pending", status: "pending"})
       @user.activate
     end
     
@@ -72,8 +72,8 @@ describe User do
   
   describe "#join_group" do
     before do
-      @user = Factory.create(:user)
-      @group = Factory.create(:group)
+      @user = FactoryGirl.create(:user)
+      @group = FactoryGirl.create(:group)
       @response = @user.join_group(@group.id)
     end
     
@@ -87,18 +87,18 @@ describe User do
   
   describe "role" do    
     context "admin" do
-      subject { Factory.create(:user, {role: "admin"}) }
+      subject { FactoryGirl.create(:user, {role: "admin"}) }
       its(:admin?) { should be_true }
     end
     
     context "adult sponsor" do
-      subject { Factory.create(:user, {role: "adult sponsor"}) }
+      subject { FactoryGirl.create(:user, {role: "adult sponsor"}) }
       its(:adult_sponsor?) { should be_true }
       its(:sponsor?) { should be_true }
     end
     
     context "youth sponsor" do
-      subject { Factory.create(:user, {role: "youth sponsor"}) }
+      subject { FactoryGirl.create(:user, {role: "youth sponsor"}) }
       its(:youth_sponsor?) { should be_true }
       its(:sponsor?) { should be_true }
     end

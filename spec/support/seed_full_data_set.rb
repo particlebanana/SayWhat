@@ -1,6 +1,6 @@
 def seed_full_data_set
   3.times do |count|
-    group = Factory.build(:group, :display_name => "group_" + count.to_s)
+    group = FactoryGirl.build(:group, :display_name => "group_" + count.to_s)
     group.save
     admin = build_a_generic_admin(count)
     user = build_a_generic_user(count)
@@ -17,14 +17,14 @@ def seed_full_data_set
 end
 
 def build_a_generic_admin(i)
-  admin = Factory.build(:user, :email => "admin_" + i.to_s + "@gmail.com")
+  admin = FactoryGirl.build(:user, :email => "admin_" + i.to_s + "@gmail.com")
   admin.status = "active"
   admin.role = "adult sponsor"
   admin
 end
 
 def build_a_generic_user(i)
-  user = Factory.build(:user, :email => "member_" + i.to_s + "@gmail.com")
+  user = FactoryGirl.build(:user, :email => "member_" + i.to_s + "@gmail.com")
   user.status = "active"
   user.role = "member"
   user
@@ -33,12 +33,12 @@ end
 def build_a_generic_project(i)
   focus_array = ['Secondhand Smoke Exposure', 'General Education', 'Health Effects']
   audience_array = ['Elementary Students', 'Middle School Students', 'High School Students']
-  project = Factory.build(:project, :display_name => "project_" + i.to_s, :focus => focus_array[i], :audience => audience_array[i])
+  project = FactoryGirl.build(:project, :display_name => "project_" + i.to_s, :focus => focus_array[i], :audience => audience_array[i])
 end
 
 def seed_messages(count)
   count.to_i.times do
-    message = Factory.build(:message)
+    message = FactoryGirl.build(:message)
     message.user = @user
     message.save
   end

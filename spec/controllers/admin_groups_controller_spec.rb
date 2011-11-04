@@ -3,13 +3,13 @@ include CarrierWave::Test::Matchers
 
 describe AdminGroupsController do
   before(:each) do
-    admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+    admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
     sign_in admin
   end
   
   describe "#index" do
     before do
-      Factory.create(:group, { status: "active" })
+      FactoryGirl.create(:group, { status: "active" })
       get :index
     end
     
@@ -25,8 +25,8 @@ describe AdminGroupsController do
  
   describe "#show" do
     before do
-      group = Factory.create(:group)
-      Factory.create(:user, {group: group, role: 'adult sponsor'})
+      group = FactoryGirl.create(:group)
+      FactoryGirl.create(:user, {group: group, role: 'adult sponsor'})
       get :show, id: group.id
     end
     
@@ -45,8 +45,8 @@ describe AdminGroupsController do
    
   describe "#update" do
     before do
-      @group = Factory.create(:group)
-      Factory.create(:user, {group: @group, role: 'adult sponsor'})
+      @group = FactoryGirl.create(:group)
+      FactoryGirl.create(:user, {group: @group, role: 'adult sponsor'})
     end
     
     context "with valid input" do
@@ -83,8 +83,8 @@ describe AdminGroupsController do
   
   describe "#destroy" do
     before do
-      @group = Factory.create(:group)
-      Factory.create(:user, {group: @group, role: 'adult sponsor'})
+      @group = FactoryGirl.create(:group)
+      FactoryGirl.create(:user, {group: @group, role: 'adult sponsor'})
     end
     
     context "given a reason" do

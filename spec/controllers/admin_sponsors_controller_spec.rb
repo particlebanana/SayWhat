@@ -5,9 +5,9 @@ describe AdminSponsorsController do
 
   describe "#index" do
     before do
-      group = Factory.create(:group)
-      Factory.create(:user, {group: group})
-      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      group = FactoryGirl.create(:group)
+      FactoryGirl.create(:user, {group: group})
+      admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
       sign_in admin
       get :index, { id: group.id }
     end
@@ -23,10 +23,10 @@ describe AdminSponsorsController do
   
   describe "#update" do
     before do
-      @group = Factory.create(:group)
-      @sponsor = Factory.create(:user, {email: "sponsor@test.com", role: "adult sponsor", group: @group})
-      @member = Factory.create(:user, {email: "member@test.com", group: @group})
-      admin = Factory.create(:user, {email: "admin@test.com", role: "admin"})
+      @group = FactoryGirl.create(:group)
+      @sponsor = FactoryGirl.create(:user, {email: "sponsor@test.com", role: "adult sponsor", group: @group})
+      @member = FactoryGirl.create(:user, {email: "member@test.com", group: @group})
+      admin = FactoryGirl.create(:user, {email: "admin@test.com", role: "admin"})
       sign_in admin
     end
     
