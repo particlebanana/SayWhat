@@ -10,6 +10,45 @@ class Membership < ActiveRecord::Base
   
   validates_presence_of [:user_id, :group_id]
 
+  # Request group membership
+  def create_request
+    # Save self
+    if self.save
+      # Send Notification to Group Sponsor
+      message = {
+        text: I18n.t('notifications.membership.new_request'),
+        link: "/users/#{self.user_id}"
+      }
+      create_notification(message)
+      UserMailer.sponsor_pending_membership_request(self.group.adult_sponsor, self.group, self.user).deliver
+      true
+    else
+      false
+    end
+  end
+
+  # Approve Membership
+  def approve_membership
+    user = User.find(self.user_id)
+    user.group_id = self.group_id
+    if user.save
+      publish
+      self.destroy
+      UserMailer.send_approved_notice(user, user.group).deliver
+      true
+    else
+      false
+    end
+  end
+
+  private
+
+  def create_notification(message)
+    sponsor = self.group.adult_sponsor
+    notification = Notification.new(sponsor.id)
+    notification.insert(message)
+  end
+
   def publish
     event = Chronologic::Event.new(
       key: "membership:#{self.user_id}:create",

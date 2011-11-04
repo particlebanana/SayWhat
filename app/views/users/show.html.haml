@@ -12,3 +12,5 @@
   %aside.span5.offset1
     .profile_photo.media.cf
       %a{ href: "#" }= image_tag(@user.profile_photo_url(:profile))
+
+    = show_membership_acceptance?(current_user, @user)

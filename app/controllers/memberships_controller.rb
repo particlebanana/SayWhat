@@ -2,9 +2,9 @@ class MembershipsController < ApplicationController
   layout "application"
   
   before_filter :authenticate_user!
-  before_filter :set_user
-  before_filter :set_group
   before_filter :set_membership, except: :create
+  before_filter :set_group
+  before_filter :set_user, only: [:update]
   load_and_authorize_resource
   
   respond_to :html
@@ -15,7 +15,7 @@ class MembershipsController < ApplicationController
   # POST - Create a group membership request
   def create
     @membership = Membership.new( { group: @group, user: current_user } )
-    if @membership.save
+    if @membership.create_request
       redirect_to group_path(@group), notice: "Membership request has been submitted"
     else
       redirect_to group_path(@group), alert: "There was an error creating your request. Try again."
@@ -24,12 +24,10 @@ class MembershipsController < ApplicationController
     
   # PUT - Approve Pending Group Member
   def update
-    if @user.activate && @membership.destroy
-      @membership.publish
-      UserMailer.send_approved_notice(@user, @group, request.env["HTTP_HOST"]).deliver
-      redirect_to "/messages", :notice => "Member has been added to group."
+    if @membership.approve_membership
+      redirect_to group_path(@group), notice: "Membership request has been accepted"
     else
-      redirect_to "/messages", :alert => "There was an error approving member."
+      redirect_to "/notifications", alert: "There was an error approving member. Try again."
     end
   end
   
@@ -45,7 +43,7 @@ class MembershipsController < ApplicationController
   private
   
   def set_user
-    @user = User.find(params[:user_id])
+    @user = User.find(@membership.user_id)
   end
   
   def set_group

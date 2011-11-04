@@ -83,7 +83,7 @@ class Group < ActiveRecord::Base
       current_sponsor.change_role_level("member")
       proposed_sponsor.change_role_level("adult sponsor")
     end
-  end  
+  end
 
   protected
   

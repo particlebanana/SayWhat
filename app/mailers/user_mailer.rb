@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default :from => "admin@txsaywhat.com"
+  default :from => "no-reply@txsaywhat.com"
   
   # Sends an email to the pending member that they successfully submiited a membership request
   def successful_membership_request(user, group)
@@ -11,19 +11,19 @@ class UserMailer < ActionMailer::Base
   end
   
   # Sends a pending membership notice to the group sponsors
-  def sponsor_pending_membership_request(user, group, member)
-    @user = user
+  def sponsor_pending_membership_request(sponsor, group, user)
+    @sponsor = sponsor
     @group = group
-    @member = member
-    mail(:to => user.email,
+    @user = user
+    mail(:to => @sponsor.email,
          :subject => "You have a pending membership request on SayWhat!")
   end
   
   # Sends an email to a pending member that they have been approved
-  def send_approved_notice(user, group, url)
+  def send_approved_notice(user, group)
     @user = user
     @group = group
-    @url = "http://#{url}/groups/#{@group.permalink}"
+    @url = "http://txsaywhat.com/groups/#{@group.permalink}"
     mail(:to => user.email,
          :subject => "You have been approved for membership on SayWhat!")
   end
@@ -42,17 +42,5 @@ class UserMailer < ActionMailer::Base
     @group = group
     mail(:to => user.email,
          :subject => "You have been demoted from sponsor for the group #{group.display_name} on SayWhat!")
-  end
-  
-  # Sends a notification when a message is sent out
-  def send_message_notification(user, author, message)
-    @user = user
-    @author = author
-    @message = message
-    mail(:to => user.email,
-         :subject => "You have a new message on SayWhat!") do |format|
-      format.html {render 'send_message_notification'}
-      format.text {render 'send_message_notification'}
-    end
   end
 end

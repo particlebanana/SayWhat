@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
     self.role = "member"
     self.save! ? true : false
   end
-  
+
   # Join a group
   def join_group(group_id)
     self.group_id = group_id

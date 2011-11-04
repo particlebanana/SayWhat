@@ -17,6 +17,7 @@ class GroupsController < ApplicationController
   def show
     @timeline = Hashie::Mash.new($feed.timeline("group:#{@group.id}"))
     @projects = @group.projects.order('updated_at DESC').limit(3)
+    @pending_membership = set_pending_membership
     respond_with(@group)
   end
   
@@ -58,5 +59,13 @@ class GroupsController < ApplicationController
   
   def set_group
     @group = Group.where(:permalink => params[:id]).first
-  end 
+  end
+
+  def set_pending_membership
+    if current_user
+      Membership.where(user_id: current_user.id).first.nil? ? false : true
+    else
+      false
+    end
+  end
 end
