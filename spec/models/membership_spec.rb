@@ -22,6 +22,8 @@ describe Membership do
       before do
         @response = @membership.create_request
         @notifications = Notification.find_all(@sponsor.id)
+        @request = Membership.where(group_id: @group.id, user_id: @user.id).first
+        @notification = Notification.find_all(@sponsor.id).first
       end
 
       it "should save membership request" do
@@ -30,6 +32,10 @@ describe Membership do
 
       it "should create a notification for the group sponsor" do
         @notifications.count.should == 1
+      end
+
+      it "should add the notification id to the membership record" do
+        @request.notification.should == @notification.id.to_s
       end
 
       it "should send the group sponsor an email" do

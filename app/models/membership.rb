@@ -45,6 +45,8 @@ class Membership < ActiveRecord::Base
     sponsor = self.group.adult_sponsor
     notification = Notification.new(sponsor.id)
     notification.insert(message)
+    self.notification = notification.notifications[0].id.to_s
+    self.save
   end
 
   def publish(user)
