@@ -12,9 +12,7 @@ class Membership < ActiveRecord::Base
 
   # Request group membership
   def create_request
-    # Save self
     if self.save
-      # Send Notification to Group Sponsor
       message = {
         text: I18n.t('notifications.membership.new_request'),
         link: "/users/#{self.user_id}"
