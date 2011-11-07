@@ -87,4 +87,25 @@ describe Membership do
       end
     end
   end
+
+  describe "#deny_membership" do
+    before do
+      @membership.create_request
+      @notification_count = Notification.find_all(@sponsor.id).count
+      @membership_count = Membership.all.count
+      @response = @membership.deny_membership
+    end
+
+    it "should remove sponsor notification" do
+      Notification.find_all(@user.id).count.should == @notification_count - 1
+    end
+
+    it "should destory its self" do
+      Membership.all.count.should == @membership_count - 1
+    end
+
+    it "should return true" do
+      @response.should be_true
+    end
+  end
 end

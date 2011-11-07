@@ -8,6 +8,11 @@ class Notification
     obj.notifications
   end
 
+  def self.destroy(user, id)
+    obj = self.new(user)
+    obj.destroy(id)
+  end
+
   # Return all unread notifications
   def self.unread(user)
     obj = self.new(user)
@@ -52,6 +57,15 @@ class Notification
       'notifications' => { '$elemMatch' => { 'id' => notification.id } }
     }, { "$set" => { 'notifications.$.read_status' => notification.read_status } },
     :multi => true, :upsert => false)
+  end
+
+  # Delete a single notification
+  def destroy(string_id)
+    notification_id = BSON::ObjectId.from_string(string_id)
+    @collection.update(
+    {
+      'user' => @user
+    }, { "$pull" => { 'notifications' => { 'id' => notification_id } } })
   end
 
   private

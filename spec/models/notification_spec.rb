@@ -25,6 +25,21 @@ describe Notification do
     end
   end
 
+  describe "self.destroy" do
+    before do
+      notification = Notification.new(@user.id)
+      notification.insert(@message)
+      objs = Notification.find_all(@user.id)
+      @count = objs.count
+      Notification.destroy(@user.id, objs.first.id.to_s)
+    end
+
+    it "should remove the notification from the user's array" do
+      @all = Notification.find_all(@user.id)
+      @all.count.should == @count - 1
+    end
+  end
+
   describe "self.unread" do
     before do
       2.times do |i|
@@ -103,6 +118,20 @@ describe Notification do
 
     it "should append a notification obj to the documents notification array" do
       @notification.notifications.count.should == 1
+    end
+  end
+
+  describe "destroy" do
+    before do
+      @notification = Notification.new(@user.id)
+      2.times { @notification.insert(@message) }
+      id = @notification.notifications.first.id.to_s
+      @notification.destroy(id)
+    end
+
+    it "should remove an item from a users notifications" do
+      @all = Notification.find_all(@user.id)
+      @all.count.should == 1
     end
   end
 end

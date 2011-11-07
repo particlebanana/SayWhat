@@ -25,7 +25,8 @@ describe MembershipsController do
   context "adult sponsor" do
     before do
       user = FactoryGirl.create(:user, { group: @group, role: "adult sponsor" } )
-      @membership = Membership.create( { user: user, group: @group } )
+      @membership = Membership.new( { user: user, group: @group } )
+      @membership.create_request
       sign_in user
     end
   
@@ -49,6 +50,10 @@ describe MembershipsController do
         
       it "should remove the membership request" do
         Membership.where(id: @membership.id).count.should == 0
+      end
+
+      it "should remove the notification for the request" do
+        Notification.find_all(@group.adult_sponsor.id).count.should == 0
       end
     
       it "should set a notice message" do

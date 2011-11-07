@@ -31,12 +31,17 @@ class Membership < ActiveRecord::Base
     user.group_id = self.group_id
     if user.save
       publish(user)
-      self.destroy
+      destroy_membership_items
       UserMailer.send_approved_notice(user, user.group).deliver
       true
     else
       false
     end
+  end
+
+  # Deny Membership
+  def deny_membership
+    destroy_membership_items
   end
 
   private
@@ -57,5 +62,15 @@ class Membership < ActiveRecord::Base
       objects: { user: "user:#{self.user_id}" }
     )
     $feed.publish(event, true, Time.now.utc.tv_sec)
+  end
+
+  def destroy_membership_items
+    begin
+      Notification.destroy(self.group.adult_sponsor.id, self.notification)
+      self.destroy
+      return true
+    rescue
+      return false
+    end
   end
 end

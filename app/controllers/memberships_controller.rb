@@ -33,7 +33,7 @@ class MembershipsController < ApplicationController
   
   # DELETE - Deny Pending Group Member
   def destroy
-    if @membership.destroy
+    if @membership.deny_membership
       redirect_to group_path(@group), notice: "Membership request has been denied."
     else
       redirect_to "/notifications", alert: "There was an error with the request. Try again."
