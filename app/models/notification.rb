@@ -3,7 +3,7 @@ class Notification
   attr_accessor :notifications
 
   # Return all a user's notifications
-  def self.find(user)
+  def self.find_all(user)
     obj = self.new(user)
     obj.notifications
   end

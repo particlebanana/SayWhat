@@ -9,11 +9,11 @@ describe Notification do
     }
   end
 
-  describe "self.find" do
+  describe "self.find_all" do
     before do
       notification = Notification.new(@user.id)
       notification.insert(@message)
-      @notifications = Notification.find(@user.id)
+      @notifications = Notification.find_all(@user.id)
     end
 
     it "should return an array" do
@@ -54,7 +54,7 @@ describe Notification do
     context "mark all" do
       before do
         Notification.mark_as_read(@user.id)
-        @notifications = Notification.find(@user.id)
+        @notifications = Notification.find_all(@user.id)
       end
 
       it "should set read status to all notifications to true" do
@@ -66,9 +66,9 @@ describe Notification do
 
     context "mark single" do
       before do
-        @notification = Notification.find(@user.id).first
+        @notification = Notification.find_all(@user.id).first
         Notification.mark_as_read(@user.id, @notification.id.to_s)
-        @notifications = Notification.find(@user.id)
+        @notifications = Notification.find_all(@user.id)
       end
 
       it "should set status to single notification to true" do

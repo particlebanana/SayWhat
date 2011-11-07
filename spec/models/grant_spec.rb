@@ -25,7 +25,7 @@ describe Grant do
   describe "notify_sponsor_of_application" do
     before do
       @grant.notify_sponsor_of_application('http://test.com', @user)
-      @notifications = Notification.find(@sponsor.id)
+      @notifications = Notification.find_all(@sponsor.id)
     end
 
     it "should send group sponsor an email" do
@@ -40,7 +40,7 @@ describe Grant do
   describe "approve" do
     before do
       @status = @grant.approve
-      @notifications = Notification.find(@sponsor.id)
+      @notifications = Notification.find_all(@sponsor.id)
     end
 
     it "should return true" do
@@ -75,7 +75,7 @@ describe Grant do
       before do
         reason = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants'].first
         @status = @grant.deny(reason)
-        @notifications = Notification.find(@sponsor.id)
+        @notifications = Notification.find_all(@sponsor.id)
       end
 
       it "should return true" do

@@ -21,7 +21,7 @@ describe Membership do
     context "successfully" do
       before do
         @response = @membership.create_request
-        @notifications = Notification.find(@sponsor.id)
+        @notifications = Notification.find_all(@sponsor.id)
       end
 
       it "should save membership request" do
