@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111031144045) do
+ActiveRecord::Schema.define(:version => 20111107151036) do
 
   create_table "grants", :force => true do |t|
     t.integer  "project_id"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(:version => 20111031144045) do
   create_table "memberships", :force => true do |t|
     t.integer "user_id"
     t.integer "group_id"
+    t.string  "notification"
   end
 
   add_index "memberships", ["user_id", "group_id"], :name => "index_memberships_on_user_id_and_group_id"
