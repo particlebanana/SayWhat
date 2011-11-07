@@ -144,7 +144,7 @@ namespace :data do
   end
   
   desc "import projects"
-  task :import_projects do
+  task :import_projects => :environment do
     relationaldb = Mysql2::Client.new(
       host: "localhost",
       username: "root",
@@ -153,17 +153,60 @@ namespace :data do
     documentdb = Mongo::Connection.new("127.0.0.1").db("mongo_restore")
     documentdb["groups"].find().each {|group|
       if group['projects']
+
         # Look up group_id in relational table
         relationaldb.query("SELECT * FROM groups WHERE permalink='#{group['permalink']}'").each {|group| @group_id = group['id']}
-        
-        # Save Projects to SQL DB
+
         group['projects'].each do |project|
+          # Build a record object
+          record = {
+            name: project["name"],
+            display_name: CGI.escape(project["display_name"]),
+            location: CGI.escape(project["location"]),
+            start_date: project["start_date"],
+            end_date: project["end_date"],
+            focus: CGI.escape(project["focus"]),
+            goal: CGI.escape(project["goal"]),
+            audience: CGI.escape(project["audience"])
+          }
+
+          # Optional Attributes
+          record[:description] = CGI.escape(project["description"]) if project["description"]
+          record[:involves] = CGI.escape(project["involves"]) if project["involves"]
+          record[:updated_at] = project["updated_at"] if project["updated_at"]
+
+          if project["created_at"]
+            record[:created_at] = project["created_at"]
+          else
+            # If no created at date is available they prob. joined before we started tracking
+            # the date. They are early adopters so just give them the Jan, 1st, 2011
+            record[:created_at] = Date.new(2011,01,01)
+          end
+
+          # Save Project to SQL DB
           result = relationaldb.query("INSERT INTO projects (group_id, name, display_name, location, start_date, end_date, focus, goal, description, audience, involves, created_at, updated_at) 
-          VALUES ('#{@group_id}', '#{project["name"]}', '#{CGI.escape(project["display_name"])}', '#{CGI.escape(project["location"])}', '#{project["start_date"]}', '#{project["end_date"]}', '#{project["focus"]}', '#{CGI.escape(project["goal"])}', 
-          '#{CGI.escape(project["description"])}', '#{project["audience"]}', '#{CGI.escape(project["involves"])}', '#{project["created_at"]}', '#{project["updated_at"]}')")
+          VALUES ('#{@group_id}', '#{record[:name]}', '#{record[:display_name]}', '#{record[:location]}', '#{record[:start_date]}', '#{record[:end_date]}', '#{record[:focus]}', '#{record[:goal]}', 
+          '#{record[:description]}', '#{record[:audience]}', '#{record[:involves]}', '#{record[:created_at]}', '#{record[:updated_at]}')")
         end
       end
     }
+
+    @projects = Project.all
+    @projects.each do |project|
+      project.display_name = CGI.unescape(project.display_name)
+      project.location = CGI.unescape(project.location)
+      project.focus = CGI.unescape(project.focus)
+      project.goal = CGI.unescape(project.goal)
+      project.audience = CGI.unescape(project.audience)
+      project.description = CGI.unescape(project.description)
+      project.involves = CGI.unescape(project.involves)
+      project.save
+      # Create Object Key
+      $feed.unrecord("project:#{project.id}")
+      data = { id: project.id, name: project.display_name }
+      data[:photo] = project.profile_photo_url(:thumb) if project.profile_photo
+      $feed.record("project:#{project.id}", data)
+    end
   end
   
   # TO-DO PULL IMAGES OUT OF GRIDFS 
