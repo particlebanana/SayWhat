@@ -60,23 +60,6 @@ describe UsersController do
       end
     end
 
-    context "join group" do
-      before do
-        @user = FactoryGirl.create(:user)
-        @group = FactoryGirl.create(:group)
-        sign_in @user
-        put :update, { id: @user.id, group_id: @group.id, user: {} }
-      end
-    
-      it "should add a group_id param to the user" do
-        @user.reload.group.should == @group
-      end
-
-      it "should redirect to the group page" do
-        response.should redirect_to("/groups/#{@group.permalink}")
-      end
-    end
-
     context "try and change groups" do
       before do
         @user = FactoryGirl.create(:user)

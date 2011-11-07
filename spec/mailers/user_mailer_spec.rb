@@ -37,7 +37,7 @@ describe UserMailer do
   describe "send approved notice email" do
     let(:user) { @user }
     let(:group) { FactoryGirl.create(:group) }
-    let(:mail) { UserMailer.send_approved_notice(user, group, 'localhost:3000') }
+    let(:mail) { UserMailer.send_approved_notice(user, group) }
         
     it "renders the reciever's email address" do
       mail.to.should == [user.email]
@@ -48,7 +48,7 @@ describe UserMailer do
     end
     
     it "should display the member's group url" do
-      mail.body.encoded.should include_text("http://localhost:3000/groups/#{group.permalink}")
+      mail.body.encoded.should include_text("http://txsaywhat.com/groups/#{group.permalink}")
     end
 
   end
