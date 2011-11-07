@@ -45,6 +45,8 @@ module TimelineHelper
       @objects.to_a.each do |obj|
         klass = obj[0]
         case klass
+        when 'user'
+          url = "/#{klass.pluralize}/#{obj[1].id}"
         when 'group'
           url = "/#{klass.pluralize}/#{obj[1].id}"
         when 'project'
