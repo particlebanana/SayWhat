@@ -15,8 +15,7 @@ class Projects < ActiveRecord::Migration
       
       t.timestamps
     end
-    
-    add_index :projects, :name,        :unique => true
+
     add_index :projects, :group_id
   end
 

@@ -86,7 +86,6 @@ ActiveRecord::Schema.define(:version => 20111107151036) do
   end
 
   add_index "projects", ["group_id"], :name => "index_projects_on_group_id"
-  add_index "projects", ["name"], :name => "index_projects_on_name", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
