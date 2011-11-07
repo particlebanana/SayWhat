@@ -26,6 +26,6 @@
     .profile_photo.media.cf
       %a{ href: "#" }= image_tag(@group.profile_photo_url(:profile))
 
-    - if current_user.group_id.blank? && !@pending_membership
+    - if current_user && current_user.group_id.blank? && !@pending_membership
       %p= link_to "Join This Group", group_memberships_path(@group), :method => 'post', :class => "btn info"
     = render :partial => "menu"

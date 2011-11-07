@@ -8,9 +8,13 @@ require 'cgi'
 namespace :data do
   
   desc "import user collection data"
-  task :import_users do
-    relationaldb = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "saywhat_dev")
-    documentdb = Mongo::Connection.new("127.0.0.1").db("saywhat_development")
+  task :import_users => :environment do
+    relationaldb = Mysql2::Client.new(
+      host: "localhost",
+      username: "root",
+      password: "root",
+      database: "saywhat_dev")
+    documentdb = Mongo::Connection.new("127.0.0.1").db("mongo_restore")
     documentdb["users"].find().each {|user|
       # Build a record object
       record = {
@@ -20,9 +24,7 @@ namespace :data do
         role: user["role"],
         status: user["status"],
         encrypted_password: user["encrypted_password"],
-        authentication_token: user["authentication_token"],
-        created_at: user["created_at"],
-        updated_at: user["updated_at"]
+        authentication_token: user["authentication_token"]
       }
       
       # Optional Attributes
@@ -35,6 +37,15 @@ namespace :data do
       record[:last_sign_in_at] = user["last_sign_in_at"] if user["last_sign_in_at"]
       record[:current_sign_in_ip] = user["current_sign_in_ip"] if user["current_sign_in_ip"]
       record[:last_sign_in_ip] = user["last_sign_in_ip"] if user["last_sign_in_ip"]
+      record[:updated_at] = user["updated_at"] if user["updated_at"]
+
+      if user["created_at"]
+        record[:created_at] = user["created_at"]
+      else
+        # If no created at date is available they prob. joined before we started tracking
+        # the date. They are early adopters so just give them the Jan, 1st, 2011
+        record[:created_at] = Date.new(2011,01,01)
+      end
       
       # Save User To SQL DB
       result = relationaldb.query("INSERT INTO users (first_name, last_name, email, role, status, encrypted_password, authentication_token, created_at, 
@@ -42,12 +53,29 @@ namespace :data do
       '#{record[:first_name]}', '#{record[:last_name]}', '#{record[:email]}', '#{record[:role]}', '#{record[:status]}', '#{record[:encrypted_password]}', '#{record[:authentication_token]}', '#{record[:created_at]}', 
       '#{record[:updated_at]}', '#{record[:bio]}', '#{record[:reset_password_token]}', '#{record[:remember_token]}', '#{record[:remember_created_at]}', '#{record[:sign_in_count]}', '#{record[:current_sign_in_at]}', '#{record[:current_sign_in_ip]}', '#{record[:last_sign_in_ip]}')")
     }
+
+    # Loop through each user record and unescape all the values
+    @users = User.all
+    @users.each do |user|
+      user.first_name = CGI.unescape(user.first_name)
+      user.last_name = CGI.unescape(user.last_name)
+      user.email = CGI.unescape(user.email)
+      user.bio = CGI.unescape(user.bio) if user.bio
+      user.status = 'active'
+      user.save
+      user.recreate_object_key
+      $feed.subscribe("user:#{user.id}", "global_feed")
+    end
   end
   
   desc "import group collection data"
-  task :import_groups do
-    relationaldb = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "saywhat_dev")
-    documentdb = Mongo::Connection.new("127.0.0.1").db("saywhat_development")
+  task :import_groups => :environment do
+    relationaldb = Mysql2::Client.new(
+      host: "localhost",
+      username: "root",
+      password: "root",
+      database: "saywhat_dev")
+    documentdb = Mongo::Connection.new("127.0.0.1").db("mongo_restore")
     documentdb["groups"].find().each {|group|
       # Build a record object
       record = {
@@ -68,16 +96,35 @@ namespace :data do
       record[:description] = CGI.escape(group["description"]) if group["description"]
       
       # Save Group to SQL DB
-      result = relationaldb.query("INSERT INTO groups (name, display_name, city, organization, permalink, status, esc_region, dshs_region, area, created_at, updated_at) 
-      VALUES ('#{record[:name]}', '#{record[:display_name]}', '#{record[:city]}', '#{record[:organization]}', '#{record[:permalink]}', '#{record[:status]}', '#{record[:esc_region]}', '#{record[:dshs_region]}',
-      '#{record[:area]}', '#{record[:created_at]}', '#{record[:updated_at]}')")
+      result = relationaldb.query("INSERT INTO groups (name, display_name, city, organization, permalink, status, esc_region, dshs_region, area, created_at, updated_at, description) 
+      VALUES ('#{record[:name]}', '#{record[:display_name]}', '#{record[:city]}', '#{record[:organization]}', '#{record[:permalink]}', '#{record[:status]}', '#{record[:esc_region]}', 
+      '#{record[:dshs_region]}', '#{record[:area]}', '#{record[:created_at]}', '#{record[:updated_at]}', '#{record[:description]}')")
     }
+
+    # Loop through each group record and unescape all the values
+    @groups = Group.all
+    @groups.each do |group|
+      group.display_name = CGI.unescape(group.display_name)
+      group.city = CGI.unescape(group.city)
+      group.organization = CGI.unescape(group.organization)
+      group.description = CGI.unescape(group.description) if group.description
+      group.save
+      # Create Object Key
+      $feed.unrecord("group:#{group.id}")
+      data = { id: group.permalink, name: group.display_name }
+      data[:photo] = group.profile_photo_url(:thumb) if group.profile_photo
+      $feed.record("group:#{group.id}", data)
+    end
   end
   
   desc "import user/group relationships"
-  task :import_user_group_relationships do
-    relationaldb = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "saywhat_dev")
-    documentdb = Mongo::Connection.new("127.0.0.1").db("saywhat_development")
+  task :import_user_group_relationships => :environment do
+    relationaldb = Mysql2::Client.new(
+      host: "localhost",
+      username: "root",
+      password: "root",
+      database: "saywhat_dev")
+    documentdb = Mongo::Connection.new("127.0.0.1").db("mongo_restore")
     groups = []
     documentdb["groups"].find().each{|group| groups << {id: group['_id'].to_s, permalink: group['permalink']}}
     documentdb["users"].find().each {|user|
@@ -85,16 +132,25 @@ namespace :data do
         group = groups.select {|g| g[:id] == user['group_id'].to_s}
         if group.size > 0
           relationaldb.query("SELECT * FROM groups WHERE permalink='#{group[0][:permalink]}'").each {|group| @group_id = group['id']}
-          relationaldb.query("UPDATE users SET group_id='#{@group_id}' WHERE email='#{CGI.escape(user['email'])}'")
+          relationaldb.query("UPDATE users SET group_id='#{@group_id}' WHERE email='#{user['email']}'")
         end
       end
     }
+
+    @users = User.all
+    @users.each do |user|
+      $feed.subscribe("user:#{user.id}", "group:#{user.group_id}") if user.group_id
+    end
   end
   
   desc "import projects"
   task :import_projects do
-    relationaldb = Mysql2::Client.new(:host => "localhost", :username => "root", :database => "saywhat_dev")
-    documentdb = Mongo::Connection.new("127.0.0.1").db("saywhat_development")
+    relationaldb = Mysql2::Client.new(
+      host: "localhost",
+      username: "root",
+      password: "root",
+      database: "saywhat_dev")
+    documentdb = Mongo::Connection.new("127.0.0.1").db("mongo_restore")
     documentdb["groups"].find().each {|group|
       if group['projects']
         # Look up group_id in relational table
@@ -110,13 +166,5 @@ namespace :data do
     }
   end
   
-  # TO-DO IMPORT COMMENTS
-  
-  # TO-DO IMPORT MESSAGES
-  
-  # TO-DO LINK GROUPS AND REPORTS(mongo)
-  
   # TO-DO PULL IMAGES OUT OF GRIDFS 
-  
-  
 end
