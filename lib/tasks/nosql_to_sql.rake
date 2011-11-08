@@ -9,6 +9,7 @@ namespace :data do
   
   desc "import user collection data"
   task :import_users => :environment do
+    puts "Starting to import User accounts..."
     relationaldb = Mysql2::Client.new(
       host: "localhost",
       username: "root",
@@ -66,10 +67,26 @@ namespace :data do
       user.recreate_object_key
       $feed.subscribe("user:#{user.id}", "global_feed")
     end
+
+    # Post a message to the global feed welcoming users to the new Say What
+    event = Chronologic::Event.new(
+      key: "global:v2:welcome",
+      data: {
+        type: "message",
+        message: "Welcome to the new Say What! A lot has changed so go explore, collaborate and
+        interact with other groups."
+      },
+      timelines: ["global_feed"],
+      objects: { user: "user:2" }
+    )
+    $feed.publish(event, true, Time.now.utc.tv_sec)
+
+    puts "Finished importing Users"
   end
   
   desc "import group collection data"
   task :import_groups => :environment do
+    puts "Starting to import Group models..."
     relationaldb = Mysql2::Client.new(
       host: "localhost",
       username: "root",
@@ -115,10 +132,13 @@ namespace :data do
       data[:photo] = group.profile_photo_url(:thumb) if group.profile_photo
       $feed.record("group:#{group.id}", data)
     end
+
+    puts "Finished importing Group models"
   end
   
   desc "import user/group relationships"
   task :import_user_group_relationships => :environment do
+    puts "Starting to import user/group relationships..."
     relationaldb = Mysql2::Client.new(
       host: "localhost",
       username: "root",
@@ -141,10 +161,12 @@ namespace :data do
     @users.each do |user|
       $feed.subscribe("user:#{user.id}", "group:#{user.group_id}") if user.group_id
     end
+    puts "Finished importing user/group relationships"
   end
   
   desc "import projects"
   task :import_projects => :environment do
+    puts "Starting to import Project models..."
     relationaldb = Mysql2::Client.new(
       host: "localhost",
       username: "root",
@@ -207,10 +229,13 @@ namespace :data do
       data[:photo] = project.profile_photo_url(:thumb) if project.profile_photo
       $feed.record("project:#{project.id}", data)
     end
+
+    puts "Finished importing Project models"
   end
   
   desc "import profile pictures"
   task :import_profile_photos => :environment do
+    puts "Starting to import profile photos from GridFS..."
     relationaldb = Mysql2::Client.new(
       host: "localhost",
       username: "root",
@@ -219,6 +244,7 @@ namespace :data do
     documentdb = Mongo::Connection.new("127.0.0.1").db("mongo_restore")
     grid = Mongo::Grid.new(documentdb)
 
+    puts "importing user profile images..."
     # User Profile Images
     documentdb["users"].find().each {|user|
       if user['avatar_filename']
@@ -234,11 +260,11 @@ namespace :data do
         user = User.where(email: user['email']).first
         user.profile_photo = File.open(upload_path)
         user.save!
-        puts user.profile_photo.url
         user.recreate_object_key
       end
     }
 
+    puts "importing group profile images..."
     # Group Profile Images
     documentdb["groups"].find().each {|group|
       if group['profile_photo_filename']
@@ -254,7 +280,6 @@ namespace :data do
         group = Group.where(permalink: group['permalink']).first
         group.profile_photo = File.open(upload_path)
         group.save!
-        puts group.profile_photo.url
         # Re-Create Object Key
         $feed.unrecord("group:#{group.id}")
         data = { id: group.permalink, name: group.display_name }
@@ -263,6 +288,7 @@ namespace :data do
       end
     }
 
+    puts "importing project profile images..."
     # Project Profile Images
     documentdb["groups"].find().each {|group|
       if group['projects']
@@ -280,7 +306,6 @@ namespace :data do
             project = Project.where(name: project['name']).first
             project.profile_photo = File.open(upload_path)
             project.save
-            puts project.profile_photo.url
             # Re-Create Object Key
             $feed.unrecord("project:#{project.id}")
             data = { id: project.id, name: project.display_name }
@@ -290,5 +315,7 @@ namespace :data do
         end
       end
     }
+
+    puts "Finished importing profile photos"
   end
 end
