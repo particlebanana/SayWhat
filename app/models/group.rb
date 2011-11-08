@@ -6,6 +6,7 @@ class Group < ActiveRecord::Base
   has_many :projects
   has_many :group_comments
   has_many :memberships
+  has_many :reports
   
   attr_accessible :display_name, :city, :organization, :description, :permalink, :esc_region, :dshs_region, :area, :profile_photo
 

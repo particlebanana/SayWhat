@@ -50,8 +50,8 @@ FactoryGirl.define do
   end
 
   factory :report do
-    group_id 1
-    project_id 1
+    group @group
+    project @project
     number_of_youth_reached 10
     number_of_adults_reached 10
     percent_male 5

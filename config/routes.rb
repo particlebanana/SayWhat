@@ -73,6 +73,7 @@ SayWhat::Application.routes.draw do
     resources :projects do
       resources :grants
       resources :photos
+      resources :reports
       resources :comments do
         resources :comments
       end
