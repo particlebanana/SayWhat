@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111107151036) do
+ActiveRecord::Schema.define(:version => 20111108213132) do
 
   create_table "grants", :force => true do |t|
     t.integer  "project_id"
@@ -86,6 +86,29 @@ ActiveRecord::Schema.define(:version => 20111107151036) do
   end
 
   add_index "projects", ["group_id"], :name => "index_projects_on_group_id"
+
+  create_table "reports", :force => true do |t|
+    t.integer  "group_id"
+    t.integer  "project_id"
+    t.integer  "number_of_youth_reached"
+    t.integer  "number_of_adults_reached"
+    t.float    "percent_male"
+    t.float    "percent_female"
+    t.float    "percent_african_american"
+    t.float    "percent_asian"
+    t.float    "percent_caucasian"
+    t.float    "percent_hispanic"
+    t.float    "percent_other"
+    t.string   "money_spent"
+    t.string   "prep_time"
+    t.string   "other_resources"
+    t.string   "level_of_impact"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "reports", ["group_id", "project_id"], :name => "index_reports_on_group_id_and_project_id", :unique => true
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
