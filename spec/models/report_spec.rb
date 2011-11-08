@@ -1,9 +1,13 @@
 require 'spec_helper'
 
 describe Report do
+  before do
+    @group = FactoryGirl.create(:group)
+    @project = FactoryGirl.create(:project, { group: @group })
+    @report = FactoryGirl.create(:report, { group: @group, project: @project })
+  end
+
   context "Factory" do
-    before { @report = FactoryGirl.create(:report) }
-  
     subject { @report }
     it { should validate_presence_of(:group_id) }
     it { should validate_presence_of(:project_id) }
@@ -22,8 +26,6 @@ describe Report do
   end
   
   describe "#update_counter" do
-    before { @report = FactoryGirl.create(:report) } 
-    
     it "should update the group's counters" do
       counter = Counter.where(group_id: @report.group_id).first
       counter.youth_total.should == 10
