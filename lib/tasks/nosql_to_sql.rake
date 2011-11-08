@@ -209,5 +209,86 @@ namespace :data do
     end
   end
   
-  # TO-DO PULL IMAGES OUT OF GRIDFS 
+  desc "import profile pictures"
+  task :import_profile_photos => :environment do
+    relationaldb = Mysql2::Client.new(
+      host: "localhost",
+      username: "root",
+      password: "root",
+      database: "saywhat_dev")
+    documentdb = Mongo::Connection.new("127.0.0.1").db("mongo_restore")
+    grid = Mongo::Grid.new(documentdb)
+
+    # User Profile Images
+    documentdb["users"].find().each {|user|
+      if user['avatar_filename']
+        user_id = user['_id'].to_s
+        filename = "avatars/user/avatar/#{user_id}/#{user['avatar_filename']}"
+        file_doc = documentdb["fs.files"].find_one({filename: filename})
+        file_id = file_doc["_id"]
+        raw_file = grid.get(file_id)
+        upload_path = Rails.root.join("tmp", "img", "users", user['avatar_filename'])
+        File.open(upload_path, 'w:ASCII-8BIT') do |f|
+          f.write raw_file.read
+        end
+        user = User.where(email: user['email']).first
+        user.profile_photo = File.open(upload_path)
+        user.save!
+        puts user.profile_photo.url
+        user.recreate_object_key
+      end
+    }
+
+    # Group Profile Images
+    documentdb["groups"].find().each {|group|
+      if group['profile_photo_filename']
+        group_id = group['_id'].to_s
+        filename = "profile/group/profile_photo/#{group_id}/#{group['profile_photo_filename']}"
+        file_doc = documentdb["fs.files"].find_one({filename: filename})
+        file_id = file_doc["_id"]
+        raw_file = grid.get(file_id)
+        upload_path = Rails.root.join("tmp", "img", "groups", group['profile_photo_filename'])
+        File.open(upload_path, 'w:ASCII-8BIT') do |f|
+          f.write raw_file.read
+        end
+        group = Group.where(permalink: group['permalink']).first
+        group.profile_photo = File.open(upload_path)
+        group.save!
+        puts group.profile_photo.url
+        # Re-Create Object Key
+        $feed.unrecord("group:#{group.id}")
+        data = { id: group.permalink, name: group.display_name }
+        data[:photo] = group.profile_photo_url(:thumb) if group.profile_photo
+        $feed.record("group:#{group.id}", data)
+      end
+    }
+
+    # Project Profile Images
+    documentdb["groups"].find().each {|group|
+      if group['projects']
+        group['projects'].each do |project|
+          if project['profile_photo_filename']
+            project_id = project['_id'].to_s
+            filename = "profile/project/profile_photo/#{project_id}/#{project['profile_photo_filename']}"
+            file_doc = documentdb["fs.files"].find_one({filename: filename})
+            file_id = file_doc["_id"]
+            raw_file = grid.get(file_id)
+            upload_path = Rails.root.join("tmp", "img", "projects", project['profile_photo_filename'])
+            File.open(upload_path, 'w:ASCII-8BIT') do |f|
+              f.write raw_file.read
+            end
+            project = Project.where(name: project['name']).first
+            project.profile_photo = File.open(upload_path)
+            project.save
+            puts project.profile_photo.url
+            # Re-Create Object Key
+            $feed.unrecord("project:#{project.id}")
+            data = { id: project.id, name: project.display_name }
+            data[:photo] = project.profile_photo_url(:thumb) if project.profile_photo
+            $feed.record("project:#{project.id}", data)
+          end
+        end
+      end
+    }
+  end
 end
