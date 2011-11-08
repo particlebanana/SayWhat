@@ -1,0 +1,22 @@
+= title "Create A Report"
+
+.row
+  %section.span4.form-description
+    %h2.heading New Project Report
+
+    %p Salvia fugiat seitan esse, irony mlkshk DIY high life. Seitan nulla american apparel iphone. Minim aesthetic tumblr skateboard, fanny pack nulla sint letterpress sapiente. Mcsweeney's iphone chambray, sint wolf nulla lo-fi aliquip artisan quinoa cliche lomo gentrify keytar.
+
+  %section.span11.offset1
+    %fieldset
+      %legend Project Report
+      = form_for([@group, @project, @report], :url => group_project_reports_path(@group.permalink, @project, @report)) do |f|
+
+        = errors_for(@report, "error", "<strong>Uh-Oh! There was an error!</strong> try fixing the fields below and try again.").html_safe
+
+        = f.hidden_field :group_id, :value => @group.id
+        = f.hidden_field :project_id, :value => @project.id
+
+        = render :partial => "form", :locals => { :f => f }
+
+        .actions
+          %input{:type => "submit", :class => "btn primary", :value => "Submit Report"}

@@ -1,0 +1,38 @@
+// :number_of_youth_reached (required)
+= build_field('text_field', f, 'number_of_youth_reached', @report, { help_block: "How many youth did your project reach" }).html_safe
+
+// :number_of_adults_reached (required)
+= build_field('text_field', f, 'number_of_adults_reached', @report, { help_block: "How many adults did your project reach" }).html_safe
+
+// :percent_male (required)
+= build_field('text_field', f, 'percent_male', @report, { help_block: "What percent of people reached were male?" }).html_safe
+
+// :percent_female (required)
+= build_field('text_field', f, 'percent_female', @report, { help_block: "What percent of people reached were female?" }).html_safe
+
+// :percent_african_american (required)
+= build_field('text_field', f, 'percent_african_american', @report, { help_block: "What percent of people reached were african american?" }).html_safe
+
+// :percent_asian (required)
+= build_field('text_field', f, 'percent_asian', @report, { help_block: "What percent of people reached were asian?" }).html_safe
+
+// :percent_caucasian (required)
+= build_field('text_field', f, 'percent_caucasian', @report, { help_block: "What percent of people reached were caucasian?" }).html_safe
+
+// :percent_hispanic (required)
+= build_field('text_field', f, 'percent_hispanic', @report, { help_block: "What percent of people reached were hispanic?" }).html_safe
+
+// :percent_other (required)
+= build_field('text_field', f, 'percent_other', @report, { help_block: "What percent of people reached were other?" }).html_safe
+
+// :money_spent (required)
+= build_field('text_field', f, 'money_spent', @report, { help_block: "How much money was spent?" }).html_safe
+
+// :prep_time (required)
+= build_field('text_field', f, 'prep_time', @report, { help_block: "How much prep time was needed?" }).html_safe
+
+// :other_resources
+= build_field('text_field', f, 'other_resources', @report, { help_block: "Did you require any other resources" }).html_safe
+
+// :comments
+= build_field('text_area', f, 'comment', @project, { help_block: "Any comments on the project?" }).html_safe

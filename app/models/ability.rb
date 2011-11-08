@@ -100,15 +100,8 @@ class Ability
       can :edit, Grant, :project => { :group_id => user.group_id }
       can :update, Grant, :project => { :group_id => user.group_id }
 
-      can :new, Report do |report|
-        project = Project.find(report.project_id)
-        user.group == project.group
-      end
-
-      can :create, Report do |report|
-        project = Project.find(report.project_id)
-        user.group == project.group
-      end
+      can :new, Report, :project => { :group_id => user.group_id }
+      can :create, Report, :project => { :group_id => user.group_id }
 
     # Group Youth Sponsor
     elsif user && user.youth_sponsor?
@@ -127,16 +120,8 @@ class Ability
         user.group == group
       end
 
-      can :new, Report do |report|
-        project = Project.find(report.project_id)
-        user.group == project.group
-      end
-
-      can :create, Report do |report|
-        project = Project.find(report.project_id)
-        user.group == project.group
-      end
-
+      can :new, Report, :project => { :group_id => user.group_id }
+      can :create, Report, :project => { :group_id => user.group_id }
     end
 
   end
