@@ -6,6 +6,17 @@
 require 'cgi'
 
 namespace :data do
+
+  desc "import all data"
+  task :import_all => :environment do
+    puts "Beginning Import. This could take a while be patient"
+    Rake::Task["data:import_users"].invoke
+    Rake::Task["data:import_groups"].invoke
+    Rake::Task["data:import_user_group_relationships"].invoke
+    Rake::Task["data:import_projects"].invoke
+    Rake::Task["data:import_profile_photos"].invoke
+    puts "Import is complete."
+  end
   
   desc "import user collection data"
   task :import_users => :environment do
