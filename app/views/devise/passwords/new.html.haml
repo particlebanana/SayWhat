@@ -1,8 +1,8 @@
-= title "Login"
+= title "Reset Password"
 
 .row
   %section.span4.form-description
-    %h2.heading Login to Say What!
+    %h2.heading Reset Password
 
     %p Salvia fugiat seitan esse, irony mlkshk DIY high life. Seitan nulla american apparel iphone. Minim aesthetic tumblr skateboard, fanny pack nulla sint letterpress sapiente. Mcsweeney's iphone chambray, sint wolf nulla lo-fi aliquip artisan quinoa cliche lomo gentrify keytar.
 
@@ -13,7 +13,9 @@
     %fieldset
       %legend Say What! Login Form
 
-      = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+
+        = devise_error_messages!
 
         .clearfix
           = f.label :email
@@ -21,20 +23,5 @@
             = f.text_field :email, :class => "xlarge"
             %span.help-block What's your email address?
 
-        .clearfix
-          = f.label :password
-          .input
-            = f.password_field :password, :class => "xlarge"
-        
-        .clearfix
-          %label
-          .input
-            %ul.inputs-list
-              %li
-                %label
-                  = f.check_box :remember_me
-                  %span Remember Me?
-
         .actions
-          = f.submit "Sign in", :class => "btn primary"
-          = link_to "Forgot your password?", new_password_path(resource_name), :class => "btn default"
+          = f.submit "Send me reset password instructions", :class => "btn primary"
