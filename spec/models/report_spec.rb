@@ -24,12 +24,4 @@ describe Report do
     it { should validate_presence_of(:money_spent) }
     it { should validate_presence_of(:prep_time) }
   end
-  
-  describe "#update_counter" do
-    it "should update the group's counters" do
-      counter = Counter.where(group_id: @report.group_id).first
-      counter.youth_total.should == 10
-      counter.adult_total.should == 10
-    end
-  end
 end
