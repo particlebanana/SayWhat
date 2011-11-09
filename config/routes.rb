@@ -1,6 +1,3 @@
-require 'minigrant/MiniGrant.rb' if CONFIG['minigrant_app']
-require 'resources/Resources.rb' if CONFIG['static_resources']
-
 SayWhat::Application.routes.draw do
   
   # Mount Mini-Grant application & Static Resources
