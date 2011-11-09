@@ -31,6 +31,7 @@ class ProjectsController < ApplicationController
   # POST - Create New Group Project
   def create
     @project = @group.projects.new(params[:project])
+    @project.format_dates(params[:project][:start_date], params[:project][:end_date])
     if @project.save
       redirect_to group_project_path(@group.permalink, @project.id), notice: "Project was added successfully."
     else
@@ -51,7 +52,9 @@ class ProjectsController < ApplicationController
   
   # PUT - Update A Group Project
   def update
-    if @project.update_attributes(params[:project])
+    @project.attributes = params[:project]
+    @project.format_dates(params[:project][:start_date], params[:project][:end_date])
+    if @project.save#update_attributes(params[:project])
       redirect_to group_project_path(@group.permalink, @project.id), notice: "Project has been updated."
     else
       render action: 'edit'

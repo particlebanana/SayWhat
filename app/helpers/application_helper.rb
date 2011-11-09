@@ -49,7 +49,8 @@ module ApplicationHelper
       when 'select'
         html << "#{enum.select field_name.to_sym, options[:block]}\n"
       when 'date'
-        html << "#{enum.text_field field_name.to_sym, :class => 'datepicker cf'}\n"
+        value = object[field_name.to_sym].strftime('%m/%d/%Y') if object[field_name.to_sym]
+        html << "#{enum.text_field field_name.to_sym, :class => 'datepicker cf', :value => value}\n"
       when 'phone'
         html << "#{enum.text_field field_name.to_sym, :class => 'xxlarge', :type => 'tel'}\n"
       end

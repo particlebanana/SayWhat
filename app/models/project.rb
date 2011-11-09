@@ -9,7 +9,7 @@ class Project < ActiveRecord::Base
   
   attr_protected :name, :group, :comments
 
-  validates_presence_of [:name, :display_name, :location, :start_date, :end_date, :focus, :audience, :description]
+  validates_presence_of [:name, :display_name, :location, :start_date, :focus, :audience, :description]
   validates_uniqueness_of :name
 
   validates :focus, :inclusion => { :in => [
@@ -35,6 +35,11 @@ class Project < ActiveRecord::Base
       focus: focus.map { |focus| [focus, focus] },
       audience: audience.map { |audience| [audience, audience] }
     }
+  end
+
+  def format_dates(start, stop=nil)
+    self.start_date = Date.strptime(start, "%m/%d/%Y")
+    self.end_date = Date.strptime(stop, "%m/%d/%Y") unless stop.blank?
   end
   
   # Publish to Project and Group feed
