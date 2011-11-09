@@ -1,6 +1,4 @@
-set :normal_symlinks, %w(
-  config/theme.yml
-)
+set :normal_symlinks, %w()
 
 namespace :symlinks do
   desc "Make all the damn symlinks"

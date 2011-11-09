@@ -1,5 +1,6 @@
 # deployment tasks
 #load 'bundler/capistrano'
+load "deploy/assets"
 load 'config/deploy/symlinks'
 
 set :application, "saywhat"
