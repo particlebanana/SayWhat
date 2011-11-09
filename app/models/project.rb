@@ -38,8 +38,12 @@ class Project < ActiveRecord::Base
   end
 
   def format_dates(start, stop=nil)
-    self.start_date = Date.strptime(start, "%m/%d/%Y")
-    self.end_date = Date.strptime(stop, "%m/%d/%Y") unless stop.blank?
+    self.start_date = Date.strptime(start, "%m/%d/%Y") unless start.is_a? Date
+    if stop.blank?
+      self.end_date = ''
+    else
+      self.end_date = Date.strptime(stop, "%m/%d/%Y") unless stop.is_a? Date
+    end
   end
   
   # Publish to Project and Group feed

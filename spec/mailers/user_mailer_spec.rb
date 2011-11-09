@@ -46,11 +46,6 @@ describe UserMailer do
     it "should display the group's name in the email" do
       mail.body.encoded.should match(group.display_name)
     end
-    
-    it "should display the member's group url" do
-      mail.body.encoded.should include_text("http://txsaywhat.com/groups/#{group.permalink}")
-    end
-
   end
   
   describe "send sponsor promotion notification" do

@@ -14,7 +14,6 @@ describe Project do
     it { should validate_presence_of(:display_name) }
     it { should validate_presence_of(:location) }
     it { should validate_presence_of(:start_date) }
-    it { should validate_presence_of(:end_date) }
     it { should validate_presence_of(:focus) }
     it { should validate_presence_of(:audience) }
     it { should validate_presence_of(:description) }

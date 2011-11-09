@@ -22,8 +22,8 @@ FactoryGirl.define do
   factory :project do
     display_name "Build Death Star"
     location "Outer Space"
-    start_date "11-11-2011"
-    end_date "11-12-2011"
+    start_date "11/11/2011"
+    end_date "11/22/2011"
     focus "Secondhand Smoke Exposure"
     audience "Elementary Students"
     description "A Top Secret project"

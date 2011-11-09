@@ -3,7 +3,10 @@ require 'spec_helper'
 describe ProjectsController do
   before do
     @group = FactoryGirl.create(:group)
-    @project = FactoryGirl.create(:project, { group: @group } )
+    # Ugly, Ugly, Ugly
+    @project = Project.new(FactoryGirl.attributes_for(:project, { group_id: @group.id } ))
+    @project.format_dates("11/20/2011", "11/22/2011")
+    @project.save!
   end
 
   describe "#overview" do
@@ -78,8 +81,8 @@ describe ProjectsController do
       before do
         user = FactoryGirl.create(:user, { group: @group } )
         sign_in user
-        project = FactoryGirl.build(:project, { display_name: "test", group: @group } )
-        post :create, { group_id: @group.permalink, project: project.attributes }
+        project = FactoryGirl.attributes_for(:project, { display_name: "test", group: @group } )
+        post :create, { group_id: @group.permalink, project: project }
         @demo = Project.where(display_name: "test").first
       end
       
@@ -99,8 +102,8 @@ describe ProjectsController do
       before do
         user = FactoryGirl.create(:user)
         sign_in user
-        project = FactoryGirl.build(:project, { display_name: "test", group: @group } )
-        post :create, { group_id: @group.permalink, project: project.attributes }
+        project = FactoryGirl.attributes_for(:project, { display_name: "test", group: @group } )
+        post :create, { group_id: @group.permalink, project: project }
       end
       
       subject { flash[:alert] }
@@ -112,15 +115,15 @@ describe ProjectsController do
         group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
         user = FactoryGirl.create(:user, { group: group, role: 'member' } )
         sign_in user
-        project = FactoryGirl.build(:project, { display_name: "test", group: @group } )
-        post :create, { group_id: @group.permalink, project: project.attributes }
+        project = FactoryGirl.attributes_for(:project, { display_name: "test", group: @group } )
+        post :create, { group_id: @group.permalink, project: project }
       end
       
       subject { flash[:alert] }
       it { should  =~ /not authorized to access this page/i }
     end
   end
-=begin
+
   describe "#edit" do
     context "group member" do
       before do
@@ -161,7 +164,7 @@ describe ProjectsController do
       it { should  =~ /not authorized to access this page/i }
     end
   end
-=end
+
   describe "#update" do
     context "group member" do
       before do

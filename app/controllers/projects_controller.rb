@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_filter :authenticate_user!, except: [:overview, :index, :show]
   before_filter :set_group, except: [:overview]
   before_filter :set_project, except: [:overview, :index, :new, :create]
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:create]
   
   respond_to :html
 
@@ -30,6 +30,8 @@ class ProjectsController < ApplicationController
   
   # POST - Create New Group Project
   def create
+    project = Project.new(group_id: @group.id)
+    authorize! :new, project
     @project = @group.projects.new(params[:project])
     @project.format_dates(params[:project][:start_date], params[:project][:end_date])
     if @project.save
@@ -52,9 +54,9 @@ class ProjectsController < ApplicationController
   
   # PUT - Update A Group Project
   def update
-    @project.attributes = params[:project]
-    @project.format_dates(params[:project][:start_date], params[:project][:end_date])
-    if @project.save#update_attributes(params[:project])
+    project = @project.attributes.merge!(params[:project])
+    @project.format_dates(project["start_date"], project["end_date"])
+    if @project.update_attributes(project.except("start_date", "end_date"))
       redirect_to group_project_path(@group.permalink, @project.id), notice: "Project has been updated."
     else
       render action: 'edit'
