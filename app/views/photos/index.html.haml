@@ -17,7 +17,7 @@
         :javascript
           $(function(){
             $("#uploader").pluploadQueue({
-              runtimes: 'gears,flash,silverlight,browserplus,html5',
+              runtimes: 'html5,flash,html4',
               url: '#{group_project_photos_path(@group.permalink, @project)}',
               multipart: true,
               multipart_params: {
