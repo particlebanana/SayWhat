@@ -1,6 +1,4 @@
-set :normal_symlinks, %w(
-  config/config.yml config/database.yml
-)
+set :normal_symlinks, ["config/config.yml", "config/database.yml"]
 
 namespace :symlinks do
   desc "Make all the damn symlinks"
