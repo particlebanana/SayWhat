@@ -25,3 +25,36 @@
 
         .actions
           %input{:type => "submit", :class => "btn primary", :value => "Send for Approval"}
+
+  %section.span11.offset1
+    %h2.heading Grant Application
+    %form
+      .clearfix
+        %label Planning Team
+        .input
+          %p= @grant.planning_team
+
+      .clearfix
+        %label Who will be serviced
+        .input
+          %p= @grant.serviced
+
+      .clearfix
+        %label Goals
+        .input
+          %p= @grant.goals
+
+      .clearfix
+        %label How funds will be used
+        .input
+          %p= @grant.funds_use
+
+      .clearfix
+        %label Partnerships
+        .input
+          %p= @grant.partnerships
+
+      .clearfix
+        %label Resources Needed
+        .input
+          %p= @grant.resources
