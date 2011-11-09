@@ -4,8 +4,6 @@
   %section.span4.form-description
     %h2.heading Reset Password
 
-    %p Salvia fugiat seitan esse, irony mlkshk DIY high life. Seitan nulla american apparel iphone. Minim aesthetic tumblr skateboard, fanny pack nulla sint letterpress sapiente. Mcsweeney's iphone chambray, sint wolf nulla lo-fi aliquip artisan quinoa cliche lomo gentrify keytar.
-
     - if devise_mapping.registerable? && controller_name != 'registrations'
       %p= link_to "Sign up for a new account", new_registration_path(resource_name), :class => "btn success"
 
