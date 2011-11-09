@@ -1,0 +1,18 @@
+= title "Start A New Project"
+
+.row
+  %section.span4.form-description
+    %h2.heading Create a New Say What! Project
+
+  %section.span11.offset1
+    %fieldset
+      %legend Say What! Project Form
+
+      = form_for([@group, @project], :url => group_projects_path(@group.permalink, @project)) do |f|
+
+        = errors_for(@group, "error", "<strong>Uh-Oh! There was an error!</strong> try fixing the fields below and try again.").html_safe
+
+        = render :partial => 'form', :locals => { f: f }
+
+        .actions
+          %input{:type => "submit", :class => "btn primary", :value => "Create Project"}

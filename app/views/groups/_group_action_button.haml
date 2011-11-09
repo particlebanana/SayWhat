@@ -1,4 +1,0 @@
-- if current_user && current_user.group == @group
-  = link_to "Invite Someone To Join This Group", "/groups/#{@group.permalink}/invite", :id => "groupInvite", :class => "groupActionButton"
-- else
-  = link_to "Request To Join This Group", "/groups/#{@group.permalink}/join", :id => "groupRequest", :class => "groupActionButton" unless current_user

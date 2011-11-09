@@ -1,14 +1,39 @@
 class PagesController < ApplicationController
   layout "application"  
+
+  before_filter :authenticate_user!, :only => :index
+
   respond_to :html
-  
+
+  # GET - Admin Dashboard
+  def index 
+    @counts = {
+      group: {pending: Group.pending.count, active: Group.active.count},
+      grant: {pending: Grant.completed.count, approved: Grant.approved.count},
+      projects: Project.count
+    }
+    render :layout => "admin"
+  end
+
   # GET - Home Page
   def home
-    @projects = ProjectCache.desc(:end_date).find_all{ |project| project.end_date < Date.today}
+    if current_user
+      @timeline = Hashie::Mash.new($feed.timeline("user:#{current_user.id}"))
+      render "timeline"
+    else
+      render "home"
+    end
   end
-  
+
+  # GET - History
+  def history
+  end
+
+  # GET - Leon
+  def leon
+  end
+
   # GET - Join Page
   def join
   end
-
 end

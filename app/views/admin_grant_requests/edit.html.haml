@@ -1,0 +1,35 @@
+.row
+  %section
+    %header.show-view.cf
+      %h2.heading Pending Grant Application
+
+      %p.cf
+        = link_to "Approve", "/admin/grants/#{@grant.id.to_s}", :method => :put, :class => "btn success"
+        %span or
+        = link_to "Deny", "/admin/grants/#{@grant.id.to_s}/deny", :id => "deny", :class => "btn danger", "data-reveal-id" => "deny-modal", "data-animation" => "fadeAndPop", "data-animationspeed" => "300", "data-closeonbackgroundclick" => "true", "data-dismissmodalclass" => "close-reveal-modal"
+
+    #grant-view.grid
+      = render :partial => "grant"
+
+    #deny-modal.reveal-modal.modal
+      %h1 Are you sure you want to deny this grant application?
+
+      %h2 Reason:
+      
+      %select#deniedReasons
+        %option{:value => ""}
+        - @reasons.each do |reason|
+          %option{:value => reason['name']}= reason['short_text']
+
+      .modal-footer
+        = link_to "Cancel", "#", :class => "btn close-reveal-modal"
+        = link_to "Deny Grant", "/admin/grants/#{params[:id]}", :method => :delete, :id => 'deny-modal', :class => 'btn danger'
+
+      :javascript
+        $(".modal select").change(function(){
+          var selectedValue = $(this).find(":selected").val();
+          var url = $('a#deny-modal').attr('href');
+          var base = url.split('?');
+          var newUrl = base[0] + '?reason=' + selectedValue
+          $('a#deny-modal').attr('href', newUrl);
+        });

@@ -1,0 +1,20 @@
+= title "Apply For A Grant"
+
+.row
+  %section.span4.form-description
+    %h2.heading Apply for a new Say What Mini-Grant
+
+  %section.span11.offset1
+    %fieldset
+      %legend Say What! Grant Application
+
+      = form_for @grant, :url => group_project_grants_path(@group, @project) do |f|
+
+        = errors_for(@grant, "error", "<strong>Uh-Oh! There was an error!</strong> try fixing the fields below and try again.").html_safe
+
+        = f.hidden_field :project_id, :value => @project.id
+
+        = render :partial => "form", :locals => { f: f }
+
+        .actions
+          %input{:type => "submit", :class => "btn primary", :value => "Send for Approval"}

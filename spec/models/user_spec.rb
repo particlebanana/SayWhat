@@ -1,131 +1,106 @@
 require 'spec_helper'
 
-describe User do 
+describe User do
+  context "FactoryGirl" do
+    before { @user = FactoryGirl.create(:user) }
   
-  describe "validation" do 
-    
-    describe "of mass assignment fields" do
-    
-      it "fails if name is not present" do
-        @user = Factory.build(:user)
-        set_status_and_role("pending", "pending")
-        @user.should be_valid
-        
-        @user.first_name = nil
-        @user.should_not be_valid
-        
-        @user.errors.count.should == 1
-        @user.errors.full_messages.first.should =~ /First name can't be blank/i
-      end
-      
-      it "fails if email is not present" do
-        @user = Factory.build(:user)
-        set_status_and_role("pending", "pending")
-        @user.should be_valid
-        
-        @user.email = nil
-        @user.should_not be_valid
-      end
-      
-      it "fails if email is not unique" do
-        @user = Factory.build(:user)
-        set_status_and_role("pending", "pending")
-        @user.save
-        
-        user = Factory.build(:user)
-        user.should_not be_valid
-        
-        user.errors.full_messages.first.should =~ /is already taken/i
-      end
-      
-      it "ensures email address is in the correct format" do
-        subject { Factory(:user) }
-        
-        should_not allow_value("blah").for(:email)
-        should_not allow_value("b lah").for(:email)
-        should allow_value("a@b.com").for(:email)
-        should allow_value("asdf@asdf.com").for(:email)
-      end
-      
-      it "fails if missing password" do
-        @user = Factory.build(:user)
-        set_status_and_role("pending", "pending")
-        @user.password = nil
-        @user.password_confirmation = nil
-        @user.should_not be_valid
-        
-        @user.errors.full_messages.first.should =~ /password can't be blank/i
-      end
-            
+    subject { @user }  
+    it { should belong_to(:group) }
+    it { should have_many(:memberships) }
+  
+    it { should validate_presence_of(:first_name) }
+    it { should validate_presence_of(:last_name) }
+    it { should validate_presence_of(:email) }
+  
+    it { should validate_uniqueness_of(:email) }
+  
+    it { should_not allow_value("abc@abc").for(:email) }
+    it { should allow_value("abc@abc.com").for(:email) }
+          
+    it "should generate an authentication token" do
+      @user.authentication_token.should_not == nil
     end
     
-    describe "of roles and status" do
-      
-      it "requires presence of role" do
-        user = Factory.build(:user)
-        user.status = "pending"
-        user.should_not be_valid
-        
-        user.role = "pending"
-        user.should be_valid 
-      end
-      
-      it "requires presence of status" do
-        user = Factory.build(:user)
-        user.role = "pending"
-        user.should_not be_valid
-        
-        user.status = "pending"
-        user.should be_valid
-      end
-      
+    it "should generate an object key" do
+      $feed.retrieve("user:#{@user.id}").code.should == 200
     end
-    
-    describe "of system generated fields" do
-      
-      it "downcases email addresss" do
-        @user = Factory.build(:user)
-        set_status_and_role("pending", "pending")
-        
-        @user.email = "This.Is.A.Test@gmail.com"
-        @user.should be_valid
-        @user.email.should == "this.is.a.test@gmail.com"
-      end
-      
-      it "generate an authentication token" do
-        @user = Factory.build(:user)
-        set_status_and_role("pending", "pending")
-        @user.should be_valid
-        @user.save
-        @user.authentication_token.should_not == nil
-      end
-      
-      it "combines first name and last name" do
-        @user = Factory.build(:user)
-        @user.name.should == "Han Solo"
-      end
-      
+
+    it "should subscribe user to the global timeline" do
+      $feed.connected?("global_feed", "user:#{@user.id}").should == true
     end
-        
   end 
-  
-  describe ".change_role_level" do
-    before(:each) { @user = build_decaying_group }
-    
-    context "promote user to adult sponsor" do
-      before(:each) { @user.change_role_level('adult sponsor') }
-      
-      subject{ @user.reload }
-      its(:role) { should == 'adult sponsor' }
+
+  describe "#set_defaults" do
+    before do
+      @user = FactoryGirl.build(:user, { email: "default@test.com" } )
+      @user.valid?
     end
-    
-    context "demote an admin to member" do
-      before(:each) { @captain_zissou.change_role_level('member') }
-      
-      subject{ @captain_zissou.reload }
-      its(:role) { should == 'member' }
-    end
-    
+
+    subject { @user }
+
+    its([:status]) { should == 'active' }
+    its([:role]) { should == 'member' }
   end
- 
+
+  describe "#name" do
+    before { @user = FactoryGirl.create(:user) }
+    
+    it "should combine first and last name" do
+      @user.name.should == "#{@user.first_name} #{@user.last_name}"
+    end
+  end
+  
+  describe "#change_role_level" do
+    before { @user = FactoryGirl.create(:user) }
+    
+    it "should change a users role" do
+      @user.change_role_level('adult sponsor')
+      @user.reload.role.should == "adult sponsor"
+    end
+  end
+  
+  describe "#activate" do
+    before do 
+      @user = FactoryGirl.create(:user, {role: "pending", status: "pending"})
+      @user.activate
+    end
+    
+    subject { @user.reload }
+    its([:role]) { should == "member" }
+    its([:status]) { should == "active" }
+  end
+  
+  describe "#join_group" do
+    before do
+      @user = FactoryGirl.create(:user)
+      @group = FactoryGirl.create(:group)
+      @response = @user.join_group(@group.id)
+    end
+    
+    subject { @user.reload }
+    its([:group_id]) { should == @group.id }
+    
+    it "should return true" do
+      @response.should == true
+    end
+  end
+  
+  describe "role" do    
+    context "admin" do
+      subject { FactoryGirl.create(:user, {role: "admin"}) }
+      its(:admin?) { should be_true }
+    end
+    
+    context "adult sponsor" do
+      subject { FactoryGirl.create(:user, {role: "adult sponsor"}) }
+      its(:adult_sponsor?) { should be_true }
+      its(:sponsor?) { should be_true }
+    end
+    
+    context "youth sponsor" do
+      subject { FactoryGirl.create(:user, {role: "youth sponsor"}) }
+      its(:youth_sponsor?) { should be_true }
+      its(:sponsor?) { should be_true }
+    end
+  end
 end

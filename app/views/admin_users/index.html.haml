@@ -1,0 +1,11 @@
+.block
+  .content
+    .group
+      %h2.title.left All Registered Users
+        
+    .inner
+      - if @users.all.empty?
+        %p No Registered Users....Ouch
+      - else          
+        %div#usersTable.adminTableView
+          = render :partial => "users_table"

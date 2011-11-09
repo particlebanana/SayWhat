@@ -1,5 +1,5 @@
 set :normal_symlinks, %w(
-  config/theme.yml
+  config/config.yml config/database.yml
 )
 
 namespace :symlinks do

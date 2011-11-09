@@ -1,0 +1,23 @@
+= title @project.display_name
+= description @project.description
+
+.row#group_profile
+  %section.span10#profile
+    = project_page_header(@project).html_safe
+
+    #page-sections.cf
+      #activity_feed.section.wall.timeline
+        %h2.heading Activity Feed
+
+        = render :partial => "timeline/timeline", :locals => { timeline: @timeline, section: 'project', composer: true, composer_path: group_project_comments_path(@group, @project) }
+
+      #info_view.section.info{ style: "display:none;"}
+        %h2.heading Project Info
+
+        = render :partial => "info"
+
+  %aside.span5.offset1
+    .profile_photo.media.cf
+      %a{ href: "#" }= image_tag(@project.profile_photo_url(:profile))
+
+    = render :partial => "menu"

@@ -12,7 +12,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/mongoid'
+  require 'devise/orm/active_record'
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating an user. By default is
@@ -21,6 +21,9 @@ Devise.setup do |config|
   # parameters are used only when authenticating and not when retrieving from
   # session. If you need permissions, you should implement that in a before filter.
   config.authentication_keys = [ :email ]
+  
+  # Make Emails case insensitive
+  config.case_insensitive_keys = [:email]
 
   # Tell if authentication through request.params is enabled. True by default.
   # config.params_authenticatable = true
@@ -139,4 +142,7 @@ Devise.setup do |config|
   #   end
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
+  
+  # Speed up unit tests
+  config.stretches = Rails.env.test? ? 1 : 10
 end

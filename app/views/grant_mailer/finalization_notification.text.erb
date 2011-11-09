@@ -1,0 +1,9 @@
+A member of your group on Say What has requested a grant for an upcoming project.
+
+As the group sponsor you must finalize the application in order to proceed. Ensure this is
+something your group would benefit from then follow the link below to proceed.
+
+Project Name: <%= @project.display_name %>
+Requested By: <%= @requestor.name %>
+
+<%= "http://#{@host}/groups/#{@group.permalink}/projects/#{@project.id}/grants/#{@grant.id}/edit" %>

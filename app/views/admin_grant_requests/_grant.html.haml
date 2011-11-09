@@ -1,0 +1,88 @@
+.section.span8.col1
+  %h3 Group Info
+
+  .media.cf
+    = link_to image_tag(@grant.project.group.profile_photo_url(:thumb)), group_path(@grant.project.group.permalink)
+
+  .info.cf
+    %p.cf
+      %span.key Name:
+      %span.value= link_to @grant.project.group.display_name, group_path(@grant.project.group.permalink)
+
+    %p.cf
+      %span.key Check Payable:
+      %span.value= @grant.check_payable
+
+    %p.cf
+      %span.key Address:
+      %span.value= @grant.mailing_address
+
+.section.span8.col1
+  %h3 Sponsor
+
+  .media.cf
+    = link_to image_tag(@grant.project.group.adult_sponsor.profile_photo_url(:thumb)), '#'
+
+  .info.cf
+    %p.cf
+      %span.key Name:
+      %span.value= @grant.project.group.adult_sponsor.name
+
+    %p.cf
+      %span.key Email:
+      %span.value= @grant.project.group.adult_sponsor.email
+
+    %p.cf
+      %span.key Phone #:
+      %span.value= @grant.phone
+
+.section.span8.col1
+  %h3 Project Info
+
+  .media.cf
+    = link_to image_tag(@grant.project.profile_photo_url(:thumb)), group_project_path(@grant.project.group.permalink, @grant.project)
+
+  .info.cf
+    %p.cf
+      %span.key Name:
+      %span.value= @grant.project.display_name
+
+    %p.cf
+      %span.key Description:
+      %span.value= @grant.project.description
+
+    %p.cf
+      %span.key When:
+      %span.value= @grant.project.start_date
+
+    %p.cf
+      %span.key Location:
+      %span.value= @grant.project.location
+
+    %p.cf
+      %span.key Focus:
+      %span.value= @grant.project.focus
+
+    %p.cf
+      %span.key Audience:
+      %span.value= @grant.project.audience
+
+.section.span8.col1
+  %h3 Grant Proposal
+
+  .info.cf
+    %p.cf
+      %span.key Funds:
+      %span.value= @grant.funds_use
+
+    %p.cf
+      %span.key Goals:
+      %span.value= @grant.goals
+
+    %p.cf
+      %span.key Partnerships:
+      %span.value= @grant.partnerships
+
+    %p.cf
+      %span.key Resources:
+      %span.value= @grant.resources

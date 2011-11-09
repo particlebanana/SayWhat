@@ -3,8 +3,8 @@ require "spec_helper"
 describe GroupMailer do
   
   describe "successful group request" do
-    let(:user) { Factory.build(:user) }
-    let(:group) { Factory.build(:pending_group) }
+    let(:user) { FactoryGirl.build(:user) }
+    let(:group) { FactoryGirl.build(:group) }
     let(:mail) { GroupMailer.successful_group_request(user, group) }
     
     it "renders the reciever's email address" do
@@ -18,9 +18,9 @@ describe GroupMailer do
   end
   
   describe "admin pending group notification" do
-    let(:user) { Factory.build(:admin) }
-    let(:group) { Factory.build(:pending_group) }
-    let(:sponsor) { Factory.build(:user) }
+    let(:user) { FactoryGirl.build(:user, { role: 'admin' } ) }
+    let(:group) { FactoryGirl.build(:group) }
+    let(:sponsor) { FactoryGirl.build(:user, { group: group } ) }
     let(:mail) { GroupMailer.admin_pending_group_request(user, group, sponsor) }
     
     it "renders the reciever's email address" do
@@ -38,8 +38,8 @@ describe GroupMailer do
   end
   
   describe "approved group notification" do
-    let(:user) { Factory.build(:user) }
-    let(:group) { Factory.create(:setup_group) }
+    let(:user) { FactoryGirl.build(:user) }
+    let(:group) { FactoryGirl.create(:group) }
     let(:mail) { GroupMailer.send_approved_notice(user, group, 'localhost:3000') }
         
     it "renders the reciever's email address" do
@@ -65,8 +65,8 @@ describe GroupMailer do
   end
   
   describe "denied group notification" do
-    let(:user) { Factory.build(:user) }
-    let(:group) { Factory.create(:pending_group) }
+    let(:user) { FactoryGirl.build(:user) }
+    let(:group) { FactoryGirl.create(:group) }
     let(:reason) { "This is a test reason" }
     let(:mail) { GroupMailer.send_denied_notice(user, group, reason) }
     
@@ -100,8 +100,8 @@ describe GroupMailer do
   end
   
   describe "group invite notification" do
-    let(:user) { Factory.build(:user) }
-    let(:group) { Factory.create(:group) }
+    let(:user) { FactoryGirl.build(:user) }
+    let(:group) { FactoryGirl.create(:group) }
     let(:mail) { GroupMailer.send_invite(user, group, "localhost:3000") }
     
     it "renders the reciever's email address" do

@@ -1,130 +1,84 @@
 class ProjectsController < ApplicationController
   layout "application"
   
-  before_filter :authenticate_user!, :except => [:all, :index, :filter, :show]
-  before_filter :set_group_by_permalink, :except => [:all, :filter]
-  before_filter :set_project, :only => [:show, :edit, :update, :delete_photo]
-  
-  load_and_authorize_resource :except => [:new, :create]
+  before_filter :authenticate_user!, except: [:overview, :index, :show]
+  before_filter :set_group, except: [:overview]
+  before_filter :set_project, except: [:overview, :index, :new, :create]
+  load_and_authorize_resource except: [:create]
   
   respond_to :html
-  
-  # GET - Global Project Index
-  # Only show upcoming projects to authenticated users for privacy reasons
-  def all
-    @options = (Project.new()).filters
-    @projects = ProjectCache.all.desc(:end_date) if current_user
-    @projects = ProjectCache.desc(:end_date).find_all{ |project| project.end_date < Date.today} unless current_user
+
+  # All Projects Overview
+  def overview
+    @projects = Project.order('updated_at DESC')
     respond_with(@projects)
   end
+
+  # Group Projects
   
-  # GET - Filter Projects Index
-  # Only show upcoming projects to authenticated users for privacy reasons
-  def filter
-    @options = (Project.new()).filters
-    @projects = ProjectCache.filter(params[:focus], params[:audience]).desc(:end_date) if current_user
-    @projects = ProjectCache.filter(params[:focus], params[:audience]).desc(:end_date).find_all{ |project| project.end_date < Date.today} unless current_user
-    render :action => "all"
-  end
-  
-  # GET - Group Project Index
-  # Only show upcoming projects to authenticated users for privacy reasons
+  # GET - All Group Projects
   def index
-    @projects = {
-      :upcoming => @group.projects.asc(:end_date).find_all{ |project| project.end_date >= Date.today},
-      :completed => @group.projects.desc(:end_date).find_all{ |project| project.end_date < Date.today}
-    }
+    @projects = @group.projects.order('created_at DESC')
     respond_with(@projects)
   end
   
-  # GET - Project Page
-  # Only show upcoming projects to authenticated users for privacy reasons
-  def show
-    if @project.end_date >= Date.today && !current_user
-      redirect_to "/groups/#{@group.permalink}/projects", :notice => "error with project lookup"
-    else
-      @comment = Comment.new() if current_user
-      respond_with(@project)
-    end
-  end
-  
-  # GET - New Project Page
+  # GET - New Group Project Form
   def new
-    @project = Project.new(:group_id => @group.id.to_s)
-    authorize! :new, @project
-    @options = @project.filters
+    @project = Project.new
     respond_with(@project)
   end
   
-  # POST - Create New Project
+  # POST - Create New Group Project
   def create
-    @project = Project.new(:group_id => @group.id.to_s)
-    authorize! :new, @project
-    params[:project][:start_date] = format_calendar_date(params[:project][:start_date])
-    params[:project][:end_date] =  format_calendar_date(params[:project][:end_date])
-    @project = Project.new(params[:project])
-    if @project.valid?
-      @group.projects << @project
-      if @project.save && @group.save
-        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}"
-      else
-        @options = @project.filters
-        render :action => 'new'
-      end
+    project = Project.new(group_id: @group.id)
+    authorize! :new, project
+    @project = @group.projects.new(params[:project])
+    @project.format_dates(params[:project][:start_date], params[:project][:end_date])
+    if @project.save
+      redirect_to group_project_path(@group.permalink, @project.id), notice: "Project was added successfully."
     else
-      @options = @project.filters
-      render :action => 'new'
+      render action: 'new'
     end
   end
   
-  # GET - Edit Project
-  def edit
-    @options = @project.filters
+  # GET - Show Single Group Project
+  def show
+    @timeline = Hashie::Mash.new($feed.timeline("project:#{@project.id}"))
     respond_with(@project)
   end
   
-  # PUT - Update Project
+  # GET - Edit A Group Project
+  def edit
+    respond_with(@project)
+  end
+  
+  # PUT - Update A Group Project
   def update
-    params[:project][:start_date] = format_calendar_date(params[:project][:start_date]) if params[:project][:start_date]
-    params[:project][:end_date] =  format_calendar_date(params[:project][:end_date]) if params[:project][:end_date]
-    if @project.update_attributes(params[:project])
-      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}" 
+    project = @project.attributes.merge!(params[:project])
+    @project.format_dates(project["start_date"], project["end_date"])
+    if @project.update_attributes(project.except("start_date", "end_date"))
+      redirect_to group_project_path(@group.permalink, @project.id), notice: "Project has been updated."
     else
-      @options = @project.filters
-      render :action => "edit"
+      render action: 'edit'
     end
   end
   
-  # GET - Delete Profile Photo
-  def delete_photo
-    @project.remove_profile_photo!
-    @project.profile_photo_filename = nil
-    @project.save
-    redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}/edit"
+  # DELETE - Destroy A Group Project
+  def destroy
+    if @project.destroy
+      redirect_to group_projects_path(@group.permalink), notice: "Project has been deleted."
+    else
+      redirect_to group_project_path(@group.permalink, @project.id), alert: "There was en error deleting this project. Try again."
+    end
+  end
+
+  private
+  
+  def set_group
+    @group = Group.where(permalink: params[:group_id]).first
   end
   
-  
-  private 
-  
-    def set_group_by_id
-      @group = Group.find(params[:group_id])
-    end
-    
-    def set_group_by_permalink
-      @group = Group.where(:permalink => params[:permalink]).first
-    end
-    
-    def set_project
-      @project = @group.projects.where(:name => params[:name]).first
-    end
-    
-    def format_calendar_date(date_str)
-      logger.info("date_str = #{date_str.inspect}")
-      if date_str != '' && date_str != nil
-        Date.strptime(date_str, '%m/%d/%Y')
-      else
-        nil
-      end
-    end
-      
+  def set_project
+    @project = Project.find(params[:id])
+  end
 end

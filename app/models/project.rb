@@ -1,86 +1,89 @@
-class Project  
-  include Mongoid::Document
-  include Mongoid::Timestamps
+class Project < ActiveRecord::Base
   
-  field :name
-  field :display_name
-  field :location
-  field :start_date, :type => Date
-  field :end_date, :type => Date
-  field :focus
-  field :goal
-  field :description
-  field :audience
-  field :involves
-
-  embedded_in :group
-  has_many :comments
-  embeds_one :report
+  belongs_to :group
+  has_many :photos, :foreign_key => 'project_id', :class_name => "ProjectPhoto"
+  has_one :grant
+  has_one :report
   
   mount_uploader :profile_photo, ProfileUploader
   
   attr_protected :name, :group, :comments
 
-  validates_presence_of [:name, :display_name, :location, :start_date, :end_date, :focus, :goal, :description, :audience, :involves]
-  validates_uniqueness_of [:name]
+  validates_presence_of [:name, :display_name, :location, :start_date, :focus, :audience, :description]
+  validates_uniqueness_of :name
+
+  validates :focus, :inclusion => { :in => [
+    'Secondhand Smoke Exposure', 'General Education', 'Health Effects',
+    'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']}
+
+  validates :audience, :inclusion => { :in => [
+    'Elementary Students', 'Middle School Students', 'High School Students',
+    'Community Members', 'Government Officials']}
   
   before_validation :escape_name
   after_validation :sanitize
   
-  after_save :cache_project
+  # Manage Activity Timeline
+  after_create :create_object_key
+  after_create :write_initial_event
+  after_update :recreate_object_key
+
+  def self.filters
+    focus = ['Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
+    audience = ['Elementary Students', 'Middle School Students', 'High School Students', 'Community Members', 'Government Officials']
+    filters = {
+      focus: focus.map { |focus| [focus, focus] },
+      audience: audience.map { |audience| [audience, audience] }
+    }
+  end
+
+  def format_dates(start, stop=nil)
+    self.start_date = Date.strptime(start, "%m/%d/%Y") unless start.is_a? Date
+    if stop.blank?
+      self.end_date = ''
+    else
+      self.end_date = Date.strptime(stop, "%m/%d/%Y") unless stop.is_a? Date
+    end
+  end
   
-  before_destroy :set_cache
-  after_destroy :destroy_cache
+  # Publish to Project and Group feed
+  def publish_to_feed(key, msg)
+    event = Chronologic::Event.new(
+      key: key,
+      data: { type: "message", message: "#{msg}"},
+      timelines: ["group:#{self.group.id}", "project:#{self.id}"],
+      objects: { group: "group:#{self.group.id}", project: "project:#{self.id}" }
+    )
+    $feed.publish(event, true, Time.now.utc.tv_sec)
+  end
 
   protected
-  
-    def escape_name
-      if self.display_name
-        self.name = (self.display_name.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-')
-      end
-    end
-    
-    def sanitize
-      self.goal = Sanitize.clean(self.goal, Sanitize::Config::RESTRICTED) if self.goal
-      self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
-      self.involves = Sanitize.clean(self.involves, Sanitize::Config::RESTRICTED) if self.involves
-    end
-    
-  private
-  
-    def cache_project
-      cache = ProjectCache.find_or_create_by(:group_id => self.group.id.to_s, :project_id => self.id.to_s)
-      cache.update_attributes(
-        :group_name => self.group.display_name, 
-        :group_permalink => self.group.permalink, 
-        :project_name => self.display_name, 
-        :project_permalink => self.name, 
-        :focus => self.focus, 
-        :audience => self.audience,
-        :profile_photo => self.profile_photo_url(:small),
-        :start_date => self.start_date,
-        :end_date => self.end_date
-      )
-      cache.save
-    end
-    
-    def set_cache
-      @cache = ProjectCache.where(:group_id => self.group.id.to_s, :project_id => self.id.to_s).first
-    end
-    
-    def destroy_cache
-      @cache.destroy if @cache
-    end
-        
-  public
-  
-    def filters
-      focus = ['Filter by Focus', 'Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
-      audience = ['Filter by Audience', 'Elementary Students', 'Middle School Students', 'High School Students', 'Community Members', 'Government Officials']
-      filters = {
-        :focus => focus.map { |focus| [focus, focus] },
-        :audience => audience.map { |audience| [audience, audience] }
-      }
-    end
-        
+
+  def escape_name
+    self.name = (self.display_name.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.display_name
+  end
+
+  def sanitize
+    self.goal = Sanitize.clean(self.goal, Sanitize::Config::RESTRICTED) if self.goal
+    self.description = Sanitize.clean(self.description, Sanitize::Config::RESTRICTED) if self.description
+    self.involves = Sanitize.clean(self.involves, Sanitize::Config::RESTRICTED) if self.involves
+  end
+
+  # Create an object in the Activity Feed
+  def create_object_key
+    $feed.record("project:#{id}", { id: self.id, name: self.display_name } )
+  end
+
+  # On model update, destroy the current object and recreate it
+  def recreate_object_key
+    $feed.unrecord("project:#{id}")
+    data = { id: self.id, name: self.display_name }
+    data[:photo] = self.profile_photo_url(:thumb) if self.profile_photo
+    $feed.record("project:#{id}", data)
+  end
+
+  # Add an event to project timeline when a new project is created
+  def write_initial_event
+    publish_to_feed("project:#{self.id}:create", "#{self.group.display_name} created a new project: #{self.display_name}")
+  end
 end

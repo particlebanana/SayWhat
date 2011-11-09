@@ -1,0 +1,30 @@
+= title "Youth Sponsor"
+
+%div#projectHeader
+  %div.centeredWrap.group
+    %header.group
+      %hgroup.left
+        %h1
+          Choose a Youth Sponsor
+          
+
+%div.centeredWrap.group   
+
+  - if notice 
+    %p.notice
+      = notice
+  
+  - if @members.any?
+    %ul
+      - @members.each do |member|
+        %li.group
+          = image_tag(member.avatar_url(:thumb))
+          = member.name
+          |
+          = link_to "promote", {:action => :update, :user_id => member.id}, :method => :put
+  -else
+    %p
+      There are no members available to promote to youth sponsor. 
+      %br
+      %a{ :href => "/groups/#{@user.group.permalink}/edit" }
+        &laquo; back

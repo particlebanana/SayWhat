@@ -1,0 +1,20 @@
+// :display_name (required)
+= build_field('text_field', f, 'display_name', @project, { help_block: "Give your project a name" }).html_safe
+
+// :location (required)
+= build_field('text_field', f, 'location', @project, { help_block: "Where will this project take place?" }).html_safe
+
+// :start_date (required)
+=build_field('date', f, 'start_date', @project, { help_block: "When will you begin on this project?" }).html_safe
+
+// :end_date
+=build_field('date', f, 'end_date', @project, { help_block: "When will this project be over? (optional)" }).html_safe
+
+// :description
+= build_field('text_area', f, 'description', @project, { help_block: "What will you do for this project?" }).html_safe
+
+// :focus
+= build_field('select', f, 'focus', @project, { help_block: "What is the focus of your project?", block: Project.filters[:focus].unshift(['','']) }).html_safe
+
+// :audience
+= build_field('select', f, 'audience', @project, { help_block: "Who is the main audience of your project?", block: Project.filters[:audience].unshift(['','']) }).html_safe

@@ -1,0 +1,23 @@
+#admin_header
+  %nav.cf
+    %ul#admin_pages.tabs
+      %li{:class => controller.controller_name == 'pages' ? 'active' : '' }
+        = link_to "Dashboard", "/admin/dashboard"
+
+      %li.dropdown{:data_dropdown => "dropdown", :class => ['admin_grants', 'admin_grant_requests'].include?(controller.controller_name) ? 'active' : '' }
+        = link_to "Grants", "#", :class => "dropdown-toggle"
+        %ul.dropdown-menu
+          %li= link_to "Awarded", "/admin/grants"
+          %li= link_to "Pending", "/admin/grants/pending"
+
+      %li{:class => ['admin_groups', 'admin_group_requests'].include?(controller.controller_name) ? 'active' : '' }
+        = link_to "Groups", "#", :class => "dropdown-toggle"
+        %ul.dropdown-menu
+          %li= link_to "Active", "/admin/groups"
+          %li= link_to "Pending", "/admin/group_requests"
+
+      %li{:class => controller.controller_name == 'admin_users' ? 'active' : '' }
+        = link_to "Users", "/admin/users"
+
+      %li{:class => controller.controller_name == 'admin_announcements' ? 'active' : '' }
+        = link_to "Announcements", "/admin/announcements"

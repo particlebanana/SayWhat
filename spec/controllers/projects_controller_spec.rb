@@ -1,137 +1,274 @@
 require 'spec_helper'
 
 describe ProjectsController do
-  before(:each) do
-    build_group_with_admin
+  before do
+    @group = FactoryGirl.create(:group)
+    # Ugly, Ugly, Ugly
+    @project = Project.new(FactoryGirl.attributes_for(:project, { group_id: @group.id } ))
+    @project.format_dates("11/20/2011", "11/22/2011")
+    @project.save!
+  end
+
+  describe "#overview" do
+    before { get :overview }
+
+    it "should return an array of Project objects" do
+      assigns[:projects].count.should == 1
+      (assigns[:projects].all.is_a? Array).should be_true
+    end
+
+    it "should render the overview template" do
+      response.should render_template('projects/overview')
+    end
+  end
+ 
+  describe "#index" do
+    before { get :index, { group_id: @group.permalink } }
+    
+    it "should return an array of Project objects" do
+      assigns[:projects].count.should == 1
+      (assigns[:projects].all.is_a? Array).should be_true
+    end
+  
+    it "should render the index template" do
+      response.should render_template('projects/index')      
+    end
+  end
+  
+  describe "#show" do
+    before { get :show, { group_id: @group.permalink, id: @project.id } }
+    
+    it "should return a Project object" do
+      (assigns[:project].is_a? Project).should be_true
+    end
+        
+    it "should render the show template" do
+      response.should render_template('projects/show')
+    end
+  end
+  
+  describe "#new" do
+    context "group member" do
+      before do
+        user = FactoryGirl.create(:user, { group: @group } )
+        sign_in user
+        get :new, { group_id: @group.permalink }
+      end
+      
+      it "should return a Project object" do
+        (assigns[:project].is_a? Project).should be_true
+      end
+    
+      it "should render the new template" do
+        response.should render_template('projects/new')
+      end
+    end
+    
+    context "non group member" do
+      before do
+        user = FactoryGirl.create(:user)
+        sign_in user
+        get :new, { group_id: @group.permalink }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
+    end
   end
   
   describe "#create" do
-    before(:each) do
-      @another_user = seed_additional_group
-    end
-        
-    it "should add a project to a group" do 
-      sign_in @user
-      project = build_project_params
-      post :create, project
-      response.should be_redirect
-      @group.reload.projects.count.should == 1
-    end
-    
-    it "should not allow a member of another group to create a project" do
-      sign_in @another_user
-      project = build_project_params
-      post :create, project
-      response.should redirect_to("/")
-      @group.reload.projects.count.should == 0
-    end
-        
-  end
-  
-  describe "#index" do
-    before(:each) do
-      build_project
-      build_completed_project
-    end
-    
-    it 'returns all of a groups upcoming projects' do
-      sign_in @user
-      get :index, :permalink => @group.permalink
-      assigns[:projects][:upcoming].count.should == 1
-    end
-    
-    it 'returns all of a groups completed projects' do
-      sign_in @user
-      get :index, :permalink => @group.permalink
-      assigns[:projects][:completed].count.should == 1
-    end
-
-  end
-  
-  describe "#edit" do
-    before(:each) do
-      build_project
-      @another_user = seed_additional_group
-    end
-    
-    it "should allow a group adult sponsor to edit" do
-      sign_in @admin
-      get :edit, :permalink => @group.permalink, :name => @project.name
-      response.should render_template("projects/edit")
-    end
-    
-    it "should not allow a member of another group to edit" do
-      sign_in @another_user
-      get :edit, :permalink => @group.permalink, :name => @project.name
-      response.should redirect_to("/")
-    end
+    context "group member" do
+      before do
+        user = FactoryGirl.create(:user, { group: @group } )
+        sign_in user
+        project = FactoryGirl.attributes_for(:project, { display_name: "test", group: @group } )
+        post :create, { group_id: @group.permalink, project: project }
+        @demo = Project.where(display_name: "test").first
+      end
       
+      it "should create group project" do
+        @group.projects.count.should == 2
+      end
+      
+      it "should redirect to the show action" do
+        response.should redirect_to("/groups/#{@group.permalink}/projects/#{@demo.id}")
+      end
+      
+      subject { flash[:notice] }
+      it { should  =~ /project was added successfully/i }
+    end
+    
+    context "non-group member" do
+      before do
+        user = FactoryGirl.create(:user)
+        sign_in user
+        project = FactoryGirl.attributes_for(:project, { display_name: "test", group: @group } )
+        post :create, { group_id: @group.permalink, project: project }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
+    end
+    
+    context "another group's member" do
+      before do
+        group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
+        user = FactoryGirl.create(:user, { group: group, role: 'member' } )
+        sign_in user
+        project = FactoryGirl.attributes_for(:project, { display_name: "test", group: @group } )
+        post :create, { group_id: @group.permalink, project: project }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
+    end
   end
-  
+
+  describe "#edit" do
+    context "group member" do
+      before do
+        user = FactoryGirl.create(:user, { group: @group } )
+        sign_in user
+        get :edit, { group_id: @group.permalink, id: @project.id }
+      end
+    
+      it "should return a Project object" do
+        (assigns[:project].is_a? Project).should be_true
+      end
+        
+      it "should render the edit template" do
+        response.should render_template('projects/edit')
+      end
+    end
+    
+    context "non-group member" do
+      before do
+        user = FactoryGirl.create(:user)
+        sign_in user
+        get :edit, { group_id: @group.permalink, id: @project.id }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
+    end
+    
+    context "another group's member" do
+      before do
+        group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
+        user = FactoryGirl.create(:user, { group: group, role: 'member' } )
+        sign_in user
+        get :edit, { group_id: @group.permalink, id: @project.id }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
+    end
+  end
+
   describe "#update" do
-    before do
-      build_project
+    context "group member" do
+      before do
+        user = FactoryGirl.create(:user, { group: @group } )
+        sign_in user
+        put :update, { group_id: @group.permalink, id: @project.id, project: { display_name: "test update" } }
+      end
+      
+      it "should update display name" do
+        @project.reload.display_name.should == "test update"
+      end
+      
+      it "should redirect to the show action" do
+        response.should redirect_to("/groups/#{@group.permalink}/projects/#{@project.id}")
+      end
+      
+      subject { flash[:notice] }
+      it { should  =~ /project has been updated/i }
     end
     
-    it "should update a project with new values" do
-      sign_in @admin
-      put :update, {:permalink => @group.permalink, :name => @project.name, :project => {:display_name => "Build Another Death Star"}}
-      response.should be_redirect
-      project = @group.reload.projects.first
-      project.display_name.should == "Build Another Death Star"
-      project.name.should == "build-another-death-star"
+    context "non-group member" do
+      before do
+        user = FactoryGirl.create(:user)
+        sign_in user
+        put :update, { group_id: @group.permalink, id: @project.id, project: { display_name: "test update" } }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
     end
     
-    it "should redirect if the user is not a sponsor" do
-      sign_in @user
-      put :update, {:permalink => @group.permalink, :name => @project.name, :project => {:display_name => "Build Another Death Star"}}
-      response.should redirect_to("/")
+    context "another group's member" do
+      before do
+        group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
+        user = FactoryGirl.create(:user, { group: group, role: 'member' } )
+        sign_in user
+        put :update, { group_id: @group.permalink, id: @project.id, project: { display_name: "test update" } }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
     end
-    
-  end
-  
-  describe "#all" do
-    before(:each) do
-      build_project
-      seed_additional_group
-      sign_in @user
-    end
-    
-    it "should list all the projects in the system" do
-      get :all
-      assigns[:projects].count.should == 2
-    end
-    
-    it "should render the global projects list" do
-      get :all
-      response.should render_template('projects/all')
-    end
-  end
-  
-  describe "#filter" do
-    before(:each) do
-      seed_full_data_set
-      sign_in User.first
-    end
-    
-    it "should filter projects by focus" do
-      get :filter, :focus => "Secondhand Smoke Exposure", :audience => ""
-      response.should render_template('projects/all')
-      assigns[:projects].count.should == 3
-    end
-    
-    it "should filter projects by audience" do
-      get :filter, :focus => "", :audience => "Middle School Students"
-      response.should render_template('projects/all')
-      assigns[:projects].count.should == 3
-    end
-    
-    it "should filter projects by focus and audience" do
-      get :filter, :focus => "Secondhand Smoke Exposure", :audience => "Elementary Students"
-      response.should render_template('projects/all')
-      assigns[:projects].count.should == 3
-    end
-
   end
 
+  describe "#destroy" do
+    context "group adult sponsor" do
+      before do
+        user = FactoryGirl.create(:user, { group: @group, role: 'adult sponsor' } )
+        sign_in user
+        delete :destroy, { group_id: @group.permalink, id: @project.id }
+      end
+      
+      it "should remove project from group" do
+        @group.projects.count.should == 0
+      end
+      
+      it "should redirect to index page" do
+        response.should redirect_to("/groups/#{@group.permalink}/projects")
+      end
+      
+      subject { flash[:notice] }
+      it { should  =~ /project has been deleted/i }
+    end
+    
+    context "group youth sponsor" do
+      before do
+        user = FactoryGirl.create(:user, { group: @group, role: 'youth sponsor' } )
+        sign_in user
+        delete :destroy, { group_id: @group.permalink, id: @project.id }
+      end
+      
+      it "should remove project from group" do
+        @group.projects.count.should == 0
+      end
+      
+      it "should redirect to index page" do
+        response.should redirect_to("/groups/#{@group.permalink}/projects")
+      end
+      
+      subject { flash[:notice] }
+      it { should  =~ /project has been deleted/i }
+    end
+    
+    context "group member" do
+      before do
+        user = FactoryGirl.create(:user, { group: @group, role: 'member' } )
+        sign_in user
+        delete :destroy, { group_id: @group.permalink, id: @project.id }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
+    end
+    
+    context "another group's sponsor" do
+      before do
+        group = FactoryGirl.create(:group, { display_name: "test other group", permalink: "blah blah" } )
+        user = FactoryGirl.create(:user, { group: group, role: 'adult sponsor' } )
+        sign_in user
+        delete :destroy, { group_id: @group.permalink, id: @project.id }
+      end
+      
+      subject { flash[:alert] }
+      it { should  =~ /not authorized to access this page/i }
+    end
+  end
 end

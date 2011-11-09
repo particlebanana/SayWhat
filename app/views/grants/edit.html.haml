@@ -1,0 +1,59 @@
+= title "Finalize Your Grant"
+
+.row
+  %section.span4.form-description
+    %h2.heading Finalize Your Grant Application
+
+
+  %section.span11.offset1
+    %fieldset
+      %legend Say What! Grant Application
+
+      = form_for @grant, :url => group_project_grant_path(@group, @project) do |f|
+
+        = errors_for(@grant, "error", "<strong>Uh-Oh! There was an error!</strong> try fixing the fields below and try again.").html_safe
+
+        // :check_payable (required)
+        = build_field('text_field', f, 'check_payable', @grant, { help_block: "Who should the grant check be payable to?" }).html_safe
+
+        // :phone (required)
+        = build_field('phone', f, 'phone', @grant, { help_block: "Where is a phone number where we can reach you?" }).html_safe
+
+        // :mailing_address (required)
+        = build_field('text_area', f, 'mailing_address', @grant, { help_block: "Where should the check be mailed to?" }).html_safe
+
+        .actions
+          %input{:type => "submit", :class => "btn primary", :value => "Send for Approval"}
+
+  %section.span11.offset1
+    %h2.heading Grant Application
+    %form
+      .clearfix
+        %label Planning Team
+        .input
+          %p= @grant.planning_team
+
+      .clearfix
+        %label Who will be serviced
+        .input
+          %p= @grant.serviced
+
+      .clearfix
+        %label Goals
+        .input
+          %p= @grant.goals
+
+      .clearfix
+        %label How funds will be used
+        .input
+          %p= @grant.funds_use
+
+      .clearfix
+        %label Partnerships
+        .input
+          %p= @grant.partnerships
+
+      .clearfix
+        %label Resources Needed
+        .input
+          %p= @grant.resources

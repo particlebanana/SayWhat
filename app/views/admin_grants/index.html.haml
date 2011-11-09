@@ -1,0 +1,11 @@
+.row
+  %section
+    %h2.heading Awarded Grants
+
+    - if @grants.empty?
+      .alert-message.block-message.warning
+        %p <strong>Holy guacamole Batman!</strong> There are currently no grants awarded it's time to go to work!
+
+    - else
+      %div#groupsTable.adminTableView
+        = render :partial => "grants_table"

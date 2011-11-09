@@ -1,0 +1,11 @@
+// :first_name (required)
+= build_field('text_field', f, 'first_name', @user, {}).html_safe
+
+// :last_name (required)
+= build_field('text_field', f, 'last_name', @user, {}).html_safe
+
+// :email_name (required)
+= build_field('text_field', f, 'email', @user, { help_block: "Your email address must be unique to you" }).html_safe
+
+// :description
+= build_field('text_area', f, 'bio', @user, { help_block: "In a few words describe yourself" }).html_safe

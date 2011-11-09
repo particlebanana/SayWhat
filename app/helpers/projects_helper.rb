@@ -1,27 +1,22 @@
 module ProjectsHelper
   
-  def list_projects(projects, css="")
-    if projects.any?
-      render 'shared/projects', :projects => projects, :css => css
-    end
-  end
-  
-  def list_projects_from_cache(projects)
-    if projects.any?
-      render 'shared/project_index', :projects => projects
-    end
-  end
-  
-  def project_photo(project, cache=false)
-    if cache 
-      link_to image_tag(project.profile_photo, :width => 200, :height => 100), "/groups/#{project.group_permalink}/projects/#{project.project_permalink}"
+  def project_page_header(project)
+    html = "<hgroup>"
+    if can? :update, project
+      html << "
+        <div class='main-heading cf'>
+          <h1 class='heading'>#{project.display_name}</h1>
+          #{link_to 'edit project', edit_group_project_path(project.group.permalink, project), :class => 'btn'}
+        </div>
+        <h6>#{project.group.display_name}</h6>"
     else
-      link_to image_tag(project.profile_photo_url(:small), :width => 200, :height => 100), "/groups/#{project.group.permalink}/projects/#{project.name}"
+      html << "
+        <div class='main-heading cf'>
+          <h1 class='heading'>#{project.display_name}</h1>
+        </div>
+        <h6>#{project.group.display_name}</h6>"
     end
-  end
-    
-  def project_link(project)
-    link_to h(project.display_name), "/groups/#{project.group.permalink}/projects/#{project.name}"
+    html << "</hgroup>"
   end
   
 end

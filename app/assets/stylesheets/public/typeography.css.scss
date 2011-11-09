@@ -1,0 +1,80 @@
+/* -------------------------------------------------------------------------------
+ * Typeography.css
+ * ------------------------------------------------------------------------------- */
+
+html, body { color: #222; }
+
+p {
+  font-size: 100%;
+  line-height: 1.5;
+  font-family: facitweb,sans-serif;
+  font-style: normal;
+  font-weight: 300;
+}
+
+/* Main Article Copy */
+
+article p {
+  font-size: 20px;
+  font-family: chaparral-pro, Georgia, 'Times New Roman', Times, serif;
+  font-weight: 400;
+  line-height: 1.5em;
+  margin-bottom: 2px;
+}
+
+article p + p {
+  text-indent: 1.2em;
+  margin-top: 0;
+}
+
+article p.list { text-indent: 0; margin-bottom: 12px; } /* Clears the p + p indent */
+
+h1, h2, h6 {
+  font-family: proxima-nova,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Arial,sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 33px 0 11px 0;
+}
+
+ h1.heading, h2.heading, h6 { margin-top: 0; } /* Zero out top margin */
+
+strong {
+  font-style: normal;
+  font-weight: 600;
+}
+
+article .footnotes {
+  border-top: 1px solid #BFBFBF;
+  margin: 35px 0;
+  padding: 35px 0;
+}
+
+  article .footnotes p {
+    font-size: 16px;
+  }
+
+/* Sidebar Copy */
+
+aside dl {
+  margin: 36px 0 0 0;
+}
+
+aside dl dt {
+  font-family: facitweb,sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 1.1em;
+  margin-bottom: 12px;
+}
+
+aside dl dd, aside p {
+  font-family: facitweb,sans-serif;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 1.7em;
+  margin: 0 0 25px 0;
+  color: #555;
+}

@@ -1,0 +1,10 @@
+.row
+  %section
+    %h2.heading Pending Group Requests
+
+    - if @groups.empty?
+      .alert-message.block-message.success
+        %p <strong>Good Job</strong> There are currently no pending group requests. Go grab some lunch!
+
+    - else
+      = render :partial => "requests_table"

@@ -1,0 +1,89 @@
+#page-sections {
+  position: relative;
+  .section {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+#group_profile {
+  hgroup {
+    margin-bottom: 20px;
+    h1 { margin-bottom: 4px; float: left; }
+    h6 { line-height: 22px; }
+    a {
+      float: left;
+      margin: 4px 0 0 15px;
+      font-size: 11px;
+    }
+  }
+
+  section {
+    #project_feed {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 20px 0;
+      margin-bottom: 20px;
+
+      .project {
+        float: left;
+        margin-left: 20px;
+      }
+      .project:first-child { margin-left: 0; }
+    }
+  }
+
+  aside {
+    .profile_photo {
+      margin-bottom: 25px;
+    }
+
+    p a.btn {
+      display: block;
+      font-size: 14px;
+      font-family: facitweb,sans-serif;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    ul#profile_menu {
+      list-style: none;
+      margin: 35px 0;
+      li {
+        position: relative;
+        line-height: 18px;
+        border-bottom: 1px solid #ddd;
+        a {
+          cursor: pointer;
+          padding: 6px 0;
+          display: block;
+          padding-left: 28px;
+          font-size: 14px;
+          font-family: facitweb,sans-serif;
+          font-weight: 300;
+          img {
+            position: absolute;
+            left: 8px;
+            top: 5px;
+            vertical-align: middle;
+            display: inline-block;
+          }
+        }
+        a:hover {
+         background: #e4eaf1;
+         text-decoration: none;
+        }
+      }
+    }
+
+    #membership-options {
+      a {
+        text-align: center;
+        display: block;
+        width: 100%;
+        margin: 8px 0;
+      }
+    }
+  }
+}

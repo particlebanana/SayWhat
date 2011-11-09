@@ -1,0 +1,16 @@
+= title @user.name
+
+.row#group_profile
+  %section.span10#profile
+    %hgroup
+      .main-heading.cf
+        %h1.heading= @user.name
+
+    #info_view.section.info
+      = render :partial => "info"
+
+  %aside.span5.offset1
+    .profile_photo.media.cf
+      %a{ href: "#" }= image_tag(@user.profile_photo_url(:profile))
+
+    = show_membership_acceptance?(current_user, @user)

@@ -7,8 +7,7 @@ tmp/**/*
 *.log
 *.db
 .sass-cache/
-config/theme.yml
-public/uploads/tmp
-public/profile
-public/avatars
-
+config/database.yml
+config/config.yml
+public/uploads
+Gemfile.lock

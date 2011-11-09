@@ -1,72 +1,50 @@
 require 'spec_helper'
 
 describe Project do
+  before do
+    @group = FactoryGirl.create(:group)
+    @project = FactoryGirl.create(:project, { group: @group } )
+  end
+
+  context "Factory" do
+    
+    subject { @project }
+    it { should belong_to(:group) }
+    
+    it { should validate_presence_of(:display_name) }
+    it { should validate_presence_of(:location) }
+    it { should validate_presence_of(:start_date) }
+    it { should validate_presence_of(:focus) }
+    it { should validate_presence_of(:audience) }
+    it { should validate_presence_of(:description) }
   
-  describe "validations" do
-    
-    describe "of required fields" do     
-      it "should fail if display name is blank" do
-        @project = Factory.build(:project, :display_name => nil)
-        @project.should_not be_valid
-      end
-      
-      it "should fail if location is blank" do
-        @project = Factory.build(:project, :location => nil)
-        @project.should_not be_valid
-      end
-      
-      it "should fail if dates are blank" do
-        @project = Factory.build(:project, :start_date => nil)
-        @project.should_not be_valid
-      end
-      
-      it "should fail if description is blank" do
-        @project = Factory.build(:project, :description => nil)
-        @project.should_not be_valid
-      end     
-      
+    it { should validate_uniqueness_of(:name) }
+
+    it "should generate an object key" do
+      $feed.retrieve("project_#{@project.id}").code.should == 200
     end
-    
-    describe "of system generated fields" do
-      it "should automatically create name field based on display name input" do
-        @project = Factory.build(:project)
-        @project.valid?.should == true
-        @project.name.should == "build-death-star"
-      end
-      
-      it "should escape special characters from the input" do
-        @project = Factory.build(:project, :display_name => "This Isn't A Valid Name!?!?!")
-        @project.valid?.should == true
-        @project.name.should == "this-isnt-a-valid-name"
-      end
+
+    it "should publish to the group timeline" do
+      timeline = $feed.timeline("group:#{@project.group_id}")
+      timeline["feed"].first["key"].should include("project:#{@project.id}:create")
     end
-        
+
+    it "should regenerate an object key on update" do
+      @project.save
+      res = JSON.parse($feed.retrieve("project:#{@project.id}").body)
+      res['photo'].should == @project.profile_photo_url(:thumb)
+    end
   end
   
-  describe "managing project cache" do
-    before(:each) do
-      build_group_with_admin
+  describe "#escape_name" do
+    it "should generate a name field" do
+      @project.name.should_not be_nil
     end
     
-    it "should build a new project cache document on creation" do
-      build_project
-      ProjectCache.all.count.should == 1
+    it "should escape special characters" do
+      @project.display_name = "It's A Trap!?!?!"
+      @project.valid?.should == true
+      @project.name.should == "its-a-trap"    
     end
-    
-    it "should update the project cache on project update" do
-      build_project
-      @project.update_attributes(:display_name => "Test Cache Update")
-      ProjectCache.all.count.should == 1
-      ProjectCache.first.project_name.should == "Test Cache Update"
-    end
-    
-    it "should destroy the project cache on project deletion" do
-      build_project
-      ProjectCache.all.count.should == 1
-      @project.destroy
-      ProjectCache.all.count.should == 0
-    end
-    
-  end
-  
+  end 
 end

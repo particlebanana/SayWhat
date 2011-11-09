@@ -1,112 +1,106 @@
-require 'carrierwave/orm/mongoid'
-class User
-  include Mongoid::Document  
-  include Mongoid::Timestamps  
-    
-  devise :database_authenticatable, :token_authenticatable, :recoverable, :rememberable, :validatable, :trackable
-  field :first_name
-  field :last_name
-  field :role
-  field :status
-  field :bio
-  field :authentication_token
+class User < ActiveRecord::Base
+
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
   belongs_to :group
-  has_many :comments
-  embeds_many :messages
+  has_many :group_comments
+  has_many :project_comments
+  has_many :memberships
   
-  mount_uploader :avatar, AvatarUploader
+  mount_uploader :profile_photo, ProfileUploader
   
-  default_scope asc(:created_at)
+  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :remember_me, :profile_photo
 
-  attr_accessible :email, :first_name, :last_name, :bio, :password, :password_confirmation, :avatar, :remember_me
+  before_validation :set_defaults
 
   validates_presence_of [:first_name, :last_name, :email, :role, :status]
-  
-  before_validation :downcase_attributes
+  validates_uniqueness_of :email
+  validates_format_of :email, with: Devise::email_regexp
   
   before_create :reset_authentication_token
-    
-  scope :site_admins, :where => {:role => "admin"}
+  after_create :create_object_key
+  after_create :subscribe_to_global
+
+  # Scopes  
+  def self.site_admins; where(role: "admin") end
+  def self.active; where(status: "active") end
+  def self.pending; where(status: "pending") end
+  def self.adult_sponsor; where(role: "adult sponsor") end
+  def self.youth_sponsor; where(role: "youth sponsor") end
+  def self.members; where(role: "member") end
+
+  # Combine First Name and Last Name
+  def name
+    first_name + ' ' + last_name 
+  end
   
-  scope :setup, :where => {:status => "setup"}
-  scope :active, :where => {:status => "active"}
-  scope :pending, :where => {:status => "pending"}
+  # Change User Role
+  def change_role_level(level)
+    self.role = level
+    self.save! ? true : false
+  end
   
-  scope :adult_sponsor, :where => {:role => "adult sponsor" }
-  scope :youth_sponsor, :where => {:role => "youth sponsor" }
-  scope :sponsors, :where => {:role.in => ["adult sponsor", "youth sponsor", "admin"]}
-  scope :members, :where => {:role => "member"}
+  # Activate User
+  def activate
+    self.status = "active"
+    self.role = "member"
+    self.save! ? true : false
+  end
+
+  # Join a group
+  def join_group(group_id)
+    self.group_id = group_id
+    if status = self.save! ? true : false
+      subscribe_to_group(group_id)
+    end
+    status
+  end
   
+  # Role Checks  
+  def admin?
+    self.role == "admin" ? true : false
+  end    
   
-  protected
+  def adult_sponsor?
+    self.role == "adult sponsor" ? true : false
+  end
   
-    def downcase_attributes
-      self.email ? self.email.downcase! : nil
-    end  
-    
-  public
+  def youth_sponsor?
+    self.role == "youth sponsor" ? true : false
+  end
   
-    # Demote/promote users to a certain access level
-    def change_role_level(level)
-      self.role = level
-      self.save
-    end
-  
-    # Create a message object
-    def create_message_object(message_object)
-      message = Message.new
-      message.message_type = message_object[:message_type]
-      message.message_author = message_object[:message_author]
-      message.message_subject = message_object[:message_subject]
-      message.message_content = message_object[:message_content]
-      self.messages << message
-      message.save!
-      message
-    end
-        
-    # Create a message request object
-    def create_message_request_object(request_name, request_email, request_id)
-      message = Message.new(:message_subject => "New Membership Request")
-      message.message_author = "Automated Message"
-      message.message_type = "request"
-      message.message_content = "
-      You have a pending membership request. Please review the information below and choose to either accept or deny the member.<br/>
-      Name: #{request_name}
-      Email: #{request_email}"
-      message.message_payload = request_id
-      self.messages << message
-      message.save!
-      message
-    end
-    
-    # Role Checks  
-    def admin?
-      role == "admin" ? true : false
-    end    
-    
-    def sponsor_setup?
-      role == "adult sponsor" && status == "setup" ? true : false
-    end
-    
-    def member_setup?
-      role == "member" && status == "setup" ? true : false
-    end
-    
-    def adult_sponsor?
-      role == "adult sponsor" ? true : false
-    end
-    
-    def youth_sponsor?
-      role == "youth sponsor" ? true : false
-    end
-    
-    def sponsor?
-      role == "adult sponsor" || role == "youth sponsor" ? true : false
-    end
-    
-    def name
-      first_name + ' ' + last_name
-    end
-    
+  def sponsor?
+    self.role == "adult sponsor" || self.role == "youth sponsor" ? true : false
+  end
+
+  # On model update, destroy the current object and recreate it
+  def recreate_object_key
+    $feed.unrecord("user:#{id}")
+    data = { id: self.id, name: self.name }
+    data[:photo] = self.profile_photo_url(:thumb) if self.profile_photo
+    $feed.record("user:#{id}", data)
+  end
+
+  private
+
+  # Set default role and status
+  def set_defaults
+    self.status ||= "active"
+    self.role ||= "member"
+  end
+
+  # Create an object in the Activity Feed
+  def create_object_key
+    $feed.record("user:#{id}", { id: self.id,  name: self.name } )
+  end
+
+  # Subscribe to the Global Activity Feed
+  def subscribe_to_global
+    $feed.subscribe("user:#{id}", "global_feed")
+  end
+
+  # Subscribe to a group's feed
+  def subscribe_to_group(group_id)
+    $feed.subscribe("user:#{id}", "group:#{group_id}")
+  end
 end

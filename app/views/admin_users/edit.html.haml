@@ -1,0 +1,17 @@
+.block
+  .secondary-navigation
+    %ul.wat-cf
+      %li.first <a href="/admin/users">&laquo; back</a>
+      
+  .content
+    %h2.title User Info
+    .inner
+      %table.table
+        = form_for @user, :url => "/admin/users/#{@user.id}", :method => :put do |f|
+        
+          = render :partial => "user", :locals => {:f => f}
+          
+          %p.group.formAction
+            %button.approve.submit{:type => 'submit'} Update
+            |
+            = link_to "Delete", "/admin/users/#{@user.id}", :method => :delete, :confirm => "Are you sure you want to delete this user?"

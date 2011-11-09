@@ -1,0 +1,10 @@
+.row
+  %section
+    %h2.heading Active Groups
+
+    - if @groups.empty?
+      .alert-message.block-message.success
+        %p <strong>Holy guacamole Batman!</strong> There are currently no groups in the system. Looks like someone's in trouble!
+
+    - else
+      = render :partial => "groups_table"

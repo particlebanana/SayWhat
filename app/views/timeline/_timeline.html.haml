@@ -1,0 +1,11 @@
+= render :partial => "timeline/composer", :locals => { composer_path: composer_path } if composer == true
+
+- if @timeline.size > 0
+  #event_wrapper
+    - @timeline.feed.each do |event|
+      .event{ id: event.token }
+        = build_event(event, section).html_safe
+
+- else
+  %div.alert-message.block-message.info
+    %p <strong>No action to report!</strong> Your timeline is currently empty. Don't worry it will fill up soon!

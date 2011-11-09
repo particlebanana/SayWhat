@@ -1,0 +1,7 @@
+= title "Dashboard"
+
+.row
+  %section#home_feed.span10.timeline
+    %h2.heading Activity Feed
+
+    = render :partial => "timeline/timeline", :locals => { timeline: @timeline, section: nil, composer: false }

@@ -1,0 +1,35 @@
+.row
+  %section
+    %header.show-view.cf
+      %h2.heading Pending Group Request
+
+      %p.cf
+        = link_to "Approve", "/admin/group_requests/#{@group.id}", :method => :put, :class => "btn success"
+        %span or
+        = link_to "Deny", "#", :class => "btn danger", "data-reveal-id" => "deny-modal", "data-animation" => "fadeAndPop", "data-animationspeed" => "300", "data-closeonbackgroundclick" => "true", "data-dismissmodalclass" => "close-reveal-modal"
+
+    #group-view.grid
+      = render :partial => "group"
+
+    #deny-modal.reveal-modal.modal
+      %h1 Are you sure you want to deny this group?
+
+      %h2 Reason:
+      
+      %select#deniedReasons
+        %option{:value => ""}
+        - @reasons.each do |reason|
+          %option{:value => reason['name']}= reason['short_text']
+
+      .modal-footer
+        = link_to "Cancel", "#", :class => "btn close-reveal-modal"
+        = link_to "Deny Group", "/admin/groups/#{@group.id}", :method => :delete, :id => 'deny-modal', :class => 'btn danger'
+
+      :javascript
+        $(".modal select").change(function(){
+          var selectedValue = $(this).find(":selected").val();
+          var url = $('a#deny-modal').attr('href');
+          var base = url.split('?');
+          var newUrl = base[0] + '?reason=' + selectedValue
+          $('a#deny-modal').attr('href', newUrl);
+        });

@@ -1,0 +1,15 @@
+.row
+  %section
+    %header.show-view.cf
+      %h2.heading Group Information
+
+      %p.cf
+        %span.label.success Active
+
+    #grant-view.grid
+      = form_for @group, :url => "/admin/groups/#{@group.id.to_s}", :method => :put do |f|
+        = errors_for(@group, "Oops, there were some problems with your group information").html_safe
+        = render :partial => "group", :locals => {:f => f}
+
+        %p.group.formAction
+          %button.approve.submit{:type => 'submit'} Update

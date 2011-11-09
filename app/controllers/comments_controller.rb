@@ -1,73 +1,35 @@
 class CommentsController < ApplicationController
   layout "application"
-  
+
   before_filter :authenticate_user!
-  before_filter :set_group_by_permalink
-  before_filter :set_project
-  before_filter :set_comment, :except => [:new, :create]
-  
-  load_and_authorize_resource
-  
-  respond_to :html
-  
-  # GET - New Comment Form
-  def new
-    @comment = Comment.new
-    respond_with(@comment)
-  end
-  
-  # POST - Create a new comment
+  before_filter :set_attributes
+  load_and_authorize_resource except: [:create]
+
+  respond_to :html, :json
+
+  # POST - Create Comment
   def create
-    @comment = Comment.new(params[:comment])
-    @comment.user = current_user
-    if @comment.valid?
-      @project.comments << @comment
-      if @comment.save && @project.save
-        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment successfully posted"
+    @comment = Comment.build(params[:comment], current_user, @group, @project, @parent)
+    authorize! :create, @comment
+
+    event = @comment.save
+
+    respond_with(event) do |format|
+      if @project
+        format.html { redirect_to group_project_path(@group.permalink, @project), notice: "Comment was added successfully." }
+        format.json { render json: event.to_json }
       else
-        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :alert => "Comment can't be blank"
+        format.html { redirect_to group_path(@group.permalink), notice: "Comment was added successfully." }
+        format.json { render json: event.to_json }
       end
-    else
-      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :alert => "Comment can't be blank"
     end
   end
-  
-  # GET - Edit a comment
-  def edit
-    redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "This comment doesn't belong to you!" unless @comment.user == current_user
+
+  private
+
+  def set_attributes
+    @group = params[:group_id] ? Group.find_by_permalink(params[:group_id]) : nil
+    @project = params[:project_id] ? Project.find(params[:project_id]) : nil
+    @parent = params[:comment_id] ? params[:comment_id] : nil
   end
-  
-  # PUT - Update a comment
-  def update
-    if @comment.user == current_user
-      if @comment.update_attributes(params[:comment]) 
-        redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment has been updated"
-      else
-        render :action => 'edit'
-      end
-    else
-      redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "This comment doesn't belong to you!"
-    end
-  end
-  
-  # DELETE - Destroy a comment as a group sponsor
-  def destroy
-    @comment.destroy
-    redirect_to "/groups/#{@group.permalink}/projects/#{@project.name}", :notice => "Comment has been removed"
-  end
-  
-  private 
-    
-    def set_group_by_permalink
-      @group = Group.where(:permalink => params[:permalink]).first
-    end
-    
-    def set_project
-      @project = @group.projects.where(:name => params[:name]).first
-    end
-    
-    def set_comment
-      @comment = @project.comments.find(params[:comment_id])
-    end
-    
 end

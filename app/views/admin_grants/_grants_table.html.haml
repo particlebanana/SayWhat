@@ -1,0 +1,20 @@
+:javascript
+  $(function() {
+    $("table.sortable").tablesorter({ sortList: [[1,0]] });
+  });
+
+%table.sortable.zebra-striped
+  %thead
+    %tr
+      %th #
+      %th Project
+      %th Group
+      %th Sponsor
+  
+  %tbody
+    - @grants.each do |grant|
+      %tr
+        %td= link_to grant.id, "/admin/grants/#{grant.id}"
+        %td= link_to grant.project.display_name, "/admin/grants/#{grant.id}"
+        %td= link_to grant.project.group.display_name, "/admin/grants/#{grant.id}"
+        %td= link_to grant.project.group.adult_sponsor.name, "/admin/grants/#{grant.id}"

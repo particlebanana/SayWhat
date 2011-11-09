@@ -1,0 +1,10 @@
+#composer
+  %ul.attachments_select.cf
+    %li
+      %a{ :href => "#", :class => 'attachment_option', :id => 'comment' }
+        = image_tag "08-chat.png", width: 18
+        %span New Comment
+
+  %ul.attachments_form.cf.hidden
+    = form_tag(composer_path) do
+      = render :partial => "timeline/comment_form", :locals => { status: '' }

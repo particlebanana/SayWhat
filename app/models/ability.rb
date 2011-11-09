@@ -2,174 +2,127 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    
+
     # Not Logged In    
     if !user
       can :home, Group
-      
-      can :request_group, Group
-      can :create, Group
-      can :pending_request, Group
+
       can :index, Group
       can :show, Group
-      can :request_membership, Group
-      can :create_membership_request, Group
-      can :membership_request_submitted, Group
-      can :all, Project
+      can :create, Group
+      can :new, Group
+
+      can :overview, Project
       can :index, Project
-      can :filter, Project
       can :show, Project
-    
+
     # Site Admin
     elsif user.admin?
       can :manage, :all
-    
-    # Sponsor in Setup Mode  
-    elsif user.sponsor_setup?
-      can :setup, Group
-      can :setup_sponsor, User
-      can :create_sponsor, User
-      can :setup_permalink, Group
-      can :set_permalink, Group
-    
-    # Member in Setup Mode  
-    elsif user.member_setup?
-      can :setup_member, User
-      can :create_member, User
-    
+
+    # Group Member
+    elsif user.group_id
+      can :edit, User, id: user.id
+      can :update, User, id: user.id
+      can :show, User
+
+      can :index, Group
+      can :show, Group
+
+      can :overview, Project
+      can :index, Project
+      can :show, Project
+
+      can :new, Project, group_id: user.group_id
+      can :create, Project, group_id: user.group_id
+      can :edit, Project, group_id: user.group_id
+      can :update, Project, group_id: user.group_id
+
+      can :new, Grant, :project => { :group_id => user.group_id }
+      can :create, Grant, :project => { :group_id => user.group_id }
+
+      can :create, Comment
+
     # Registered User
     else
-      can :edit, User
-      can :update, User
-      can :delete_avatar, User
-      can :edit_password, User
-      can :update_password, User
-      
-      can :index, Message
-      can :show, Message
-      can :destroy, Message
-      
+      can :edit, User, id: user.id
+      can :update, User, id: user.id
+      can :show, User
+
+      can :create, Membership
+
       can :index, Group
+      can :new, Group
+      can :create, Group
       can :show, Group
       can :create_invite, Group
       can :send_invite, Group
-      
-      can :all, Project
-      can :filter, Project
+
+      can :overview, Project
       can :index, Project
-      
-      can :new, Project do |project|
-        user.group.id.to_s == project.group_id
-      end
-      
-      can :create, Project do |project|
-        user.group.id.to_s == project.group_id
-      end
-      
       can :show, Project
-      
-      can :new, Comment
+
       can :create, Comment
-      can :edit, Comment
-      can :update, Comment
-      
+
       # TEMP FOR HOMEPAGE
       can :home, Group
     end
-    
-    # Adult Sponsor
+
+    # Group Adult Sponsor
     if user && user.adult_sponsor?
-      
-      can :approve_pending_membership, User
-      can :deny_pending_membership, User
-      can :choose_youth_sponsor, User
-      can :assign_youth_sponsor, User
-      can :revoke_youth_sponsor, User
-      
-      can :create, Message
-      
+
+      can :update, Membership, group_id: user.group_id
+      can :destroy, Membership, group_id: user.group_id
+
+      # Youth Sponsors Controller
+      can :view_potential_sponsors, User
+      can :update_youth_sponsor, User
+      can :destroy_youth_sponsor, User
+
+      can :destroy, Project, group_id: user.group_id
+
       can :edit, Group do |group|
         user.group == group
       end
-      
+
       can :delete_photo, Group do |group|
         user.group == group
       end
-      
+
       can :update, Group do |group|
         user.group == group
       end
-      
+
       can :pending_membership_requests, Group do |group|
         user.group == group
       end
-            
-      can :edit, Project do |project|
-        user.group == project.group
-      end
-      
-      can :delete_photo, Project do |project|
-        user.group == project.group
-      end
-      
-      can :update, Project do |project|
-        user.group == project.group
-      end
-      
-      can :destroy, Comment do |comment|
-        user.group == comment.project.group
-      end
-      
-      can :new, Report do |report|
-        user.group == report.project.group
-      end
-      
-      can :create, Report do |report|
-        user.group == report.project.group
-      end
-    
-    # Youth Sponsor
+
+      can :edit, Grant, :project => { :group_id => user.group_id }
+      can :update, Grant, :project => { :group_id => user.group_id }
+
+      can :new, Report, :project => { :group_id => user.group_id }
+      can :create, Report, :project => { :group_id => user.group_id }
+
+    # Group Youth Sponsor
     elsif user && user.youth_sponsor?
-      
-      can :create, Message
-      
+
+      can :destroy, Project, group_id: user.group_id
+
       can :edit, Group do |group|
         user.group == group
       end
-      
+
       can :delete_photo, Group do |group|
         user.group == group
       end
-      
+
       can :update, Group do |group|
         user.group == group
       end
-      
-      can :edit, Project do |project|
-        user.group == project.group
-      end
-      
-      can :delete_photo, Project do |project|
-        user.group == project.group
-      end
-      
-      can :update, Project do |project|
-        user.group == project.group
-      end
-      
-      can :destroy, Comment do |comment|
-        user.group == comment.project.group
-      end
-      
-      can :new, Report do |report|
-        user.group == report.project.group
-      end
-      
-      can :create, Report do |report|
-        user.group == report.project.group
-      end
-      
+
+      can :new, Report, :project => { :group_id => user.group_id }
+      can :create, Report, :project => { :group_id => user.group_id }
     end
-      
+
   end
 end

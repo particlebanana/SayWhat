@@ -1,0 +1,149 @@
+header {
+  position: relative;
+  margin: 0 0 24px 0;
+
+  #top-bar-bg { height: 84px; background: #000 image-url("banner.jpg") no-repeat top center; }
+  #main-nav-bg { 
+    height: 33px; 
+    background: #006cd1;
+    background: -moz-linear-gradient(top, #006cd1 0%, #46bae9 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#006cd1), color-stop(100%,#46bae9));
+    background: -webkit-linear-gradient(top, #006cd1 0%,#46bae9 100%);
+    background: -o-linear-gradient(top, #006cd1 0%,#46bae9 100%);
+    background: -ms-linear-gradient(top, #006cd1 0%,#46bae9 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#006cd1', endColorstr='#46bae9',GradientType=0 );
+    background: linear-gradient(top, #006cd1 0%,#46bae9 100%);
+    border-top: 1px solid #00529e;
+    border-bottom: 1px solid #00529e;
+  }
+  
+  #inner {
+    position: relative;
+    width: 980px;
+    padding: 0 10px;
+    margin: -119px auto 0 auto;
+    height: 119px;
+    
+    h1 { 
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin: 0;
+      width: 199px;
+      height: 119px;
+      a {
+        display: block;
+        width: 199px;
+        height: 119px;
+        background: image-url("logo.png") no-repeat;
+        text-indent: -9999em;
+      }
+    }
+    
+    nav {
+      position: absolute;
+      top: 84px;
+      height: 33px;
+      width: 100%;
+      
+      ul { margin: 0; padding: 0; }
+      li {
+        line-height: 10px;
+        float: left;
+        font-size: 1.2em;
+        a {
+          display: block;
+          color: #fff;
+          padding: 12px 12px 10px 12px;
+          text-decoration: none;
+          font-family: proxima-nova,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Arial,sans-serif;
+          font-style: normal;
+          font-weight: 600;
+          text-shadow: 0 -1px 0 rgba(34,34,34,0.4);
+        }
+      }
+      
+      ul#static { float: left; margin-left: 85px; }
+      ul#active { float: right; }
+
+      ul#active .notifications {
+        a {
+          position: relative;
+          display: block;
+          width: 24px;
+          height: 16px;
+          padding: 0;
+          margin: 11px 15px;
+          font-weight: 300;
+          background: image-url("18-envelope.png") no-repeat;
+
+          span.notificationsCountWrapper {
+            display: none;
+            padding: 3px;
+            color: #fff;
+            font-size: 9px;
+            font-weight: bold;
+            text-shadow: none;
+            padding-bottom: 1px;
+            position: absolute;
+            right: -8px;
+            top: -8px;
+            z-index: 101;
+
+            span#notificationsCountValue {
+              display: block;
+              background-color: #F03D25;
+              border: solid 1px #D83722;
+              border-bottom: solid 1px #C0311E;
+              border-top: solid 1px #E23923;
+              -webkit-border-radius: 2px;
+              -moz-border-radius: 2px;
+              -o-border-radius: 2px;
+              border-radius: 2px;
+              padding: 0 3px;
+            }
+          }
+        }
+      }
+
+      ul#active .dropdown {
+        .dropdown-menu {
+          top: 35px;
+          right: 0;
+          padding: 6px 0;
+          background: #55c0eb;
+          li {
+            display: block;
+            width: 100%;
+            font-size: 0.9em;
+            a {
+              font-family: proxima-nova,"Lucida Grande","Lucida Sans Unicode","Lucida Sans",Arial,sans-serif;
+              color: #fff;
+              font-weight: 600;
+              padding: 4px 15px;
+              text-shadow: 0 -1px 0 rgba(34,34,34,0.3);
+            }
+            a:hover {
+              background: #28afe5;
+            }
+          }
+          li.divider {
+            background-color: rgba(34,34,34,0.3);
+            border-bottom: 1px solid #83d1f0;
+          }
+        }
+      }
+
+      a.menu::after, .dropdown-toggle::after {
+        margin-top: 4px;
+        margin-left: 6px;
+      }
+
+      .open .menu, .dropdown.open .menu, .open .dropdown-toggle, .dropdown.open .dropdown-toggle {
+        background: rgba(85,192,235,0.6);
+      }
+      
+    }
+
+  }
+}

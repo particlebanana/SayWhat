@@ -3,35 +3,33 @@
   %head
     %meta{"http-equiv" => "Content-Type", :content => "text/html; charset=utf-8"}
     %meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge,chrome=1"}
-    
+
     %title= "SayWhat / #{yield(:title)}"
-    
+
     %meta{:name => "description", :content => "#{yield(:description)}"}
- 
-    = stylesheet_link_tag 'application', :media => :screen
-    = stylesheet_link_tag 'flick/jquery-ui-1.8.8.custom.css', :media => :screen
-    = javascript_include_tag "/js/modernizr-1.5.min.js", "http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js", "/js/jquery-ui-1.8.8.custom.min.js", "/javascripts/rails.js","/js/functions.js"
-    
+
+    = stylesheet_link_tag 'application.css'
+    = javascript_include_tag "application.js"
+
+    // Typekit
+    %script{ type: "text/javascript", src: "http://use.typekit.com/#{CONFIG['typekit_code']}.js" }
+
+    :javascript
+      try{Typekit.load();}catch(e){}
+
     = csrf_meta_tag
 
   %body
-    %div#wrap    
-    
-      = render :partial => "layouts/partials/header"
-              
-      %div#content.group
-        = yield
-    
-    - if current_page? root_path    
-      %div#footer
-        %p This is a project of the <a href="http://txssc.txstate.edu">Texas School Safety Center</a>
-          
-    = javascript_include_tag "/js/iepngfix_tilebg.js"
-    
+    = render :partial => "layouts/partials/header"
+
+    %div.container.cf
+      = flash_messages(flash).html_safe
+
+      = yield
 
     :javascript
       var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', "#{THEME['ga_code']}"]);
+      _gaq.push(['_setAccount', "#{CONFIG['ga_code']}"]);
       _gaq.push(['_trackPageview']);
       (function() {
         var ga = document.createElement('script');
@@ -39,10 +37,3 @@
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
       })();
-    
-
-        
-
-  
-    
-    

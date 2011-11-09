@@ -1,0 +1,20 @@
+:javascript
+  $(function() {
+    $("table.sortable").tablesorter({ sortList: [[1,0]] });
+  });
+
+%table.sortable.zebra-striped
+  %thead
+    %tr
+      %th #
+      %th Name
+      %th City
+      %th Sponsor
+
+  %tbody
+    - @groups.each do |group|
+      %tr
+        %td= link_to group.id, "/admin/groups/#{group.id}"
+        %td= link_to group.display_name, "/admin/groups/#{group.id}"
+        %td= link_to group.city, "/admin/groups/#{group.id}"
+        %td= link_to group.adult_sponsor.name, "/admin/groups/#{group.id}"

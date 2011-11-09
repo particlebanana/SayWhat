@@ -1,0 +1,12 @@
+defaults: &defaults
+  host: localhost
+
+# Notifications Database
+notifications:
+  development:
+    <<: *defaults
+    database: saywhat_notifications
+
+  test:
+    <<: *defaults
+    database: saywhat_test

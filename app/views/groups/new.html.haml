@@ -1,0 +1,33 @@
+= title "Create A Group"
+
+.row
+  %section.span4.form-description
+    %h2.heading Create a New Say What! Group
+
+    %p We welcome any school or organization that works with youth and tobacco prevention to sign-up. 
+
+    %p Once your group application has been submitted you should hear back from us in a day or two to let you know if your application has been approved.
+
+  %section.span11.offset1
+    %fieldset
+      %legend Say What! Group Application
+
+      = form_for @group do |f|
+
+        = errors_for(@group, "error", "<strong>Uh-Oh! There was an error!</strong> try fixing the fields below and try again.").html_safe
+
+        = render :partial => "form", :locals => { f: f }
+
+        // :permalink (required)
+        = build_field('text_field', f, 'permalink', @group, { help_block: "http://txsaywhat.com/groups/<strong>Group-URL</strong>", inline_block: "Your group's homepage url <strong>ex: sugar-land-tatu</strong>" }).html_safe
+
+        .clearfix
+          .input
+            %ul.inputs-list
+              %li
+                %label
+                  %input{:type => "checkbox", :name => "group_sponsor", :value => "accept"}
+                  %span I agree that I must be an adult sponsor in order to create a new group
+
+        .actions
+          %input{:type => "submit", :class => "btn primary", :value => "Send for Approval"}

@@ -1,0 +1,22 @@
+section ul.notifications {
+  margin: 0;
+  list-style: none;
+  border-top: 1px solid #E4EAF1;
+
+  li {
+    padding: 12px;
+    border-bottom: 1px solid #E4EAF1;
+
+    p.body { margin-bottom: 6px; }
+
+    span.date {
+      display: block;
+      font-family: facitweb,sans-serif;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 10px;
+    }
+  }
+
+  li.unread { background: #fefee3; }
+}

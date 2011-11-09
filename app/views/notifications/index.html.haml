@@ -1,0 +1,16 @@
+= title "Notifications"
+= description ""
+
+.row
+  %section.span9.columns
+    %h2.heading Notifications
+
+    -  if @notifications.size > 0
+      %ul.notifications
+        - @notifications.each do |notification|
+          %li{ :class => ('unread' unless notification.read_status == true) }
+            %p.body= link_to notification.text, notification.link
+            %span.date= notification.created_at.strftime('%a %b %e, %Y at %I:%M %P')
+    - else
+      %div.alert-message.block-message.info
+        %p Sorry. No notifications for you!

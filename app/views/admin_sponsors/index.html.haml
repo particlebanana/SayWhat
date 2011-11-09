@@ -1,0 +1,20 @@
+#modalWindow
+  %p.main Choose a new member to be group sponsor.
+  
+  = form_tag ("/admin/groups/#{params[:id]}/sponsors"), :method => "put" do
+    %p
+      Members:
+      %select#members{:name => "user"}
+        %option{:value => ""}
+        - @members.each do |member|
+          %option{:value => member.id}= member.name
+    
+    %p.options.group
+      %button.approve.submit{:type => 'submit'} Promote Member
+      = link_to "Cancel", "#", :id => 'cancel'
+      
+:javascript
+  $('a#cancel').click(function(){
+  $.facebox.close();
+  return false;
+  });

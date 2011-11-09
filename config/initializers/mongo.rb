@@ -1,0 +1,1 @@
+Mongo_Config = YAML.load_file(File.join(File.dirname(__FILE__), '../mongodb_config.yml'))

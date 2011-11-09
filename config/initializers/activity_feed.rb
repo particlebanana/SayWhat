@@ -1,0 +1,1 @@
+$feed = Chronologic::Client::Connection.new('http://localhost:7979')
