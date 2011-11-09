@@ -7,7 +7,6 @@ Spork.prefork do
   require 'rspec/rails'
   require 'remarkable/active_model'
   require 'factory_girl_rails'
-  #require 'carrierwave/test/matchers'
   require 'database_cleaner'
   
   # Requires supporting files with custom matchers and macros, etc,
@@ -19,10 +18,9 @@ Spork.prefork do
 
     config.before(:suite) do
       DatabaseCleaner[:active_record].strategy = :transaction
-      DatabaseCleaner[:mongoid].strategy = :truncation
-      DatabaseCleaner.clean_with(:truncation)
       conn = Mongo::Connection.new("localhost", 27017)
       conn.drop_database("ChronologicTest")
+      conn.drop_database("saywhat_test")
     end
     
     config.before :each do

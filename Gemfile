@@ -9,11 +9,12 @@ group :assets do
   gem 'sass-rails', "~> 3.1"
   gem 'coffee-rails', "~> 3.1"
   gem 'uglifier'
+  gem 'therubyracer'
+  gem 'execjs', :git => 'git://github.com/sstephenson/execjs.git'
 end
 
 # Database
 gem 'mysql2', '~> 0.3.0'
-gem 'mongoid', '~> 2.2.0'
 gem 'mongo', '~> 1.4.0'
 gem 'bson', '~> 1.4.0'
 gem 'bson_ext', '~> 1.4.0'
@@ -26,8 +27,6 @@ gem 'cancan'
 gem 'handlebars_assets', '~> 0.1.0'
 gem 'plupload-rails', '~> 1.0.0'
 gem 'jquery-rails'
-gem 'execjs', :git => 'git://github.com/sstephenson/execjs.git'
-gem 'therubyracer'
 
 # Deploy
 gem 'capistrano'
@@ -58,7 +57,5 @@ group :test do
   gem 'factory_girl_rails', '~> 1.3.0'
   gem 'shoulda', '>= 3.0.0.beta'
   gem 'rack-test'
-  gem 'guard-rspec'
   gem 'spork', '> 0.9.0.rc'
-  gem 'guard-spork'
 end
