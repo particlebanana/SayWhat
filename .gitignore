@@ -7,8 +7,7 @@ tmp/**/*
 *.log
 *.db
 .sass-cache/
-config/config.yml
 config/database.yml
+config/config.yml
 public/uploads
-data-export.csv
 Gemfile.lock
