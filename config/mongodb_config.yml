@@ -1,5 +1,9 @@
 # Notifications Database
 notifications:
+  production:
+    host: localhost
+    database: saywhat_notifications
+
   development:
     host: localhost
     database: saywhat_notifications
