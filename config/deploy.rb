@@ -8,10 +8,10 @@ role :app, "txsaywhat.com"
 role :web, "txsaywhat.com"
 
 set :deploy_to, "/usr/share/nginx/html/#{application}"
-set :shared_path, "/usr/share/nginx/html/saywhat/shared"
+set :shared_path, "/usr/share/nginx/html/saywhat/shared/saywhat"
 
 set :scm,        :git
-set :repository, "git@github.com:TxSSC/SayWhat-Core.git"
+set :repository, "git@github.com:TxSSC/SayWhat.git"
 set :branch,     "origin/master"
 
 # Change this to your user id or better yet a deploy user.
@@ -34,8 +34,8 @@ set(:previous_revision) { capture("cd #{current_path}; git rev-parse --short HEA
 
 # Lets dance with some f***ing Unicorns
 set :unicorn_binary, "unicorn_rails"
-set :unicorn_config, "/usr/share/nginx/html/saywhat/shared/unicorn.rb"
-set :unicorn_pid, "/usr/share/nginx/html/saywhat/shared/pids/unicorn.pid"
+set :unicorn_config, "/usr/share/nginx/html/saywhat/shared/saywhat/unicorn.rb"
+set :unicorn_pid, "/usr/share/nginx/html/saywhat/shared/saywhat/pids/unicorn.pid"
 
 def unicorn_start_cmd
   "cd #{current_path} && #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
