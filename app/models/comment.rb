@@ -72,7 +72,9 @@ class Comment < Hashie::Dash
     event.data.merge!({ parent: self.parent }) unless self.parent.nil?
 
     url = $feed.publish(event, true, Time.now.utc.tv_sec)
-    HTTParty.get(url).body
+    uri = URI(url)
+    path = uri.scheme ? url : "http://localhost:7979#{url}"
+    HTTParty.get(path).body
   end
 
   private
