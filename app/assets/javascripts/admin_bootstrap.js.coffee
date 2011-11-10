@@ -10,5 +10,3 @@ $ ->
   $('.grid').masonry
     itemSelector : '.section',
     columnWidth : 462
-  
-  #bindings =
