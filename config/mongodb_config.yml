@@ -1,12 +1,9 @@
-defaults: &defaults
-  host: localhost
-
 # Notifications Database
 notifications:
   development:
-    <<: *defaults
+    host: localhost
     database: saywhat_notifications
 
   test:
-    <<: *defaults
+    host: localhost
     database: saywhat_test
