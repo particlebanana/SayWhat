@@ -1,0 +1,27 @@
+= title "Reset Password"
+
+.row
+  %section.span4.form-description
+    %h2.heading Reset Password
+
+  %section.span11.offset1
+    %fieldset
+      %legend Reset Password Form
+
+      = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :put }) do |f|
+
+        = devise_error_messages!
+        = f.hidden_field :reset_password_token
+
+        .clearfix
+          = f.label :password
+          .input
+            = f.password_field :password, :class => "xlarge"
+        
+        .clearfix
+          = f.label :password_confirmation
+          .input
+            = f.password_field :password_confirmation, :class => "xlarge"
+
+        .actions
+          = f.submit "Change My Password", :class => "btn primary"
