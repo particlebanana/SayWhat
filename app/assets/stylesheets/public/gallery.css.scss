@@ -3,7 +3,7 @@
   ul.upload_select {
     list-style: none;
     margin: 0 0 15px 0;
-    li { float: left; position: relative; }
+    li { float: left; margin-right: 20px; position: relative; }
 
     a {
       position: relative;
@@ -15,13 +15,11 @@
       img {
         position: absolute;
         left: 0;
-        top: -1px;
+        top: -2px;
         vertical-align: middle;
         display: inline-block;
       }
     }
-
-    a#photo img { top: -4px; }
   }
 
   #uploader #uploader_container { padding: 0; }

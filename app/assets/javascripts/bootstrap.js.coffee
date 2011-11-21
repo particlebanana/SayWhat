@@ -21,7 +21,7 @@ $ ->
   $('#composer form').submit @timeline.create_attachment
 
   # Uploader Bindings
-  $('.upload_select').delegate('a', 'click', @uploader.show_uploader)
+  $('.upload_select').delegate('a#upload', 'click', @uploader.show_uploader)
   $('ul.photos').delegate('a.fancybox', 'hover', ->
     $(this).fancybox()
     return false

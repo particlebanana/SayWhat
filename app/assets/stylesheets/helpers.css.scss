@@ -21,3 +21,6 @@
 }
 
 .hidden { display: none; }
+
+a.disabled { color: #c3c3c3; }
+a.disabled:hover { text-decoration: none; }

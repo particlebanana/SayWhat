@@ -23,6 +23,9 @@ SayWhat::Application.routes.draw do
   match "/leon"                 => "pages#leon",                    :via => "get"
   match "/admin"                =>  redirect('/admin/dashboard')
   match "/admin/dashboard"      =>  "pages#index",                  :via => "get"
+
+  # Project Photo Gallery "edit mode"
+  match "/groups/:group_id/projects/:project_id/photos/edit" => "photos#edit",  :via => "get"
   
   # Admin Group Requests Controller
   match "/admin/group_requests"               =>  "admin_group_requests#index",      :via => "get"

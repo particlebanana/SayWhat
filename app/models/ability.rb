@@ -83,6 +83,8 @@ class Ability
 
       can :destroy, Project, group_id: user.group_id
 
+      can :destroy, ProjectPhoto, :project => { group_id: user.group_id }
+
       can :edit, Group do |group|
         user.group == group
       end

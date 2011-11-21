@@ -1,8 +1,13 @@
 %ul.upload_select.cf
   %li
-    %a.attachment_option#photo{ href: "#" }
-      = image_tag "41-picture-frame.png", width: 18
+    %a.attachment_option#upload{ href: "#" }
+      = image_tag "167-upload-photo.png", width: 20
       %span Upload Photo
+  - if can? :destroy, @project.photos.new
+    %li
+      %a.attachment_option#edit{ href: "/groups/#{@group.permalink}/projects/#{@project.id}/photos/edit" }
+        = image_tag "157-wrench.png", width: 18
+        %span Edit Photos
 
 #uploader.hidden
   :javascript

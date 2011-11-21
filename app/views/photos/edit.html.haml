@@ -1,0 +1,29 @@
+= title "#{@project.display_name} Photos"
+= description @project.description
+
+.row#group_profile
+  %section.span16
+    = project_page_header(@project).html_safe
+
+    #photo_gallery
+
+      - if can? :create, @project.photos.new
+        = render :partial => "form"
+
+        :javascript
+          $(function(){
+            $('.upload_select').undelegate('a#upload', 'click')
+            $('.upload_select').delegate('a#upload', 'click', function(e){e.preventDefault()})
+            $('a#upload').addClass('disabled')
+            $('a#edit span').html('Exit Edit Mode')
+            $('.upload_select').delegate('a#edit', 'click', function(e){
+              e.preventDefault();
+              window.location='/groups/#{@group.permalink}/projects/#{@project.id}/photos';
+            })
+          });
+
+      %ul.photos.media.cf
+        %p Click on a photo to remove it from the gallery
+        - @photos.each do |item|
+          %li
+            = link_to image_tag(item.photo_url(:index)), {action: "destroy", id: item.id}, method: :delete, confirm: "Are you sure you want to remove this image?"
