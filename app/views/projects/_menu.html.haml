@@ -5,10 +5,11 @@
   %p= link_to "Complete Report", new_group_project_report_url(@group, @project), :class => "btn" unless @project.report
 
 %ul#profile_menu.menu
-  %li
-    %a#wall{ href: '#' }
-      = image_tag '181-hammer.png', width: 10
-      %span Wall
+  - if current_user
+    %li
+      %a#wall{ href: '#' }
+        = image_tag '181-hammer.png', width: 10
+        %span Wall
   %li
     %a#info{ href: '#' }
       = image_tag '181-hammer.png', width: 10

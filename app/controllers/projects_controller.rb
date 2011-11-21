@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
   
   # GET - Show Single Group Project
   def show
-    @timeline = Hashie::Mash.new($feed.timeline("project:#{@project.id}"))
+    @timeline = Hashie::Mash.new($feed.timeline("project:#{@project.id}")) if current_user
     respond_with(@project)
   end
   

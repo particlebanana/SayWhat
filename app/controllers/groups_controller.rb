@@ -15,7 +15,7 @@ class GroupsController < ApplicationController
   
   # GET - Show indivudal group info
   def show
-    @timeline = Hashie::Mash.new($feed.timeline("group:#{@group.id}"))
+    @timeline = Hashie::Mash.new($feed.timeline("group:#{@group.id}")) if current_user
     @projects = @group.projects.order('updated_at DESC').limit(3)
     @pending_membership = set_pending_membership
     respond_with(@group)

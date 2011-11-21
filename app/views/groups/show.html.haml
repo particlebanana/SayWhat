@@ -11,16 +11,7 @@
           .project
             %a{ href: group_project_path(@group, project) }= image_tag(project.profile_photo_url(:index))
 
-    #page-sections.cf
-      #activity_feed.section.wall.timeline
-        %h2.heading Activity Feed
-
-        = render :partial => "timeline/timeline", :locals => { timeline: @timeline, section: 'group', composer: true, composer_path: group_comments_path(@group) }
-
-      #info_view.section.info{ style: "display:none;"}
-        %h2.heading Group Info
-
-        = render :partial => "info"
+    = render :partial => "content"
 
   %aside.span5.offset1
     .profile_photo.media.cf

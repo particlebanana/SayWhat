@@ -1,0 +1,11 @@
+#page-sections.cf
+  - if current_user
+    #activity_feed.section.wall.timeline
+      %h2.heading Activity Feed
+
+      = render :partial => "timeline/timeline", :locals => { timeline: @timeline, section: 'project', composer: true, composer_path: group_project_comments_path(@group, @project) }
+
+  #info_view.section.info{ style: ('display:none;' if current_user) }
+    %h2.heading Project Info
+
+    = render :partial => "info"

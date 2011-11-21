@@ -24,10 +24,6 @@ describe GroupsController do
         (assigns[:group].is_a? Group).should be_true
       end
 
-      it "should return a Timeline object" do
-        assigns[:timeline]['feed'].count.should == 0
-      end
-
       it "should assign pending membership" do
         assigns[:pending_membership].should == false
       end
@@ -44,6 +40,14 @@ describe GroupsController do
       before do
         @user = FactoryGirl.create(:user, {group: @group, role: 'adult sponsor'})
         sign_in @user
+      end
+
+      describe "#show" do
+        before { get :show, id: @group.permalink }
+
+        it "should return a Timeline object" do
+          assigns[:timeline]['feed'].count.should == 0
+        end
       end
       
       describe "#update" do
