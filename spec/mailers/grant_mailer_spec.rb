@@ -4,6 +4,7 @@ describe GrantMailer do
   before do
     @group = FactoryGirl.create(:group)
     @user = FactoryGirl.create(:user, { role: 'adult sponsor', group: @group })
+    @admin = FactoryGirl.create(:user, { email: 'admin@test.com', role: 'admin' } )
     @requestor = FactoryGirl.create(:user, { email: 'requestor@test.com', role: 'member', group: @group })
   end
 
@@ -19,6 +20,20 @@ describe GrantMailer do
 
     it "renders the correct subject" do
       mail.subject.should == "You have a new Say What grant application awaiting finalization"
+    end
+  end
+
+  describe "notify_admin" do
+    let(:project) { FactoryGirl.create(:project, { group: @group } )}
+    let(:grant) { FactoryGirl.create(:grant, { project: project, member: @user, status: 'completed' } ) }
+    let(:mail) { GrantMailer.notify_admin(@admin.email, grant) }
+
+    it "should send to the site admin" do
+      mail.to.should == [@admin.email]
+    end
+
+    it "renders the correct subject" do
+      mail.subject.should == "You have a new SayWhat mini-grant awaiting approval"
     end
   end
 

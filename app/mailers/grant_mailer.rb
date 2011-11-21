@@ -11,6 +11,14 @@ class GrantMailer < ActionMailer::Base
          subject: "You have a new Say What grant application awaiting finalization")
   end
 
+  def notify_admin(email, grant)
+    @grant = grant
+    @project = @grant.project
+    @group = @project.group
+    mail(:to => email,
+         :subject => "You have a new SayWhat mini-grant awaiting approval")
+  end
+
   def grant_approved(grant)
     @grant = grant
     @sponsor = @grant.project.group.adult_sponsor

@@ -37,6 +37,17 @@ describe Grant do
     end
   end
 
+  describe "notify_admin_of_application" do
+    before do
+      @admin = FactoryGirl.create(:user, { email: "admin@test.com", role: "admin" } )
+      @grant.notify_admin_of_application
+    end
+
+    it "should send group sponsor an email" do
+      ActionMailer::Base.deliveries.last.to.should == [@admin.email]
+    end
+  end
+
   describe "approve" do
     before do
       @status = @grant.approve

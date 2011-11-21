@@ -26,6 +26,14 @@ class Grant < ActiveRecord::Base
     create_notification(message)
   end
 
+  # Sends site admin an email
+  # Informs that a group has applied for an application
+  def notify_admin_of_application
+    User.site_admins.each do |admin|
+      GrantMailer.notify_admin(admin.email, self).deliver
+    end
+  end
+
   # Approves a grant, sends the sponsor an email and a notification
   # Returns True or False
   def approve

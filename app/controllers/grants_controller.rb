@@ -52,6 +52,7 @@ class GrantsController < ApplicationController
     authorize! :update, @grant
     @grant.status = 'completed'
     if @grant.update_attributes(params[:grant])
+      @grant.notify_admin_of_application
       redirect_to group_project_path(@group, @project), notice: "Grant has been submitted for final approval."
     else
       render action: "edit"
