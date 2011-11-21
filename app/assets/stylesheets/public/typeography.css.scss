@@ -54,6 +54,19 @@ article .footnotes {
     font-size: 16px;
   }
 
+article ul {
+  margin-top: 12px;
+  li {
+    font-family: facitweb,sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 1.7em;
+    margin-bottom: 8px;
+    color: #555;
+  }
+}
+
 /* Sidebar Copy */
 
 aside dl {
