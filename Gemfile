@@ -20,7 +20,7 @@ gem 'bson', '~> 1.4.0'
 gem 'bson_ext', '~> 1.4.0'
 
 # Authentication
-gem 'devise', '~> 1.4.0'
+gem 'devise', '~> 1.5.0'
 gem 'cancan'
 
 # Javascript
