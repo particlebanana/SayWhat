@@ -21,8 +21,12 @@ class AdminGroupRequestsController < ApplicationController
  
   # PUT - Approve a group membership
   def update
-    if @group.approve(request.env["HTTP_HOST"])
-      redirect_to "/admin/group_requests", notice: "Group was approved."
+    if @group.update_attributes(params[:group])
+      if @group.approve(request.env["HTTP_HOST"])
+        redirect_to "/admin/group_requests", notice: "Group was approved."
+      else
+        redirect_to "/admin/group_requests/#{@group.id.to_s}", alert: "Error approving group. Try again"
+      end
     else
       redirect_to "/admin/group_requests/#{@group.id.to_s}", alert: "Error approving group. Try again"
     end

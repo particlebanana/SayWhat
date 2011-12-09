@@ -1,15 +1,20 @@
 .row
-  %section
+  %section.span16
     %header.show-view.cf
       %h2.heading Pending Group Request
 
-      %p.cf
-        = link_to "Approve", "/admin/group_requests/#{@group.id}", :method => :put, :class => "btn success"
+  %section.span16
+    = form_for @group, :url => "/admin/group_requests/#{@group.id}" do |f|
+
+      = errors_for(@group, "error", "<strong>Uh-Oh! There was an error!</strong> try fixing the fields below and try again.").html_safe
+
+      = render :partial => "form", :locals => { f: f }
+
+      .actions
+        %input{:type => "submit", :class => "btn success", :value => "Approve"}
         %span or
         = link_to "Deny", "#", :class => "btn danger", "data-reveal-id" => "deny-modal", "data-animation" => "fadeAndPop", "data-animationspeed" => "300", "data-closeonbackgroundclick" => "true", "data-dismissmodalclass" => "close-reveal-modal"
 
-    #group-view.grid
-      = render :partial => "group"
 
     #deny-modal.reveal-modal.modal
       %h1 Are you sure you want to deny this group?
