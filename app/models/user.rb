@@ -91,7 +91,7 @@ class User < ActiveRecord::Base
 
   # Create an object in the Activity Feed
   def create_object_key
-    $feed.record("user:#{id}", { id: self.id,  name: self.name } )
+    $feed.record("user:#{id}", { id: self.id,  name: self.name, photo: self.profile_photo_url(:thumb) } )
   end
 
   # Subscribe to the Global Activity Feed
