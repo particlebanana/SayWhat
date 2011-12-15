@@ -8,7 +8,8 @@ layout =
 
   toggle_wall_and_info: (e) ->
     e.preventDefault()
-    el = e.target.id
+    link = $(e.target).closest('a')
+    el = $(link).attr('id')
     showing = $('.' + el, '#profile').is(":visible")
     section_count = $('.section').size()
     if showing == false
