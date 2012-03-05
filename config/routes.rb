@@ -21,6 +21,7 @@ SayWhat::Application.routes.draw do
   match "/join"                 => "pages#join",                    :via => "get"
   match "/history"              => "pages#history",                 :via => "get"
   match "/leon"                 => "pages#leon",                    :via => "get"
+  match "/ttfkd"                => "pages#ttfkd",                   :via => "get"
   match "/admin"                =>  redirect('/admin/dashboard')
   match "/admin/dashboard"      =>  "pages#index",                  :via => "get"
 

@@ -36,4 +36,9 @@ class PagesController < ApplicationController
   # GET - Join Page
   def join
   end
+
+  # GET - TTFKD
+  def ttfkd
+  end
+
 end
