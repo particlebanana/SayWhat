@@ -1,0 +1,37 @@
+%header
+  #main-nav-bg
+
+  #inner
+
+    %nav.cf
+      %ul#static.cf.unstyled
+        %li= link_to "Home", "/", title: "Home"
+        %li= link_to "Groups", groups_path, title: "Groups"
+        %li= link_to "Projects", "/projects", title: "Projects"
+        %li= link_to "History", "/history", title: "History"
+        %li= link_to "Leon", "/leon", title: "Who is Leon?"
+        %li= link_to "TTFKD", "/ttfkd", title: "Texas Tobacco Free Kids Day"
+        %li= link_to "Conference", "/conference", title: "Say What Conference"
+
+      %ul#active.cf.unstyled
+        - if current_user
+          - notifications = Notification.unread(current_user.id)
+          %li.notifications
+            %a{ href: "/notifications" }
+              %span.notificationsCountWrapper
+                %span#notificationsCountValue= notifications.count
+          - if current_user.group && current_user.group.active?
+            %li= link_to "My Group", group_path(current_user.group.permalink), title: "My Group"
+          - if current_user.admin?
+            %li= link_to "Admin", "/admin", title: "Admin"
+
+          %li.dropdown{ data_dropdown: "dropdown" }
+            %a{ :href => "#", :class => "dropdown-toggle"}= current_user.name
+            %ul.dropdown-menu
+              %li
+                %a{ href: "/settings" } Settings
+              %li.divider
+              %li= link_to "Sign out", destroy_user_session_path, title: "Sign Out"
+
+        - else
+          %li{ :class => 'last' }= link_to "Login", new_user_session_path, title: "Login"

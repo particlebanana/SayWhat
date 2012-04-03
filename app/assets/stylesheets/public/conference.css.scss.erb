@@ -1,50 +1,81 @@
-#conf {
+body.conference {
+  background: #222 url(<%= asset_path "conf/gun_metal.png" %>) repeat;
 
-  p {
-    font-size: 16px;
-    line-height: 1.6em;
+  header {
+    margin-bottom: 0;
+    border-bottom: 1px solid #222;
   }
 
-  //.left { float: left; }
-  //.right { float: right; }
+  img.banner {
+    border-left: 4px solid #69bff9;
+    border-right: 4px solid #69bff9;
+    border-bottom: 4px solid #69bff9;
+    -webkit-border-bottom-right-radius: 4px;
+    -webkit-border-bottom-left-radius: 4px;
+    -moz-border-radius-bottomright: 4px;
+    -moz-border-radius-bottomleft: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
 
-  .section {
-    margin: 4em 0;
-    padding: 4em 0;
-    border-bottom: 1px solid #ddd;
+  #conf {
 
-    ul.buttons {
-      width: 70%;
-      margin: 4em auto 0 auto;
+    h1 {
+      color: #fff;
+      margin: 15px 0 25px 0;
+      font-family: "hooligan";
+      font-weight: 400;
+      font-size: 45px;
+    }
 
-      li {
-        list-style: none;
-        float: left;
-        margin: 0 3em;
+    p {
+      font-size: 16px;
+      line-height: 1.6em;
+    }
 
-        a {
-          display: block;
-          width: 223px;
-          height: 121px;
-          text-indent: -9999em;
+    .section {
+      background: #fff;
+      margin: 4em 0;
+      padding: 2em;
+      border: 4px solid #69bff9;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      -o-border-radius: 4px;
+      border-radius: 4px;
+
+      ul.buttons {
+        width: 70%;
+        margin: 4em auto 0 auto;
+
+        li {
+          list-style: none;
+          float: left;
+          margin: 0 3em;
+
+          a {
+            display: block;
+            width: 223px;
+            height: 121px;
+            text-indent: -9999em;
+          }
+        }
+
+        li#scholarships a {
+          background-image: url(<%= asset_path "conf/scholarships.jpg" %>);
+        }
+
+        li#registration a {
+          background-image: url(<%= asset_path "conf/registration.jpg" %>);
         }
       }
 
-      li#scholarships a {
-        background-image: url(<%= asset_path "conf/scholarships.jpg" %>);
-      }
-
-      li#registration a {
-        background-image: url(<%= asset_path "conf/registration.jpg" %>);
-      }
+      .left { margin-left: 0; }
     }
 
-    .left { margin-left: 0; }
-  }
+    .section.top {
+      margin-top: 4em;
+    }
 
-  .section.top {
-    margin-top: 0;
-    padding-top: 0;
   }
 
 }

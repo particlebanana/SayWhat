@@ -41,4 +41,9 @@ class PagesController < ApplicationController
   def ttfkd
   end
 
+  # GET - Conference
+  def conference
+    render :layout => "conference"
+  end
+
 end
