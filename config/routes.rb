@@ -23,6 +23,7 @@ SayWhat::Application.routes.draw do
   match "/leon"                 => "pages#leon",                    :via => "get"
   match "/ttfkd"                => "pages#ttfkd",                   :via => "get"
   match "/TTFKD"                => "pages#ttfkd",                   :via => "get"
+  match "/conference"           => "pages#conference",              :via => "get"
   match "/admin"                =>  redirect('/admin/dashboard')
   match "/admin/dashboard"      =>  "pages#index",                  :via => "get"
 

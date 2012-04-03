@@ -1,0 +1,50 @@
+#conf {
+
+  p {
+    font-size: 16px;
+    line-height: 1.6em;
+  }
+
+  //.left { float: left; }
+  //.right { float: right; }
+
+  .section {
+    margin: 4em 0;
+    padding: 4em 0;
+    border-bottom: 1px solid #ddd;
+
+    ul.buttons {
+      width: 70%;
+      margin: 4em auto 0 auto;
+
+      li {
+        list-style: none;
+        float: left;
+        margin: 0 3em;
+
+        a {
+          display: block;
+          width: 223px;
+          height: 121px;
+          text-indent: -9999em;
+        }
+      }
+
+      li#scholarships a {
+        background-image: url(<%= asset_path "conf/scholarships.jpg" %>);
+      }
+
+      li#registration a {
+        background-image: url(<%= asset_path "conf/registration.jpg" %>);
+      }
+    }
+
+    .left { margin-left: 0; }
+  }
+
+  .section.top {
+    margin-top: 0;
+    padding-top: 0;
+  }
+
+}
