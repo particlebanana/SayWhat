@@ -32,6 +32,9 @@ gem 'jquery-rails', '~> 2.0.0'
 gem 'capistrano', '~> 2.12.0'
 gem 'unicorn', '~> 4.3.0'
 
+# Background Tasks
+gem 'resque', '~> 1.20.0'
+
 # Helpers
 gem 'json', '~> 1.6.0'
 gem 'hashie', '~> 1.2.0'
