@@ -1,10 +1,6 @@
 class Membership < ActiveRecord::Base
   
   # Handles Group Membership Request
-  #
-  # This is a perfect use case for adding Redis into the stack
-  # however at this time that is impossible on my end due to
-  # server restrictions. Will look into for future updates.
   belongs_to :user
   belongs_to :group
   
@@ -17,8 +13,7 @@ class Membership < ActiveRecord::Base
         text: I18n.t('notifications.membership.new_request'),
         link: "/users/#{self.user_id}"
       }
-      create_notification(message)
-      UserMailer.sponsor_pending_membership_request(self.group.adult_sponsor, self.group, self.user).deliver
+      async_create_notification(message)
       true
     else
       false
@@ -30,9 +25,7 @@ class Membership < ActiveRecord::Base
     user = User.find(self.user_id)
     user.group_id = self.group_id
     if user.save
-      publish(user)
-      destroy_membership_items
-      UserMailer.send_approved_notice(user, user.group).deliver
+      async_approve_membership()
       true
     else
       false
@@ -41,36 +34,29 @@ class Membership < ActiveRecord::Base
 
   # Deny Membership
   def deny_membership
-    destroy_membership_items
-  end
-
-  private
-
-  def create_notification(message)
-    sponsor = self.group.adult_sponsor
-    notification = Notification.new(sponsor.id)
-    notification.insert(message)
-    self.notification = notification.notifications[0].id.to_s
-    self.save
-  end
-
-  def publish(user)
-    event = Chronologic::Event.new(
-      key: "membership:#{self.user_id}:create",
-      data: { type: "message", message: "#{user.name} joined the group" },
-      timelines: ["group:#{self.group_id}"],
-      objects: { user: "user:#{self.user_id}" }
-    )
-    $feed.publish(event, true, Time.now.utc.tv_sec)
-  end
-
-  def destroy_membership_items
     begin
-      Notification.destroy(self.group.adult_sponsor.id, self.notification)
-      self.destroy
+      async_deny_membership()
       return true
     rescue
       return false
     end
+  end
+
+  private
+
+  def async_create_notification(message)
+    sponsor = self.group.adult_sponsor
+    requestor = self.user_id
+    Resque.enqueue(NewMembershipRequest, self.id, sponsor.id, message[:text], message[:link], requestor)
+  end
+
+  def async_approve_membership
+    group = Group.find(self.group)
+    Resque.enqueue(ManageGroupMembership, self.user_id, group.id, 'approve')
+  end
+
+  def async_deny_membership
+    group = Group.find(self.group)
+    Resque.enqueue(ManageGroupMembership, self.user_id, group.id, 'deny')
   end
 end

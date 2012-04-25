@@ -46,14 +46,8 @@ describe MembershipsController do
     end
   
     describe "#destroy" do
-      before { delete :destroy, { group_id: @group.permalink, user_id: @pending_member.id, id: @membership.id } }
-        
-      it "should remove the membership request" do
-        Membership.where(id: @membership.id).count.should == 0
-      end
-
-      it "should remove the notification for the request" do
-        Notification.find_all(@group.adult_sponsor.id).count.should == 0
+      before do
+        delete :destroy, { group_id: @group.permalink, user_id: @pending_member.id, id: @membership.id }
       end
     
       it "should set a notice message" do
