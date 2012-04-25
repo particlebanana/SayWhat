@@ -8,6 +8,7 @@ Spork.prefork do
   require 'remarkable/active_model'
   require 'factory_girl_rails'
   require 'database_cleaner'
+  require 'webmock/rspec'
   
   # Requires supporting files with custom matchers and macros, etc,
   # in ./support/ and its subdirectories.
@@ -25,6 +26,26 @@ Spork.prefork do
     
     config.before :each do
       DatabaseCleaner.start
+
+      # Mocks
+      WebMock.disable_net_connect!
+
+      stub_http_request(:post,
+        %r|http://localhost:7979/object[?a-zA-Z0-9=&_]*|)
+        .to_return(:body => {}, :status => 201)
+
+      stub_http_request(:post,
+        %r|http://localhost:7979/subscription[?a-zA-Z0-9=&_]*|)
+        .to_return(:body => {}, :status => 201)
+
+      stub_http_request(:post,
+      %r|http://localhost:7979/event[?a-zA-Z0-9=&_]*|)
+      .to_return(:body => {}, :status => 201)
+
+      stub_http_request(:post,
+      %r|http://localhost:7979/publish[?a-zA-Z0-9=&_]*|)
+      .to_return(:body => {}, :status => 201)
+
     end
 
     config.after(:each) do
