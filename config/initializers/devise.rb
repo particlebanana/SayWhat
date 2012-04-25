@@ -51,6 +51,9 @@ Devise.setup do |config|
   # Setup a pepper to generate the encrypted password.
   config.pepper = "30655e3b756b95051b6b5977a243fd74d5e83361677aaca3682c1391b2c0a6ed554c44687221df782e255ed32c7ec78d081bf46c9947476b43c3fd76bd160803"
 
+  config.use_salt_as_remember_token = true
+  config.reset_password_within = 24.hours
+
   # ==> Configuration for :confirmable
   # The time you want to give your user to confirm his account. During this time
   # he will be able to access your application without confirming. Default is nil.
@@ -58,14 +61,11 @@ Devise.setup do |config|
   # You can use this to let your user access some features of your application 
   # without confirming the account, but blocking it after a certain period 
   # (ie 2 days). 
-  # config.confirm_within = 2.days
+  # config.allow_unconfirmed_access_for = 2.days
 
   # ==> Configuration for :rememberable
   # The time the user will be remembered without asking for credentials again.
   # config.remember_for = 2.weeks
-
-  # If true, a valid remember token can be re-used between multiple browsers.
-  # config.remember_across_browsers = true
 
   # If true, extends the user's remember period when remembered via cookie.
   # config.extend_remember_period = false

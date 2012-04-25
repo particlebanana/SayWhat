@@ -6,3 +6,5 @@ en:
       denied: "Your grant application has been denied"
     membership:
       new_request: "You have a new group membership request"
+      approved_request: "has joined your group"
+      approved_member: "You have been approved for group membership"
