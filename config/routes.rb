@@ -6,7 +6,9 @@ SayWhat::Application.routes.draw do
     match "/resources" => StaticResources::Main, :anchor => false if CONFIG['static_resources']
   end
   
-  devise_for :users do
+  devise_for :users
+
+  devise_scope :user do
     get "/sign_up" => "devise/registrations#new"
     get "/login" => "devise/sessions#new"
     get "/logout" => "devise/sessions#destroy"
