@@ -53,10 +53,6 @@ describe UsersController do
       it "should set a notice message" do
         flash[:notice].should =~ /has been updated/i
       end
-
-      it "should regenerate an object key on update" do
-        WebMock.should have_requested(:delete, "http://localhost:7979/object/user:#{@user.id}")
-      end
     end
 
     context "try and change groups" do

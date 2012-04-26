@@ -21,7 +21,6 @@ class UsersController < ApplicationController
   # PUT - Update User
   def update
     if @user.update_attributes(params[:user])
-      @user.recreate_object_key
       redirect_to "/settings", notice: "Profile has been updated"
     else
       render action: "edit"

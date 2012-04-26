@@ -21,14 +21,21 @@ describe User do
       @user.authentication_token.should_not == nil
     end
     
-    it "should generate an object key" do
-      WebMock.should have_requested(:post, "http://localhost:7979/object")
+    it "should queue a CreateUserJob" do
+      CreateUserJob.should have_queued(@user.id)
+    end
+  end
+
+  describe "#update" do
+    before do
+      @user = FactoryGirl.create(:user)
+      @user.update_attributes({:email => "test_update@test.com"})
     end
 
-    it "should subscribe user to the global timeline" do
-      WebMock.should have_requested(:post, "http://localhost:7979/subscription")
+    it "should queue a UpdateUserJob" do
+      UpdateUserJob.should have_queued(@user.id)
     end
-  end 
+  end
 
   describe "#set_defaults" do
     before do
@@ -82,6 +89,10 @@ describe User do
     
     it "should return true" do
       @response.should == true
+    end
+
+    it "should queue a SubscribeToGroupJob" do
+      SubscribeToGroupJob.should have_queued(@user.id, @group.id)
     end
   end
   

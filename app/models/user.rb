@@ -18,8 +18,9 @@ class User < ActiveRecord::Base
   validates_format_of :email, with: Devise::email_regexp
   
   before_create :reset_authentication_token
-  after_create :create_object_key
-  after_create :subscribe_to_global
+  after_create :async_subscribe_user
+
+  after_update :async_recreate_object_key
 
   # Scopes  
   def self.site_admins; where(role: "admin") end
@@ -51,7 +52,7 @@ class User < ActiveRecord::Base
   def join_group(group_id)
     self.group_id = group_id
     if status = self.save! ? true : false
-      subscribe_to_group(group_id)
+      async_subscribe_to_group(group_id)
     end
     status
   end
@@ -73,14 +74,6 @@ class User < ActiveRecord::Base
     self.role == "adult sponsor" || self.role == "youth sponsor" ? true : false
   end
 
-  # On model update, destroy the current object and recreate it
-  def recreate_object_key
-    $feed.unrecord("user:#{id}")
-    data = { id: self.id, name: self.name }
-    data[:photo] = self.profile_photo_url(:thumb) if self.profile_photo
-    $feed.record("user:#{id}", data)
-  end
-
   private
 
   # Set default role and status
@@ -89,18 +82,18 @@ class User < ActiveRecord::Base
     self.role ||= "member"
   end
 
-  # Create an object in the Activity Feed
-  def create_object_key
-    $feed.record("user:#{id}", { id: self.id,  name: self.name, photo: self.profile_photo_url(:thumb) } )
+  # Create User object key and subscribe to global feed
+  def async_subscribe_user
+    Resque.enqueue(CreateUserJob, self.id)
   end
 
-  # Subscribe to the Global Activity Feed
-  def subscribe_to_global
-    $feed.subscribe("user:#{id}", "global_feed")
+  # On model update, destroy the current object key and recreate it
+  def async_recreate_object_key
+    Resque.enqueue(UpdateUserJob, self.id)
   end
 
   # Subscribe to a group's feed
-  def subscribe_to_group(group_id)
-    $feed.subscribe("user:#{id}", "group:#{group_id}")
+  def async_subscribe_to_group(group_id)
+    Resque.enqueue(SubscribeToGroupJob, self.id, group_id)
   end
 end
