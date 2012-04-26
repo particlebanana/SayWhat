@@ -9,6 +9,7 @@ Spork.prefork do
   require 'factory_girl_rails'
   require 'database_cleaner'
   require 'webmock/rspec'
+  require 'rack/test'
   
   # Requires supporting files with custom matchers and macros, etc,
   # in ./support/ and its subdirectories.
@@ -45,6 +46,10 @@ Spork.prefork do
       stub_http_request(:post,
       %r|http://localhost:7979/publish[?a-zA-Z0-9=&_]*|)
       .to_return(:body => {}, :status => 201)
+
+      stub_http_request(:delete,
+      %r|http://localhost:7979/object[\/:?a-zA-Z0-9=&_]*|)
+      .to_return(:status => 200, :body => "")
 
     end
 

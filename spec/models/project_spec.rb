@@ -21,18 +21,17 @@ describe Project do
     it { should validate_uniqueness_of(:name) }
 
     it "should generate an object key" do
-      $feed.retrieve("project_#{@project.id}").code.should == 200
+      # Once for the group and once for the project
+      WebMock.should have_requested(:post, "http://localhost:7979/object").twice
     end
 
-    it "should publish to the group timeline" do
-      timeline = $feed.timeline("group:#{@project.group_id}")
-      timeline["feed"].first["key"].should include("project:#{@project.id}:create")
+    it "should publish event to timeline" do
+      WebMock.should have_requested(:post, %r|http://localhost:7979/event[?a-zA-Z0-9=&_]*|)
     end
 
     it "should regenerate an object key on update" do
       @project.save
-      res = JSON.parse($feed.retrieve("project:#{@project.id}").body)
-      res['photo'].should == @project.profile_photo_url(:thumb)
+      WebMock.should have_requested(:delete, "http://localhost:7979/object/project:#{@project.id}")
     end
   end
   

@@ -6,6 +6,13 @@ describe Comment do
     @group = FactoryGirl.create(:group)
     @user.join_group(@group.id)
     @project = FactoryGirl.create(:project, { group: @group } )
+
+    # Mocks
+
+    # Return True showing user is subscribed to the group
+    stub_request(:get,
+      "http://localhost:7979/subscription/is_connected?subscriber_key=group:#{@group.id}&timeline_backlink=user:#{@user.id}").
+      to_return(:status => 200, :body => {"group:#{@group.id}" => true}.to_json, :headers => {'Content-Type' => 'application/json'})
   end
 
   describe ".build" do
@@ -49,10 +56,8 @@ describe Comment do
 
     context "nested comment" do
       before do
-        obj = Comment.build("test", @user, @group, @project)
-        @parent = JSON(obj.save)
-        sleep(1)
-        @comment = Comment.build("test2", @user, nil, nil, @parent['event']['key'])
+        @key = "comment:#{Time.now.utc.tv_sec}"
+        @comment = Comment.build("test2", @user, nil, nil, @key)
       end
 
       it "should return a comment object" do
@@ -60,19 +65,34 @@ describe Comment do
       end
 
       it "should set the parent attribute" do
-        @comment.parent.should == @parent['event']['key']
+        @comment.parent.should == @key
       end
 
       it "should create an array of timelines with a length of 1" do
         (@comment['timelines'].is_a? Array).should be_true
         @comment['timelines'].count.should == 1
-        @comment['timelines'].should == ["#{@parent['event']['key']}"]
+        @comment['timelines'].should == ["#{@key}"]
       end
     end
   end
 
   describe "#save" do
     before do
+      timestamp = Time.now.utc.tv_sec
+
+      # Stub out the event POST request
+      stub_request(:post,
+      "http://localhost:7979/event?fanout=1&force_timestamp=#{timestamp}").
+      to_return(:status => 200, :body => {}, :headers => {"Location" => "/event/comment:#{timestamp}"})
+
+      # Stub out the event GET request
+      stub_request(:get, "http://localhost:7979/event/comment:#{timestamp}").
+        to_return(:status => 200, :body => {"event"=>{"key"=>"comment:#{timestamp}", "data"=>{"type"=>"comment", "comment"=>"test"},
+        "objects"=>{"user"=>{"id"=>"#{@user.id}", "name"=>"#{@user.name}", "photo"=>"#{@user.profile_photo_url(:thumb)}"},
+        "group"=>{"id"=>"#{@group.permalink}", "name"=>"#{@group.display_name}"}},
+        "timelines"=>["group:#{@group.id}"], "subevents"=>[]}}.to_json,
+        :headers => {'Content-Type' => 'application/json'})
+
       comment_obj = Comment.build("test", @user, @group)
       @comment = JSON(comment_obj.save)
     end

@@ -28,14 +28,12 @@ describe Group do
     end
 
     it "should generate an object key" do
-      res = JSON.parse($feed.retrieve("group:#{@group.id}").body)
-      res['name'].should == @group.display_name
+      WebMock.should have_requested(:post, "http://localhost:7979/object")
     end
 
     it "should regenerate an object key on update" do
       @group.save
-      res = JSON.parse($feed.retrieve("group:#{@group.id}").body)
-      res['photo'].should == @group.profile_photo_url(:thumb)
+      WebMock.should have_requested(:delete, "http://localhost:7979/object/group:#{@group.id}")
     end
   end
   
@@ -99,9 +97,8 @@ describe Group do
       ActionMailer::Base.deliveries.last.subject.should =~ /group has been approved/i
     end
 
-    it "should write an event to the user's timeline" do
-      res = $feed.timeline("user:#{@user.id}")
-      res[:feed].first[:data][:message].should == "#{@user.name} created the group #{@group.display_name}"
+    it "should publish event to timeline" do
+      WebMock.should have_requested(:post, %r|http://localhost:7979/event[?a-zA-Z0-9=&_]*|)
     end
   end
 

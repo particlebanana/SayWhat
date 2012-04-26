@@ -40,13 +40,17 @@ describe GroupsController do
       before do
         @user = FactoryGirl.create(:user, {group: @group, role: 'adult sponsor'})
         sign_in @user
+
+        # Mock
+        stub_request(:get, "http://localhost:7979/timeline/group:#{@group.id}").
+        to_return(:status => 200, :body => {"feed" => [], "count"=> -1, "next_page"=> nil}.to_json, :headers => {'Content-Type' => 'application/json'})
       end
 
       describe "#show" do
         before { get :show, id: @group.permalink }
 
         it "should return a Timeline object" do
-          assigns[:timeline]['feed'].count.should == 0
+          WebMock.should have_requested(:get, "http://localhost:7979/timeline/group:#{@group.id}")
         end
       end
       

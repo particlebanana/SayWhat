@@ -55,8 +55,7 @@ describe UsersController do
       end
 
       it "should regenerate an object key on update" do
-        res = JSON.parse($feed.retrieve("user:#{@user.id}").body)
-        res['photo'].should == @user.profile_photo_url(:thumb)
+        WebMock.should have_requested(:delete, "http://localhost:7979/object/user:#{@user.id}")
       end
     end
 

@@ -22,11 +22,11 @@ describe User do
     end
     
     it "should generate an object key" do
-      $feed.retrieve("user:#{@user.id}").code.should == 200
+      WebMock.should have_requested(:post, "http://localhost:7979/object")
     end
 
     it "should subscribe user to the global timeline" do
-      $feed.connected?("global_feed", "user:#{@user.id}").should == true
+      WebMock.should have_requested(:post, "http://localhost:7979/subscription")
     end
   end 
 

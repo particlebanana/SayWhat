@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'cgi'
 
 describe Grant do
   before do
@@ -52,6 +53,12 @@ describe Grant do
     before do
       @status = @grant.approve
       @notifications = Notification.find_all(@sponsor.id)
+      @grant_body = {"data"=>[
+        "{\"type\":\"message\",\"message\":\"#{@project.display_name} has been awarded a mini-grant!\"}"],
+        "objects"=>["{\"group\":\"group:#{@group.id}\",\"project\":\"project:#{@project.id}\"}"],
+        "timelines"=>["[\"group:#{@group.id}\",\"project:#{@project.id}\"]"],
+        "key"=>["project:#{@project.id}:grant:#{@grant.id}:approved"]}
+
     end
 
     it "should return true" do
@@ -70,14 +77,9 @@ describe Grant do
       @notifications.count.should == 1
     end
 
-    it "should publish to the project timeline" do
-      timeline = $feed.timeline("project:#{@project.id}")
-      timeline["feed"].first["key"].should include("project:#{@project.id}:grant:#{@grant.id}:approved")
-    end
-
-    it "should publish to the group timeline" do
-      timeline = $feed.timeline("group:#{@project.group_id}")
-      timeline["feed"].first["key"].should include("project:#{@project.id}:grant:#{@grant.id}:approved")
+    it "should publish to the group and project timeline" do
+      WebMock.should have_requested(:post, /http:\/\/localhost:7979\/event[?a-zA-Z0-9=&_]*/)
+      .with{|req| CGI::parse(req.body) == @grant_body }
     end
   end
 
