@@ -21,6 +21,7 @@ class ManageGroupMembership
 
     obj = self.new(user, group)
     if method == 'approve'
+      obj.subscribe_user_to_group
       obj.publish_to_timeline
       obj.send_notifications
       
@@ -70,6 +71,11 @@ class ManageGroupMembership
         notification.insert(message)
       end
     end
+  end
+
+  # Subscribe the User to the Group Timeline
+  def subscribe_user_to_group
+    $feed.subscribe("user:#{@user.id}", "group:#{@group.id}")
   end
 
   # Remove the Sponsor's Notification and Membership Record

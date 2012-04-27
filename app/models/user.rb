@@ -47,15 +47,6 @@ class User < ActiveRecord::Base
     self.role = "member"
     self.save! ? true : false
   end
-
-  # Join a group
-  def join_group(group_id)
-    self.group_id = group_id
-    if status = self.save! ? true : false
-      async_subscribe_to_group(group_id)
-    end
-    status
-  end
   
   # Role Checks  
   def admin?
@@ -90,10 +81,5 @@ class User < ActiveRecord::Base
   # On model update, destroy the current object key and recreate it
   def async_recreate_object_key
     Resque.enqueue(UpdateUserJob, self.id)
-  end
-
-  # Subscribe to a group's feed
-  def async_subscribe_to_group(group_id)
-    Resque.enqueue(SubscribeToGroupJob, self.id, group_id)
   end
 end
