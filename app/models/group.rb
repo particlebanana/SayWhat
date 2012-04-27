@@ -17,8 +17,7 @@ class Group < ActiveRecord::Base
   before_validation :downcase_name
   after_validation :sanitize
 
-  after_create :create_object_key
-  after_update :recreate_object_key
+  after_update :async_recreate_object_key
 
   # Override ID params to use :permalink
   def to_param
@@ -46,17 +45,14 @@ class Group < ActiveRecord::Base
   # Initialize a new pending group and send notifications
   def initialize_pending(requestor)
     return false unless setup_group
-    return false unless requestor.join_group(self.id)
-    requestor.change_role_level("adult sponsor")
-    send_notifications(requestor)
+    async_create_group_request(self.id, requestor.id)
     true
   end
   
   def approve(url)
     self.status = "active"
     if self.save
-      create_approved_group_timeline_event
-      GroupMailer.send_approved_notice(self.adult_sponsor, self, url).deliver
+      async_manage_group_request(url, 'approve')
       true
     else
       false
@@ -65,11 +61,8 @@ class Group < ActiveRecord::Base
 
   # Completely remove a group and sponsor account
   def deny(reason)
-    user = self.adult_sponsor
     if self.destroy && reason.is_a?(Hash)
-      user.group = nil
-      user.save
-      GroupMailer.send_denied_notice(user, self, reason['email_text']).deliver
+      async_manage_group_request(reason['email_text'], 'deny')
       true
     else
       false
@@ -104,41 +97,24 @@ class Group < ActiveRecord::Base
     make_slug
     self.valid? && self.save! ? true : false
   end
-  
-  # Send group notifications
-  def send_notifications(user)
-    GroupMailer.successful_group_request(user, self).deliver
-    admins = User.site_admins
-    admins.each {|e| GroupMailer.admin_pending_group_request(e, self, user).deliver }
-  end
-  
+
   # Make a permalink slug
   def make_slug
     self.permalink = (self.permalink.downcase.gsub(/[^a-zA-Z 0-9]/, "")).gsub(/\s/,'-') if self.permalink
   end
 
-  # Create an object in the Activity Feed
-  def create_object_key
-    $feed.record("group:#{id}", { id: self.permalink, name: self.display_name } )
+  # Join the user to the group and send email notification to admins
+  def async_create_group_request(group_id, user_id)
+    Resque.enqueue(NewGroupJob, group_id, user_id)
   end
 
-  # On model update, destroy the current object and recreate it
-  def recreate_object_key
-    $feed.unrecord("group:#{id}")
-    data = { id: self.permalink, name: self.display_name }
-    data[:photo] = self.profile_photo_url(:thumb) if self.profile_photo
-    $feed.record("group:#{id}", data)
+  def async_manage_group_request(data, method)
+    user = self.adult_sponsor
+    Resque.enqueue(ManageGroupRequestJob, user.id, self.id, data, method)
   end
 
-  # Add an event to global timeline when a group is approved
-  def create_approved_group_timeline_event
-    sponsor = self.adult_sponsor
-    event = Chronologic::Event.new(
-      key: "group:#{self.id}:create",
-      data: { type: "message", message: "#{sponsor.name} created the group #{self.display_name}" },
-      timelines: ["global_feed", "group:#{self.id}", "user:#{sponsor.id}"],
-      objects: { user: "user:#{sponsor.id}", group: "group:#{self.id}" }
-    )
-    $feed.publish(event, true, Time.now.utc.tv_sec)
+  # On model update, destroy the current object key and recreate it
+  def async_recreate_object_key
+    Resque.enqueue(UpdateGroupJob, self.id)
   end
 end

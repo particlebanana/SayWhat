@@ -157,9 +157,6 @@ describe GroupsController do
           it "should include a notice" do
             flash[:notice].should =~ /has been submitted for approval/i
           end
-          
-          subject { @user.reload }
-          its([:group_id]) { should_not be_nil }
         end
       end
     end # / member context

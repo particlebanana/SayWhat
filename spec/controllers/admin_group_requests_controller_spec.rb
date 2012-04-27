@@ -42,7 +42,7 @@ describe AdminGroupRequestsController do
   describe "#update" do
     before do
       @group = FactoryGirl.build(:group)
-      @sponsor = FactoryGirl.create(:user)
+      @sponsor = FactoryGirl.create(:user, { :group => @group, role: 'adult sponsor' })
       @group.initialize_pending(@sponsor)
       put :update, id: @group.id
     end
@@ -61,10 +61,6 @@ describe AdminGroupRequestsController do
     
     it "should have a success message" do
       flash[:notice].should =~ /was approved/i
-    end
-    
-    it "should send the sponsor an email" do
-      ActionMailer::Base.deliveries.last.subject.should =~ /group has been approved/i
     end
   end
 end

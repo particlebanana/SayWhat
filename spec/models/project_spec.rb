@@ -21,8 +21,7 @@ describe Project do
     it { should validate_uniqueness_of(:name) }
 
     it "should generate an object key" do
-      # Once for the group and once for the project
-      WebMock.should have_requested(:post, "http://localhost:7979/object").twice
+      WebMock.should have_requested(:post, "http://localhost:7979/object")
     end
 
     it "should publish event to timeline" do

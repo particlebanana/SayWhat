@@ -4,7 +4,6 @@ describe Comment do
   before do
     @user = FactoryGirl.create(:user)
     @group = FactoryGirl.create(:group)
-    @user.join_group(@group.id)
     @project = FactoryGirl.create(:project, { group: @group } )
 
     # Mocks

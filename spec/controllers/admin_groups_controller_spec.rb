@@ -93,14 +93,6 @@ describe AdminGroupsController do
       it "should remove the group from the database" do
         Group.where(id: @group.id).first.should == nil
       end
-      
-      it "should remove the sponsor account from the database" do
-        User.where(group_id: @group.id).count.should == 0
-      end
-      
-      it "should send the sponsor an email" do
-        ActionMailer::Base.deliveries.last.subject.should =~ /group has been denied/i
-      end
     end
     
     context "without reason" do

@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'httparty'
 
 describe ManageGroupMembership do
   before do
@@ -37,6 +36,10 @@ describe ManageGroupMembership do
         memberships = Membership.where(:user_id => @user.id)
         memberships.length.should == 1
         ManageGroupMembership.perform(@user.id, @group.id, 'approve')
+      end
+
+      it "should subscribe user to the group timeline" do
+        WebMock.should have_requested(:post, "http://localhost:7979/subscription")
       end
 
       it "should publish to group timeline" do

@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 describe Group do
-  before { @group = FactoryGirl.create(:group) }
+  before do
+    @group = FactoryGirl.create(:group)
+  end
   
   context "Factory" do
     subject { @group }
@@ -26,17 +28,16 @@ describe Group do
     it "should downcase name field" do
       @group.name.should == @group.display_name.downcase
     end
+  end
 
-    it "should generate an object key" do
-      WebMock.should have_requested(:post, "http://localhost:7979/object")
-    end
+  describe "#update" do
+    before { @group.update_attributes({:status => "active"}) }
 
-    it "should regenerate an object key on update" do
-      @group.save
-      WebMock.should have_requested(:delete, "http://localhost:7979/object/group:#{@group.id}")
+    it "should queue a UpdateGroupJob" do
+      UpdateGroupJob.should have_queued(@group.id)
     end
   end
-  
+
   describe "#adult_sponsor" do
     before do
       FactoryGirl.create(:user, {role: "adult sponsor", group: @group})
@@ -50,10 +51,9 @@ describe Group do
     
   describe "#initialize_pending" do
     before do
-      @requesting_user = FactoryGirl.create(:user)
-      @admin = FactoryGirl.create(:user, { email: 'admin@gmail.com', role: 'admin' } )
+      @user = FactoryGirl.create(:user)
       @group.permalink = "It's A Trap!?!?!"
-      @response = @group.initialize_pending(@requesting_user)
+      @response = @group.initialize_pending(@user)
     end
     
     describe "#setup_group" do
@@ -62,22 +62,13 @@ describe Group do
       its([:permalink]) { should == 'its-a-trap'}
     end
     
-    describe "#send_notifications" do
-      it "should send the requesting user an email" do
-        ActionMailer::Base.deliveries.select { |e| e[:to].to_s == @requesting_user.email && e[:subject].to_s =~ /awaiting approval/i }.count.should > 0
-      end
-      
-      it "should send the site admins an email" do
-        ActionMailer::Base.deliveries.select { |e| e[:to].to_s == @admin.email && e[:subject].to_s =~ /you have a pending group request/i }.count.should > 0
-      end
+    it "should queue a NewGroupJob" do
+      NewGroupJob.should have_queued(@group.id, @user.id)
     end
     
     it "should return true" do 
       @response.should == true
     end
-    
-    subject { @requesting_user.reload }
-    its([:group_id]) { should == @group.id }
   end
   
   describe "#approve" do
@@ -93,20 +84,17 @@ describe Group do
       @group.reload.status.should == 'active'
     end
 
-    it "should send the sponsor an email" do
-      ActionMailer::Base.deliveries.last.subject.should =~ /group has been approved/i
-    end
-
-    it "should publish event to timeline" do
-      WebMock.should have_requested(:post, %r|http://localhost:7979/event[?a-zA-Z0-9=&_]*|)
+    it "should queue a ManageGroupRequestJob" do
+      ManageGroupRequestJob.should have_queued(@user.id, @group.id, "http://test.com", 'approve')
     end
   end
 
   describe "#deny" do
     before do
-      FactoryGirl.create(:user, {role: "adult sponsor", group: @group})
+      @user = FactoryGirl.create(:user, {role: "adult sponsor", group: @group})
       reasons = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['groups']
       @reason = reasons.first
+      @id = @group.id
     end
     
     context "success" do
@@ -119,12 +107,8 @@ describe Group do
         Group.where(id: @group.id).count.should == 0
       end
     
-      it "should remove group_id from sponsor account" do
-        User.where(group_id: @group.id).count.should == 0
-      end
-    
-      it "should send the sponsor an email" do
-        ActionMailer::Base.deliveries.last.subject.should =~ /group has been denied/i
+      it "should queue a ManageGroupRequestJob" do
+        ManageGroupRequestJob.should have_queued(@user.id, @id, @reason["email_text"], 'deny')
       end
     end
     

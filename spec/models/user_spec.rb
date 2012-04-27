@@ -77,25 +77,6 @@ describe User do
     its([:status]) { should == "active" }
   end
   
-  describe "#join_group" do
-    before do
-      @user = FactoryGirl.create(:user)
-      @group = FactoryGirl.create(:group)
-      @response = @user.join_group(@group.id)
-    end
-    
-    subject { @user.reload }
-    its([:group_id]) { should == @group.id }
-    
-    it "should return true" do
-      @response.should == true
-    end
-
-    it "should queue a SubscribeToGroupJob" do
-      SubscribeToGroupJob.should have_queued(@user.id, @group.id)
-    end
-  end
-  
   describe "role" do    
     context "admin" do
       subject { FactoryGirl.create(:user, {role: "admin"}) }
