@@ -39,7 +39,6 @@ submit_from_composer = (e) ->
     type: 'post',
     dataType: 'json',
     data: data,
-    dataType: 'json',
     success: (response) ->
       attachment = eval('(' + response + ')');
       group = attachment.event.objects.group
@@ -72,7 +71,6 @@ submit_from_subevent = (form) ->
     type: 'post',
     dataType: 'json',
     data: data,
-    dataType: 'json',
     success: (response) ->
       attachment = eval('(' + response + ')');
 
