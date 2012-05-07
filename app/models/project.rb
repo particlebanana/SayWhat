@@ -24,9 +24,8 @@ class Project < ActiveRecord::Base
   after_validation :sanitize
   
   # Manage Activity Timeline
-  after_create :create_object_key
-  after_create :write_initial_event
-  after_update :recreate_object_key
+  after_create :async_publish_project
+  after_update :async_recreate_object_key
 
   def self.filters
     focus = ['Secondhand Smoke Exposure', 'General Education', 'Health Effects', 'Policy Focused', 'Industry Manipulation', 'Access/Enforcement', 'Marketing/Advertising']
@@ -45,17 +44,6 @@ class Project < ActiveRecord::Base
       self.end_date = Date.strptime(stop, "%m/%d/%Y") unless stop.is_a? Date
     end
   end
-  
-  # Publish to Project and Group feed
-  def publish_to_feed(key, msg)
-    event = Chronologic::Event.new(
-      key: key,
-      data: { type: "message", message: "#{msg}"},
-      timelines: ["group:#{self.group.id}", "project:#{self.id}"],
-      objects: { group: "group:#{self.group.id}", project: "project:#{self.id}" }
-    )
-    $feed.publish(event, true, Time.now.utc.tv_sec)
-  end
 
   protected
 
@@ -69,21 +57,11 @@ class Project < ActiveRecord::Base
     self.involves = Sanitize.clean(self.involves, Sanitize::Config::RESTRICTED) if self.involves
   end
 
-  # Create an object in the Activity Feed
-  def create_object_key
-    $feed.record("project:#{id}", { id: self.id, name: self.display_name } )
+  def async_publish_project
+    Resque.enqueue(NewProjectJob, self.id)
   end
 
-  # On model update, destroy the current object and recreate it
-  def recreate_object_key
-    $feed.unrecord("project:#{id}")
-    data = { id: self.id, name: self.display_name }
-    data[:photo] = self.profile_photo_url(:thumb) if self.profile_photo
-    $feed.record("project:#{id}", data)
-  end
-
-  # Add an event to project timeline when a new project is created
-  def write_initial_event
-    publish_to_feed("project:#{self.id}:create", "#{self.group.display_name} created a new project: #{self.display_name}")
+  def async_recreate_object_key
+    Resque.enqueue(UpdateProjectJob, self.id)
   end
 end

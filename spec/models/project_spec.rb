@@ -20,17 +20,13 @@ describe Project do
   
     it { should validate_uniqueness_of(:name) }
 
-    it "should generate an object key" do
-      WebMock.should have_requested(:post, "http://localhost:7979/object")
+    it "should queue a NewProjectJob" do
+      NewProjectJob.should have_queued(@project.id)
     end
 
-    it "should publish event to timeline" do
-      WebMock.should have_requested(:post, %r|http://localhost:7979/event[?a-zA-Z0-9=&_]*|)
-    end
-
-    it "should regenerate an object key on update" do
+    it "should queue a UpdateProjectJob on update" do
       @project.save
-      WebMock.should have_requested(:delete, "http://localhost:7979/object/project:#{@project.id}")
+      UpdateProjectJob.should have_queued(@project.id)
     end
   end
   
