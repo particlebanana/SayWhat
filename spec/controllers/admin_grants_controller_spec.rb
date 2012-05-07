@@ -46,9 +46,9 @@ describe AdminGrantsController do
         flash[:notice].should =~ /application has been removed/i
       end
       
-      it "should send the group sponsor an email" do
-        ActionMailer::Base.deliveries.last.subject.should =~ /grant has been denied/i
-        ActionMailer::Base.deliveries.last.to.first.should == @grant.project.group.adult_sponsor.email
+      it "should queue a ManageGrantApplicationJob" do
+        reason = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants'].first
+        ManageGrantApplicationJob.should have_queued(@grant.id, 'deny', reason['email_text'])
       end
     end
     

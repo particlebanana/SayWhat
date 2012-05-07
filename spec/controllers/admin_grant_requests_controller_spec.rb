@@ -45,9 +45,8 @@ describe AdminGrantRequestsController do
       response.should redirect_to('/admin/grants')
     end
     
-    it "should send an email" do
-      ActionMailer::Base.deliveries.last.subject.should =~ /grant has been approved/i
-      ActionMailer::Base.deliveries.last.to.first.should == @grant.project.group.adult_sponsor.email
+    it "should queue a ManageGrantApplicationJob" do
+      ManageGrantApplicationJob.should have_queued(@grant.id, 'approve')
     end
   end
 end

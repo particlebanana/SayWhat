@@ -2,6 +2,7 @@ en:
   notifications:
     grant:
       new_application: "You have a grant application awaiting finalization"
+      admin_notify: "has applied for a mini-grant"
       approved: "Your grant application has been approved"
       denied: "Your grant application has been denied"
     membership:

@@ -2,10 +2,10 @@
 class NewProjectJob
   @queue = :feed
 
-  # Public: Manage Activity Feed Subscriptions for new User
+  # Public: Manage Activity Feed keys for new project
   #
-  # This job creates an object key and subscribes a new user
-  # to the global activity feed.
+  # This job creates an object key and publishes a timeline
+  # event to the group and project feed.
   #
   # project_id - The id of the new user
   #

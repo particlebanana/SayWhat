@@ -29,12 +29,8 @@ describe Grant do
       @notifications = Notification.find_all(@sponsor.id)
     end
 
-    it "should send group sponsor an email" do
-      ActionMailer::Base.deliveries.last.to.should == [@sponsor.email]
-    end
-
-    it "should create a new notification" do
-      @notifications.count.should == 1
+    it "should queue a NotifySponsorGrantJob" do
+      NotifySponsorGrantJob.should have_queued('http://test.com', @user.id, @grant.id)
     end
   end
 
@@ -44,8 +40,8 @@ describe Grant do
       @grant.notify_admin_of_application
     end
 
-    it "should send group sponsor an email" do
-      ActionMailer::Base.deliveries.last.to.should == [@admin.email]
+    it "should queue a NotifyAdminGrantJob" do
+      NotifyAdminGrantJob.should have_queued(@grant.id)
     end
   end
 
@@ -53,12 +49,6 @@ describe Grant do
     before do
       @status = @grant.approve
       @notifications = Notification.find_all(@sponsor.id)
-      @grant_body = {"data"=>[
-        "{\"type\":\"message\",\"message\":\"#{@project.display_name} has been awarded a mini-grant!\"}"],
-        "objects"=>["{\"group\":\"group:#{@group.id}\",\"project\":\"project:#{@project.id}\"}"],
-        "timelines"=>["[\"group:#{@group.id}\",\"project:#{@project.id}\"]"],
-        "key"=>["project:#{@project.id}:grant:#{@grant.id}:approved"]}
-
     end
 
     it "should return true" do
@@ -69,25 +59,16 @@ describe Grant do
       @grant.reload.status.should == "approved"
     end
 
-    it "should send group sponsor an email" do
-      ActionMailer::Base.deliveries.last.to.should == [@sponsor.email]
-    end
-
-    it "should create a new notification" do
-      @notifications.count.should == 1
-    end
-
-    it "should publish to the group and project timeline" do
-      WebMock.should have_requested(:post, /http:\/\/localhost:7979\/event[?a-zA-Z0-9=&_]*/)
-      .with{|req| CGI::parse(req.body) == @grant_body }
+    it "should queue a ManageGrantApplicationJob" do
+      ManageGrantApplicationJob.should have_queued(@grant.id, 'approve')
     end
   end
 
   describe "deny" do
     context "with reason" do
       before do
-        reason = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants'].first
-        @status = @grant.deny(reason)
+        @reason = YAML.load(File.read(Rails.root.to_s + "/config/denied_reasons.yml"))['reasons']['grants'].first
+        @status = @grant.deny(@reason)
         @notifications = Notification.find_all(@sponsor.id)
       end
 
@@ -99,12 +80,8 @@ describe Grant do
         Grant.where(id: @grant.id).count.should == 0
       end
 
-      it "should send group sponsor an email" do
-        ActionMailer::Base.deliveries.last.to.should == [@sponsor.email]
-      end
-
-      it "should create a new notification" do
-        @notifications.count.should == 1
+      it "should queue a ManageGrantApplicationJob" do
+        ManageGrantApplicationJob.should have_queued(@grant.id, 'deny', @reason['email_text'])
       end
     end
 
