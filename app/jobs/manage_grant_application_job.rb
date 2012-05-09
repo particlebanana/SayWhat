@@ -47,25 +47,15 @@ class ManageGrantApplicationJob
   # Creates an approved notification
   # Informs the sponsor their grant has been approved
   def create_approved_notification
-    message = {
-      text: I18n.t('notifications.grant.approved'),
-      link: "/groups/#{@group.permalink}/projects/#{@project.id}"
-    }
-
     notification = Notification.new(@user.id)
-    notification.insert(message)
+    notification.insert(I18n.t('notifications.grant.approved'))
   end
 
   # Creates a denied notification
   # Informs the sponsor their grant has been denied
   def create_denied_notification
-    message = {
-      text: I18n.t('notifications.grant.denied'),
-      link: "/groups/#{@group.permalink}/projects/#{@project.id}"
-    }
-
     notification = Notification.new(@user.id)
-    notification.insert(message)
+    notification.insert(I18n.t('notifications.grant.denied'))
   end
 
   # Publish to Project and Group feed

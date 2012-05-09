@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe NotifySponsorGrantJob do
+describe NotifyAdminGrantJob do
   before do
     @group = FactoryGirl.create(:group)
     @user = FactoryGirl.create(:user, { email: 'sponsor@test.com', group: @group, role: 'adult sponsor' })
@@ -26,8 +26,9 @@ describe NotifySponsorGrantJob do
       notifications_2 = Notification.find_all(@admin2.id)
       notifications_1.length.should == 1
       notifications_2.length.should == 1
-      notifications_1[0].text.should == "#{@group.display_name} has applied for a mini-grant"
-      notifications_2[0].text.should == "#{@group.display_name} has applied for a mini-grant"
+
+      notifications_1.first["text"].should == "#{@group.display_name} has applied for a mini-grant"
+      notifications_2.first["text"].should == "#{@group.display_name} has applied for a mini-grant"
     end
   end
 end

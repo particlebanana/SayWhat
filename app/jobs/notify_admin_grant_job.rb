@@ -40,9 +40,7 @@ class NotifyAdminGrantJob
   # Creates a notification
   # Informs the admins that a group has applied for a grant
   def create_notifications
-    message = {
-      text: "#{@group.display_name} #{I18n.t('notifications.grant.admin_notify')}",
-    }
+    message = "#{@group.display_name} #{I18n.t('notifications.grant.admin_notify')}"
 
     User.site_admins.each do |admin|
       notification = Notification.new(admin.id)

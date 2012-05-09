@@ -26,7 +26,6 @@ describe ManageGrantApplicationJob do
         notifications = Notification.find_all(@sponsor.id)
         notifications.length.should == 1
         notifications[0].text.should == "Your grant application has been approved"
-        notifications[0].link.should == "/groups/#{@group.permalink}/projects/#{@project.id}"
       end
 
       it "should publish to group and project timelines" do
@@ -48,7 +47,6 @@ describe ManageGrantApplicationJob do
         notifications = Notification.find_all(@sponsor.id)
         notifications.length.should == 1
         notifications[0].text.should == "Your grant application has been denied"
-        notifications[0].link.should == "/groups/#{@group.permalink}/projects/#{@project.id}"
       end
 
       it "should send the group sponsor an email" do

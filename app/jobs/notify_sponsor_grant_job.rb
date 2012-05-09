@@ -43,14 +43,9 @@ class NotifySponsorGrantJob
   # Creates a notification
   # Informs the sponsor that someone in the group has applied for a grant
   def create_notification
-    message = {
-      text: I18n.t('notifications.grant.new_application'),
-      link: "/groups/#{@group.permalink}/projects/#{@project.id}/grants/#{@grant.id}/edit"
-    }
-
     sponsor = @group.adult_sponsor
     notification = Notification.new(sponsor.id)
-    notification.insert(message)
+    notification.insert(I18n.t('notifications.grant.new_application'))
   end
 
 end

@@ -49,20 +49,11 @@ class NotificationFanoutJob
   def build_message
     case @commentType
     when 'project'
-      message = {
-        text: "#{@user.name} posted on the project: #{@project.display_name}.",
-        link: "/groups/#{@group.permalink}/projects/#{@project.id}"
-      }
+      message = "#{@user.name} posted on the project: #{@project.display_name}."
     when 'group'
-      message = {
-        text: "#{@user.name} created a new post in your group",
-        link: "/groups/#{@group.permalink}"
-      }
+      message = "#{@user.name} created a new post in your group"
     when 'child'
-      message = {
-        text: "#{@user.name} responded to your comment",
-        link: ""
-      }
+      message = "#{@user.name} responded to your comment"
     end
 
     message

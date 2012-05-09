@@ -3,16 +3,13 @@ require 'spec_helper'
 describe Notification do
   before do
     @user = FactoryGirl.create(:user)
-    @message = {
-      text: 'this is a test notification',
-      link: '/test_link'
-    }
+    @text = 'this is a test notification'
   end
 
   describe "self.find_all" do
     before do
       notification = Notification.new(@user.id)
-      notification.insert(@message)
+      notification.insert(@text)
       @notifications = Notification.find_all(@user.id)
     end
 
@@ -28,7 +25,7 @@ describe Notification do
   describe "self.destroy" do
     before do
       notification = Notification.new(@user.id)
-      notification.insert(@message)
+      notification.insert(@text)
       objs = Notification.find_all(@user.id)
       @count = objs.count
       Notification.destroy(@user.id, objs.first.id.to_s)
@@ -44,7 +41,7 @@ describe Notification do
     before do
       2.times do |i|
         notification = Notification.new(@user.id)
-        notification.insert(@message)
+        notification.insert(@text)
         @notifications = Notification.unread(@user.id)
       end
     end
@@ -62,7 +59,7 @@ describe Notification do
     before :each do
       2.times do |i|
         notification = Notification.new(@user.id)
-        notification.insert(@message)
+        notification.insert(@text)
       end
     end
 
@@ -112,20 +109,25 @@ describe Notification do
 
   describe "insert" do
     before do
-      @notification = Notification.new(@user.id)
-      @notification.insert(@message)
+      notification = Notification.new(@user.id)
+      @resp = notification.insert('test')
+    end
+
+    it "should return true" do
+      @resp.should == true
     end
 
     it "should append a notification obj to the documents notification array" do
-      @notification.notifications.count.should == 1
+      res = Notification.find_all(@user.id)
+      res.count.should == 1
     end
   end
 
   describe "destroy" do
     before do
       @notification = Notification.new(@user.id)
-      2.times { @notification.insert(@message) }
-      id = @notification.notifications.first.id.to_s
+      2.times { @notification.insert(@text) }
+      id = Notification.find_all(@user.id).first.id.to_s
       @notification.destroy(id)
     end
 

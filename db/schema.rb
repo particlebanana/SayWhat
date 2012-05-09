@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111108213132) do
+ActiveRecord::Schema.define(:version => 20120509191022) do
 
   create_table "grants", :force => true do |t|
     t.integer  "project_id"
@@ -25,8 +25,8 @@ ActiveRecord::Schema.define(:version => 20111108213132) do
     t.text     "funds_use"
     t.text     "partnerships"
     t.text     "resources"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
     t.string   "status",          :default => "in progress"
   end
 
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(:version => 20111108213132) do
     t.string   "esc_region",    :default => "pending"
     t.string   "dshs_region",   :default => "pending"
     t.string   "area",          :default => "pending"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.string   "profile_photo"
   end
 
@@ -54,7 +54,6 @@ ActiveRecord::Schema.define(:version => 20111108213132) do
   create_table "memberships", :force => true do |t|
     t.integer "user_id"
     t.integer "group_id"
-    t.string  "notification"
   end
 
   add_index "memberships", ["user_id", "group_id"], :name => "index_memberships_on_user_id_and_group_id"
@@ -62,8 +61,8 @@ ActiveRecord::Schema.define(:version => 20111108213132) do
   create_table "project_photos", :force => true do |t|
     t.integer  "project_id"
     t.string   "photo"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "project_photos", ["project_id"], :name => "index_project_photos_on_project_id"
@@ -80,8 +79,8 @@ ActiveRecord::Schema.define(:version => 20111108213132) do
     t.text     "description"
     t.string   "audience"
     t.string   "involves"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
     t.string   "profile_photo"
   end
 
@@ -104,8 +103,8 @@ ActiveRecord::Schema.define(:version => 20111108213132) do
     t.string   "other_resources"
     t.string   "level_of_impact"
     t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
   end
 
   add_index "reports", ["group_id", "project_id"], :name => "index_reports_on_group_id_and_project_id", :unique => true
@@ -116,19 +115,19 @@ ActiveRecord::Schema.define(:version => 20111108213132) do
     t.string   "role"
     t.string   "status"
     t.text     "bio"
-    t.string   "email",                               :default => "", :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "", :null => false
+    t.string   "email",                                 :default => "", :null => false
+    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
-    t.string   "remember_token"
+    t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",                         :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
     t.string   "authentication_token"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.integer  "group_id"
     t.string   "profile_photo"
   end

@@ -57,18 +57,10 @@ class ManageGroupMembership
       # Don't send to the new member or the sponsor
       if member.id != @user.id && member.id != sponsor.id
         notification = Notification.new(member.id)
-        message = {
-          text: "#{@user.name} #{I18n.t('notifications.membership.approved_request')}",
-          link: "/users/#{@user.id}"
-        }
-        notification.insert(message)
+        notification.insert("#{@user.name} #{I18n.t('notifications.membership.approved_request')}")
       elsif member.id == @user.id
         notification = Notification.new(member.id)
-        message = {
-          text: "#{I18n.t('notifications.membership.approved_member')}",
-          link: "/groups/#{@group.permalink}"
-        }
-        notification.insert(message)
+        notification.insert("#{I18n.t('notifications.membership.approved_member')}")
       end
     end
   end
@@ -78,12 +70,10 @@ class ManageGroupMembership
     $feed.subscribe("user:#{@user.id}", "group:#{@group.id}")
   end
 
-  # Remove the Sponsor's Notification and Membership Record
+  # Remove the Membership Record
   def destroy_membership_items
     begin
-      sponsor = @group.adult_sponsor
       membership = Membership.where(:user_id => @user.id, :group_id => @group.id).first
-      Notification.destroy(sponsor.id, membership.notification)
       membership.destroy
       return true
     rescue

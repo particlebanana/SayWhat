@@ -22,7 +22,6 @@ describe NotifySponsorGrantJob do
       notifications = Notification.find_all(@sponsor.id)
       notifications.length.should == 1
       notifications[0].text.should == "You have a grant application awaiting finalization"
-      notifications[0].link.should == "/groups/#{@group.permalink}/projects/#{@project.id}/grants/#{@grant.id}/edit"
     end
   end
 end

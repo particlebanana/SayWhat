@@ -12,6 +12,8 @@ module SayWhat
     
     generators = config.respond_to?(:app_generators) ? config.app_generators : config.generators
     generators.orm :active_record
+
+    config.autoload_paths += Dir["#{config.root}/lib/mongo/**/"]
         
     config.encoding = "utf-8"
 

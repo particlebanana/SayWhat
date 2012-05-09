@@ -3,11 +3,30 @@ notifications:
   production:
     host: localhost
     database: saywhat_notifications
+    collection: notifications
 
   development:
     host: localhost
     database: saywhat_notifications
+    collection: notifications
 
   test:
     host: localhost
-    database: saywhat_test
+    database: saywhat_test_notifications
+    collection: notifications
+
+requests:
+  production:
+    host: localhost
+    database: saywhat_requests
+    collection: requests
+
+  development:
+    host: localhost
+    database: saywhat_requests
+    collection: requests
+
+  test:
+    host: localhost
+    database: saywhat_test_requests
+    collection: requests
