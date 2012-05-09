@@ -26,19 +26,19 @@ describe Membership do
     context "successfully" do
       before do
         @response = @membership.create_request
-        @request = Membership.where(group_id: @group.id, user_id: @user.id).first
       end
 
       it "should save membership request" do
         Membership.all.count.should == 1
       end
 
-      it "should queue a NewMembershipRequest event" do
-        message = {
-          text: I18n.t('notifications.membership.new_request'),
-          link: "/users/#{@membership.user_id}"
-        }
-        NewMembershipRequest.should have_queued(@membership.id, @sponsor.id, message[:text], message[:link], @user.id)
+      it "should create a new Request for the group sponsor" do
+        requests = Request.find_all(@sponsor.id)
+        requests.length.should == 1
+      end
+
+      it "should queue a MembershipRequest event" do
+        MembershipRequest.should have_queued(@membership.id)
       end
 
       it "should return true" do

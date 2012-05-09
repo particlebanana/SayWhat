@@ -8,12 +8,8 @@ class Membership < ActiveRecord::Base
 
   # Request group membership
   def create_request
-    if self.save
-      message = {
-        text: I18n.t('notifications.membership.new_request'),
-        link: "/users/#{self.user_id}"
-      }
-      async_create_notification(message)
+    if self.save && create_sponsor_request
+      async_alert_sponsor
       true
     else
       false
@@ -44,10 +40,14 @@ class Membership < ActiveRecord::Base
 
   private
 
-  def async_create_notification(message)
-    sponsor = self.group.adult_sponsor
-    requestor = self.user_id
-    Resque.enqueue(NewMembershipRequest, self.id, sponsor.id, message[:text], message[:link], requestor)
+  def create_sponsor_request
+    sponsor = User.where(role: 'adult sponsor', group_id: self.group_id).first
+    request = Request.new(sponsor.id)
+    request.insert('membership', { id: self.id })
+  end
+
+  def async_alert_sponsor
+    Resque.enqueue(MembershipRequest, self.id)
   end
 
   def async_approve_membership

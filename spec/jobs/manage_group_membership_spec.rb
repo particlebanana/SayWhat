@@ -23,11 +23,7 @@ describe ManageGroupMembership do
 
     @user2 = FactoryGirl.create(:user, { email: 'user2@test.com', group: @group })
     @membership = Membership.create( { group: @group, user: @user } )
-    message = {
-      text: I18n.t('notifications.membership.new_request'),
-      link: "/users/#{@user.id}"
-    }
-    NewMembershipRequest.perform(@membership.id, @sponsor.id, message[:text], message[:link], @user.id)
+    MembershipRequest.perform(@membership.id)
   end
 
   describe "#perform" do    
