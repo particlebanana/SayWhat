@@ -13,6 +13,7 @@ class CommentsController < ApplicationController
     authorize! :create, @comment
 
     event = @comment.save
+    async_fanout(@group, @project, @parent)
 
     respond_with(event) do |format|
       if @project
@@ -31,5 +32,20 @@ class CommentsController < ApplicationController
     @group = params[:group_id] ? Group.find_by_permalink(params[:group_id]) : nil
     @project = params[:project_id] ? Project.find(params[:project_id]) : nil
     @parent = params[:comment_id] ? params[:comment_id] : nil
+  end
+
+  def async_fanout(group, project, parent)
+    if parent != nil
+      commentType = 'child'
+      object = parent
+    elsif project != nil
+      commentType = 'project'
+      object = project.id
+    else
+      commentType = 'group'
+      object = group.id
+    end
+
+    Resque.enqueue(NotificationFanoutJob, current_user.id, commentType, object)
   end
 end

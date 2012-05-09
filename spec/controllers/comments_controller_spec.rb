@@ -36,6 +36,10 @@ describe CommentsController do
       it "should redirect to group#show" do
         response.should redirect_to("/groups/#{@group.permalink}")
       end
+
+      it "should queue a NotificationFanoutJob" do
+        NotificationFanoutJob.should have_queued(@user.id, 'group', @group.id)
+      end
     end
   end
 end
