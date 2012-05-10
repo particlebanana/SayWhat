@@ -1,3 +1,29 @@
+section .requests {
+
+  .request {
+    border-bottom: 1px solid #cdcdcd;
+    padding: 15px 0;
+
+    .profile_image {
+      width: 50px;
+      float: left;
+      border: 1px solid #cdcdcd;
+    }
+
+    span.userName {
+      display: block;
+      float: left;
+      width: 270px;
+      margin: 0 10px 0 20px;
+      font-size: 1.2em;
+    }
+
+    .actionList a { margin: 0 8px; }
+
+  }
+
+}
+
 section ul.notifications {
   margin: 0;
   list-style: none;

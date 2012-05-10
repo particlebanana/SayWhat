@@ -1,0 +1,16 @@
+= title "Requests"
+= description ""
+
+.row
+  %section.span9.columns
+    %h4.heading Group Requests
+
+    -  if @group_requests.size > 0
+      .requests
+        - @group_requests.each do |request|
+          .request.cf
+            = build_request(request.klass, request.data)
+            
+    - else
+      %div.alert-message.block-message.info
+        %p Sorry. No requests for you!

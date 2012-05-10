@@ -9,7 +9,7 @@
       %ul.notifications
         - @notifications.each do |notification|
           %li{ :class => ('unread' unless notification.read_status == true) }
-            %p.body= link_to notification.text, notification.link
+            %p.body= notification.text
             %span.date= notification.created_at.strftime('%a %b %e, %Y at %I:%M %P')
     - else
       %div.alert-message.block-message.info

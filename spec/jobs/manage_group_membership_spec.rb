@@ -24,6 +24,8 @@ describe ManageGroupMembership do
     @user2 = FactoryGirl.create(:user, { email: 'user2@test.com', group: @group })
     @membership = Membership.create( { group: @group, user: @user } )
     MembershipRequest.perform(@membership.id)
+    request = Request.new(@sponsor.id)
+    request.insert('membership', { id: @membership.id })
   end
 
   describe "#perform" do    
@@ -59,6 +61,11 @@ describe ManageGroupMembership do
       it "should not create a notification for the group sponsor" do
         notifications = Notification.find_all(@sponsor.id)
         notifications.length.should == 0
+      end
+
+      it "should remove the sponsor request item" do
+        req = Request.find_all(@sponsor.id)
+        req.length.should == 0
       end
 
       it "should remove the membership request" do

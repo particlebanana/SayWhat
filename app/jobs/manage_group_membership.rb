@@ -74,10 +74,19 @@ class ManageGroupMembership
   def destroy_membership_items
     begin
       membership = Membership.where(:user_id => @user.id, :group_id => @group.id).first
+      destroy_request_object(membership.id)
       membership.destroy
       return true
     rescue
       return false
     end
+  end
+
+  # Destroy Request object
+  def destroy_request_object(membership)
+    sponsor = @group.adult_sponsor
+    requests = Request.find_all(sponsor.id)
+    request = requests.find_all{|x| x.data.id == membership}
+    Request.destroy(sponsor.id, request[0].id.to_s)
   end
 end
