@@ -12,9 +12,18 @@ class NotificationsController < ApplicationController
   end
 
   def requests_index
-    requests = Request.find_all(current_user.id)
-    @group_requests = requests.find_all{|request| request.klass == 'membership'}
+    if current_user.role == 'adult sponsor'
+      requests = Request.find_all(current_user.id)
+      @group_requests = requests.find_all{|request| request.klass == 'membership'}
+      respond_with(@requests)
+    else
+      restricted
+    end
+  end
 
-    respond_with(@requests)
+  private
+
+  def restricted
+    redirect_to "/404"
   end
 end
